@@ -1,24 +1,51 @@
+
 import React from "react";
 import './Erik.css';
-
-
+import { Bar } from 'react-chartjs-2'
 
 class Erik extends React.Component {
   state = {
   }
 
-
-  myboi() {
-    <div class="col-4">tjo bre</div>
-  }
-
-
-
-
   render() {
-
     return (
       <div class="container-fluid">
+
+        <div class="row">
+
+          <div>
+            <Bar
+              data={{
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+
+                datasets: [{
+                  data: [10, 3, 3, 5, 12, 3],
+                  backgroundColor: [
+                    'red',
+                    'blue',
+                    'yellow',
+                    'green',
+                    'purple',
+                    'orange'
+                  ]
+
+                }]
+
+              }}
+
+
+              height={400}
+              width={600}
+            />
+
+
+          </div>
+
+
+
+        </div>
+
+
 
         <div class="row jumbotron" >
 

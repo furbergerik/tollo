@@ -13,9 +13,8 @@ function Navigation(props) {
           <div>
             <ul class="navbar-nav ml-auto">
               <li
-                class={`nav-item  ${
-                  props.location.pathname === "/" ? "active" : ""
-                }`}
+                class={`nav-item  ${props.location.pathname === "/" ? "active" : ""
+                  }`}
               >
                 <Link class="nav-link" to="/">
                   Home
@@ -23,31 +22,29 @@ function Navigation(props) {
                 </Link>
               </li>
               <li
-                class={`nav-item  ${
-                  props.location.pathname === "/about" ? "active" : ""
-                }`}
+                class={`nav-item  ${props.location.pathname === "/about" ? "active" : ""
+                  }`}
               >
                 <Link class="nav-link" to="/about">
                   About
                 </Link>
               </li>
               <li
-                class={`nav-item  ${
-                  props.location.pathname === "/contact" ? "active" : ""
-                }`}
+                class={`nav-item  ${props.location.pathname === "/contact" ? "active" : ""
+                  }`}
               >
                 <Link class="nav-link" to="/contact">
                   Contact
                 </Link>
               </li>
               <li
-                class={`nav-item  ${
-                  props.location.pathname === "/erik" ? "active" : ""
-                }`}
+                class={`nav-item  ${props.location.pathname === "/erik" ? "active" : ""
+                  }`}
               >
                 <Link class="nav-link" to="/erik">
                   Erik
                 </Link>
+
               </li>
             </ul>
           </div>
