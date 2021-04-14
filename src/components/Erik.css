@@ -1,0 +1,6 @@
+.myBox{
+    color: warning;
+    border-style: dashed;
+    border: firebrick;
+    border-width: 3px;
+}

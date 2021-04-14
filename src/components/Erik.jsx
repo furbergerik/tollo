@@ -1,76 +1,60 @@
 import React from "react";
+import './Erik.css';
 
-function Erik() {
-  return (
 
-    <div class="container-fluid">
 
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-          </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+class Erik extends React.Component {
+  state = {
+  }
+
+
+  myboi() {
+    <div class="col-4">tjo bre</div>
+  }
+
+
+
+
+  render() {
+
+    return (
+      <div class="container-fluid">
+
+        <div class="row jumbotron" >
+
+          <div class="col-2"> Lorem ipsum dolor sit, amet consectetur
+          adipisicing elit. Ullam, maiores enim!
+          Aliquid numquam exercitationem mollitia
+          corrupti accusantium saepe pariatur ratione.</div>
+
+          <div class="col-10"> Lorem ipsum dolor sit, amet consectetur
+          adipisicing elit. Ullam, maiores enim!
+          Aliquid numquam exercitationem mollitia
+          corrupti accusantium saepe pariatur ratione.</div>
+
         </div>
+
+        <div class="row">
+
+          <div class="col-2"> Lorem ipsum dolor sit, amet consectetur
+          adipisicing elit. Ullam, maiores enim!
+          Aliquid numquam exercitationem mollitia
+          corrupti accusantium saepe pariatur ratione.</div>
+
+          <div class="col-10"> Lorem ipsum dolor sit, amet consectetur
+          adipisicing elit. Ullam, maiores enim!
+          Aliquid numquam exercitationem mollitia
+          corrupti accusantium saepe pariatur ratione.</div>
+
+        </div>
+
+
+
       </div>
 
-      <div className="row border">
-        
-        <div className="col-3 border">
-          Col 1 row 1
-          <img
-            class="img-fluid rounded mb-4 mb-lg-0"
-            src=""
-            alt=""
-          />
-        </div>
-        <div className="col-9 border">
-          Col 2 row 1
-        </div>
-
-
-      </div>
-      <div className="row border align-items-stretch">
-        
-        <div className="col-7 border">
-          Col 1 row 2
-          <img
-            class="img-fluid rounded mb-4 mb-lg-0"
-            src="http://placehold.it/900x400"
-            alt=""
-          />
-        </div>
-        <div className="col-4 border">
-          Col 1 row 2
-        </div>
-      </div>
-
-
-
-
-      <div class="row align-items-center my-5">
-        <div class="col-lg-7">
-          <img
-            class="img-fluid rounded mb-4 mb-lg-0"
-            src="http://placehold.it/900x400"
-            alt=""
-          />
-        </div>
-        <div class="col-lg-5">
-          <h1 class="font-weight-light">Contact</h1>
-          <p>
-            Lorem Ipsum simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of
-            type and scrambled it to make a type specimen book.
-            </p>
-        </div>
-      </div>
-    </div>
-
-  );
+    )
+  };
 }
+
 
 export default Erik;
