@@ -1,0 +1,14 @@
+{
+    "barChart": {
+        "shoes": 16,
+        "clothes": 20,
+        "equipment": 10,
+        "accessories": 5,
+        "supplements": 32,
+    },
+    "doughnutChart": {
+        "goal1": 16,
+        "goal2": 20,
+        "goal3": 10
+    }
+}

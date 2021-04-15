@@ -1,17 +1,25 @@
-
 import React from "react";
 import './Erik.css';
 import { Bar } from 'react-chartjs-2'
 import { Doughnut } from 'react-chartjs-2'
+
+
+getData();
+async function getData() {
+  const response = await fetch('data/data.csv');
+  const data = await response.text();
+  console.log(data);
+}
 
 class Erik extends React.Component {
   state = {
   }
 
   render() {
+
     return (
       <div class="container-fluid">
-
+        {/* <div>{getData()}</div> */}
         <div className="row row1">
           <div className="col-6">
             <h1>Bar Chart</h1>
