@@ -1,25 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import './Erik.css';
-import { Bar } from 'react-chartjs-2'
-import { Doughnut } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
+import { csv } from 'd3';
+import data from './data.json';
+import dataCsv from './data.csv';
+<script src="https://d3js.org/d3.v6.js"></script>
 
 
+// getData();
 getData();
-async function getData() {
-  const response = await fetch('data/data.csv');
-  const data = await response.text();
-  console.log(data);
+function getData() {
+  const jsonArr = JSON.parse(data);
+
+  jsonArr.map(item => {
+    console.log({ item });
+  })
+
+  // var keys = Object.keys(data);
+  // console.log(keys);
+
+  // var results = [];
+  // for (var i in data) {
+  //   console.log('denna: ', data[i]);
+  //   results.push([i, data[i]]);
+  // }
+  // console.log(results);
+  // var x = Object.values(data);
+  // console.log(x);
+
+  // const arr = [];
+  // Object.keys(data).forEach(key => arr.push({ name: key, value: data[key] }));
+  // console.log(arr);
+
 }
+
+
+// const Test = () => {
+//   console.log('hej du kom hit');
+//   useEffect(() => {
+//     csv('data.csv').then(data => {
+//       console.log(data);
+//     });
+//   }, []);
+// };
+
 
 class Erik extends React.Component {
   state = {
   }
 
   render() {
-
+    // <Test />
     return (
       <div class="container-fluid">
-        {/* <div>{getData()}</div> */}
+        {/* <div>
+          {data.map((dataDetail, index) => {
+
+            console.log(dataDetail);
+            return <h1>{dataDetail.shoes}</h1>
+
+          })}
+        </div> */}
+
         <div className="row row1">
           <div className="col-6">
             <h1>Bar Chart</h1>
