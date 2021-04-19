@@ -54,16 +54,8 @@ class Erik extends React.Component {
   render() {
     // <Test />
     return (
-      <div class="container-fluid">
-        {/* <div>
-          {data.map((dataDetail, index) => {
-
-            console.log(dataDetail);
-            return <h1>{dataDetail.shoes}</h1>
-
-          })}
-        </div> */}
-
+      <div className="container-fluid">
+        {/* <div>{getData()}</div> */}
         <div className="row row1">
           <div className="col-6">
             <h1>Bar Chart</h1>
@@ -75,7 +67,7 @@ class Erik extends React.Component {
 
         </div>
 
-        <div class="row row2">
+        <div className="row row2">
           <div className="col-6">
             <div>
               <Bar
