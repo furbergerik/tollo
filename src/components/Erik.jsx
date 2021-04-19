@@ -18,7 +18,7 @@ class Erik extends React.Component {
   render() {
 
     return (
-      <div class="container-fluid">
+      <div className="container-fluid">
         {/* <div>{getData()}</div> */}
         <div className="row row1">
           <div className="col-6">
@@ -31,7 +31,7 @@ class Erik extends React.Component {
 
         </div>
 
-        <div class="row row2">
+        <div className="row row2">
           <div className="col-6">
             <div>
               <Bar
