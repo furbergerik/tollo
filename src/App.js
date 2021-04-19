@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation, Footer, Home, About, Contact, Erik, ChartsPage } from "./components";
+import { Navigation, Footer, Home, About, Contact, Overview } from "./components";
 
 
 class App extends Component {
@@ -14,9 +14,9 @@ class App extends Component {
             <Route path="/" exact component={() => <div><Home /> </div>} />
             <Route path="/about" exact component={() => <About />} />
             <Route path="/contact" exact component={() => <Contact />} />
-            <Route path="/erik" exact component={() => <Erik />} />
+            <Route path="/overview" exact component={() => <Overview />} />
           </Switch>
-          <Footer />
+          {/* <Footer /> */}
         </Router>
       </div>
     );

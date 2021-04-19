@@ -1,29 +1,45 @@
 import React from "react";
+import { Doughnut } from 'react-chartjs-2';
+import './Home.css';
 
 function Home() {
   return (
     <div className="home">
-      <div className="container">
-        <div className="row align-items-center my-5">
-          <div className="col-lg-7">
-            <img
-              className="img-fluid rounded mb-4 mb-lg-0"
-              src="http://placehold.it/900x400"
-              alt=""
-            />
+      <div className="container-fluid">
+        <div className="row row1">
+
+
+
+          {/* -------------col one------------ */}
+          <div className="col-5 border firstCol">
+
+            <div className="row bg-primary col1row1">
+              col 1, row 1
+            </div>
+
+            <div className="row col1row2">
+              col 2, row 2
+            </div>
+
           </div>
-          <div className="col-lg-5">
-            <h1 className="font-weight-light">Home</h1>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
-            </p>
+
+          {/* -------------col two------------ */}
+          <div className="col bg-warning">
+
+            <div className="row bg-secondary col2row1 m-lg">
+              row 1 col 2
+            </div>
+            <div className="row bg-success col2row2">
+              row 1 col 2
+            </div>
+
           </div>
+
+
+
+
         </div>
       </div>
-      
     </div>
   );
 }
