@@ -24,12 +24,12 @@ function Home() {
           </div>
 
           {/* -------------col two------------ */}
-          <div className="col bg-warning">
+          <div className="col-xs-12 col-md-7 bg-warning">
 
-            <div className="row bg-secondary col2row1 m-lg">
+            <div className="row bg-secondary col2row1 m-1">
               row 1 col 2
             </div>
-            <div className="row bg-success col2row2">
+            <div className="row bg-success m-1 col2row2">
               row 1 col 2
             </div>
 
