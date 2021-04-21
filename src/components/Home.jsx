@@ -5,19 +5,19 @@ import './Home.css';
 function Home() {
   return (
     <div className="home">
-      <div className="container-fluid">
-        <div className="row row1">
+      <div className="container">
+        <div className="row row1 px-10">
 
 
 
           {/* -------------col one------------ */}
-          <div className="col-5 border firstCol">
+          <div className="col-5 border firstCol gx-5">
 
-            <div className="row bg-primary col1row1">
+            <div className="row bg-primary col1row1 gx-10">
               col 1, row 1
             </div>
 
-            <div className="row col1row2">
+            <div className="row col1row2 gx-10">
               col 2, row 2
             </div>
 
