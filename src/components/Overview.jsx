@@ -13,8 +13,8 @@ class Overview extends React.Component {
     // <Test />
     return (
       <div className="container-fluid">
-
-        <div className="row">
+        {/* <div>{getData()}</div> */}
+        <div className="row row1 mw-100">
           <div className="col-6">
             <h1>Bar Chart</h1>
           </div>
