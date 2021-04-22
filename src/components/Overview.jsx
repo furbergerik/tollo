@@ -2,15 +2,39 @@ import React from "react";
 import ReactDOM from 'react-dom';
 import { Bar } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
+import testData from './testdata.json';
 <script src="https://d3js.org/d3.v6.js"></script>
+
+
+getData();
+function getData() {
+  // var myJson = JSON.parse(testData);
+  console.log('tjabbatjena!')
+
+
+  for (var i = 0; i < length(testData); i++) {
+    console.log(testData[i]);
+  }
+
+
+  var dataArr1 = [];
+  Object.keys(testData).forEach(function (key) {
+    dataArr1.push(testData[key]);
+  })
+  console.log(dataArr1);
+
+
+
+}
 
 
 class Overview extends React.Component {
   state = {
   }
 
+
+
   render() {
-    // <Test />
     return (
       <div className="container-fluid">
         {/* <div>{getData()}</div> */}
