@@ -14,7 +14,6 @@ function getData() {
   var totSalesList = [];
   for (var i in salesData) {
     dateList.push(salesData[i]["DateOfPurchase"])
-
     totSalesList.push(salesData[i]["Total sales"])
   }
   totSalesList = totSalesList.map(String);
