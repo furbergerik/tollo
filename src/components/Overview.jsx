@@ -6,22 +6,51 @@ import testData from './testdata.json';
 <script src="https://d3js.org/d3.v6.js"></script>
 
 
-getData();
-function getData() {
-  // var myJson = JSON.parse(testData);
-  console.log('tjabbatjena!')
+getDataLoop();
+function getDataLoop() {
+
+  for (var i in testData) {
+    var categoryOfData = i;
+    console.log("categoryOfData:");
+    console.log(testData[categoryOfData]);
+
+    var dataArray = testData[categoryOfData];
+
+    for (var j in dataArray) {
+      var dataSet = dataArray[j];
+      var date = dataSet['DateOfPurchase'];
+      var TotSales = dataSet['Total sales']
+      console.log("Datum: " + date);
+      console.log("Total Sales: " + TotSales);
+    }
 
 
-  for (var i = 0; i < length(testData); i++) {
-    console.log(testData[i]);
   }
+}
 
 
+// getData();
+function getData() {
+  console.log('tjabbatjena!')
   var dataArr1 = [];
   Object.keys(testData).forEach(function (key) {
     dataArr1.push(testData[key]);
   })
+  console.log("dataArr1");
   console.log(dataArr1);
+
+  for (var i in dataArr1) {
+    console.log("inre delen av dataArr1");  //tre stycken arrays med data!
+
+
+    var innerArr = dataArr1[i];
+    console.log("varv: " + i);
+    console.log(innerArr);
+
+    for (var j in innerArr) {
+      console.log(innerArr[j]);
+    }
+  }
 
 
 
@@ -30,6 +59,7 @@ function getData() {
 
 class Overview extends React.Component {
   state = {
+
   }
 
 
