@@ -1,0 +1,4386 @@
+{
+  "test": "hej",
+  "vegard": "Vegard",
+  "totSales": [
+    {
+      "DateOfPurchase": "2018-01-01T00:00:00.000Z",
+      "Total sales": 37726
+    },
+    {
+      "DateOfPurchase": "2018-01-02T00:00:00.000Z",
+      "Total sales": 29438
+    },
+    {
+      "DateOfPurchase": "2018-01-03T00:00:00.000Z",
+      "Total sales": 39477
+    },
+    {
+      "DateOfPurchase": "2018-01-04T00:00:00.000Z",
+      "Total sales": 33139
+    },
+    {
+      "DateOfPurchase": "2018-01-05T00:00:00.000Z",
+      "Total sales": 23953
+    },
+    {
+      "DateOfPurchase": "2018-01-06T00:00:00.000Z",
+      "Total sales": 22751
+    },
+    {
+      "DateOfPurchase": "2018-01-07T00:00:00.000Z",
+      "Total sales": 54326
+    },
+    {
+      "DateOfPurchase": "2018-01-08T00:00:00.000Z",
+      "Total sales": 48690
+    },
+    {
+      "DateOfPurchase": "2018-01-09T00:00:00.000Z",
+      "Total sales": 34365
+    },
+    {
+      "DateOfPurchase": "2018-01-10T00:00:00.000Z",
+      "Total sales": 38975
+    },
+    {
+      "DateOfPurchase": "2018-01-11T00:00:00.000Z",
+      "Total sales": 50177
+    },
+    {
+      "DateOfPurchase": "2018-01-12T00:00:00.000Z",
+      "Total sales": 49514
+    },
+    {
+      "DateOfPurchase": "2018-01-13T00:00:00.000Z",
+      "Total sales": 30864
+    },
+    {
+      "DateOfPurchase": "2018-01-14T00:00:00.000Z",
+      "Total sales": 48177
+    },
+    {
+      "DateOfPurchase": "2018-01-15T00:00:00.000Z",
+      "Total sales": 39676
+    },
+    {
+      "DateOfPurchase": "2018-01-16T00:00:00.000Z",
+      "Total sales": 43052
+    },
+    {
+      "DateOfPurchase": "2018-01-17T00:00:00.000Z",
+      "Total sales": 45241
+    },
+    {
+      "DateOfPurchase": "2018-01-18T00:00:00.000Z",
+      "Total sales": 24026
+    },
+    {
+      "DateOfPurchase": "2018-01-19T00:00:00.000Z",
+      "Total sales": 31639
+    },
+    {
+      "DateOfPurchase": "2018-01-20T00:00:00.000Z",
+      "Total sales": 50539
+    },
+    {
+      "DateOfPurchase": "2018-01-21T00:00:00.000Z",
+      "Total sales": 19378
+    },
+    {
+      "DateOfPurchase": "2018-01-22T00:00:00.000Z",
+      "Total sales": 64938
+    },
+    {
+      "DateOfPurchase": "2018-01-23T00:00:00.000Z",
+      "Total sales": 40775
+    },
+    {
+      "DateOfPurchase": "2018-01-24T00:00:00.000Z",
+      "Total sales": 47277
+    },
+    {
+      "DateOfPurchase": "2018-01-25T00:00:00.000Z",
+      "Total sales": 26676
+    },
+    {
+      "DateOfPurchase": "2018-01-26T00:00:00.000Z",
+      "Total sales": 46500
+    },
+    {
+      "DateOfPurchase": "2018-01-27T00:00:00.000Z",
+      "Total sales": 36252
+    },
+    {
+      "DateOfPurchase": "2018-01-28T00:00:00.000Z",
+      "Total sales": 31352
+    },
+    {
+      "DateOfPurchase": "2018-01-29T00:00:00.000Z",
+      "Total sales": 31889
+    },
+    {
+      "DateOfPurchase": "2018-01-30T00:00:00.000Z",
+      "Total sales": 46075
+    },
+    {
+      "DateOfPurchase": "2018-01-31T00:00:00.000Z",
+      "Total sales": 61064
+    },
+    {
+      "DateOfPurchase": "2018-02-01T00:00:00.000Z",
+      "Total sales": 12513
+    },
+    {
+      "DateOfPurchase": "2018-02-02T00:00:00.000Z",
+      "Total sales": 18663
+    },
+    {
+      "DateOfPurchase": "2018-02-03T00:00:00.000Z",
+      "Total sales": 8763
+    },
+    {
+      "DateOfPurchase": "2018-02-04T00:00:00.000Z",
+      "Total sales": 9775
+    },
+    {
+      "DateOfPurchase": "2018-02-05T00:00:00.000Z",
+      "Total sales": 19913
+    },
+    {
+      "DateOfPurchase": "2018-02-06T00:00:00.000Z",
+      "Total sales": 26475
+    },
+    {
+      "DateOfPurchase": "2018-02-07T00:00:00.000Z",
+      "Total sales": 20900
+    },
+    {
+      "DateOfPurchase": "2018-02-08T00:00:00.000Z",
+      "Total sales": 7014
+    },
+    {
+      "DateOfPurchase": "2018-02-09T00:00:00.000Z",
+      "Total sales": 19413
+    },
+    {
+      "DateOfPurchase": "2018-02-10T00:00:00.000Z",
+      "Total sales": 32751
+    },
+    {
+      "DateOfPurchase": "2018-02-11T00:00:00.000Z",
+      "Total sales": 25850
+    },
+    {
+      "DateOfPurchase": "2018-02-12T00:00:00.000Z",
+      "Total sales": 14350
+    },
+    {
+      "DateOfPurchase": "2018-02-13T00:00:00.000Z",
+      "Total sales": 8375
+    },
+    {
+      "DateOfPurchase": "2018-02-14T00:00:00.000Z",
+      "Total sales": 30788
+    },
+    {
+      "DateOfPurchase": "2018-02-15T00:00:00.000Z",
+      "Total sales": 16775
+    },
+    {
+      "DateOfPurchase": "2018-02-16T00:00:00.000Z",
+      "Total sales": 26001
+    },
+    {
+      "DateOfPurchase": "2018-02-17T00:00:00.000Z",
+      "Total sales": 20963
+    },
+    {
+      "DateOfPurchase": "2018-02-18T00:00:00.000Z",
+      "Total sales": 9663
+    },
+    {
+      "DateOfPurchase": "2018-02-19T00:00:00.000Z",
+      "Total sales": 10901
+    },
+    {
+      "DateOfPurchase": "2018-02-20T00:00:00.000Z",
+      "Total sales": 17814
+    },
+    {
+      "DateOfPurchase": "2018-02-21T00:00:00.000Z",
+      "Total sales": 16538
+    },
+    {
+      "DateOfPurchase": "2018-02-22T00:00:00.000Z",
+      "Total sales": 11063
+    },
+    {
+      "DateOfPurchase": "2018-02-23T00:00:00.000Z",
+      "Total sales": 23213
+    },
+    {
+      "DateOfPurchase": "2018-02-24T00:00:00.000Z",
+      "Total sales": 27013
+    },
+    {
+      "DateOfPurchase": "2018-02-25T00:00:00.000Z",
+      "Total sales": 6450
+    },
+    {
+      "DateOfPurchase": "2018-02-26T00:00:00.000Z",
+      "Total sales": 28163
+    },
+    {
+      "DateOfPurchase": "2018-02-27T00:00:00.000Z",
+      "Total sales": 13200
+    },
+    {
+      "DateOfPurchase": "2018-02-28T00:00:00.000Z",
+      "Total sales": 21976
+    },
+    {
+      "DateOfPurchase": "2018-03-01T00:00:00.000Z",
+      "Total sales": 27101
+    },
+    {
+      "DateOfPurchase": "2018-03-02T00:00:00.000Z",
+      "Total sales": 18375
+    },
+    {
+      "DateOfPurchase": "2018-03-03T00:00:00.000Z",
+      "Total sales": 8064
+    },
+    {
+      "DateOfPurchase": "2018-03-04T00:00:00.000Z",
+      "Total sales": 26313
+    },
+    {
+      "DateOfPurchase": "2018-03-05T00:00:00.000Z",
+      "Total sales": 22250
+    },
+    {
+      "DateOfPurchase": "2018-03-06T00:00:00.000Z",
+      "Total sales": 16725
+    },
+    {
+      "DateOfPurchase": "2018-03-07T00:00:00.000Z",
+      "Total sales": 28100
+    },
+    {
+      "DateOfPurchase": "2018-03-08T00:00:00.000Z",
+      "Total sales": 18750
+    },
+    {
+      "DateOfPurchase": "2018-03-09T00:00:00.000Z",
+      "Total sales": 14301
+    },
+    {
+      "DateOfPurchase": "2018-03-10T00:00:00.000Z",
+      "Total sales": 26676
+    },
+    {
+      "DateOfPurchase": "2018-03-11T00:00:00.000Z",
+      "Total sales": 36064
+    },
+    {
+      "DateOfPurchase": "2018-03-12T00:00:00.000Z",
+      "Total sales": 25975
+    },
+    {
+      "DateOfPurchase": "2018-03-13T00:00:00.000Z",
+      "Total sales": 17201
+    },
+    {
+      "DateOfPurchase": "2018-03-14T00:00:00.000Z",
+      "Total sales": 14976
+    },
+    {
+      "DateOfPurchase": "2018-03-15T00:00:00.000Z",
+      "Total sales": 18527
+    },
+    {
+      "DateOfPurchase": "2018-03-16T00:00:00.000Z",
+      "Total sales": 29300
+    },
+    {
+      "DateOfPurchase": "2018-03-17T00:00:00.000Z",
+      "Total sales": 16650
+    },
+    {
+      "DateOfPurchase": "2018-03-18T00:00:00.000Z",
+      "Total sales": 15925
+    },
+    {
+      "DateOfPurchase": "2018-03-19T00:00:00.000Z",
+      "Total sales": 7027
+    },
+    {
+      "DateOfPurchase": "2018-03-20T00:00:00.000Z",
+      "Total sales": 21589
+    },
+    {
+      "DateOfPurchase": "2018-03-21T00:00:00.000Z",
+      "Total sales": 10014
+    },
+    {
+      "DateOfPurchase": "2018-03-22T00:00:00.000Z",
+      "Total sales": 9114
+    },
+    {
+      "DateOfPurchase": "2018-03-23T00:00:00.000Z",
+      "Total sales": 22001
+    },
+    {
+      "DateOfPurchase": "2018-03-24T00:00:00.000Z",
+      "Total sales": 21438
+    },
+    {
+      "DateOfPurchase": "2018-03-25T00:00:00.000Z",
+      "Total sales": 10213
+    },
+    {
+      "DateOfPurchase": "2018-03-26T00:00:00.000Z",
+      "Total sales": 18113
+    },
+    {
+      "DateOfPurchase": "2018-03-27T00:00:00.000Z",
+      "Total sales": 24626
+    },
+    {
+      "DateOfPurchase": "2018-03-28T00:00:00.000Z",
+      "Total sales": 17914
+    },
+    {
+      "DateOfPurchase": "2018-03-29T00:00:00.000Z",
+      "Total sales": 14888
+    },
+    {
+      "DateOfPurchase": "2018-03-30T00:00:00.000Z",
+      "Total sales": 18288
+    },
+    {
+      "DateOfPurchase": "2018-03-31T00:00:00.000Z",
+      "Total sales": 16600
+    },
+    {
+      "DateOfPurchase": "2018-04-01T00:00:00.000Z",
+      "Total sales": 42864
+    },
+    {
+      "DateOfPurchase": "2018-04-02T00:00:00.000Z",
+      "Total sales": 37976
+    },
+    {
+      "DateOfPurchase": "2018-04-03T00:00:00.000Z",
+      "Total sales": 26040
+    },
+    {
+      "DateOfPurchase": "2018-04-04T00:00:00.000Z",
+      "Total sales": 18925
+    },
+    {
+      "DateOfPurchase": "2018-04-05T00:00:00.000Z",
+      "Total sales": 35276
+    },
+    {
+      "DateOfPurchase": "2018-04-06T00:00:00.000Z",
+      "Total sales": 46576
+    },
+    {
+      "DateOfPurchase": "2018-04-07T00:00:00.000Z",
+      "Total sales": 30039
+    },
+    {
+      "DateOfPurchase": "2018-04-08T00:00:00.000Z",
+      "Total sales": 32214
+    },
+    {
+      "DateOfPurchase": "2018-04-09T00:00:00.000Z",
+      "Total sales": 41488
+    },
+    {
+      "DateOfPurchase": "2018-04-10T00:00:00.000Z",
+      "Total sales": 53000
+    },
+    {
+      "DateOfPurchase": "2018-04-11T00:00:00.000Z",
+      "Total sales": 30614
+    },
+    {
+      "DateOfPurchase": "2018-04-12T00:00:00.000Z",
+      "Total sales": 40900
+    },
+    {
+      "DateOfPurchase": "2018-04-13T00:00:00.000Z",
+      "Total sales": 43040
+    },
+    {
+      "DateOfPurchase": "2018-04-14T00:00:00.000Z",
+      "Total sales": 47638
+    },
+    {
+      "DateOfPurchase": "2018-04-15T00:00:00.000Z",
+      "Total sales": 43988
+    },
+    {
+      "DateOfPurchase": "2018-04-16T00:00:00.000Z",
+      "Total sales": 23202
+    },
+    {
+      "DateOfPurchase": "2018-04-17T00:00:00.000Z",
+      "Total sales": 30614
+    },
+    {
+      "DateOfPurchase": "2018-04-18T00:00:00.000Z",
+      "Total sales": 20064
+    },
+    {
+      "DateOfPurchase": "2018-04-19T00:00:00.000Z",
+      "Total sales": 17614
+    },
+    {
+      "DateOfPurchase": "2018-04-20T00:00:00.000Z",
+      "Total sales": 24363
+    },
+    {
+      "DateOfPurchase": "2018-04-21T00:00:00.000Z",
+      "Total sales": 36826
+    },
+    {
+      "DateOfPurchase": "2018-04-22T00:00:00.000Z",
+      "Total sales": 19951
+    },
+    {
+      "DateOfPurchase": "2018-04-23T00:00:00.000Z",
+      "Total sales": 12689
+    },
+    {
+      "DateOfPurchase": "2018-04-24T00:00:00.000Z",
+      "Total sales": 19775
+    },
+    {
+      "DateOfPurchase": "2018-04-25T00:00:00.000Z",
+      "Total sales": 26165
+    },
+    {
+      "DateOfPurchase": "2018-04-26T00:00:00.000Z",
+      "Total sales": 57263
+    },
+    {
+      "DateOfPurchase": "2018-04-27T00:00:00.000Z",
+      "Total sales": 41203
+    },
+    {
+      "DateOfPurchase": "2018-04-28T00:00:00.000Z",
+      "Total sales": 30527
+    },
+    {
+      "DateOfPurchase": "2018-04-29T00:00:00.000Z",
+      "Total sales": 27639
+    },
+    {
+      "DateOfPurchase": "2018-04-30T00:00:00.000Z",
+      "Total sales": 40338
+    },
+    {
+      "DateOfPurchase": "2018-05-01T00:00:00.000Z",
+      "Total sales": 33963
+    },
+    {
+      "DateOfPurchase": "2018-05-02T00:00:00.000Z",
+      "Total sales": 59763
+    },
+    {
+      "DateOfPurchase": "2018-05-03T00:00:00.000Z",
+      "Total sales": 59826
+    },
+    {
+      "DateOfPurchase": "2018-05-04T00:00:00.000Z",
+      "Total sales": 44115
+    },
+    {
+      "DateOfPurchase": "2018-05-05T00:00:00.000Z",
+      "Total sales": 37188
+    },
+    {
+      "DateOfPurchase": "2018-05-06T00:00:00.000Z",
+      "Total sales": 56651
+    },
+    {
+      "DateOfPurchase": "2018-05-07T00:00:00.000Z",
+      "Total sales": 45315
+    },
+    {
+      "DateOfPurchase": "2018-05-08T00:00:00.000Z",
+      "Total sales": 45901
+    },
+    {
+      "DateOfPurchase": "2018-05-09T00:00:00.000Z",
+      "Total sales": 61476
+    },
+    {
+      "DateOfPurchase": "2018-05-10T00:00:00.000Z",
+      "Total sales": 48489
+    },
+    {
+      "DateOfPurchase": "2018-05-11T00:00:00.000Z",
+      "Total sales": 50314
+    },
+    {
+      "DateOfPurchase": "2018-05-12T00:00:00.000Z",
+      "Total sales": 60302
+    },
+    {
+      "DateOfPurchase": "2018-05-13T00:00:00.000Z",
+      "Total sales": 59202
+    },
+    {
+      "DateOfPurchase": "2018-05-14T00:00:00.000Z",
+      "Total sales": 49614
+    },
+    {
+      "DateOfPurchase": "2018-05-15T00:00:00.000Z",
+      "Total sales": 37539
+    },
+    {
+      "DateOfPurchase": "2018-05-16T00:00:00.000Z",
+      "Total sales": 50740
+    },
+    {
+      "DateOfPurchase": "2018-05-17T00:00:00.000Z",
+      "Total sales": 83339
+    },
+    {
+      "DateOfPurchase": "2018-05-18T00:00:00.000Z",
+      "Total sales": 54738
+    },
+    {
+      "DateOfPurchase": "2018-05-19T00:00:00.000Z",
+      "Total sales": 60127
+    },
+    {
+      "DateOfPurchase": "2018-05-20T00:00:00.000Z",
+      "Total sales": 40038
+    },
+    {
+      "DateOfPurchase": "2018-05-21T00:00:00.000Z",
+      "Total sales": 53452
+    },
+    {
+      "DateOfPurchase": "2018-05-22T00:00:00.000Z",
+      "Total sales": 33076
+    },
+    {
+      "DateOfPurchase": "2018-05-23T00:00:00.000Z",
+      "Total sales": 67778
+    },
+    {
+      "DateOfPurchase": "2018-05-24T00:00:00.000Z",
+      "Total sales": 50077
+    },
+    {
+      "DateOfPurchase": "2018-05-25T00:00:00.000Z",
+      "Total sales": 55791
+    },
+    {
+      "DateOfPurchase": "2018-05-26T00:00:00.000Z",
+      "Total sales": 56950
+    },
+    {
+      "DateOfPurchase": "2018-05-27T00:00:00.000Z",
+      "Total sales": 42151
+    },
+    {
+      "DateOfPurchase": "2018-05-28T00:00:00.000Z",
+      "Total sales": 56964
+    },
+    {
+      "DateOfPurchase": "2018-05-29T00:00:00.000Z",
+      "Total sales": 53401
+    },
+    {
+      "DateOfPurchase": "2018-05-30T00:00:00.000Z",
+      "Total sales": 53289
+    },
+    {
+      "DateOfPurchase": "2018-05-31T00:00:00.000Z",
+      "Total sales": 58251
+    },
+    {
+      "DateOfPurchase": "2018-06-01T00:00:00.000Z",
+      "Total sales": 58851
+    },
+    {
+      "DateOfPurchase": "2018-06-02T00:00:00.000Z",
+      "Total sales": 56926
+    },
+    {
+      "DateOfPurchase": "2018-06-03T00:00:00.000Z",
+      "Total sales": 33929
+    },
+    {
+      "DateOfPurchase": "2018-06-04T00:00:00.000Z",
+      "Total sales": 45376
+    },
+    {
+      "DateOfPurchase": "2018-06-05T00:00:00.000Z",
+      "Total sales": 47052
+    },
+    {
+      "DateOfPurchase": "2018-06-06T00:00:00.000Z",
+      "Total sales": 41440
+    },
+    {
+      "DateOfPurchase": "2018-06-07T00:00:00.000Z",
+      "Total sales": 51163
+    },
+    {
+      "DateOfPurchase": "2018-06-08T00:00:00.000Z",
+      "Total sales": 40376
+    },
+    {
+      "DateOfPurchase": "2018-06-09T00:00:00.000Z",
+      "Total sales": 46789
+    },
+    {
+      "DateOfPurchase": "2018-06-10T00:00:00.000Z",
+      "Total sales": 36615
+    },
+    {
+      "DateOfPurchase": "2018-06-11T00:00:00.000Z",
+      "Total sales": 61763
+    },
+    {
+      "DateOfPurchase": "2018-06-12T00:00:00.000Z",
+      "Total sales": 48340
+    },
+    {
+      "DateOfPurchase": "2018-06-13T00:00:00.000Z",
+      "Total sales": 56626
+    },
+    {
+      "DateOfPurchase": "2018-06-14T00:00:00.000Z",
+      "Total sales": 74239
+    },
+    {
+      "DateOfPurchase": "2018-06-15T00:00:00.000Z",
+      "Total sales": 50215
+    },
+    {
+      "DateOfPurchase": "2018-06-16T00:00:00.000Z",
+      "Total sales": 55527
+    },
+    {
+      "DateOfPurchase": "2018-06-17T00:00:00.000Z",
+      "Total sales": 56640
+    },
+    {
+      "DateOfPurchase": "2018-06-18T00:00:00.000Z",
+      "Total sales": 46313
+    },
+    {
+      "DateOfPurchase": "2018-06-19T00:00:00.000Z",
+      "Total sales": 72528
+    },
+    {
+      "DateOfPurchase": "2018-06-20T00:00:00.000Z",
+      "Total sales": 70289
+    },
+    {
+      "DateOfPurchase": "2018-06-21T00:00:00.000Z",
+      "Total sales": 57214
+    },
+    {
+      "DateOfPurchase": "2018-06-22T00:00:00.000Z",
+      "Total sales": 59053
+    },
+    {
+      "DateOfPurchase": "2018-06-23T00:00:00.000Z",
+      "Total sales": 56801
+    },
+    {
+      "DateOfPurchase": "2018-06-24T00:00:00.000Z",
+      "Total sales": 41664
+    },
+    {
+      "DateOfPurchase": "2018-06-25T00:00:00.000Z",
+      "Total sales": 52327
+    },
+    {
+      "DateOfPurchase": "2018-06-26T00:00:00.000Z",
+      "Total sales": 44778
+    },
+    {
+      "DateOfPurchase": "2018-06-27T00:00:00.000Z",
+      "Total sales": 46603
+    },
+    {
+      "DateOfPurchase": "2018-06-28T00:00:00.000Z",
+      "Total sales": 67475
+    },
+    {
+      "DateOfPurchase": "2018-06-29T00:00:00.000Z",
+      "Total sales": 39926
+    },
+    {
+      "DateOfPurchase": "2018-06-30T00:00:00.000Z",
+      "Total sales": 54739
+    },
+    {
+      "DateOfPurchase": "2018-07-01T00:00:00.000Z",
+      "Total sales": 34275
+    },
+    {
+      "DateOfPurchase": "2018-07-02T00:00:00.000Z",
+      "Total sales": 46353
+    },
+    {
+      "DateOfPurchase": "2018-07-03T00:00:00.000Z",
+      "Total sales": 48050
+    },
+    {
+      "DateOfPurchase": "2018-07-04T00:00:00.000Z",
+      "Total sales": 33453
+    },
+    {
+      "DateOfPurchase": "2018-07-05T00:00:00.000Z",
+      "Total sales": 43714
+    },
+    {
+      "DateOfPurchase": "2018-07-06T00:00:00.000Z",
+      "Total sales": 23378
+    },
+    {
+      "DateOfPurchase": "2018-07-07T00:00:00.000Z",
+      "Total sales": 38726
+    },
+    {
+      "DateOfPurchase": "2018-07-08T00:00:00.000Z",
+      "Total sales": 52366
+    },
+    {
+      "DateOfPurchase": "2018-07-09T00:00:00.000Z",
+      "Total sales": 32025
+    },
+    {
+      "DateOfPurchase": "2018-07-10T00:00:00.000Z",
+      "Total sales": 55489
+    },
+    {
+      "DateOfPurchase": "2018-07-11T00:00:00.000Z",
+      "Total sales": 28278
+    },
+    {
+      "DateOfPurchase": "2018-07-12T00:00:00.000Z",
+      "Total sales": 32588
+    },
+    {
+      "DateOfPurchase": "2018-07-13T00:00:00.000Z",
+      "Total sales": 32763
+    },
+    {
+      "DateOfPurchase": "2018-07-14T00:00:00.000Z",
+      "Total sales": 23288
+    },
+    {
+      "DateOfPurchase": "2018-07-15T00:00:00.000Z",
+      "Total sales": 34376
+    },
+    {
+      "DateOfPurchase": "2018-07-16T00:00:00.000Z",
+      "Total sales": 30063
+    },
+    {
+      "DateOfPurchase": "2018-07-17T00:00:00.000Z",
+      "Total sales": 43952
+    },
+    {
+      "DateOfPurchase": "2018-07-18T00:00:00.000Z",
+      "Total sales": 33901
+    },
+    {
+      "DateOfPurchase": "2018-07-19T00:00:00.000Z",
+      "Total sales": 37327
+    },
+    {
+      "DateOfPurchase": "2018-07-20T00:00:00.000Z",
+      "Total sales": 41001
+    },
+    {
+      "DateOfPurchase": "2018-07-21T00:00:00.000Z",
+      "Total sales": 35588
+    },
+    {
+      "DateOfPurchase": "2018-07-22T00:00:00.000Z",
+      "Total sales": 42964
+    },
+    {
+      "DateOfPurchase": "2018-07-23T00:00:00.000Z",
+      "Total sales": 24414
+    },
+    {
+      "DateOfPurchase": "2018-07-24T00:00:00.000Z",
+      "Total sales": 66776
+    },
+    {
+      "DateOfPurchase": "2018-07-25T00:00:00.000Z",
+      "Total sales": 35475
+    },
+    {
+      "DateOfPurchase": "2018-07-26T00:00:00.000Z",
+      "Total sales": 28389
+    },
+    {
+      "DateOfPurchase": "2018-07-27T00:00:00.000Z",
+      "Total sales": 27252
+    },
+    {
+      "DateOfPurchase": "2018-07-28T00:00:00.000Z",
+      "Total sales": 19976
+    },
+    {
+      "DateOfPurchase": "2018-07-29T00:00:00.000Z",
+      "Total sales": 38013
+    },
+    {
+      "DateOfPurchase": "2018-07-30T00:00:00.000Z",
+      "Total sales": 24751
+    },
+    {
+      "DateOfPurchase": "2018-07-31T00:00:00.000Z",
+      "Total sales": 34377
+    },
+    {
+      "DateOfPurchase": "2018-08-01T00:00:00.000Z",
+      "Total sales": 29240
+    },
+    {
+      "DateOfPurchase": "2018-08-02T00:00:00.000Z",
+      "Total sales": 38164
+    },
+    {
+      "DateOfPurchase": "2018-08-03T00:00:00.000Z",
+      "Total sales": 44601
+    },
+    {
+      "DateOfPurchase": "2018-08-04T00:00:00.000Z",
+      "Total sales": 52850
+    },
+    {
+      "DateOfPurchase": "2018-08-05T00:00:00.000Z",
+      "Total sales": 44839
+    },
+    {
+      "DateOfPurchase": "2018-08-06T00:00:00.000Z",
+      "Total sales": 42652
+    },
+    {
+      "DateOfPurchase": "2018-08-07T00:00:00.000Z",
+      "Total sales": 52240
+    },
+    {
+      "DateOfPurchase": "2018-08-08T00:00:00.000Z",
+      "Total sales": 64089
+    },
+    {
+      "DateOfPurchase": "2018-08-09T00:00:00.000Z",
+      "Total sales": 47502
+    },
+    {
+      "DateOfPurchase": "2018-08-10T00:00:00.000Z",
+      "Total sales": 32300
+    },
+    {
+      "DateOfPurchase": "2018-08-11T00:00:00.000Z",
+      "Total sales": 24714
+    },
+    {
+      "DateOfPurchase": "2018-08-12T00:00:00.000Z",
+      "Total sales": 38938
+    },
+    {
+      "DateOfPurchase": "2018-08-13T00:00:00.000Z",
+      "Total sales": 31677
+    },
+    {
+      "DateOfPurchase": "2018-08-14T00:00:00.000Z",
+      "Total sales": 49015
+    },
+    {
+      "DateOfPurchase": "2018-08-15T00:00:00.000Z",
+      "Total sales": 40826
+    },
+    {
+      "DateOfPurchase": "2018-08-16T00:00:00.000Z",
+      "Total sales": 30975
+    },
+    {
+      "DateOfPurchase": "2018-08-17T00:00:00.000Z",
+      "Total sales": 16839
+    },
+    {
+      "DateOfPurchase": "2018-08-18T00:00:00.000Z",
+      "Total sales": 40238
+    },
+    {
+      "DateOfPurchase": "2018-08-19T00:00:00.000Z",
+      "Total sales": 29913
+    },
+    {
+      "DateOfPurchase": "2018-08-20T00:00:00.000Z",
+      "Total sales": 27050
+    },
+    {
+      "DateOfPurchase": "2018-08-21T00:00:00.000Z",
+      "Total sales": 24402
+    },
+    {
+      "DateOfPurchase": "2018-08-22T00:00:00.000Z",
+      "Total sales": 24390
+    },
+    {
+      "DateOfPurchase": "2018-08-23T00:00:00.000Z",
+      "Total sales": 27751
+    },
+    {
+      "DateOfPurchase": "2018-08-24T00:00:00.000Z",
+      "Total sales": 45476
+    },
+    {
+      "DateOfPurchase": "2018-08-25T00:00:00.000Z",
+      "Total sales": 70276
+    },
+    {
+      "DateOfPurchase": "2018-08-26T00:00:00.000Z",
+      "Total sales": 34515
+    },
+    {
+      "DateOfPurchase": "2018-08-27T00:00:00.000Z",
+      "Total sales": 46639
+    },
+    {
+      "DateOfPurchase": "2018-08-28T00:00:00.000Z",
+      "Total sales": 11913
+    },
+    {
+      "DateOfPurchase": "2018-08-29T00:00:00.000Z",
+      "Total sales": 25826
+    },
+    {
+      "DateOfPurchase": "2018-08-30T00:00:00.000Z",
+      "Total sales": 17825
+    },
+    {
+      "DateOfPurchase": "2018-08-31T00:00:00.000Z",
+      "Total sales": 22039
+    },
+    {
+      "DateOfPurchase": "2018-09-01T00:00:00.000Z",
+      "Total sales": 28451
+    },
+    {
+      "DateOfPurchase": "2018-09-02T00:00:00.000Z",
+      "Total sales": 32888
+    },
+    {
+      "DateOfPurchase": "2018-09-03T00:00:00.000Z",
+      "Total sales": 21601
+    },
+    {
+      "DateOfPurchase": "2018-09-04T00:00:00.000Z",
+      "Total sales": 36814
+    },
+    {
+      "DateOfPurchase": "2018-09-05T00:00:00.000Z",
+      "Total sales": 36401
+    },
+    {
+      "DateOfPurchase": "2018-09-06T00:00:00.000Z",
+      "Total sales": 37363
+    },
+    {
+      "DateOfPurchase": "2018-09-07T00:00:00.000Z",
+      "Total sales": 29076
+    },
+    {
+      "DateOfPurchase": "2018-09-08T00:00:00.000Z",
+      "Total sales": 25250
+    },
+    {
+      "DateOfPurchase": "2018-09-09T00:00:00.000Z",
+      "Total sales": 21238
+    },
+    {
+      "DateOfPurchase": "2018-09-10T00:00:00.000Z",
+      "Total sales": 41500
+    },
+    {
+      "DateOfPurchase": "2018-09-11T00:00:00.000Z",
+      "Total sales": 50726
+    },
+    {
+      "DateOfPurchase": "2018-09-12T00:00:00.000Z",
+      "Total sales": 14325
+    },
+    {
+      "DateOfPurchase": "2018-09-13T00:00:00.000Z",
+      "Total sales": 38164
+    },
+    {
+      "DateOfPurchase": "2018-09-14T00:00:00.000Z",
+      "Total sales": 47263
+    },
+    {
+      "DateOfPurchase": "2018-09-15T00:00:00.000Z",
+      "Total sales": 21538
+    },
+    {
+      "DateOfPurchase": "2018-09-16T00:00:00.000Z",
+      "Total sales": 35513
+    },
+    {
+      "DateOfPurchase": "2018-09-17T00:00:00.000Z",
+      "Total sales": 43738
+    },
+    {
+      "DateOfPurchase": "2018-09-18T00:00:00.000Z",
+      "Total sales": 8888
+    },
+    {
+      "DateOfPurchase": "2018-09-19T00:00:00.000Z",
+      "Total sales": 50115
+    },
+    {
+      "DateOfPurchase": "2018-09-20T00:00:00.000Z",
+      "Total sales": 41338
+    },
+    {
+      "DateOfPurchase": "2018-09-21T00:00:00.000Z",
+      "Total sales": 22376
+    },
+    {
+      "DateOfPurchase": "2018-09-22T00:00:00.000Z",
+      "Total sales": 53315
+    },
+    {
+      "DateOfPurchase": "2018-09-23T00:00:00.000Z",
+      "Total sales": 43090
+    },
+    {
+      "DateOfPurchase": "2018-09-24T00:00:00.000Z",
+      "Total sales": 24027
+    },
+    {
+      "DateOfPurchase": "2018-09-25T00:00:00.000Z",
+      "Total sales": 39701
+    },
+    {
+      "DateOfPurchase": "2018-09-26T00:00:00.000Z",
+      "Total sales": 39526
+    },
+    {
+      "DateOfPurchase": "2018-09-27T00:00:00.000Z",
+      "Total sales": 20666
+    },
+    {
+      "DateOfPurchase": "2018-09-28T00:00:00.000Z",
+      "Total sales": 27565
+    },
+    {
+      "DateOfPurchase": "2018-09-29T00:00:00.000Z",
+      "Total sales": 39564
+    },
+    {
+      "DateOfPurchase": "2018-09-30T00:00:00.000Z",
+      "Total sales": 17438
+    },
+    {
+      "DateOfPurchase": "2018-10-01T00:00:00.000Z",
+      "Total sales": 40752
+    },
+    {
+      "DateOfPurchase": "2018-10-02T00:00:00.000Z",
+      "Total sales": 50165
+    },
+    {
+      "DateOfPurchase": "2018-10-03T00:00:00.000Z",
+      "Total sales": 19900
+    },
+    {
+      "DateOfPurchase": "2018-10-04T00:00:00.000Z",
+      "Total sales": 16740
+    },
+    {
+      "DateOfPurchase": "2018-10-05T00:00:00.000Z",
+      "Total sales": 21239
+    },
+    {
+      "DateOfPurchase": "2018-10-06T00:00:00.000Z",
+      "Total sales": 25675
+    },
+    {
+      "DateOfPurchase": "2018-10-07T00:00:00.000Z",
+      "Total sales": 15788
+    },
+    {
+      "DateOfPurchase": "2018-10-08T00:00:00.000Z",
+      "Total sales": 32014
+    },
+    {
+      "DateOfPurchase": "2018-10-09T00:00:00.000Z",
+      "Total sales": 36300
+    },
+    {
+      "DateOfPurchase": "2018-10-10T00:00:00.000Z",
+      "Total sales": 47215
+    },
+    {
+      "DateOfPurchase": "2018-10-11T00:00:00.000Z",
+      "Total sales": 15889
+    },
+    {
+      "DateOfPurchase": "2018-10-12T00:00:00.000Z",
+      "Total sales": 48625
+    },
+    {
+      "DateOfPurchase": "2018-10-13T00:00:00.000Z",
+      "Total sales": 31613
+    },
+    {
+      "DateOfPurchase": "2018-10-14T00:00:00.000Z",
+      "Total sales": 31363
+    },
+    {
+      "DateOfPurchase": "2018-10-15T00:00:00.000Z",
+      "Total sales": 46413
+    },
+    {
+      "DateOfPurchase": "2018-10-16T00:00:00.000Z",
+      "Total sales": 19300
+    },
+    {
+      "DateOfPurchase": "2018-10-17T00:00:00.000Z",
+      "Total sales": 21913
+    },
+    {
+      "DateOfPurchase": "2018-10-18T00:00:00.000Z",
+      "Total sales": 36313
+    },
+    {
+      "DateOfPurchase": "2018-10-19T00:00:00.000Z",
+      "Total sales": 45263
+    },
+    {
+      "DateOfPurchase": "2018-10-20T00:00:00.000Z",
+      "Total sales": 27127
+    },
+    {
+      "DateOfPurchase": "2018-10-21T00:00:00.000Z",
+      "Total sales": 25702
+    },
+    {
+      "DateOfPurchase": "2018-10-22T00:00:00.000Z",
+      "Total sales": 46364
+    },
+    {
+      "DateOfPurchase": "2018-10-23T00:00:00.000Z",
+      "Total sales": 19750
+    },
+    {
+      "DateOfPurchase": "2018-10-24T00:00:00.000Z",
+      "Total sales": 37563
+    },
+    {
+      "DateOfPurchase": "2018-10-25T00:00:00.000Z",
+      "Total sales": 45127
+    },
+    {
+      "DateOfPurchase": "2018-10-26T00:00:00.000Z",
+      "Total sales": 29751
+    },
+    {
+      "DateOfPurchase": "2018-10-27T00:00:00.000Z",
+      "Total sales": 51302
+    },
+    {
+      "DateOfPurchase": "2018-10-28T00:00:00.000Z",
+      "Total sales": 53739
+    },
+    {
+      "DateOfPurchase": "2018-10-29T00:00:00.000Z",
+      "Total sales": 24401
+    },
+    {
+      "DateOfPurchase": "2018-10-30T00:00:00.000Z",
+      "Total sales": 36300
+    },
+    {
+      "DateOfPurchase": "2018-10-31T00:00:00.000Z",
+      "Total sales": 30600
+    },
+    {
+      "DateOfPurchase": "2018-11-01T00:00:00.000Z",
+      "Total sales": 73716
+    },
+    {
+      "DateOfPurchase": "2018-11-02T00:00:00.000Z",
+      "Total sales": 58864
+    },
+    {
+      "DateOfPurchase": "2018-11-03T00:00:00.000Z",
+      "Total sales": 65451
+    },
+    {
+      "DateOfPurchase": "2018-11-04T00:00:00.000Z",
+      "Total sales": 59201
+    },
+    {
+      "DateOfPurchase": "2018-11-05T00:00:00.000Z",
+      "Total sales": 50626
+    },
+    {
+      "DateOfPurchase": "2018-11-06T00:00:00.000Z",
+      "Total sales": 26189
+    },
+    {
+      "DateOfPurchase": "2018-11-07T00:00:00.000Z",
+      "Total sales": 43039
+    },
+    {
+      "DateOfPurchase": "2018-11-08T00:00:00.000Z",
+      "Total sales": 65451
+    },
+    {
+      "DateOfPurchase": "2018-11-09T00:00:00.000Z",
+      "Total sales": 74052
+    },
+    {
+      "DateOfPurchase": "2018-11-10T00:00:00.000Z",
+      "Total sales": 70602
+    },
+    {
+      "DateOfPurchase": "2018-11-11T00:00:00.000Z",
+      "Total sales": 47253
+    },
+    {
+      "DateOfPurchase": "2018-11-12T00:00:00.000Z",
+      "Total sales": 90790
+    },
+    {
+      "DateOfPurchase": "2018-11-13T00:00:00.000Z",
+      "Total sales": 58439
+    },
+    {
+      "DateOfPurchase": "2018-11-14T00:00:00.000Z",
+      "Total sales": 91289
+    },
+    {
+      "DateOfPurchase": "2018-11-15T00:00:00.000Z",
+      "Total sales": 45552
+    },
+    {
+      "DateOfPurchase": "2018-11-16T00:00:00.000Z",
+      "Total sales": 66914
+    },
+    {
+      "DateOfPurchase": "2018-11-17T00:00:00.000Z",
+      "Total sales": 113967
+    },
+    {
+      "DateOfPurchase": "2018-11-18T00:00:00.000Z",
+      "Total sales": 58279
+    },
+    {
+      "DateOfPurchase": "2018-11-19T00:00:00.000Z",
+      "Total sales": 69539
+    },
+    {
+      "DateOfPurchase": "2018-11-20T00:00:00.000Z",
+      "Total sales": 40403
+    },
+    {
+      "DateOfPurchase": "2018-11-21T00:00:00.000Z",
+      "Total sales": 65002
+    },
+    {
+      "DateOfPurchase": "2018-11-22T00:00:00.000Z",
+      "Total sales": 74989
+    },
+    {
+      "DateOfPurchase": "2018-11-23T00:00:00.000Z",
+      "Total sales": 80527
+    },
+    {
+      "DateOfPurchase": "2018-11-24T00:00:00.000Z",
+      "Total sales": 71288
+    },
+    {
+      "DateOfPurchase": "2018-11-25T00:00:00.000Z",
+      "Total sales": 63165
+    },
+    {
+      "DateOfPurchase": "2018-11-26T00:00:00.000Z",
+      "Total sales": 67938
+    },
+    {
+      "DateOfPurchase": "2018-11-27T00:00:00.000Z",
+      "Total sales": 50652
+    },
+    {
+      "DateOfPurchase": "2018-11-28T00:00:00.000Z",
+      "Total sales": 57066
+    },
+    {
+      "DateOfPurchase": "2018-11-29T00:00:00.000Z",
+      "Total sales": 74880
+    },
+    {
+      "DateOfPurchase": "2018-11-30T00:00:00.000Z",
+      "Total sales": 72002
+    },
+    {
+      "DateOfPurchase": "2018-12-01T00:00:00.000Z",
+      "Total sales": 73427
+    },
+    {
+      "DateOfPurchase": "2018-12-02T00:00:00.000Z",
+      "Total sales": 61577
+    },
+    {
+      "DateOfPurchase": "2018-12-03T00:00:00.000Z",
+      "Total sales": 66502
+    },
+    {
+      "DateOfPurchase": "2018-12-04T00:00:00.000Z",
+      "Total sales": 41514
+    },
+    {
+      "DateOfPurchase": "2018-12-05T00:00:00.000Z",
+      "Total sales": 95427
+    },
+    {
+      "DateOfPurchase": "2018-12-06T00:00:00.000Z",
+      "Total sales": 47614
+    },
+    {
+      "DateOfPurchase": "2018-12-07T00:00:00.000Z",
+      "Total sales": 41776
+    },
+    {
+      "DateOfPurchase": "2018-12-08T00:00:00.000Z",
+      "Total sales": 38613
+    },
+    {
+      "DateOfPurchase": "2018-12-09T00:00:00.000Z",
+      "Total sales": 81416
+    },
+    {
+      "DateOfPurchase": "2018-12-10T00:00:00.000Z",
+      "Total sales": 87888
+    },
+    {
+      "DateOfPurchase": "2018-12-11T00:00:00.000Z",
+      "Total sales": 63464
+    },
+    {
+      "DateOfPurchase": "2018-12-12T00:00:00.000Z",
+      "Total sales": 67013
+    },
+    {
+      "DateOfPurchase": "2018-12-13T00:00:00.000Z",
+      "Total sales": 48151
+    },
+    {
+      "DateOfPurchase": "2018-12-14T00:00:00.000Z",
+      "Total sales": 57802
+    },
+    {
+      "DateOfPurchase": "2018-12-15T00:00:00.000Z",
+      "Total sales": 75289
+    },
+    {
+      "DateOfPurchase": "2018-12-16T00:00:00.000Z",
+      "Total sales": 47416
+    },
+    {
+      "DateOfPurchase": "2018-12-17T00:00:00.000Z",
+      "Total sales": 64626
+    },
+    {
+      "DateOfPurchase": "2018-12-18T00:00:00.000Z",
+      "Total sales": 83739
+    },
+    {
+      "DateOfPurchase": "2018-12-19T00:00:00.000Z",
+      "Total sales": 102139
+    },
+    {
+      "DateOfPurchase": "2018-12-20T00:00:00.000Z",
+      "Total sales": 59377
+    },
+    {
+      "DateOfPurchase": "2018-12-21T00:00:00.000Z",
+      "Total sales": 80378
+    },
+    {
+      "DateOfPurchase": "2018-12-22T00:00:00.000Z",
+      "Total sales": 70904
+    },
+    {
+      "DateOfPurchase": "2018-12-23T00:00:00.000Z",
+      "Total sales": 58301
+    },
+    {
+      "DateOfPurchase": "2018-12-24T00:00:00.000Z",
+      "Total sales": 50778
+    },
+    {
+      "DateOfPurchase": "2018-12-25T00:00:00.000Z",
+      "Total sales": 63227
+    },
+    {
+      "DateOfPurchase": "2018-12-26T00:00:00.000Z",
+      "Total sales": 74401
+    },
+    {
+      "DateOfPurchase": "2018-12-27T00:00:00.000Z",
+      "Total sales": 63640
+    },
+    {
+      "DateOfPurchase": "2018-12-28T00:00:00.000Z",
+      "Total sales": 64001
+    },
+    {
+      "DateOfPurchase": "2018-12-29T00:00:00.000Z",
+      "Total sales": 79840
+    },
+    {
+      "DateOfPurchase": "2018-12-30T00:00:00.000Z",
+      "Total sales": 73102
+    },
+    {
+      "DateOfPurchase": "2018-12-31T00:00:00.000Z",
+      "Total sales": 73417
+    },
+    {
+      "DateOfPurchase": "2019-01-01T00:00:00.000Z",
+      "Total sales": 45925
+    },
+    {
+      "DateOfPurchase": "2019-01-02T00:00:00.000Z",
+      "Total sales": 36501
+    },
+    {
+      "DateOfPurchase": "2019-01-03T00:00:00.000Z",
+      "Total sales": 33202
+    },
+    {
+      "DateOfPurchase": "2019-01-04T00:00:00.000Z",
+      "Total sales": 18101
+    },
+    {
+      "DateOfPurchase": "2019-01-05T00:00:00.000Z",
+      "Total sales": 23138
+    },
+    {
+      "DateOfPurchase": "2019-01-06T00:00:00.000Z",
+      "Total sales": 42038
+    },
+    {
+      "DateOfPurchase": "2019-01-07T00:00:00.000Z",
+      "Total sales": 44538
+    },
+    {
+      "DateOfPurchase": "2019-01-08T00:00:00.000Z",
+      "Total sales": 37189
+    },
+    {
+      "DateOfPurchase": "2019-01-09T00:00:00.000Z",
+      "Total sales": 36426
+    },
+    {
+      "DateOfPurchase": "2019-01-10T00:00:00.000Z",
+      "Total sales": 19001
+    },
+    {
+      "DateOfPurchase": "2019-01-11T00:00:00.000Z",
+      "Total sales": 39551
+    },
+    {
+      "DateOfPurchase": "2019-01-12T00:00:00.000Z",
+      "Total sales": 33700
+    },
+    {
+      "DateOfPurchase": "2019-01-13T00:00:00.000Z",
+      "Total sales": 45138
+    },
+    {
+      "DateOfPurchase": "2019-01-14T00:00:00.000Z",
+      "Total sales": 30714
+    },
+    {
+      "DateOfPurchase": "2019-01-15T00:00:00.000Z",
+      "Total sales": 45925
+    },
+    {
+      "DateOfPurchase": "2019-01-16T00:00:00.000Z",
+      "Total sales": 53601
+    },
+    {
+      "DateOfPurchase": "2019-01-17T00:00:00.000Z",
+      "Total sales": 34464
+    },
+    {
+      "DateOfPurchase": "2019-01-18T00:00:00.000Z",
+      "Total sales": 41240
+    },
+    {
+      "DateOfPurchase": "2019-01-19T00:00:00.000Z",
+      "Total sales": 44050
+    },
+    {
+      "DateOfPurchase": "2019-01-20T00:00:00.000Z",
+      "Total sales": 34888
+    },
+    {
+      "DateOfPurchase": "2019-01-21T00:00:00.000Z",
+      "Total sales": 36501
+    },
+    {
+      "DateOfPurchase": "2019-01-22T00:00:00.000Z",
+      "Total sales": 39739
+    },
+    {
+      "DateOfPurchase": "2019-01-23T00:00:00.000Z",
+      "Total sales": 31125
+    },
+    {
+      "DateOfPurchase": "2019-01-24T00:00:00.000Z",
+      "Total sales": 16301
+    },
+    {
+      "DateOfPurchase": "2019-01-25T00:00:00.000Z",
+      "Total sales": 27925
+    },
+    {
+      "DateOfPurchase": "2019-01-26T00:00:00.000Z",
+      "Total sales": 38002
+    },
+    {
+      "DateOfPurchase": "2019-01-27T00:00:00.000Z",
+      "Total sales": 42063
+    },
+    {
+      "DateOfPurchase": "2019-01-28T00:00:00.000Z",
+      "Total sales": 29825
+    },
+    {
+      "DateOfPurchase": "2019-01-29T00:00:00.000Z",
+      "Total sales": 29725
+    },
+    {
+      "DateOfPurchase": "2019-01-30T00:00:00.000Z",
+      "Total sales": 22601
+    },
+    {
+      "DateOfPurchase": "2019-01-31T00:00:00.000Z",
+      "Total sales": 39240
+    },
+    {
+      "DateOfPurchase": "2019-02-01T00:00:00.000Z",
+      "Total sales": 8838
+    },
+    {
+      "DateOfPurchase": "2019-02-02T00:00:00.000Z",
+      "Total sales": 18763
+    },
+    {
+      "DateOfPurchase": "2019-02-03T00:00:00.000Z",
+      "Total sales": 16539
+    },
+    {
+      "DateOfPurchase": "2019-02-04T00:00:00.000Z",
+      "Total sales": 13438
+    },
+    {
+      "DateOfPurchase": "2019-02-05T00:00:00.000Z",
+      "Total sales": 15075
+    },
+    {
+      "DateOfPurchase": "2019-02-06T00:00:00.000Z",
+      "Total sales": 29250
+    },
+    {
+      "DateOfPurchase": "2019-02-07T00:00:00.000Z",
+      "Total sales": 18400
+    },
+    {
+      "DateOfPurchase": "2019-02-08T00:00:00.000Z",
+      "Total sales": 28563
+    },
+    {
+      "DateOfPurchase": "2019-02-09T00:00:00.000Z",
+      "Total sales": 17026
+    },
+    {
+      "DateOfPurchase": "2019-02-10T00:00:00.000Z",
+      "Total sales": 18951
+    },
+    {
+      "DateOfPurchase": "2019-02-11T00:00:00.000Z",
+      "Total sales": 6500
+    },
+    {
+      "DateOfPurchase": "2019-02-12T00:00:00.000Z",
+      "Total sales": 28675
+    },
+    {
+      "DateOfPurchase": "2019-02-13T00:00:00.000Z",
+      "Total sales": 23300
+    },
+    {
+      "DateOfPurchase": "2019-02-14T00:00:00.000Z",
+      "Total sales": 13375
+    },
+    {
+      "DateOfPurchase": "2019-02-15T00:00:00.000Z",
+      "Total sales": 19075
+    },
+    {
+      "DateOfPurchase": "2019-02-16T00:00:00.000Z",
+      "Total sales": 22801
+    },
+    {
+      "DateOfPurchase": "2019-02-17T00:00:00.000Z",
+      "Total sales": 26275
+    },
+    {
+      "DateOfPurchase": "2019-02-18T00:00:00.000Z",
+      "Total sales": 19400
+    },
+    {
+      "DateOfPurchase": "2019-02-19T00:00:00.000Z",
+      "Total sales": 26850
+    },
+    {
+      "DateOfPurchase": "2019-02-20T00:00:00.000Z",
+      "Total sales": 17314
+    },
+    {
+      "DateOfPurchase": "2019-02-21T00:00:00.000Z",
+      "Total sales": 12914
+    },
+    {
+      "DateOfPurchase": "2019-02-22T00:00:00.000Z",
+      "Total sales": 28625
+    },
+    {
+      "DateOfPurchase": "2019-02-23T00:00:00.000Z",
+      "Total sales": 3851
+    },
+    {
+      "DateOfPurchase": "2019-02-24T00:00:00.000Z",
+      "Total sales": 9850
+    },
+    {
+      "DateOfPurchase": "2019-02-25T00:00:00.000Z",
+      "Total sales": 11963
+    },
+    {
+      "DateOfPurchase": "2019-02-26T00:00:00.000Z",
+      "Total sales": 5563
+    },
+    {
+      "DateOfPurchase": "2019-02-27T00:00:00.000Z",
+      "Total sales": 31263
+    },
+    {
+      "DateOfPurchase": "2019-02-28T00:00:00.000Z",
+      "Total sales": 7213
+    },
+    {
+      "DateOfPurchase": "2019-03-01T00:00:00.000Z",
+      "Total sales": 17263
+    },
+    {
+      "DateOfPurchase": "2019-03-02T00:00:00.000Z",
+      "Total sales": 19988
+    },
+    {
+      "DateOfPurchase": "2019-03-03T00:00:00.000Z",
+      "Total sales": 14976
+    },
+    {
+      "DateOfPurchase": "2019-03-04T00:00:00.000Z",
+      "Total sales": 20825
+    },
+    {
+      "DateOfPurchase": "2019-03-05T00:00:00.000Z",
+      "Total sales": 6063
+    },
+    {
+      "DateOfPurchase": "2019-03-06T00:00:00.000Z",
+      "Total sales": 26701
+    },
+    {
+      "DateOfPurchase": "2019-03-07T00:00:00.000Z",
+      "Total sales": 16976
+    },
+    {
+      "DateOfPurchase": "2019-03-08T00:00:00.000Z",
+      "Total sales": 18863
+    },
+    {
+      "DateOfPurchase": "2019-03-09T00:00:00.000Z",
+      "Total sales": 14151
+    },
+    {
+      "DateOfPurchase": "2019-03-10T00:00:00.000Z",
+      "Total sales": 27975
+    },
+    {
+      "DateOfPurchase": "2019-03-11T00:00:00.000Z",
+      "Total sales": 11075
+    },
+    {
+      "DateOfPurchase": "2019-03-12T00:00:00.000Z",
+      "Total sales": 8826
+    },
+    {
+      "DateOfPurchase": "2019-03-13T00:00:00.000Z",
+      "Total sales": 15513
+    },
+    {
+      "DateOfPurchase": "2019-03-14T00:00:00.000Z",
+      "Total sales": 18413
+    },
+    {
+      "DateOfPurchase": "2019-03-15T00:00:00.000Z",
+      "Total sales": 17463
+    },
+    {
+      "DateOfPurchase": "2019-03-16T00:00:00.000Z",
+      "Total sales": 10950
+    },
+    {
+      "DateOfPurchase": "2019-03-17T00:00:00.000Z",
+      "Total sales": 15800
+    },
+    {
+      "DateOfPurchase": "2019-03-18T00:00:00.000Z",
+      "Total sales": 19800
+    },
+    {
+      "DateOfPurchase": "2019-03-19T00:00:00.000Z",
+      "Total sales": 14613
+    },
+    {
+      "DateOfPurchase": "2019-03-20T00:00:00.000Z",
+      "Total sales": 10800
+    },
+    {
+      "DateOfPurchase": "2019-03-21T00:00:00.000Z",
+      "Total sales": 5525
+    },
+    {
+      "DateOfPurchase": "2019-03-22T00:00:00.000Z",
+      "Total sales": 19763
+    },
+    {
+      "DateOfPurchase": "2019-03-23T00:00:00.000Z",
+      "Total sales": 17088
+    },
+    {
+      "DateOfPurchase": "2019-03-24T00:00:00.000Z",
+      "Total sales": 7275
+    },
+    {
+      "DateOfPurchase": "2019-03-25T00:00:00.000Z",
+      "Total sales": 31513
+    },
+    {
+      "DateOfPurchase": "2019-03-26T00:00:00.000Z",
+      "Total sales": 32850
+    },
+    {
+      "DateOfPurchase": "2019-03-27T00:00:00.000Z",
+      "Total sales": 18850
+    },
+    {
+      "DateOfPurchase": "2019-03-28T00:00:00.000Z",
+      "Total sales": 12000
+    },
+    {
+      "DateOfPurchase": "2019-03-29T00:00:00.000Z",
+      "Total sales": 13975
+    },
+    {
+      "DateOfPurchase": "2019-03-30T00:00:00.000Z",
+      "Total sales": 17413
+    },
+    {
+      "DateOfPurchase": "2019-03-31T00:00:00.000Z",
+      "Total sales": 15301
+    },
+    {
+      "DateOfPurchase": "2019-04-01T00:00:00.000Z",
+      "Total sales": 30014
+    },
+    {
+      "DateOfPurchase": "2019-04-02T00:00:00.000Z",
+      "Total sales": 19375
+    },
+    {
+      "DateOfPurchase": "2019-04-03T00:00:00.000Z",
+      "Total sales": 34877
+    },
+    {
+      "DateOfPurchase": "2019-04-04T00:00:00.000Z",
+      "Total sales": 30288
+    },
+    {
+      "DateOfPurchase": "2019-04-05T00:00:00.000Z",
+      "Total sales": 31602
+    },
+    {
+      "DateOfPurchase": "2019-04-06T00:00:00.000Z",
+      "Total sales": 36926
+    },
+    {
+      "DateOfPurchase": "2019-04-07T00:00:00.000Z",
+      "Total sales": 27964
+    },
+    {
+      "DateOfPurchase": "2019-04-08T00:00:00.000Z",
+      "Total sales": 46063
+    },
+    {
+      "DateOfPurchase": "2019-04-09T00:00:00.000Z",
+      "Total sales": 57815
+    },
+    {
+      "DateOfPurchase": "2019-04-10T00:00:00.000Z",
+      "Total sales": 30065
+    },
+    {
+      "DateOfPurchase": "2019-04-11T00:00:00.000Z",
+      "Total sales": 36601
+    },
+    {
+      "DateOfPurchase": "2019-04-12T00:00:00.000Z",
+      "Total sales": 16552
+    },
+    {
+      "DateOfPurchase": "2019-04-13T00:00:00.000Z",
+      "Total sales": 34851
+    },
+    {
+      "DateOfPurchase": "2019-04-14T00:00:00.000Z",
+      "Total sales": 62639
+    },
+    {
+      "DateOfPurchase": "2019-04-15T00:00:00.000Z",
+      "Total sales": 30513
+    },
+    {
+      "DateOfPurchase": "2019-04-16T00:00:00.000Z",
+      "Total sales": 46200
+    },
+    {
+      "DateOfPurchase": "2019-04-17T00:00:00.000Z",
+      "Total sales": 25313
+    },
+    {
+      "DateOfPurchase": "2019-04-18T00:00:00.000Z",
+      "Total sales": 27202
+    },
+    {
+      "DateOfPurchase": "2019-04-19T00:00:00.000Z",
+      "Total sales": 34325
+    },
+    {
+      "DateOfPurchase": "2019-04-20T00:00:00.000Z",
+      "Total sales": 50028
+    },
+    {
+      "DateOfPurchase": "2019-04-21T00:00:00.000Z",
+      "Total sales": 26138
+    },
+    {
+      "DateOfPurchase": "2019-04-22T00:00:00.000Z",
+      "Total sales": 54051
+    },
+    {
+      "DateOfPurchase": "2019-04-23T00:00:00.000Z",
+      "Total sales": 39376
+    },
+    {
+      "DateOfPurchase": "2019-04-24T00:00:00.000Z",
+      "Total sales": 32326
+    },
+    {
+      "DateOfPurchase": "2019-04-25T00:00:00.000Z",
+      "Total sales": 14688
+    },
+    {
+      "DateOfPurchase": "2019-04-26T00:00:00.000Z",
+      "Total sales": 38576
+    },
+    {
+      "DateOfPurchase": "2019-04-27T00:00:00.000Z",
+      "Total sales": 22864
+    },
+    {
+      "DateOfPurchase": "2019-04-28T00:00:00.000Z",
+      "Total sales": 50989
+    },
+    {
+      "DateOfPurchase": "2019-04-29T00:00:00.000Z",
+      "Total sales": 25977
+    },
+    {
+      "DateOfPurchase": "2019-04-30T00:00:00.000Z",
+      "Total sales": 24526
+    },
+    {
+      "DateOfPurchase": "2019-05-01T00:00:00.000Z",
+      "Total sales": 73263
+    },
+    {
+      "DateOfPurchase": "2019-05-02T00:00:00.000Z",
+      "Total sales": 61026
+    },
+    {
+      "DateOfPurchase": "2019-05-03T00:00:00.000Z",
+      "Total sales": 48738
+    },
+    {
+      "DateOfPurchase": "2019-05-04T00:00:00.000Z",
+      "Total sales": 59601
+    },
+    {
+      "DateOfPurchase": "2019-05-05T00:00:00.000Z",
+      "Total sales": 27965
+    },
+    {
+      "DateOfPurchase": "2019-05-06T00:00:00.000Z",
+      "Total sales": 37626
+    },
+    {
+      "DateOfPurchase": "2019-05-07T00:00:00.000Z",
+      "Total sales": 66127
+    },
+    {
+      "DateOfPurchase": "2019-05-08T00:00:00.000Z",
+      "Total sales": 49275
+    },
+    {
+      "DateOfPurchase": "2019-05-09T00:00:00.000Z",
+      "Total sales": 24602
+    },
+    {
+      "DateOfPurchase": "2019-05-10T00:00:00.000Z",
+      "Total sales": 62004
+    },
+    {
+      "DateOfPurchase": "2019-05-11T00:00:00.000Z",
+      "Total sales": 55578
+    },
+    {
+      "DateOfPurchase": "2019-05-12T00:00:00.000Z",
+      "Total sales": 41900
+    },
+    {
+      "DateOfPurchase": "2019-05-13T00:00:00.000Z",
+      "Total sales": 37626
+    },
+    {
+      "DateOfPurchase": "2019-05-14T00:00:00.000Z",
+      "Total sales": 66116
+    },
+    {
+      "DateOfPurchase": "2019-05-15T00:00:00.000Z",
+      "Total sales": 52052
+    },
+    {
+      "DateOfPurchase": "2019-05-16T00:00:00.000Z",
+      "Total sales": 40126
+    },
+    {
+      "DateOfPurchase": "2019-05-17T00:00:00.000Z",
+      "Total sales": 74938
+    },
+    {
+      "DateOfPurchase": "2019-05-18T00:00:00.000Z",
+      "Total sales": 46839
+    },
+    {
+      "DateOfPurchase": "2019-05-19T00:00:00.000Z",
+      "Total sales": 37775
+    },
+    {
+      "DateOfPurchase": "2019-05-20T00:00:00.000Z",
+      "Total sales": 50589
+    },
+    {
+      "DateOfPurchase": "2019-05-21T00:00:00.000Z",
+      "Total sales": 55988
+    },
+    {
+      "DateOfPurchase": "2019-05-22T00:00:00.000Z",
+      "Total sales": 38877
+    },
+    {
+      "DateOfPurchase": "2019-05-23T00:00:00.000Z",
+      "Total sales": 40338
+    },
+    {
+      "DateOfPurchase": "2019-05-24T00:00:00.000Z",
+      "Total sales": 56701
+    },
+    {
+      "DateOfPurchase": "2019-05-25T00:00:00.000Z",
+      "Total sales": 52702
+    },
+    {
+      "DateOfPurchase": "2019-05-26T00:00:00.000Z",
+      "Total sales": 86389
+    },
+    {
+      "DateOfPurchase": "2019-05-27T00:00:00.000Z",
+      "Total sales": 43954
+    },
+    {
+      "DateOfPurchase": "2019-05-28T00:00:00.000Z",
+      "Total sales": 27989
+    },
+    {
+      "DateOfPurchase": "2019-05-29T00:00:00.000Z",
+      "Total sales": 51777
+    },
+    {
+      "DateOfPurchase": "2019-05-30T00:00:00.000Z",
+      "Total sales": 29626
+    },
+    {
+      "DateOfPurchase": "2019-05-31T00:00:00.000Z",
+      "Total sales": 63877
+    },
+    {
+      "DateOfPurchase": "2019-06-01T00:00:00.000Z",
+      "Total sales": 64691
+    },
+    {
+      "DateOfPurchase": "2019-06-02T00:00:00.000Z",
+      "Total sales": 76991
+    },
+    {
+      "DateOfPurchase": "2019-06-03T00:00:00.000Z",
+      "Total sales": 41565
+    },
+    {
+      "DateOfPurchase": "2019-06-04T00:00:00.000Z",
+      "Total sales": 63690
+    },
+    {
+      "DateOfPurchase": "2019-06-05T00:00:00.000Z",
+      "Total sales": 45518
+    },
+    {
+      "DateOfPurchase": "2019-06-06T00:00:00.000Z",
+      "Total sales": 57638
+    },
+    {
+      "DateOfPurchase": "2019-06-07T00:00:00.000Z",
+      "Total sales": 54989
+    },
+    {
+      "DateOfPurchase": "2019-06-08T00:00:00.000Z",
+      "Total sales": 52201
+    },
+    {
+      "DateOfPurchase": "2019-06-09T00:00:00.000Z",
+      "Total sales": 28963
+    },
+    {
+      "DateOfPurchase": "2019-06-10T00:00:00.000Z",
+      "Total sales": 30689
+    },
+    {
+      "DateOfPurchase": "2019-06-11T00:00:00.000Z",
+      "Total sales": 44188
+    },
+    {
+      "DateOfPurchase": "2019-06-12T00:00:00.000Z",
+      "Total sales": 79600
+    },
+    {
+      "DateOfPurchase": "2019-06-13T00:00:00.000Z",
+      "Total sales": 42813
+    },
+    {
+      "DateOfPurchase": "2019-06-14T00:00:00.000Z",
+      "Total sales": 59677
+    },
+    {
+      "DateOfPurchase": "2019-06-15T00:00:00.000Z",
+      "Total sales": 49127
+    },
+    {
+      "DateOfPurchase": "2019-06-16T00:00:00.000Z",
+      "Total sales": 48552
+    },
+    {
+      "DateOfPurchase": "2019-06-17T00:00:00.000Z",
+      "Total sales": 71464
+    },
+    {
+      "DateOfPurchase": "2019-06-18T00:00:00.000Z",
+      "Total sales": 58265
+    },
+    {
+      "DateOfPurchase": "2019-06-19T00:00:00.000Z",
+      "Total sales": 77689
+    },
+    {
+      "DateOfPurchase": "2019-06-20T00:00:00.000Z",
+      "Total sales": 55014
+    },
+    {
+      "DateOfPurchase": "2019-06-21T00:00:00.000Z",
+      "Total sales": 67464
+    },
+    {
+      "DateOfPurchase": "2019-06-22T00:00:00.000Z",
+      "Total sales": 55090
+    },
+    {
+      "DateOfPurchase": "2019-06-23T00:00:00.000Z",
+      "Total sales": 48677
+    },
+    {
+      "DateOfPurchase": "2019-06-24T00:00:00.000Z",
+      "Total sales": 43227
+    },
+    {
+      "DateOfPurchase": "2019-06-25T00:00:00.000Z",
+      "Total sales": 41939
+    },
+    {
+      "DateOfPurchase": "2019-06-26T00:00:00.000Z",
+      "Total sales": 58200
+    },
+    {
+      "DateOfPurchase": "2019-06-27T00:00:00.000Z",
+      "Total sales": 37588
+    },
+    {
+      "DateOfPurchase": "2019-06-28T00:00:00.000Z",
+      "Total sales": 25752
+    },
+    {
+      "DateOfPurchase": "2019-06-29T00:00:00.000Z",
+      "Total sales": 43439
+    },
+    {
+      "DateOfPurchase": "2019-06-30T00:00:00.000Z",
+      "Total sales": 48726
+    },
+    {
+      "DateOfPurchase": "2019-07-01T00:00:00.000Z",
+      "Total sales": 23613
+    },
+    {
+      "DateOfPurchase": "2019-07-02T00:00:00.000Z",
+      "Total sales": 34075
+    },
+    {
+      "DateOfPurchase": "2019-07-03T00:00:00.000Z",
+      "Total sales": 45615
+    },
+    {
+      "DateOfPurchase": "2019-07-04T00:00:00.000Z",
+      "Total sales": 31877
+    },
+    {
+      "DateOfPurchase": "2019-07-05T00:00:00.000Z",
+      "Total sales": 39690
+    },
+    {
+      "DateOfPurchase": "2019-07-06T00:00:00.000Z",
+      "Total sales": 36975
+    },
+    {
+      "DateOfPurchase": "2019-07-07T00:00:00.000Z",
+      "Total sales": 29376
+    },
+    {
+      "DateOfPurchase": "2019-07-08T00:00:00.000Z",
+      "Total sales": 47963
+    },
+    {
+      "DateOfPurchase": "2019-07-09T00:00:00.000Z",
+      "Total sales": 8625
+    },
+    {
+      "DateOfPurchase": "2019-07-10T00:00:00.000Z",
+      "Total sales": 37214
+    },
+    {
+      "DateOfPurchase": "2019-07-11T00:00:00.000Z",
+      "Total sales": 32164
+    },
+    {
+      "DateOfPurchase": "2019-07-12T00:00:00.000Z",
+      "Total sales": 63400
+    },
+    {
+      "DateOfPurchase": "2019-07-13T00:00:00.000Z",
+      "Total sales": 12388
+    },
+    {
+      "DateOfPurchase": "2019-07-14T00:00:00.000Z",
+      "Total sales": 36528
+    },
+    {
+      "DateOfPurchase": "2019-07-15T00:00:00.000Z",
+      "Total sales": 63338
+    },
+    {
+      "DateOfPurchase": "2019-07-16T00:00:00.000Z",
+      "Total sales": 46338
+    },
+    {
+      "DateOfPurchase": "2019-07-17T00:00:00.000Z",
+      "Total sales": 42500
+    },
+    {
+      "DateOfPurchase": "2019-07-18T00:00:00.000Z",
+      "Total sales": 28964
+    },
+    {
+      "DateOfPurchase": "2019-07-19T00:00:00.000Z",
+      "Total sales": 24790
+    },
+    {
+      "DateOfPurchase": "2019-07-20T00:00:00.000Z",
+      "Total sales": 23550
+    },
+    {
+      "DateOfPurchase": "2019-07-21T00:00:00.000Z",
+      "Total sales": 42201
+    },
+    {
+      "DateOfPurchase": "2019-07-22T00:00:00.000Z",
+      "Total sales": 38926
+    },
+    {
+      "DateOfPurchase": "2019-07-23T00:00:00.000Z",
+      "Total sales": 26090
+    },
+    {
+      "DateOfPurchase": "2019-07-24T00:00:00.000Z",
+      "Total sales": 28478
+    },
+    {
+      "DateOfPurchase": "2019-07-25T00:00:00.000Z",
+      "Total sales": 41901
+    },
+    {
+      "DateOfPurchase": "2019-07-26T00:00:00.000Z",
+      "Total sales": 41214
+    },
+    {
+      "DateOfPurchase": "2019-07-27T00:00:00.000Z",
+      "Total sales": 32514
+    },
+    {
+      "DateOfPurchase": "2019-07-28T00:00:00.000Z",
+      "Total sales": 32714
+    },
+    {
+      "DateOfPurchase": "2019-07-29T00:00:00.000Z",
+      "Total sales": 17976
+    },
+    {
+      "DateOfPurchase": "2019-07-30T00:00:00.000Z",
+      "Total sales": 27303
+    },
+    {
+      "DateOfPurchase": "2019-07-31T00:00:00.000Z",
+      "Total sales": 27926
+    },
+    {
+      "DateOfPurchase": "2019-08-01T00:00:00.000Z",
+      "Total sales": 22788
+    },
+    {
+      "DateOfPurchase": "2019-08-02T00:00:00.000Z",
+      "Total sales": 27926
+    },
+    {
+      "DateOfPurchase": "2019-08-03T00:00:00.000Z",
+      "Total sales": 47713
+    },
+    {
+      "DateOfPurchase": "2019-08-04T00:00:00.000Z",
+      "Total sales": 34876
+    },
+    {
+      "DateOfPurchase": "2019-08-05T00:00:00.000Z",
+      "Total sales": 38638
+    },
+    {
+      "DateOfPurchase": "2019-08-06T00:00:00.000Z",
+      "Total sales": 54675
+    },
+    {
+      "DateOfPurchase": "2019-08-07T00:00:00.000Z",
+      "Total sales": 13214
+    },
+    {
+      "DateOfPurchase": "2019-08-08T00:00:00.000Z",
+      "Total sales": 40552
+    },
+    {
+      "DateOfPurchase": "2019-08-09T00:00:00.000Z",
+      "Total sales": 25365
+    },
+    {
+      "DateOfPurchase": "2019-08-10T00:00:00.000Z",
+      "Total sales": 32701
+    },
+    {
+      "DateOfPurchase": "2019-08-11T00:00:00.000Z",
+      "Total sales": 39439
+    },
+    {
+      "DateOfPurchase": "2019-08-12T00:00:00.000Z",
+      "Total sales": 38613
+    },
+    {
+      "DateOfPurchase": "2019-08-13T00:00:00.000Z",
+      "Total sales": 39964
+    },
+    {
+      "DateOfPurchase": "2019-08-14T00:00:00.000Z",
+      "Total sales": 32776
+    },
+    {
+      "DateOfPurchase": "2019-08-15T00:00:00.000Z",
+      "Total sales": 57464
+    },
+    {
+      "DateOfPurchase": "2019-08-16T00:00:00.000Z",
+      "Total sales": 33125
+    },
+    {
+      "DateOfPurchase": "2019-08-17T00:00:00.000Z",
+      "Total sales": 18290
+    },
+    {
+      "DateOfPurchase": "2019-08-18T00:00:00.000Z",
+      "Total sales": 36127
+    },
+    {
+      "DateOfPurchase": "2019-08-19T00:00:00.000Z",
+      "Total sales": 46213
+    },
+    {
+      "DateOfPurchase": "2019-08-20T00:00:00.000Z",
+      "Total sales": 28550
+    },
+    {
+      "DateOfPurchase": "2019-08-21T00:00:00.000Z",
+      "Total sales": 44076
+    },
+    {
+      "DateOfPurchase": "2019-08-22T00:00:00.000Z",
+      "Total sales": 33651
+    },
+    {
+      "DateOfPurchase": "2019-08-23T00:00:00.000Z",
+      "Total sales": 19776
+    },
+    {
+      "DateOfPurchase": "2019-08-24T00:00:00.000Z",
+      "Total sales": 38826
+    },
+    {
+      "DateOfPurchase": "2019-08-25T00:00:00.000Z",
+      "Total sales": 62400
+    },
+    {
+      "DateOfPurchase": "2019-08-26T00:00:00.000Z",
+      "Total sales": 32753
+    },
+    {
+      "DateOfPurchase": "2019-08-27T00:00:00.000Z",
+      "Total sales": 28226
+    },
+    {
+      "DateOfPurchase": "2019-08-28T00:00:00.000Z",
+      "Total sales": 35064
+    },
+    {
+      "DateOfPurchase": "2019-08-29T00:00:00.000Z",
+      "Total sales": 25688
+    },
+    {
+      "DateOfPurchase": "2019-08-30T00:00:00.000Z",
+      "Total sales": 53600
+    },
+    {
+      "DateOfPurchase": "2019-08-31T00:00:00.000Z",
+      "Total sales": 24950
+    },
+    {
+      "DateOfPurchase": "2019-09-01T00:00:00.000Z",
+      "Total sales": 34014
+    },
+    {
+      "DateOfPurchase": "2019-09-02T00:00:00.000Z",
+      "Total sales": 29976
+    },
+    {
+      "DateOfPurchase": "2019-09-03T00:00:00.000Z",
+      "Total sales": 26838
+    },
+    {
+      "DateOfPurchase": "2019-09-04T00:00:00.000Z",
+      "Total sales": 25064
+    },
+    {
+      "DateOfPurchase": "2019-09-05T00:00:00.000Z",
+      "Total sales": 53177
+    },
+    {
+      "DateOfPurchase": "2019-09-06T00:00:00.000Z",
+      "Total sales": 22164
+    },
+    {
+      "DateOfPurchase": "2019-09-07T00:00:00.000Z",
+      "Total sales": 28689
+    },
+    {
+      "DateOfPurchase": "2019-09-08T00:00:00.000Z",
+      "Total sales": 48013
+    },
+    {
+      "DateOfPurchase": "2019-09-09T00:00:00.000Z",
+      "Total sales": 35275
+    },
+    {
+      "DateOfPurchase": "2019-09-10T00:00:00.000Z",
+      "Total sales": 44003
+    },
+    {
+      "DateOfPurchase": "2019-09-11T00:00:00.000Z",
+      "Total sales": 27788
+    },
+    {
+      "DateOfPurchase": "2019-09-12T00:00:00.000Z",
+      "Total sales": 31551
+    },
+    {
+      "DateOfPurchase": "2019-09-13T00:00:00.000Z",
+      "Total sales": 45052
+    },
+    {
+      "DateOfPurchase": "2019-09-14T00:00:00.000Z",
+      "Total sales": 56552
+    },
+    {
+      "DateOfPurchase": "2019-09-15T00:00:00.000Z",
+      "Total sales": 22838
+    },
+    {
+      "DateOfPurchase": "2019-09-16T00:00:00.000Z",
+      "Total sales": 69015
+    },
+    {
+      "DateOfPurchase": "2019-09-17T00:00:00.000Z",
+      "Total sales": 22253
+    },
+    {
+      "DateOfPurchase": "2019-09-18T00:00:00.000Z",
+      "Total sales": 32839
+    },
+    {
+      "DateOfPurchase": "2019-09-19T00:00:00.000Z",
+      "Total sales": 42538
+    },
+    {
+      "DateOfPurchase": "2019-09-20T00:00:00.000Z",
+      "Total sales": 29239
+    },
+    {
+      "DateOfPurchase": "2019-09-21T00:00:00.000Z",
+      "Total sales": 14814
+    },
+    {
+      "DateOfPurchase": "2019-09-22T00:00:00.000Z",
+      "Total sales": 28713
+    },
+    {
+      "DateOfPurchase": "2019-09-23T00:00:00.000Z",
+      "Total sales": 30377
+    },
+    {
+      "DateOfPurchase": "2019-09-24T00:00:00.000Z",
+      "Total sales": 32138
+    },
+    {
+      "DateOfPurchase": "2019-09-25T00:00:00.000Z",
+      "Total sales": 31451
+    },
+    {
+      "DateOfPurchase": "2019-09-26T00:00:00.000Z",
+      "Total sales": 35326
+    },
+    {
+      "DateOfPurchase": "2019-09-27T00:00:00.000Z",
+      "Total sales": 23502
+    },
+    {
+      "DateOfPurchase": "2019-09-28T00:00:00.000Z",
+      "Total sales": 21225
+    },
+    {
+      "DateOfPurchase": "2019-09-29T00:00:00.000Z",
+      "Total sales": 39189
+    },
+    {
+      "DateOfPurchase": "2019-09-30T00:00:00.000Z",
+      "Total sales": 40726
+    },
+    {
+      "DateOfPurchase": "2019-10-01T00:00:00.000Z",
+      "Total sales": 27476
+    },
+    {
+      "DateOfPurchase": "2019-10-02T00:00:00.000Z",
+      "Total sales": 31451
+    },
+    {
+      "DateOfPurchase": "2019-10-03T00:00:00.000Z",
+      "Total sales": 64701
+    },
+    {
+      "DateOfPurchase": "2019-10-04T00:00:00.000Z",
+      "Total sales": 30788
+    },
+    {
+      "DateOfPurchase": "2019-10-05T00:00:00.000Z",
+      "Total sales": 47454
+    },
+    {
+      "DateOfPurchase": "2019-10-06T00:00:00.000Z",
+      "Total sales": 58002
+    },
+    {
+      "DateOfPurchase": "2019-10-07T00:00:00.000Z",
+      "Total sales": 20250
+    },
+    {
+      "DateOfPurchase": "2019-10-08T00:00:00.000Z",
+      "Total sales": 44450
+    },
+    {
+      "DateOfPurchase": "2019-10-09T00:00:00.000Z",
+      "Total sales": 28939
+    },
+    {
+      "DateOfPurchase": "2019-10-10T00:00:00.000Z",
+      "Total sales": 45651
+    },
+    {
+      "DateOfPurchase": "2019-10-11T00:00:00.000Z",
+      "Total sales": 50089
+    },
+    {
+      "DateOfPurchase": "2019-10-12T00:00:00.000Z",
+      "Total sales": 42313
+    },
+    {
+      "DateOfPurchase": "2019-10-13T00:00:00.000Z",
+      "Total sales": 33675
+    },
+    {
+      "DateOfPurchase": "2019-10-14T00:00:00.000Z",
+      "Total sales": 36776
+    },
+    {
+      "DateOfPurchase": "2019-10-15T00:00:00.000Z",
+      "Total sales": 31889
+    },
+    {
+      "DateOfPurchase": "2019-10-16T00:00:00.000Z",
+      "Total sales": 34676
+    },
+    {
+      "DateOfPurchase": "2019-10-17T00:00:00.000Z",
+      "Total sales": 16038
+    },
+    {
+      "DateOfPurchase": "2019-10-18T00:00:00.000Z",
+      "Total sales": 33026
+    },
+    {
+      "DateOfPurchase": "2019-10-19T00:00:00.000Z",
+      "Total sales": 46913
+    },
+    {
+      "DateOfPurchase": "2019-10-20T00:00:00.000Z",
+      "Total sales": 42451
+    },
+    {
+      "DateOfPurchase": "2019-10-21T00:00:00.000Z",
+      "Total sales": 45976
+    },
+    {
+      "DateOfPurchase": "2019-10-22T00:00:00.000Z",
+      "Total sales": 38552
+    },
+    {
+      "DateOfPurchase": "2019-10-23T00:00:00.000Z",
+      "Total sales": 19377
+    },
+    {
+      "DateOfPurchase": "2019-10-24T00:00:00.000Z",
+      "Total sales": 26188
+    },
+    {
+      "DateOfPurchase": "2019-10-25T00:00:00.000Z",
+      "Total sales": 38025
+    },
+    {
+      "DateOfPurchase": "2019-10-26T00:00:00.000Z",
+      "Total sales": 58590
+    },
+    {
+      "DateOfPurchase": "2019-10-27T00:00:00.000Z",
+      "Total sales": 26826
+    },
+    {
+      "DateOfPurchase": "2019-10-28T00:00:00.000Z",
+      "Total sales": 38050
+    },
+    {
+      "DateOfPurchase": "2019-10-29T00:00:00.000Z",
+      "Total sales": 39714
+    },
+    {
+      "DateOfPurchase": "2019-10-30T00:00:00.000Z",
+      "Total sales": 50038
+    },
+    {
+      "DateOfPurchase": "2019-10-31T00:00:00.000Z",
+      "Total sales": 45366
+    },
+    {
+      "DateOfPurchase": "2019-11-01T00:00:00.000Z",
+      "Total sales": 89916
+    },
+    {
+      "DateOfPurchase": "2019-11-02T00:00:00.000Z",
+      "Total sales": 96703
+    },
+    {
+      "DateOfPurchase": "2019-11-03T00:00:00.000Z",
+      "Total sales": 72291
+    },
+    {
+      "DateOfPurchase": "2019-11-04T00:00:00.000Z",
+      "Total sales": 104341
+    },
+    {
+      "DateOfPurchase": "2019-11-05T00:00:00.000Z",
+      "Total sales": 66816
+    },
+    {
+      "DateOfPurchase": "2019-11-06T00:00:00.000Z",
+      "Total sales": 60788
+    },
+    {
+      "DateOfPurchase": "2019-11-07T00:00:00.000Z",
+      "Total sales": 91690
+    },
+    {
+      "DateOfPurchase": "2019-11-08T00:00:00.000Z",
+      "Total sales": 89177
+    },
+    {
+      "DateOfPurchase": "2019-11-09T00:00:00.000Z",
+      "Total sales": 66651
+    },
+    {
+      "DateOfPurchase": "2019-11-10T00:00:00.000Z",
+      "Total sales": 67952
+    },
+    {
+      "DateOfPurchase": "2019-11-11T00:00:00.000Z",
+      "Total sales": 97226
+    },
+    {
+      "DateOfPurchase": "2019-11-12T00:00:00.000Z",
+      "Total sales": 82665
+    },
+    {
+      "DateOfPurchase": "2019-11-13T00:00:00.000Z",
+      "Total sales": 95491
+    },
+    {
+      "DateOfPurchase": "2019-11-14T00:00:00.000Z",
+      "Total sales": 89515
+    },
+    {
+      "DateOfPurchase": "2019-11-15T00:00:00.000Z",
+      "Total sales": 64777
+    },
+    {
+      "DateOfPurchase": "2019-11-16T00:00:00.000Z",
+      "Total sales": 78752
+    },
+    {
+      "DateOfPurchase": "2019-11-17T00:00:00.000Z",
+      "Total sales": 44388
+    },
+    {
+      "DateOfPurchase": "2019-11-18T00:00:00.000Z",
+      "Total sales": 66463
+    },
+    {
+      "DateOfPurchase": "2019-11-19T00:00:00.000Z",
+      "Total sales": 74239
+    },
+    {
+      "DateOfPurchase": "2019-11-20T00:00:00.000Z",
+      "Total sales": 87078
+    },
+    {
+      "DateOfPurchase": "2019-11-21T00:00:00.000Z",
+      "Total sales": 68388
+    },
+    {
+      "DateOfPurchase": "2019-11-22T00:00:00.000Z",
+      "Total sales": 44740
+    },
+    {
+      "DateOfPurchase": "2019-11-23T00:00:00.000Z",
+      "Total sales": 66939
+    },
+    {
+      "DateOfPurchase": "2019-11-24T00:00:00.000Z",
+      "Total sales": 90727
+    },
+    {
+      "DateOfPurchase": "2019-11-25T00:00:00.000Z",
+      "Total sales": 52339
+    },
+    {
+      "DateOfPurchase": "2019-11-26T00:00:00.000Z",
+      "Total sales": 81240
+    },
+    {
+      "DateOfPurchase": "2019-11-27T00:00:00.000Z",
+      "Total sales": 97002
+    },
+    {
+      "DateOfPurchase": "2019-11-28T00:00:00.000Z",
+      "Total sales": 85877
+    },
+    {
+      "DateOfPurchase": "2019-11-29T00:00:00.000Z",
+      "Total sales": 101929
+    },
+    {
+      "DateOfPurchase": "2019-11-30T00:00:00.000Z",
+      "Total sales": 57452
+    },
+    {
+      "DateOfPurchase": "2019-12-01T00:00:00.000Z",
+      "Total sales": 78964
+    },
+    {
+      "DateOfPurchase": "2019-12-02T00:00:00.000Z",
+      "Total sales": 67940
+    },
+    {
+      "DateOfPurchase": "2019-12-03T00:00:00.000Z",
+      "Total sales": 55476
+    },
+    {
+      "DateOfPurchase": "2019-12-04T00:00:00.000Z",
+      "Total sales": 46190
+    },
+    {
+      "DateOfPurchase": "2019-12-05T00:00:00.000Z",
+      "Total sales": 75652
+    },
+    {
+      "DateOfPurchase": "2019-12-06T00:00:00.000Z",
+      "Total sales": 38051
+    },
+    {
+      "DateOfPurchase": "2019-12-07T00:00:00.000Z",
+      "Total sales": 36353
+    },
+    {
+      "DateOfPurchase": "2019-12-08T00:00:00.000Z",
+      "Total sales": 42601
+    },
+    {
+      "DateOfPurchase": "2019-12-09T00:00:00.000Z",
+      "Total sales": 65954
+    },
+    {
+      "DateOfPurchase": "2019-12-10T00:00:00.000Z",
+      "Total sales": 100026
+    },
+    {
+      "DateOfPurchase": "2019-12-11T00:00:00.000Z",
+      "Total sales": 56525
+    },
+    {
+      "DateOfPurchase": "2019-12-12T00:00:00.000Z",
+      "Total sales": 40200
+    },
+    {
+      "DateOfPurchase": "2019-12-13T00:00:00.000Z",
+      "Total sales": 60366
+    },
+    {
+      "DateOfPurchase": "2019-12-14T00:00:00.000Z",
+      "Total sales": 66741
+    },
+    {
+      "DateOfPurchase": "2019-12-15T00:00:00.000Z",
+      "Total sales": 83990
+    },
+    {
+      "DateOfPurchase": "2019-12-16T00:00:00.000Z",
+      "Total sales": 73001
+    },
+    {
+      "DateOfPurchase": "2019-12-17T00:00:00.000Z",
+      "Total sales": 64738
+    },
+    {
+      "DateOfPurchase": "2019-12-18T00:00:00.000Z",
+      "Total sales": 49127
+    },
+    {
+      "DateOfPurchase": "2019-12-19T00:00:00.000Z",
+      "Total sales": 67191
+    },
+    {
+      "DateOfPurchase": "2019-12-20T00:00:00.000Z",
+      "Total sales": 56051
+    },
+    {
+      "DateOfPurchase": "2019-12-21T00:00:00.000Z",
+      "Total sales": 62301
+    },
+    {
+      "DateOfPurchase": "2019-12-22T00:00:00.000Z",
+      "Total sales": 82416
+    },
+    {
+      "DateOfPurchase": "2019-12-23T00:00:00.000Z",
+      "Total sales": 54139
+    },
+    {
+      "DateOfPurchase": "2019-12-24T00:00:00.000Z",
+      "Total sales": 41453
+    },
+    {
+      "DateOfPurchase": "2019-12-25T00:00:00.000Z",
+      "Total sales": 43525
+    },
+    {
+      "DateOfPurchase": "2019-12-26T00:00:00.000Z",
+      "Total sales": 60390
+    },
+    {
+      "DateOfPurchase": "2019-12-27T00:00:00.000Z",
+      "Total sales": 47500
+    },
+    {
+      "DateOfPurchase": "2019-12-28T00:00:00.000Z",
+      "Total sales": 72889
+    },
+    {
+      "DateOfPurchase": "2019-12-29T00:00:00.000Z",
+      "Total sales": 68142
+    },
+    {
+      "DateOfPurchase": "2019-12-30T00:00:00.000Z",
+      "Total sales": 75951
+    },
+    {
+      "DateOfPurchase": "2019-12-31T00:00:00.000Z",
+      "Total sales": 76514
+    },
+    {
+      "DateOfPurchase": "2020-01-01T00:00:00.000Z",
+      "Total sales": 36913
+    },
+    {
+      "DateOfPurchase": "2020-01-02T00:00:00.000Z",
+      "Total sales": 32363
+    },
+    {
+      "DateOfPurchase": "2020-01-03T00:00:00.000Z",
+      "Total sales": 36463
+    },
+    {
+      "DateOfPurchase": "2020-01-04T00:00:00.000Z",
+      "Total sales": 21301
+    },
+    {
+      "DateOfPurchase": "2020-01-05T00:00:00.000Z",
+      "Total sales": 46713
+    },
+    {
+      "DateOfPurchase": "2020-01-06T00:00:00.000Z",
+      "Total sales": 22514
+    },
+    {
+      "DateOfPurchase": "2020-01-07T00:00:00.000Z",
+      "Total sales": 17750
+    },
+    {
+      "DateOfPurchase": "2020-01-08T00:00:00.000Z",
+      "Total sales": 38990
+    },
+    {
+      "DateOfPurchase": "2020-01-09T00:00:00.000Z",
+      "Total sales": 44277
+    },
+    {
+      "DateOfPurchase": "2020-01-10T00:00:00.000Z",
+      "Total sales": 41626
+    },
+    {
+      "DateOfPurchase": "2020-01-11T00:00:00.000Z",
+      "Total sales": 36288
+    },
+    {
+      "DateOfPurchase": "2020-01-12T00:00:00.000Z",
+      "Total sales": 20263
+    },
+    {
+      "DateOfPurchase": "2020-01-13T00:00:00.000Z",
+      "Total sales": 25001
+    },
+    {
+      "DateOfPurchase": "2020-01-14T00:00:00.000Z",
+      "Total sales": 24054
+    },
+    {
+      "DateOfPurchase": "2020-01-15T00:00:00.000Z",
+      "Total sales": 28741
+    },
+    {
+      "DateOfPurchase": "2020-01-16T00:00:00.000Z",
+      "Total sales": 30601
+    },
+    {
+      "DateOfPurchase": "2020-01-17T00:00:00.000Z",
+      "Total sales": 44425
+    },
+    {
+      "DateOfPurchase": "2020-01-18T00:00:00.000Z",
+      "Total sales": 59250
+    },
+    {
+      "DateOfPurchase": "2020-01-19T00:00:00.000Z",
+      "Total sales": 21138
+    },
+    {
+      "DateOfPurchase": "2020-01-20T00:00:00.000Z",
+      "Total sales": 37101
+    },
+    {
+      "DateOfPurchase": "2020-01-21T00:00:00.000Z",
+      "Total sales": 33566
+    },
+    {
+      "DateOfPurchase": "2020-01-22T00:00:00.000Z",
+      "Total sales": 30789
+    },
+    {
+      "DateOfPurchase": "2020-01-23T00:00:00.000Z",
+      "Total sales": 44813
+    },
+    {
+      "DateOfPurchase": "2020-01-24T00:00:00.000Z",
+      "Total sales": 35825
+    },
+    {
+      "DateOfPurchase": "2020-01-25T00:00:00.000Z",
+      "Total sales": 39251
+    },
+    {
+      "DateOfPurchase": "2020-01-26T00:00:00.000Z",
+      "Total sales": 37051
+    },
+    {
+      "DateOfPurchase": "2020-01-27T00:00:00.000Z",
+      "Total sales": 38700
+    },
+    {
+      "DateOfPurchase": "2020-01-28T00:00:00.000Z",
+      "Total sales": 31714
+    },
+    {
+      "DateOfPurchase": "2020-01-29T00:00:00.000Z",
+      "Total sales": 49703
+    },
+    {
+      "DateOfPurchase": "2020-01-30T00:00:00.000Z",
+      "Total sales": 63763
+    },
+    {
+      "DateOfPurchase": "2020-01-31T00:00:00.000Z",
+      "Total sales": 39566
+    },
+    {
+      "DateOfPurchase": "2020-02-01T00:00:00.000Z",
+      "Total sales": 26050
+    },
+    {
+      "DateOfPurchase": "2020-02-02T00:00:00.000Z",
+      "Total sales": 14838
+    },
+    {
+      "DateOfPurchase": "2020-02-03T00:00:00.000Z",
+      "Total sales": 16801
+    },
+    {
+      "DateOfPurchase": "2020-02-04T00:00:00.000Z",
+      "Total sales": 17600
+    },
+    {
+      "DateOfPurchase": "2020-02-05T00:00:00.000Z",
+      "Total sales": 12500
+    },
+    {
+      "DateOfPurchase": "2020-02-06T00:00:00.000Z",
+      "Total sales": 28500
+    },
+    {
+      "DateOfPurchase": "2020-02-07T00:00:00.000Z",
+      "Total sales": 19501
+    },
+    {
+      "DateOfPurchase": "2020-02-08T00:00:00.000Z",
+      "Total sales": 17763
+    },
+    {
+      "DateOfPurchase": "2020-02-09T00:00:00.000Z",
+      "Total sales": 30663
+    },
+    {
+      "DateOfPurchase": "2020-02-10T00:00:00.000Z",
+      "Total sales": 13500
+    },
+    {
+      "DateOfPurchase": "2020-02-11T00:00:00.000Z",
+      "Total sales": 28613
+    },
+    {
+      "DateOfPurchase": "2020-02-12T00:00:00.000Z",
+      "Total sales": 10425
+    },
+    {
+      "DateOfPurchase": "2020-02-13T00:00:00.000Z",
+      "Total sales": 23913
+    },
+    {
+      "DateOfPurchase": "2020-02-14T00:00:00.000Z",
+      "Total sales": 5001
+    },
+    {
+      "DateOfPurchase": "2020-02-15T00:00:00.000Z",
+      "Total sales": 20175
+    },
+    {
+      "DateOfPurchase": "2020-02-16T00:00:00.000Z",
+      "Total sales": 11651
+    },
+    {
+      "DateOfPurchase": "2020-02-17T00:00:00.000Z",
+      "Total sales": 15325
+    },
+    {
+      "DateOfPurchase": "2020-02-18T00:00:00.000Z",
+      "Total sales": 16989
+    },
+    {
+      "DateOfPurchase": "2020-02-19T00:00:00.000Z",
+      "Total sales": 13350
+    },
+    {
+      "DateOfPurchase": "2020-02-20T00:00:00.000Z",
+      "Total sales": 25450
+    },
+    {
+      "DateOfPurchase": "2020-02-21T00:00:00.000Z",
+      "Total sales": 12813
+    },
+    {
+      "DateOfPurchase": "2020-02-22T00:00:00.000Z",
+      "Total sales": 10050
+    },
+    {
+      "DateOfPurchase": "2020-02-23T00:00:00.000Z",
+      "Total sales": 12338
+    },
+    {
+      "DateOfPurchase": "2020-02-24T00:00:00.000Z",
+      "Total sales": 9125
+    },
+    {
+      "DateOfPurchase": "2020-02-25T00:00:00.000Z",
+      "Total sales": 11414
+    },
+    {
+      "DateOfPurchase": "2020-02-26T00:00:00.000Z",
+      "Total sales": 12538
+    },
+    {
+      "DateOfPurchase": "2020-02-27T00:00:00.000Z",
+      "Total sales": 15275
+    },
+    {
+      "DateOfPurchase": "2020-02-28T00:00:00.000Z",
+      "Total sales": 18113
+    },
+    {
+      "DateOfPurchase": "2020-03-01T00:00:00.000Z",
+      "Total sales": 18600
+    },
+    {
+      "DateOfPurchase": "2020-03-02T00:00:00.000Z",
+      "Total sales": 27663
+    },
+    {
+      "DateOfPurchase": "2020-03-03T00:00:00.000Z",
+      "Total sales": 24626
+    },
+    {
+      "DateOfPurchase": "2020-03-04T00:00:00.000Z",
+      "Total sales": 12275
+    },
+    {
+      "DateOfPurchase": "2020-03-05T00:00:00.000Z",
+      "Total sales": 16938
+    },
+    {
+      "DateOfPurchase": "2020-03-06T00:00:00.000Z",
+      "Total sales": 10375
+    },
+    {
+      "DateOfPurchase": "2020-03-07T00:00:00.000Z",
+      "Total sales": 21701
+    },
+    {
+      "DateOfPurchase": "2020-03-08T00:00:00.000Z",
+      "Total sales": 31125
+    },
+    {
+      "DateOfPurchase": "2020-03-09T00:00:00.000Z",
+      "Total sales": 24988
+    },
+    {
+      "DateOfPurchase": "2020-03-10T00:00:00.000Z",
+      "Total sales": 11664
+    },
+    {
+      "DateOfPurchase": "2020-03-11T00:00:00.000Z",
+      "Total sales": 20352
+    },
+    {
+      "DateOfPurchase": "2020-03-12T00:00:00.000Z",
+      "Total sales": 31713
+    },
+    {
+      "DateOfPurchase": "2020-03-13T00:00:00.000Z",
+      "Total sales": 31852
+    },
+    {
+      "DateOfPurchase": "2020-03-14T00:00:00.000Z",
+      "Total sales": 17289
+    },
+    {
+      "DateOfPurchase": "2020-03-15T00:00:00.000Z",
+      "Total sales": 22988
+    },
+    {
+      "DateOfPurchase": "2020-03-16T00:00:00.000Z",
+      "Total sales": 5677
+    },
+    {
+      "DateOfPurchase": "2020-03-17T00:00:00.000Z",
+      "Total sales": 12801
+    },
+    {
+      "DateOfPurchase": "2020-03-18T00:00:00.000Z",
+      "Total sales": 13025
+    },
+    {
+      "DateOfPurchase": "2020-03-19T00:00:00.000Z",
+      "Total sales": 28338
+    },
+    {
+      "DateOfPurchase": "2020-03-20T00:00:00.000Z",
+      "Total sales": 14088
+    },
+    {
+      "DateOfPurchase": "2020-03-21T00:00:00.000Z",
+      "Total sales": 17801
+    },
+    {
+      "DateOfPurchase": "2020-03-22T00:00:00.000Z",
+      "Total sales": 20775
+    },
+    {
+      "DateOfPurchase": "2020-03-23T00:00:00.000Z",
+      "Total sales": 22175
+    },
+    {
+      "DateOfPurchase": "2020-03-24T00:00:00.000Z",
+      "Total sales": 13576
+    },
+    {
+      "DateOfPurchase": "2020-03-25T00:00:00.000Z",
+      "Total sales": 20075
+    },
+    {
+      "DateOfPurchase": "2020-03-26T00:00:00.000Z",
+      "Total sales": 11825
+    },
+    {
+      "DateOfPurchase": "2020-03-27T00:00:00.000Z",
+      "Total sales": 13988
+    },
+    {
+      "DateOfPurchase": "2020-03-28T00:00:00.000Z",
+      "Total sales": 22225
+    },
+    {
+      "DateOfPurchase": "2020-03-29T00:00:00.000Z",
+      "Total sales": 13413
+    },
+    {
+      "DateOfPurchase": "2020-03-30T00:00:00.000Z",
+      "Total sales": 25876
+    },
+    {
+      "DateOfPurchase": "2020-03-31T00:00:00.000Z",
+      "Total sales": 28100
+    },
+    {
+      "DateOfPurchase": "2020-04-01T00:00:00.000Z",
+      "Total sales": 38575
+    },
+    {
+      "DateOfPurchase": "2020-04-02T00:00:00.000Z",
+      "Total sales": 37779
+    },
+    {
+      "DateOfPurchase": "2020-04-03T00:00:00.000Z",
+      "Total sales": 44475
+    },
+    {
+      "DateOfPurchase": "2020-04-04T00:00:00.000Z",
+      "Total sales": 40090
+    },
+    {
+      "DateOfPurchase": "2020-04-05T00:00:00.000Z",
+      "Total sales": 28825
+    },
+    {
+      "DateOfPurchase": "2020-04-06T00:00:00.000Z",
+      "Total sales": 38290
+    },
+    {
+      "DateOfPurchase": "2020-04-07T00:00:00.000Z",
+      "Total sales": 51050
+    },
+    {
+      "DateOfPurchase": "2020-04-08T00:00:00.000Z",
+      "Total sales": 36050
+    },
+    {
+      "DateOfPurchase": "2020-04-09T00:00:00.000Z",
+      "Total sales": 21539
+    },
+    {
+      "DateOfPurchase": "2020-04-10T00:00:00.000Z",
+      "Total sales": 15864
+    },
+    {
+      "DateOfPurchase": "2020-04-11T00:00:00.000Z",
+      "Total sales": 43850
+    },
+    {
+      "DateOfPurchase": "2020-04-12T00:00:00.000Z",
+      "Total sales": 22064
+    },
+    {
+      "DateOfPurchase": "2020-04-13T00:00:00.000Z",
+      "Total sales": 30151
+    },
+    {
+      "DateOfPurchase": "2020-04-14T00:00:00.000Z",
+      "Total sales": 27775
+    },
+    {
+      "DateOfPurchase": "2020-04-15T00:00:00.000Z",
+      "Total sales": 49126
+    },
+    {
+      "DateOfPurchase": "2020-04-16T00:00:00.000Z",
+      "Total sales": 38388
+    },
+    {
+      "DateOfPurchase": "2020-04-17T00:00:00.000Z",
+      "Total sales": 19727
+    },
+    {
+      "DateOfPurchase": "2020-04-18T00:00:00.000Z",
+      "Total sales": 22402
+    },
+    {
+      "DateOfPurchase": "2020-04-19T00:00:00.000Z",
+      "Total sales": 55589
+    },
+    {
+      "DateOfPurchase": "2020-04-20T00:00:00.000Z",
+      "Total sales": 25675
+    },
+    {
+      "DateOfPurchase": "2020-04-21T00:00:00.000Z",
+      "Total sales": 22926
+    },
+    {
+      "DateOfPurchase": "2020-04-22T00:00:00.000Z",
+      "Total sales": 19839
+    },
+    {
+      "DateOfPurchase": "2020-04-23T00:00:00.000Z",
+      "Total sales": 43676
+    },
+    {
+      "DateOfPurchase": "2020-04-24T00:00:00.000Z",
+      "Total sales": 51989
+    },
+    {
+      "DateOfPurchase": "2020-04-25T00:00:00.000Z",
+      "Total sales": 18176
+    },
+    {
+      "DateOfPurchase": "2020-04-26T00:00:00.000Z",
+      "Total sales": 27488
+    },
+    {
+      "DateOfPurchase": "2020-04-27T00:00:00.000Z",
+      "Total sales": 36763
+    },
+    {
+      "DateOfPurchase": "2020-04-28T00:00:00.000Z",
+      "Total sales": 40115
+    },
+    {
+      "DateOfPurchase": "2020-04-29T00:00:00.000Z",
+      "Total sales": 28838
+    },
+    {
+      "DateOfPurchase": "2020-04-30T00:00:00.000Z",
+      "Total sales": 38251
+    },
+    {
+      "DateOfPurchase": "2020-05-01T00:00:00.000Z",
+      "Total sales": 53175
+    },
+    {
+      "DateOfPurchase": "2020-05-02T00:00:00.000Z",
+      "Total sales": 54093
+    },
+    {
+      "DateOfPurchase": "2020-05-03T00:00:00.000Z",
+      "Total sales": 44364
+    },
+    {
+      "DateOfPurchase": "2020-05-04T00:00:00.000Z",
+      "Total sales": 43789
+    },
+    {
+      "DateOfPurchase": "2020-05-05T00:00:00.000Z",
+      "Total sales": 30939
+    },
+    {
+      "DateOfPurchase": "2020-05-06T00:00:00.000Z",
+      "Total sales": 51276
+    },
+    {
+      "DateOfPurchase": "2020-05-07T00:00:00.000Z",
+      "Total sales": 58626
+    },
+    {
+      "DateOfPurchase": "2020-05-08T00:00:00.000Z",
+      "Total sales": 45414
+    },
+    {
+      "DateOfPurchase": "2020-05-09T00:00:00.000Z",
+      "Total sales": 36976
+    },
+    {
+      "DateOfPurchase": "2020-05-10T00:00:00.000Z",
+      "Total sales": 56763
+    },
+    {
+      "DateOfPurchase": "2020-05-11T00:00:00.000Z",
+      "Total sales": 36513
+    },
+    {
+      "DateOfPurchase": "2020-05-12T00:00:00.000Z",
+      "Total sales": 51663
+    },
+    {
+      "DateOfPurchase": "2020-05-13T00:00:00.000Z",
+      "Total sales": 32077
+    },
+    {
+      "DateOfPurchase": "2020-05-14T00:00:00.000Z",
+      "Total sales": 37926
+    },
+    {
+      "DateOfPurchase": "2020-05-15T00:00:00.000Z",
+      "Total sales": 40652
+    },
+    {
+      "DateOfPurchase": "2020-05-16T00:00:00.000Z",
+      "Total sales": 28814
+    },
+    {
+      "DateOfPurchase": "2020-05-17T00:00:00.000Z",
+      "Total sales": 47427
+    },
+    {
+      "DateOfPurchase": "2020-05-18T00:00:00.000Z",
+      "Total sales": 56714
+    },
+    {
+      "DateOfPurchase": "2020-05-19T00:00:00.000Z",
+      "Total sales": 46302
+    },
+    {
+      "DateOfPurchase": "2020-05-20T00:00:00.000Z",
+      "Total sales": 67440
+    },
+    {
+      "DateOfPurchase": "2020-05-21T00:00:00.000Z",
+      "Total sales": 38527
+    },
+    {
+      "DateOfPurchase": "2020-05-22T00:00:00.000Z",
+      "Total sales": 45777
+    },
+    {
+      "DateOfPurchase": "2020-05-23T00:00:00.000Z",
+      "Total sales": 57577
+    },
+    {
+      "DateOfPurchase": "2020-05-24T00:00:00.000Z",
+      "Total sales": 45015
+    },
+    {
+      "DateOfPurchase": "2020-05-25T00:00:00.000Z",
+      "Total sales": 51350
+    },
+    {
+      "DateOfPurchase": "2020-05-26T00:00:00.000Z",
+      "Total sales": 36777
+    },
+    {
+      "DateOfPurchase": "2020-05-27T00:00:00.000Z",
+      "Total sales": 50663
+    },
+    {
+      "DateOfPurchase": "2020-05-28T00:00:00.000Z",
+      "Total sales": 40776
+    },
+    {
+      "DateOfPurchase": "2020-05-29T00:00:00.000Z",
+      "Total sales": 53676
+    },
+    {
+      "DateOfPurchase": "2020-05-30T00:00:00.000Z",
+      "Total sales": 47090
+    },
+    {
+      "DateOfPurchase": "2020-05-31T00:00:00.000Z",
+      "Total sales": 49065
+    },
+    {
+      "DateOfPurchase": "2020-06-01T00:00:00.000Z",
+      "Total sales": 31875
+    },
+    {
+      "DateOfPurchase": "2020-06-02T00:00:00.000Z",
+      "Total sales": 66240
+    },
+    {
+      "DateOfPurchase": "2020-06-03T00:00:00.000Z",
+      "Total sales": 46378
+    },
+    {
+      "DateOfPurchase": "2020-06-04T00:00:00.000Z",
+      "Total sales": 36713
+    },
+    {
+      "DateOfPurchase": "2020-06-05T00:00:00.000Z",
+      "Total sales": 20626
+    },
+    {
+      "DateOfPurchase": "2020-06-06T00:00:00.000Z",
+      "Total sales": 50363
+    },
+    {
+      "DateOfPurchase": "2020-06-07T00:00:00.000Z",
+      "Total sales": 53403
+    },
+    {
+      "DateOfPurchase": "2020-06-08T00:00:00.000Z",
+      "Total sales": 46476
+    },
+    {
+      "DateOfPurchase": "2020-06-09T00:00:00.000Z",
+      "Total sales": 54889
+    },
+    {
+      "DateOfPurchase": "2020-06-10T00:00:00.000Z",
+      "Total sales": 45615
+    },
+    {
+      "DateOfPurchase": "2020-06-11T00:00:00.000Z",
+      "Total sales": 47326
+    },
+    {
+      "DateOfPurchase": "2020-06-12T00:00:00.000Z",
+      "Total sales": 52052
+    },
+    {
+      "DateOfPurchase": "2020-06-13T00:00:00.000Z",
+      "Total sales": 46075
+    },
+    {
+      "DateOfPurchase": "2020-06-14T00:00:00.000Z",
+      "Total sales": 36078
+    },
+    {
+      "DateOfPurchase": "2020-06-15T00:00:00.000Z",
+      "Total sales": 61615
+    },
+    {
+      "DateOfPurchase": "2020-06-16T00:00:00.000Z",
+      "Total sales": 39989
+    },
+    {
+      "DateOfPurchase": "2020-06-17T00:00:00.000Z",
+      "Total sales": 44903
+    },
+    {
+      "DateOfPurchase": "2020-06-18T00:00:00.000Z",
+      "Total sales": 31413
+    },
+    {
+      "DateOfPurchase": "2020-06-19T00:00:00.000Z",
+      "Total sales": 44815
+    },
+    {
+      "DateOfPurchase": "2020-06-20T00:00:00.000Z",
+      "Total sales": 38702
+    },
+    {
+      "DateOfPurchase": "2020-06-21T00:00:00.000Z",
+      "Total sales": 41290
+    },
+    {
+      "DateOfPurchase": "2020-06-22T00:00:00.000Z",
+      "Total sales": 38364
+    },
+    {
+      "DateOfPurchase": "2020-06-23T00:00:00.000Z",
+      "Total sales": 61927
+    },
+    {
+      "DateOfPurchase": "2020-06-24T00:00:00.000Z",
+      "Total sales": 54213
+    },
+    {
+      "DateOfPurchase": "2020-06-25T00:00:00.000Z",
+      "Total sales": 52927
+    },
+    {
+      "DateOfPurchase": "2020-06-26T00:00:00.000Z",
+      "Total sales": 61126
+    },
+    {
+      "DateOfPurchase": "2020-06-27T00:00:00.000Z",
+      "Total sales": 41238
+    },
+    {
+      "DateOfPurchase": "2020-06-28T00:00:00.000Z",
+      "Total sales": 54702
+    },
+    {
+      "DateOfPurchase": "2020-06-29T00:00:00.000Z",
+      "Total sales": 68652
+    },
+    {
+      "DateOfPurchase": "2020-06-30T00:00:00.000Z",
+      "Total sales": 44101
+    },
+    {
+      "DateOfPurchase": "2020-07-01T00:00:00.000Z",
+      "Total sales": 43326
+    },
+    {
+      "DateOfPurchase": "2020-07-02T00:00:00.000Z",
+      "Total sales": 26289
+    },
+    {
+      "DateOfPurchase": "2020-07-03T00:00:00.000Z",
+      "Total sales": 53240
+    },
+    {
+      "DateOfPurchase": "2020-07-04T00:00:00.000Z",
+      "Total sales": 36463
+    },
+    {
+      "DateOfPurchase": "2020-07-05T00:00:00.000Z",
+      "Total sales": 33428
+    },
+    {
+      "DateOfPurchase": "2020-07-06T00:00:00.000Z",
+      "Total sales": 48864
+    },
+    {
+      "DateOfPurchase": "2020-07-07T00:00:00.000Z",
+      "Total sales": 26026
+    },
+    {
+      "DateOfPurchase": "2020-07-08T00:00:00.000Z",
+      "Total sales": 40489
+    },
+    {
+      "DateOfPurchase": "2020-07-09T00:00:00.000Z",
+      "Total sales": 20839
+    },
+    {
+      "DateOfPurchase": "2020-07-10T00:00:00.000Z",
+      "Total sales": 31664
+    },
+    {
+      "DateOfPurchase": "2020-07-11T00:00:00.000Z",
+      "Total sales": 41825
+    },
+    {
+      "DateOfPurchase": "2020-07-12T00:00:00.000Z",
+      "Total sales": 43314
+    },
+    {
+      "DateOfPurchase": "2020-07-13T00:00:00.000Z",
+      "Total sales": 30251
+    },
+    {
+      "DateOfPurchase": "2020-07-14T00:00:00.000Z",
+      "Total sales": 49915
+    },
+    {
+      "DateOfPurchase": "2020-07-15T00:00:00.000Z",
+      "Total sales": 10901
+    },
+    {
+      "DateOfPurchase": "2020-07-16T00:00:00.000Z",
+      "Total sales": 37751
+    },
+    {
+      "DateOfPurchase": "2020-07-17T00:00:00.000Z",
+      "Total sales": 22425
+    },
+    {
+      "DateOfPurchase": "2020-07-18T00:00:00.000Z",
+      "Total sales": 36326
+    },
+    {
+      "DateOfPurchase": "2020-07-19T00:00:00.000Z",
+      "Total sales": 21990
+    },
+    {
+      "DateOfPurchase": "2020-07-20T00:00:00.000Z",
+      "Total sales": 38564
+    },
+    {
+      "DateOfPurchase": "2020-07-21T00:00:00.000Z",
+      "Total sales": 33651
+    },
+    {
+      "DateOfPurchase": "2020-07-22T00:00:00.000Z",
+      "Total sales": 70051
+    },
+    {
+      "DateOfPurchase": "2020-07-23T00:00:00.000Z",
+      "Total sales": 48301
+    },
+    {
+      "DateOfPurchase": "2020-07-24T00:00:00.000Z",
+      "Total sales": 21964
+    },
+    {
+      "DateOfPurchase": "2020-07-25T00:00:00.000Z",
+      "Total sales": 40415
+    },
+    {
+      "DateOfPurchase": "2020-07-26T00:00:00.000Z",
+      "Total sales": 39689
+    },
+    {
+      "DateOfPurchase": "2020-07-27T00:00:00.000Z",
+      "Total sales": 38601
+    },
+    {
+      "DateOfPurchase": "2020-07-28T00:00:00.000Z",
+      "Total sales": 34727
+    },
+    {
+      "DateOfPurchase": "2020-07-29T00:00:00.000Z",
+      "Total sales": 23965
+    },
+    {
+      "DateOfPurchase": "2020-07-30T00:00:00.000Z",
+      "Total sales": 23163
+    },
+    {
+      "DateOfPurchase": "2020-07-31T00:00:00.000Z",
+      "Total sales": 21764
+    },
+    {
+      "DateOfPurchase": "2020-08-01T00:00:00.000Z",
+      "Total sales": 32875
+    },
+    {
+      "DateOfPurchase": "2020-08-02T00:00:00.000Z",
+      "Total sales": 55163
+    },
+    {
+      "DateOfPurchase": "2020-08-03T00:00:00.000Z",
+      "Total sales": 41563
+    },
+    {
+      "DateOfPurchase": "2020-08-04T00:00:00.000Z",
+      "Total sales": 44675
+    },
+    {
+      "DateOfPurchase": "2020-08-05T00:00:00.000Z",
+      "Total sales": 54400
+    },
+    {
+      "DateOfPurchase": "2020-08-06T00:00:00.000Z",
+      "Total sales": 51826
+    },
+    {
+      "DateOfPurchase": "2020-08-07T00:00:00.000Z",
+      "Total sales": 29226
+    },
+    {
+      "DateOfPurchase": "2020-08-08T00:00:00.000Z",
+      "Total sales": 47914
+    },
+    {
+      "DateOfPurchase": "2020-08-09T00:00:00.000Z",
+      "Total sales": 37700
+    },
+    {
+      "DateOfPurchase": "2020-08-10T00:00:00.000Z",
+      "Total sales": 40251
+    },
+    {
+      "DateOfPurchase": "2020-08-11T00:00:00.000Z",
+      "Total sales": 30189
+    },
+    {
+      "DateOfPurchase": "2020-08-12T00:00:00.000Z",
+      "Total sales": 47026
+    },
+    {
+      "DateOfPurchase": "2020-08-13T00:00:00.000Z",
+      "Total sales": 45014
+    },
+    {
+      "DateOfPurchase": "2020-08-14T00:00:00.000Z",
+      "Total sales": 34552
+    },
+    {
+      "DateOfPurchase": "2020-08-15T00:00:00.000Z",
+      "Total sales": 26914
+    },
+    {
+      "DateOfPurchase": "2020-08-16T00:00:00.000Z",
+      "Total sales": 39938
+    },
+    {
+      "DateOfPurchase": "2020-08-17T00:00:00.000Z",
+      "Total sales": 41625
+    },
+    {
+      "DateOfPurchase": "2020-08-18T00:00:00.000Z",
+      "Total sales": 30850
+    },
+    {
+      "DateOfPurchase": "2020-08-19T00:00:00.000Z",
+      "Total sales": 67601
+    },
+    {
+      "DateOfPurchase": "2020-08-20T00:00:00.000Z",
+      "Total sales": 47377
+    },
+    {
+      "DateOfPurchase": "2020-08-21T00:00:00.000Z",
+      "Total sales": 40026
+    },
+    {
+      "DateOfPurchase": "2020-08-22T00:00:00.000Z",
+      "Total sales": 29901
+    },
+    {
+      "DateOfPurchase": "2020-08-23T00:00:00.000Z",
+      "Total sales": 27602
+    },
+    {
+      "DateOfPurchase": "2020-08-24T00:00:00.000Z",
+      "Total sales": 42776
+    },
+    {
+      "DateOfPurchase": "2020-08-25T00:00:00.000Z",
+      "Total sales": 36151
+    },
+    {
+      "DateOfPurchase": "2020-08-26T00:00:00.000Z",
+      "Total sales": 35476
+    },
+    {
+      "DateOfPurchase": "2020-08-27T00:00:00.000Z",
+      "Total sales": 27627
+    },
+    {
+      "DateOfPurchase": "2020-08-28T00:00:00.000Z",
+      "Total sales": 49289
+    },
+    {
+      "DateOfPurchase": "2020-08-29T00:00:00.000Z",
+      "Total sales": 31426
+    },
+    {
+      "DateOfPurchase": "2020-08-30T00:00:00.000Z",
+      "Total sales": 39251
+    },
+    {
+      "DateOfPurchase": "2020-08-31T00:00:00.000Z",
+      "Total sales": 44001
+    },
+    {
+      "DateOfPurchase": "2020-09-01T00:00:00.000Z",
+      "Total sales": 25189
+    },
+    {
+      "DateOfPurchase": "2020-09-02T00:00:00.000Z",
+      "Total sales": 44538
+    },
+    {
+      "DateOfPurchase": "2020-09-03T00:00:00.000Z",
+      "Total sales": 35352
+    },
+    {
+      "DateOfPurchase": "2020-09-04T00:00:00.000Z",
+      "Total sales": 38489
+    },
+    {
+      "DateOfPurchase": "2020-09-05T00:00:00.000Z",
+      "Total sales": 36240
+    },
+    {
+      "DateOfPurchase": "2020-09-06T00:00:00.000Z",
+      "Total sales": 42889
+    },
+    {
+      "DateOfPurchase": "2020-09-07T00:00:00.000Z",
+      "Total sales": 29826
+    },
+    {
+      "DateOfPurchase": "2020-09-08T00:00:00.000Z",
+      "Total sales": 44113
+    },
+    {
+      "DateOfPurchase": "2020-09-09T00:00:00.000Z",
+      "Total sales": 22113
+    },
+    {
+      "DateOfPurchase": "2020-09-10T00:00:00.000Z",
+      "Total sales": 39740
+    },
+    {
+      "DateOfPurchase": "2020-09-11T00:00:00.000Z",
+      "Total sales": 25988
+    },
+    {
+      "DateOfPurchase": "2020-09-12T00:00:00.000Z",
+      "Total sales": 22566
+    },
+    {
+      "DateOfPurchase": "2020-09-13T00:00:00.000Z",
+      "Total sales": 38088
+    },
+    {
+      "DateOfPurchase": "2020-09-14T00:00:00.000Z",
+      "Total sales": 28928
+    },
+    {
+      "DateOfPurchase": "2020-09-15T00:00:00.000Z",
+      "Total sales": 38201
+    },
+    {
+      "DateOfPurchase": "2020-09-16T00:00:00.000Z",
+      "Total sales": 47738
+    },
+    {
+      "DateOfPurchase": "2020-09-17T00:00:00.000Z",
+      "Total sales": 18863
+    },
+    {
+      "DateOfPurchase": "2020-09-18T00:00:00.000Z",
+      "Total sales": 37926
+    },
+    {
+      "DateOfPurchase": "2020-09-19T00:00:00.000Z",
+      "Total sales": 32076
+    },
+    {
+      "DateOfPurchase": "2020-09-20T00:00:00.000Z",
+      "Total sales": 20301
+    },
+    {
+      "DateOfPurchase": "2020-09-21T00:00:00.000Z",
+      "Total sales": 40714
+    },
+    {
+      "DateOfPurchase": "2020-09-22T00:00:00.000Z",
+      "Total sales": 43439
+    },
+    {
+      "DateOfPurchase": "2020-09-23T00:00:00.000Z",
+      "Total sales": 32951
+    },
+    {
+      "DateOfPurchase": "2020-09-24T00:00:00.000Z",
+      "Total sales": 48089
+    },
+    {
+      "DateOfPurchase": "2020-09-25T00:00:00.000Z",
+      "Total sales": 47663
+    },
+    {
+      "DateOfPurchase": "2020-09-26T00:00:00.000Z",
+      "Total sales": 22188
+    },
+    {
+      "DateOfPurchase": "2020-09-27T00:00:00.000Z",
+      "Total sales": 23888
+    },
+    {
+      "DateOfPurchase": "2020-09-28T00:00:00.000Z",
+      "Total sales": 39513
+    },
+    {
+      "DateOfPurchase": "2020-09-29T00:00:00.000Z",
+      "Total sales": 62900
+    },
+    {
+      "DateOfPurchase": "2020-09-30T00:00:00.000Z",
+      "Total sales": 36988
+    },
+    {
+      "DateOfPurchase": "2020-10-01T00:00:00.000Z",
+      "Total sales": 27501
+    },
+    {
+      "DateOfPurchase": "2020-10-02T00:00:00.000Z",
+      "Total sales": 30291
+    },
+    {
+      "DateOfPurchase": "2020-10-03T00:00:00.000Z",
+      "Total sales": 22875
+    },
+    {
+      "DateOfPurchase": "2020-10-04T00:00:00.000Z",
+      "Total sales": 35463
+    },
+    {
+      "DateOfPurchase": "2020-10-05T00:00:00.000Z",
+      "Total sales": 22988
+    },
+    {
+      "DateOfPurchase": "2020-10-06T00:00:00.000Z",
+      "Total sales": 22751
+    },
+    {
+      "DateOfPurchase": "2020-10-07T00:00:00.000Z",
+      "Total sales": 38402
+    },
+    {
+      "DateOfPurchase": "2020-10-08T00:00:00.000Z",
+      "Total sales": 35052
+    },
+    {
+      "DateOfPurchase": "2020-10-09T00:00:00.000Z",
+      "Total sales": 17963
+    },
+    {
+      "DateOfPurchase": "2020-10-10T00:00:00.000Z",
+      "Total sales": 25065
+    },
+    {
+      "DateOfPurchase": "2020-10-11T00:00:00.000Z",
+      "Total sales": 61064
+    },
+    {
+      "DateOfPurchase": "2020-10-12T00:00:00.000Z",
+      "Total sales": 26388
+    },
+    {
+      "DateOfPurchase": "2020-10-13T00:00:00.000Z",
+      "Total sales": 38889
+    },
+    {
+      "DateOfPurchase": "2020-10-14T00:00:00.000Z",
+      "Total sales": 25902
+    },
+    {
+      "DateOfPurchase": "2020-10-15T00:00:00.000Z",
+      "Total sales": 25090
+    },
+    {
+      "DateOfPurchase": "2020-10-16T00:00:00.000Z",
+      "Total sales": 34127
+    },
+    {
+      "DateOfPurchase": "2020-10-17T00:00:00.000Z",
+      "Total sales": 38865
+    },
+    {
+      "DateOfPurchase": "2020-10-18T00:00:00.000Z",
+      "Total sales": 40766
+    },
+    {
+      "DateOfPurchase": "2020-10-19T00:00:00.000Z",
+      "Total sales": 35700
+    },
+    {
+      "DateOfPurchase": "2020-10-20T00:00:00.000Z",
+      "Total sales": 32013
+    },
+    {
+      "DateOfPurchase": "2020-10-21T00:00:00.000Z",
+      "Total sales": 40204
+    },
+    {
+      "DateOfPurchase": "2020-10-22T00:00:00.000Z",
+      "Total sales": 45028
+    },
+    {
+      "DateOfPurchase": "2020-10-23T00:00:00.000Z",
+      "Total sales": 21976
+    },
+    {
+      "DateOfPurchase": "2020-10-24T00:00:00.000Z",
+      "Total sales": 52313
+    },
+    {
+      "DateOfPurchase": "2020-10-25T00:00:00.000Z",
+      "Total sales": 27013
+    },
+    {
+      "DateOfPurchase": "2020-10-26T00:00:00.000Z",
+      "Total sales": 24876
+    },
+    {
+      "DateOfPurchase": "2020-10-27T00:00:00.000Z",
+      "Total sales": 37175
+    },
+    {
+      "DateOfPurchase": "2020-10-28T00:00:00.000Z",
+      "Total sales": 21453
+    },
+    {
+      "DateOfPurchase": "2020-10-29T00:00:00.000Z",
+      "Total sales": 47577
+    },
+    {
+      "DateOfPurchase": "2020-10-30T00:00:00.000Z",
+      "Total sales": 24628
+    },
+    {
+      "DateOfPurchase": "2020-10-31T00:00:00.000Z",
+      "Total sales": 36653
+    },
+    {
+      "DateOfPurchase": "2020-11-01T00:00:00.000Z",
+      "Total sales": 28678
+    },
+    {
+      "DateOfPurchase": "2020-11-02T00:00:00.000Z",
+      "Total sales": 44251
+    },
+    {
+      "DateOfPurchase": "2020-11-03T00:00:00.000Z",
+      "Total sales": 53267
+    },
+    {
+      "DateOfPurchase": "2020-11-04T00:00:00.000Z",
+      "Total sales": 77753
+    },
+    {
+      "DateOfPurchase": "2020-11-05T00:00:00.000Z",
+      "Total sales": 54727
+    },
+    {
+      "DateOfPurchase": "2020-11-06T00:00:00.000Z",
+      "Total sales": 69414
+    },
+    {
+      "DateOfPurchase": "2020-11-07T00:00:00.000Z",
+      "Total sales": 77141
+    },
+    {
+      "DateOfPurchase": "2020-11-08T00:00:00.000Z",
+      "Total sales": 110116
+    },
+    {
+      "DateOfPurchase": "2020-11-09T00:00:00.000Z",
+      "Total sales": 51079
+    },
+    {
+      "DateOfPurchase": "2020-11-10T00:00:00.000Z",
+      "Total sales": 78450
+    },
+    {
+      "DateOfPurchase": "2020-11-11T00:00:00.000Z",
+      "Total sales": 85166
+    },
+    {
+      "DateOfPurchase": "2020-11-12T00:00:00.000Z",
+      "Total sales": 56228
+    },
+    {
+      "DateOfPurchase": "2020-11-13T00:00:00.000Z",
+      "Total sales": 82439
+    },
+    {
+      "DateOfPurchase": "2020-11-14T00:00:00.000Z",
+      "Total sales": 68151
+    },
+    {
+      "DateOfPurchase": "2020-11-15T00:00:00.000Z",
+      "Total sales": 62976
+    },
+    {
+      "DateOfPurchase": "2020-11-16T00:00:00.000Z",
+      "Total sales": 47102
+    },
+    {
+      "DateOfPurchase": "2020-11-17T00:00:00.000Z",
+      "Total sales": 58239
+    },
+    {
+      "DateOfPurchase": "2020-11-18T00:00:00.000Z",
+      "Total sales": 47777
+    },
+    {
+      "DateOfPurchase": "2020-11-19T00:00:00.000Z",
+      "Total sales": 37200
+    },
+    {
+      "DateOfPurchase": "2020-11-20T00:00:00.000Z",
+      "Total sales": 64214
+    },
+    {
+      "DateOfPurchase": "2020-11-21T00:00:00.000Z",
+      "Total sales": 76865
+    },
+    {
+      "DateOfPurchase": "2020-11-22T00:00:00.000Z",
+      "Total sales": 55240
+    },
+    {
+      "DateOfPurchase": "2020-11-23T00:00:00.000Z",
+      "Total sales": 65978
+    },
+    {
+      "DateOfPurchase": "2020-11-24T00:00:00.000Z",
+      "Total sales": 52214
+    },
+    {
+      "DateOfPurchase": "2020-11-25T00:00:00.000Z",
+      "Total sales": 27277
+    },
+    {
+      "DateOfPurchase": "2020-11-26T00:00:00.000Z",
+      "Total sales": 80190
+    },
+    {
+      "DateOfPurchase": "2020-11-27T00:00:00.000Z",
+      "Total sales": 75903
+    },
+    {
+      "DateOfPurchase": "2020-11-28T00:00:00.000Z",
+      "Total sales": 41889
+    },
+    {
+      "DateOfPurchase": "2020-11-29T00:00:00.000Z",
+      "Total sales": 77890
+    },
+    {
+      "DateOfPurchase": "2020-11-30T00:00:00.000Z",
+      "Total sales": 109438
+    },
+    {
+      "DateOfPurchase": "2020-12-01T00:00:00.000Z",
+      "Total sales": 95427
+    },
+    {
+      "DateOfPurchase": "2020-12-02T00:00:00.000Z",
+      "Total sales": 69225
+    },
+    {
+      "DateOfPurchase": "2020-12-03T00:00:00.000Z",
+      "Total sales": 69027
+    },
+    {
+      "DateOfPurchase": "2020-12-04T00:00:00.000Z",
+      "Total sales": 85826
+    },
+    {
+      "DateOfPurchase": "2020-12-05T00:00:00.000Z",
+      "Total sales": 64913
+    },
+    {
+      "DateOfPurchase": "2020-12-06T00:00:00.000Z",
+      "Total sales": 59739
+    },
+    {
+      "DateOfPurchase": "2020-12-07T00:00:00.000Z",
+      "Total sales": 37803
+    },
+    {
+      "DateOfPurchase": "2020-12-08T00:00:00.000Z",
+      "Total sales": 77663
+    },
+    {
+      "DateOfPurchase": "2020-12-09T00:00:00.000Z",
+      "Total sales": 42976
+    },
+    {
+      "DateOfPurchase": "2020-12-10T00:00:00.000Z",
+      "Total sales": 105601
+    },
+    {
+      "DateOfPurchase": "2020-12-11T00:00:00.000Z",
+      "Total sales": 61201
+    },
+    {
+      "DateOfPurchase": "2020-12-12T00:00:00.000Z",
+      "Total sales": 70390
+    },
+    {
+      "DateOfPurchase": "2020-12-13T00:00:00.000Z",
+      "Total sales": 39751
+    },
+    {
+      "DateOfPurchase": "2020-12-14T00:00:00.000Z",
+      "Total sales": 83866
+    },
+    {
+      "DateOfPurchase": "2020-12-15T00:00:00.000Z",
+      "Total sales": 70814
+    },
+    {
+      "DateOfPurchase": "2020-12-16T00:00:00.000Z",
+      "Total sales": 76968
+    },
+    {
+      "DateOfPurchase": "2020-12-17T00:00:00.000Z",
+      "Total sales": 52538
+    },
+    {
+      "DateOfPurchase": "2020-12-18T00:00:00.000Z",
+      "Total sales": 46726
+    },
+    {
+      "DateOfPurchase": "2020-12-19T00:00:00.000Z",
+      "Total sales": 58089
+    },
+    {
+      "DateOfPurchase": "2020-12-20T00:00:00.000Z",
+      "Total sales": 37600
+    },
+    {
+      "DateOfPurchase": "2020-12-21T00:00:00.000Z",
+      "Total sales": 83088
+    },
+    {
+      "DateOfPurchase": "2020-12-22T00:00:00.000Z",
+      "Total sales": 37401
+    },
+    {
+      "DateOfPurchase": "2020-12-23T00:00:00.000Z",
+      "Total sales": 34090
+    },
+    {
+      "DateOfPurchase": "2020-12-24T00:00:00.000Z",
+      "Total sales": 93727
+    },
+    {
+      "DateOfPurchase": "2020-12-25T00:00:00.000Z",
+      "Total sales": 43401
+    },
+    {
+      "DateOfPurchase": "2020-12-26T00:00:00.000Z",
+      "Total sales": 37439
+    },
+    {
+      "DateOfPurchase": "2020-12-27T00:00:00.000Z",
+      "Total sales": 74789
+    },
+    {
+      "DateOfPurchase": "2020-12-28T00:00:00.000Z",
+      "Total sales": 47351
+    },
+    {
+      "DateOfPurchase": "2020-12-29T00:00:00.000Z",
+      "Total sales": 74227
+    },
+    {
+      "DateOfPurchase": "2020-12-30T00:00:00.000Z",
+      "Total sales": 108463
+    },
+    {
+      "DateOfPurchase": "2020-12-31T00:00:00.000Z",
+      "Total sales": 83026
+    }
+  ]
+}
