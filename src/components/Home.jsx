@@ -5,32 +5,24 @@ import './Home.css';
 function Home() {
   return (
     <div className="home">
-      <div className="container">
-        <div className="row row1 px-10">
+      <div className="container-fluid">
+        <div className="row colGrid">
 
 
 
           {/* -------------col one------------ */}
-          <div className="col-5 border firstCol gx-5">
-
-            <div className="row bg-primary col1row1 gx-10">
-              col 1, row 1
-            </div>
-
-            <div className="row col1row2 gx-10">
-              col 2, row 2
-            </div>
-
+          <div className="col-xs-12 colGrid  col-md-4 bg-warning">
+            col 1
           </div>
 
           {/* -------------col two------------ */}
-          <div className="col bg-warning">
+          <div className="col-xs-12 col-md-8 bg-warning colGrid">
 
-            <div className="row bg-secondary col2row1 m-lg">
+            <div className="row bg-secondary col2">
               row 1 col 2
             </div>
-            <div className="row bg-success col2row2">
-              row 1 col 2
+            <div className="row bg-success col2">
+              row 2 col 2
             </div>
 
           </div>

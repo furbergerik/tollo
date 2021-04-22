@@ -6,20 +6,14 @@
 } */
 
 /* --------------first column------------ */
-.col1row1{
-    height: 200px;
+.colGrid{
+    height: 93vh;
 }
-.col1row2{
-    height: 500px;
-}
+
 
 
 /* --------------second column------------ */
 
-.col2row1{
-    height: 50px;
+.col2{
+    height: 50%;
 }
-.col2row2{
-    height: 250px;
-}
-
