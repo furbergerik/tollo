@@ -1,19 +1,19 @@
 import React from "react";
 import { Doughnut } from 'react-chartjs-2';
 import './Home.css';
-import data from "../data"; 
+import data from "../data";
 
 var salesData = data["totSales"];
-console.log(salesData)
+// console.log(salesData)
 var dateList = [];
 var totSalesList = [];
-for(var i in salesData){
-dateList.push(salesData[i]["DateOfPurchase"])
-totSalesList.push(salesData[i]["Total sales"])
+for (var i in salesData) {
+  dateList.push(salesData[i]["DateOfPurchase"])
+  totSalesList.push(salesData[i]["Total sales"])
 }
 
-console.log(dateList[30])
-console.log(totSalesList[30])
+// console.log(dateList[30])
+// console.log(totSalesList[30])
 
 
 
@@ -29,7 +29,7 @@ console.log(totSalesList[30])
 //     const linnerArr = innerArr[j].map((number) =>
 //     <li>{number}</li>
 // );
-    
+
 //   }
 // }
 
@@ -42,8 +42,8 @@ function Home() {
 
           {/* -------------col one------------ */}
           <div className="col-xs-12 colGrid  col-md-4 bg-warning">
-          <ul>
-                
+            <ul>
+
             </ul>
           </div>
 
