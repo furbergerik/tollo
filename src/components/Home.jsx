@@ -2,20 +2,68 @@ import React from "react";
 import { Doughnut } from 'react-chartjs-2';
 import './Home.css';
 import data from "../data";
+var totSalesList = [];
 
 var salesData = data["totSales"];
-// console.log(salesData)
 var dateList = [];
-var totSalesList = [];
 for (var i in salesData) {
-  dateList.push(salesData[i]["DateOfPurchase"])
-  totSalesList.push(salesData[i]["Total sales"])
+  var date = []
+  date.push(salesData[i]["Year"])
+  date.push(salesData[i]["Month"])
+  date.push(salesData[i]["Day"])
+  dateList.push(date)
+  var listEle = []
+  listEle.push(date)
+  listEle.push(salesData[i]["Total sales"])
+  totSalesList.push(listEle)
 }
 
-// console.log(dateList[30])
-// console.log(totSalesList[30])
 
+console.log(totSalesList)
+var listMonthSales = []
+var curMonth = [totSalesList[0][0][0], totSalesList[0][0][1]]
+var monthValue = 0;
+for (var i in totSalesList) {
 
+  if (totSalesList[i][0][1] != curMonth[1]) {
+    listMonthSales.push([curMonth, monthValue])
+    curMonth = [totSalesList[i][0][0], totSalesList[i][0][1]]
+    monthValue = 0
+  }
+  monthValue += totSalesList[i][1]
+}
+listMonthSales.push([curMonth, monthValue])
+console.log(listMonthSales)
+
+var listYearhSales = []
+var curYear = listMonthSales[0][0][0]
+var yearValue = 0;
+for (var i in listMonthSales) {
+  if (listMonthSales[i][0][0] != curYear) {
+    listYearhSales.push([curYear, yearValue])
+    curYear = listMonthSales[i][0][0]
+    yearValue = 0
+  }
+  yearValue += listMonthSales[i][1]
+}
+listYearhSales.push([curYear, yearValue])
+console.log(listYearhSales)
+var thisYear = 2019;
+var thisMonth = 9
+var lastRev = 0;
+var currRev = 0;
+for (var i in listMonthSales) {
+  if (listMonthSales[i][0][0] == thisYear - 1 && listMonthSales[i][0][1] == thisMonth) {
+    lastRev = listMonthSales[i][1]
+  }
+  if (listMonthSales[i][0][0] == thisYear && listMonthSales[i][0][1] == thisMonth) {
+    currRev = listMonthSales[i][1]
+  }
+}
+console.log(currRev)
+console.log(lastRev)
+var diff = (currRev / lastRev) * 100 - 100;
+console.log("omsättningsskilnad: ", diff, "%")
 
 // for (var i in dataArr1) {
 //   console.log("inre delen av dataArr1");  //tre stycken arrays med data!
