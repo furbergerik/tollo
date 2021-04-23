@@ -1,4 +1,6 @@
 import React from "react";
+import Chart from 'chart.js';
+import Component from 'react';
 import ReactDOM from 'react-dom';
 import { Bar } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
@@ -6,7 +8,7 @@ import testData from './testdata.json';
 <script src="https://d3js.org/d3.v6.js"></script>
 
 
-var dateList, totSalesList = getData();
+
 function getData() {
   var salesData = testData["totSales"];
   // console.log(salesData)
@@ -26,8 +28,12 @@ function getData() {
   };
 }
 
+
+
+
 class Overview extends React.Component {
   state = {
+    data: getData()
   }
 
   render() {
@@ -49,13 +55,12 @@ class Overview extends React.Component {
             <div>
               <Bar
                 data={{
-                  labels: ['Red', 'Blue', 'Yellow'],
+                  labels: this.state.data.dateList,
                   datasets: [{
                     label: 'Data set #1',
-                    data: { totSalesList },
-                    backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)'
-                    ],
+                    data: this.state.data.totSalesList,
+                    backgroundColor:
+                      'rgba(255, 99, 132, 0.2)',
                     borderWidth: 1
                   },
                   ],

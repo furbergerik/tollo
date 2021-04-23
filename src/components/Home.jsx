@@ -19,7 +19,7 @@ for (var i in salesData) {
 }
 
 
-console.log(totSalesList)
+// console.log(totSalesList)
 var listMonthSales = []
 var curMonth = [totSalesList[0][0][0], totSalesList[0][0][1]]
 var monthValue = 0;
@@ -33,7 +33,7 @@ for (var i in totSalesList) {
   monthValue += totSalesList[i][1]
 }
 listMonthSales.push([curMonth, monthValue])
-console.log(listMonthSales)
+// console.log(listMonthSales)
 
 var listYearhSales = []
 var curYear = listMonthSales[0][0][0]
@@ -60,26 +60,10 @@ for (var i in listMonthSales) {
     currRev = listMonthSales[i][1]
   }
 }
-console.log(currRev)
-console.log(lastRev)
+// console.log(currRev)
+// console.log(lastRev)
 var diff = (currRev / lastRev) * 100 - 100;
-console.log("omsättningsskilnad: ", diff, "%")
-
-// for (var i in dataArr1) {
-//   console.log("inre delen av dataArr1");  //tre stycken arrays med data!
-
-
-//   var innerArr = dataArr1[i];
-//   console.log("varv: " + i);
-//   console.log(innerArr);
-
-//   for (var j in innerArr) {
-//     const linnerArr = innerArr[j].map((number) =>
-//     <li>{number}</li>
-// );
-
-//   }
-// }
+// console.log("omsättningsskilnad: ", diff, "%")
 
 function Home() {
 
