@@ -8,26 +8,51 @@ import { Bar } from 'react-chartjs-2';
 var totSalesList = [];
 
 function getDaylyData(year, month, dataType) {
-  var salesData = data["totSales"];
+  var salesData = data["prodSales"];
   var listDay = [];
   for (var i in salesData) {
     if (salesData[i]["Year"] == year && salesData[i]["Month"] == month) {
       listDay.push(salesData[i][dataType])
     }
   }
-
+  //console.log("ny test:  ",listDay)
   return listDay
 }
 
 function getMonthlyData(year, dataType) {
   var listMonth = [];
+  var labelMonth = []
   for (var i = 1; i < 13; i++) {
     var monthTot = sumArr(getDaylyData(year, i, dataType))
     listMonth.push(monthTot)
   }
-  console.log(listMonth)
+  //console.log(listMonth)
   return listMonth
 }
+
+function getYearlyyData(dataType) {
+  var salesData = data["totSales"];
+  var listYear = [];
+  var year = salesData[0]["Year"];
+  var labelYear = [year];
+  var yearCount = 1;
+  for (var i in salesData) {
+    if (year != salesData[i]["Year"]) {
+      yearCount += 1;
+      year = salesData[i]["Year"]
+      labelYear.push(year)
+    }
+  }
+  year = year -yearCount + 1
+  for (var i = 0; i < yearCount; i++) {
+    var yearTot = sumArr(getMonthlyData(year+i,dataType))
+    listYear.push(yearTot)
+  }
+  console.log(labelYear)
+  return {labelYear,listYear}
+}
+
+
 
 function sumArr(arr) {
   //var arr=Object.values(obj)
@@ -36,10 +61,8 @@ function sumArr(arr) {
   }, 0);
 }
 
-var listKing = getDaylyData(2019, 1, "Total sales");
-getMonthlyData(2019, "Total sales")
-console.log(sumArr(listKing))
 
+console.log(getDaylyData(2019, 3, "Sales"))
 
 
 // var salesData = salesData["totSales"];
