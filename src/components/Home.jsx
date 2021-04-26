@@ -25,8 +25,8 @@ function getMonthlyData(year, dataType) {
     var monthTot = sumArr(getDaylyData(year, i, dataType))
     listMonth.push(monthTot)
   }
-  console.log(listMonth)
-  return listMonth
+  console.log(listMonth, year)
+  // return listMonth
 }
 
 function sumArr(arr) {
@@ -36,92 +36,6 @@ function sumArr(arr) {
   }, 0);
 }
 
-var listKing = getDaylyData(2019, 1, "Total sales");
-getMonthlyData(2019, "Total sales")
-console.log(sumArr(listKing))
-
-
-
-// var salesData = salesData["totSales"];
-
-
-
-// var dateList = [];
-// for (var i in salesData) {
-//   var date = []
-//   date.push(salesData[i]["Year"])
-//   date.push(salesData[i]["Month"])
-//   date.push(salesData[i]["Day"])
-//   dateList.push(date)
-//   var listEle = []
-//   listEle.push(date)
-//   listEle.push(salesData[i]["Total sales"])
-//   totSalesList.push(listEle)
-// }
-// console.log(totSalesList)
-
-
-// console.log(totSalesList)
-// var listMonthSales = []
-// var curMonth = [totSalesList[0][0][0], totSalesList[0][0][1]]
-// var monthValue = 0;
-// for (var i in totSalesList) {
-
-//   if (totSalesList[i][0][1] != curMonth[1]) {
-//     listMonthSales.push([curMonth, monthValue])
-//     curMonth = [totSalesList[i][0][0], totSalesList[i][0][1]]
-//     monthValue = 0
-//   }
-//   monthValue += totSalesList[i][1]
-// }
-// listMonthSales.push([curMonth, monthValue])
-// console.log(listMonthSales)
-
-// var listYearhSales = []
-// var curYear = listMonthSales[0][0][0]
-// var yearValue = 0;
-// for (var i in listMonthSales) {
-//   if (listMonthSales[i][0][0] != curYear) {
-//     listYearhSales.push([curYear, yearValue])
-//     curYear = listMonthSales[i][0][0]
-//     yearValue = 0
-//   }
-//   yearValue += listMonthSales[i][1]
-// }
-// listYearhSales.push([curYear, yearValue])
-// console.log(listMonthSales)
-// var thisYear = 2019;
-// var thisMonth = 9
-// var lastRev = 0;
-// var currRev = 0;
-// for (var i in listMonthSales) {
-//   if (listMonthSales[i][0][0] == thisYear-1 && listMonthSales[i][0][1] == thisMonth){
-//     lastRev = listMonthSales[i][1]
-//   }
-//   if (listMonthSales[i][0][0] == thisYear && listMonthSales[i][0][1] == thisMonth){
-//     currRev = listMonthSales[i][1]
-//   }
-// }
-// console.log(currRev)
-// console.log(lastRev)
-// var diff = (currRev/lastRev)*100 - 100;
-// console.log("omsättningsskilnad: ", diff,"%")
-
-// for (var i in dataArr1) {
-//   console.log("inre delen av dataArr1");  //tre stycken arrays med data!
-
-
-//   var innerArr = dataArr1[i];
-//   console.log("varv: " + i);
-//   console.log(innerArr);
-
-//   for (var j in innerArr) {
-//     const linnerArr = innerArr[j].map((number) =>
-//     <li>{number}</li>
-// );
-
-//   }
-// }
 
 function Home() {
 
@@ -131,6 +45,16 @@ function Home() {
         <div className="row colGrid">
           {/* -------------col one------------ */}
           <div className="col-xs-12 colGrid  col-md-4 bg-warning">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Pick year!
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#1" onClick={getMonthlyData(2018, "Total sales")}>2018</a>
+                <a class="dropdown-item" href="#2" onClick={getMonthlyData(2019, "Total sales")}>2019</a>
+                <a class="dropdown-item" href="#3" onClick={getMonthlyData(2020, "Total sales"), console.log('klickade 2020')}>2020</a>
+              </div>
+            </div>
             <CountUp
               start={-875.039}
               end={160527.012}
