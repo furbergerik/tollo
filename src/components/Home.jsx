@@ -8,7 +8,7 @@ import { Bar } from 'react-chartjs-2';
 var totSalesList = [];
 
 function getDaylyData(year, month, dataType) {
-  var salesData = data["prodSales"];
+  var salesData = data["totSales"];
   var listDay = [];
   for (var i in salesData) {
     if (salesData[i]["Year"] == year && salesData[i]["Month"] == month) {
@@ -17,6 +17,31 @@ function getDaylyData(year, month, dataType) {
   }
   //console.log("ny test:  ",listDay)
   return listDay
+}
+
+
+function getWeeklyDaylyData(year, week, dataType) {
+  var salesData = data["totSales"];
+  var listDayInWeek = [];
+  if (week == 1) {
+    for (var i in salesData) {
+      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week && salesData[i]["Month"] == 1) {
+        listDayInWeek.push(salesData[i][dataType])
+      }
+      else if (salesData[i]["Year"] == year - 1 && salesData[i]["Week"] == week && salesData[i]["Month"] == 12) {
+        listDayInWeek.push(salesData[i][dataType])
+      }
+    }
+  }
+  else {
+    for (var i in salesData) {
+      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week) {
+        listDayInWeek.push(salesData[i][dataType])
+      }
+    }
+  }
+  //console.log("ny test:  ",listDay)
+  return listDayInWeek
 }
 
 function getMonthlyData(year, dataType) {
@@ -30,7 +55,7 @@ function getMonthlyData(year, dataType) {
   return listMonth
 }
 
-function getYearlyyData(dataType) {
+function getYearlyData(dataType) {
   var salesData = data["totSales"];
   var listYear = [];
   var year = salesData[0]["Year"];
@@ -43,13 +68,13 @@ function getYearlyyData(dataType) {
       labelYear.push(year)
     }
   }
-  year = year -yearCount + 1
+  year = year - yearCount + 1
   for (var i = 0; i < yearCount; i++) {
-    var yearTot = sumArr(getMonthlyData(year+i,dataType))
+    var yearTot = sumArr(getMonthlyData(year + i, dataType))
     listYear.push(yearTot)
   }
   console.log(labelYear)
-  return {labelYear,listYear}
+  return { labelYear, listYear }
 }
 
 
@@ -62,7 +87,7 @@ function sumArr(arr) {
 }
 
 
-console.log(getDaylyData(2019, 3, "Sales"))
+console.log(getWeeklyDaylyData(2019,27, "Total sales"))
 
 
 // var salesData = salesData["totSales"];
