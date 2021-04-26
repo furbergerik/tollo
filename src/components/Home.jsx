@@ -19,17 +19,15 @@ function getDaylyData(year, month, dataType) {
   return listDay
 }
 
-// function getMonthlyData(year, dataType){
-//   var salesData = data["totSales"];
-//   for (var i = 0; i < 12; i++) {
-//    if(salesData[i]["Year"] == year){
-//      if(f)
-//       getDaylyData(year, salesData[i]["Month"], dataType)
-//      listDay.push(salesData[i][dataType])
-//    }
-// }
-// return{listDay}
-// }
+function getMonthlyData(year, dataType) {
+  var listMonth = [];
+  for (var i = 1; i < 13; i++) {
+    var monthTot = sumArr(getDaylyData(year, i, dataType))
+    listMonth.push(monthTot)
+  }
+  console.log(listMonth)
+  return listMonth
+}
 
 function sumArr(arr) {
   //var arr=Object.values(obj)
@@ -38,7 +36,8 @@ function sumArr(arr) {
   }, 0);
 }
 
-var listKing = getDaylyData(2018, 1, "Total sales");
+var listKing = getDaylyData(2019, 1, "Total sales");
+getMonthlyData(2019, "Total sales")
 console.log(sumArr(listKing))
 
 
