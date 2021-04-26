@@ -7,16 +7,16 @@ import { Bar } from 'react-chartjs-2';
 
 var totSalesList = [];
 
-function getDaylyData(year, month, dataType){
-   var salesData = data["totSales"];
+function getDaylyData(year, month, dataType) {
+  var salesData = data["totSales"];
   var listDay = [];
-  for(var i in salesData) {
-    if(salesData[i]["Year"] == year && salesData[i]["Month"] == month){
+  for (var i in salesData) {
+    if (salesData[i]["Year"] == year && salesData[i]["Month"] == month) {
       listDay.push(salesData[i][dataType])
     }
-}
-//console.log("ny test:  ",listDay)
-return listDay
+  }
+
+  return listDay
 }
 
 // function getMonthlyData(year, dataType){
@@ -31,14 +31,14 @@ return listDay
 // return{listDay}
 // }
 
-function sumArr(arr){
+function sumArr(arr) {
   //var arr=Object.values(obj)
-  return arr.reduce(function(a,b){
+  return arr.reduce(function (a, b) {
     return a + b
   }, 0);
 }
 
-var listKing = getDaylyData(2018,1, "Total sales");
+var listKing = getDaylyData(2018, 1, "Total sales");
 console.log(sumArr(listKing))
 
 
@@ -132,25 +132,25 @@ function Home() {
         <div className="row colGrid">
           {/* -------------col one------------ */}
           <div className="col-xs-12 colGrid  col-md-4 bg-warning">
-          <CountUp
-  start={-875.039}
-  end={160527.012}
-  duration={2.75}
-  separator=" "
-  decimals={4}
-  decimal=","
-  prefix="EUR "
-  suffix=" left"
-  onEnd={() => console.log('Ended! 👏')}
-  onStart={() => console.log('Started! 💨')}
->
-  {({ countUpRef, start }) => (
-    <div>
-      <span ref={countUpRef} />
-      <button onClick={start}>Start</button>
-    </div>
-  )}
-</CountUp>
+            <CountUp
+              start={-875.039}
+              end={160527.012}
+              duration={2.75}
+              separator=" "
+              decimals={4}
+              decimal=","
+              prefix="EUR "
+              suffix=" left"
+              onEnd={() => console.log('Ended! 👏')}
+              onStart={() => console.log('Started! 💨')}
+            >
+              {({ countUpRef, start }) => (
+                <div>
+                  <span ref={countUpRef} />
+                  <button onClick={start}>Start</button>
+                </div>
+              )}
+            </CountUp>
           </div>
 
           {/* -------------col two------------ */}
