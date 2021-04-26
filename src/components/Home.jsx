@@ -16,13 +16,39 @@ function getDaylyData(year, month, dataType) {
       listDay.push(salesData[i][dataType])
     }
   }
-
+  //console.log("ny test:  ",listDay)
   return listDay
+}
+
+
+function getWeeklyDaylyData(year, week, dataType) {
+  var salesData = data["totSales"];
+  var listDayInWeek = [];
+  if (week == 1) {
+    for (var i in salesData) {
+      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week && salesData[i]["Month"] == 1) {
+        listDayInWeek.push(salesData[i][dataType])
+      }
+      else if (salesData[i]["Year"] == year - 1 && salesData[i]["Week"] == week && salesData[i]["Month"] == 12) {
+        listDayInWeek.push(salesData[i][dataType])
+      }
+    }
+  }
+  else {
+    for (var i in salesData) {
+      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week) {
+        listDayInWeek.push(salesData[i][dataType])
+      }
+    }
+  }
+  //console.log("ny test:  ",listDay)
+  return listDayInWeek
 }
 
 function getMonthlyData(year, dataType) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
+  var labelMonth = []
   for (var i = 1; i < 13; i++) {
     var monthTot = sumArr(getDaylyData(year, i, dataType))
     listMonth.push(monthTot)
@@ -30,6 +56,30 @@ function getMonthlyData(year, dataType) {
   // console.log(listMonth, year)
   return [listMonth, monthNames]
 }
+
+function getYearlyData(dataType) {
+  var salesData = data["totSales"];
+  var listYear = [];
+  var year = salesData[0]["Year"];
+  var labelYear = [year];
+  var yearCount = 1;
+  for (var i in salesData) {
+    if (year != salesData[i]["Year"]) {
+      yearCount += 1;
+      year = salesData[i]["Year"]
+      labelYear.push(year)
+    }
+  }
+  year = year - yearCount + 1
+  for (var i = 0; i < yearCount; i++) {
+    var yearTot = sumArr(getMonthlyData(year + i, dataType))
+    listYear.push(yearTot)
+  }
+  console.log(labelYear)
+  return { labelYear, listYear }
+}
+
+
 
 function sumArr(arr) {
   //var arr=Object.values(obj)
