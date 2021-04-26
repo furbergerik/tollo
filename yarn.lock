@@ -3747,6 +3747,11 @@
     "path-type" "^4.0.0"
     "yaml" "^1.10.0"
 
+"countup.js@^1.9.3":
+  "integrity" "sha1-zj5QzXFgRB5HjwfaMYle3MDxyd0="
+  "resolved" "https://registry.npmjs.org/countup.js/-/countup.js-1.9.3.tgz"
+  "version" "1.9.3"
+
 "create-ecdh@^4.0.0":
   "integrity" "sha512-mf+TCx8wWc9VpuxfP2ht0iSISLZnt0JgWlrOKZiNqyUZWnjIaCIVNQArMHnCZKfEYRg6IM7A+NeJoN8gf/Ws0A=="
   "resolved" "https://registry.npmjs.org/create-ecdh/-/create-ecdh-4.0.4.tgz"
@@ -9482,6 +9487,15 @@
   dependencies:
     "lodash" "^4.17.19"
     "prop-types" "^15.7.2"
+
+"react-countup@^4.3.3":
+  "integrity" "sha512-pWnxpwdPNRyJFha/YKKbyc4RLAw8PzmULdgCziGIgw6vxhT1VdccrvQgj38HBSoM2qF/MoLmn4M2klvDWVIdaw=="
+  "resolved" "https://registry.npmjs.org/react-countup/-/react-countup-4.3.3.tgz"
+  "version" "4.3.3"
+  dependencies:
+    "countup.js" "^1.9.3"
+    "prop-types" "^15.7.2"
+    "warning" "^4.0.3"
 
 "react-csv-reader@^3.3.0":
   "integrity" "sha512-0czNqDVtZeqqPPoG3+ov8o/gWLYGN99HWi1v7y730qW0v0TNGKDZcM8zD3IkCJjvRfOdkH89xPc/+Xw+Q20Zng=="

@@ -1,19 +1,45 @@
 import React from "react";
+import Chart from 'chart.js';
+import Component from 'react';
 import ReactDOM from 'react-dom';
 import { Bar } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
+import testData from './testdata.json';
+import data from '../data.json';
 <script src="https://d3js.org/d3.v6.js"></script>
+
+
+
+function getData() {
+  var salesData = testData["totSales"];
+  // console.log(salesData)
+  var dateList = [];
+  var totSalesList = [];
+  for (var i in salesData) {
+    dateList.push(salesData[i]["DateOfPurchase"])
+    totSalesList.push(salesData[i]["Total sales"])
+  }
+  totSalesList = totSalesList.map(String);
+  console.log("Från funktionen getData:")
+  console.log(dateList)
+  console.log(totSalesList)
+
+  return {
+    dateList, totSalesList
+  };
+}
+
+
 
 
 class Overview extends React.Component {
   state = {
+    data: getData()
   }
 
   render() {
-    // <Test />
     return (
       <div className="container-fluid">
-        {/* <div>{getData()}</div> */}
         <div className="row row1 mw-100">
           <div className="col-6">
             <h1>Bar Chart</h1>
@@ -30,34 +56,14 @@ class Overview extends React.Component {
             <div>
               <Bar
                 data={{
-                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                  labels: this.state.data.dateList,
                   datasets: [{
                     label: 'Data set #1',
-                    data: [10, 10, 19, 5, 12, 3],
-                    backgroundColor: [
+                    data: this.state.data.totSalesList,
+                    backgroundColor:
                       'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)'
-                    ],
                     borderWidth: 1
                   },
-                  {
-                    label: 'Data set #2',
-                    data: [101.5, 120, 129, 115, 112, 103],
-                  }
-
-
                   ],
                 }}
 
@@ -85,10 +91,10 @@ class Overview extends React.Component {
             <div className="text-align-center align-self-center bg-primary" >hej</div>
             <Doughnut
               data={{
-                labels: ['Red', 'Blue', 'Yellow'],
+                labels: this.state.data.dateList,
                 datasets: [{
                   label: 'Data set #1',
-                  data: [15, 20, 7],
+                  data: this.state.data.totSalesList,
                   backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

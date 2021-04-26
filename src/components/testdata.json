@@ -1,0 +1,16 @@
+{
+    "totSales": [
+        {
+            "DateOfPurchase": "2018-01-01T00:00:00.000Z",
+            "Total sales": 37726
+        },
+        {
+            "DateOfPurchase": "2018-01-02T00:00:00.000Z",
+            "Total sales": 29438
+        },
+        {
+            "DateOfPurchase": "2018-01-03T00:00:00.000Z",
+            "Total sales": 39477
+        }
+    ]
+}
