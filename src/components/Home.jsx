@@ -2,7 +2,35 @@ import React from "react";
 import { Doughnut } from 'react-chartjs-2';
 import './Home.css';
 import data from "../data";
+
+
+
+function getMonthData(year, month, dataType) {
+
+  for (var i in data) {
+    if (data[i].Year == year && data[i]) {
+
+    }
+
+  }
+
+}
+
 var totSalesList = [];
+
+var salesData = data[dataType];
+var dateList = [];
+for (var i in salesData) {
+  var date = []
+  date.push(salesData[i]["Year"])
+  date.push(salesData[i]["Month"])
+  date.push(salesData[i]["Day"])
+  dateList.push(date)
+  var listEle = []
+  listEle.push(date)
+  listEle.push(salesData[i]["Total sales"])
+  totSalesList.push(listEle)
+}
 
 var salesData = data["totSales"];
 var dateList = [];
@@ -19,7 +47,7 @@ for (var i in salesData) {
 }
 
 
-// console.log(totSalesList)
+// console.log("från Home: " + totSalesList)
 var listMonthSales = []
 var curMonth = [totSalesList[0][0][0], totSalesList[0][0][1]]
 var monthValue = 0;
@@ -33,21 +61,21 @@ for (var i in totSalesList) {
   monthValue += totSalesList[i][1]
 }
 listMonthSales.push([curMonth, monthValue])
-// console.log(listMonthSales)
+console.log("från Home: " + listMonthSales)
 
-var listYearhSales = []
+var listYearSales = []
 var curYear = listMonthSales[0][0][0]
 var yearValue = 0;
 for (var i in listMonthSales) {
   if (listMonthSales[i][0][0] != curYear) {
-    listYearhSales.push([curYear, yearValue])
+    listYearSales.push([curYear, yearValue])
     curYear = listMonthSales[i][0][0]
     yearValue = 0
   }
   yearValue += listMonthSales[i][1]
 }
-listYearhSales.push([curYear, yearValue])
-console.log(listYearhSales)
+listYearSales.push([curYear, yearValue])
+console.log(listYearSales)
 var thisYear = 2019;
 var thisMonth = 9
 var lastRev = 0;

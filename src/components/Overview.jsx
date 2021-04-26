@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { Bar } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import testData from './testdata.json';
+import data from '../data.json';
 <script src="https://d3js.org/d3.v6.js"></script>
 
 
@@ -90,10 +91,10 @@ class Overview extends React.Component {
             <div className="text-align-center align-self-center bg-primary" >hej</div>
             <Doughnut
               data={{
-                labels: ['Red', 'Blue', 'Yellow'],
+                labels: this.state.data.dateList,
                 datasets: [{
                   label: 'Data set #1',
-                  data: [15, 20, 7],
+                  data: this.state.data.totSalesList,
                   backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
