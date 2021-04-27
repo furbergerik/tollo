@@ -101,7 +101,7 @@ class Home extends React.Component {
   handleSelect = (e) => {
     const year = Number(e)
     const [neededData, dates] = getMonthlyData(year, "Total sales")
-    let dateList = Object.keys(neededData);
+    // let dateList = Object.keys(neededData);
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
