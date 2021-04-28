@@ -35,12 +35,18 @@ function getData() {
 class Overview extends React.Component {
   state = {
     dataset: [{
-      label: 'Data test set wow',
-      data: [1, 2, 3, 4, 5]
+      label: 'test',
+      data: [1, 2, 4, 4, 5],
+      backgroundColor:
+        'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
     },
     {
-      label: 'Data test set wow 2222',
-      data: [6, 3, 4, 6, 2],
+      label: 'test2',
+      data: [10, 22, 4, 4, 5],
+      backgroundColor:
+        'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
     }
     ]
   }
@@ -65,14 +71,7 @@ class Overview extends React.Component {
               <Bar
                 data={{
                   labels: ['lo', 'tho', 'sdkjf', 'dsf', 'sdf'],
-                  datasets: [{
-                    label: this.state.dataset.label,
-                    data: this.state.dataset.data,
-                    backgroundColor:
-                      'rgba(255, 99, 132, 0.2)',
-                    borderWidth: 1
-                  },
-                  ],
+                  datasets: this.state.dataset
                 }}
 
                 options={{
@@ -99,10 +98,10 @@ class Overview extends React.Component {
             <div className="text-align-center align-self-center bg-primary" >hej</div>
             <Doughnut
               data={{
-                labels: this.state.data.dateList,
+                // labels: this.state.data.dateList,
                 datasets: [{
                   label: 'Data set #1',
-                  data: this.state.data.totSalesList,
+                  data: this.state.dataset.data,
                   backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

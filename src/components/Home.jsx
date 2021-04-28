@@ -94,9 +94,8 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      datasets: [
-      ]
-      ,
+      dataSets: [
+      ],
       dates: [],
       multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
     }
@@ -112,17 +111,20 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     console.log("handleSelect: ", totSalesList);
+    const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
 
     this.setState({
-      dataset: neededData,
+      dataSets: [
+        ...this.state.dataSets,
+        newBar
+      ],
       dates: dates
-
-
     },
       () => {
         console.log("STATE  ", this.state.data)
       })
   };
+
 
   onSelect(selectedList, selectedItem) {
     console.log("Tjohej onSelect");
@@ -130,18 +132,18 @@ class Home extends React.Component {
     const year = Number(selectedItem.year);
     console.log(year)
     const [neededData, dates] = getMonthlyData(year, "Total sales")
-    // let dateList = Object.keys(neededData);
+
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
 
     this.setState({
-      dataset: neededData,
+      dataSets: { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 },
       dates: dates
     },
       () => {
-        console.log("STATE  ", this.state.data)
+        console.log("STATE  ", this.state.dataSets)
       })
 
   }
@@ -217,14 +219,9 @@ class Home extends React.Component {
                 <Bar
                   data={{
                     labels: this.state.dates,
-                    datasets: [{
-                      label: 'Data set #1',
-                      data: this.state.dataset,
-                      backgroundColor:
-                        'rgba(255, 99, 132, 0.2)',
-                      borderWidth: 1
-                    },
-                    ],
+                    datasets: [
+                      this.state.dataSets
+                    ]
                   }}
 
                   options={{
