@@ -101,6 +101,9 @@ class Home extends React.Component {
     }
   }
 
+
+
+  // ---------------From DropDown---------------------
   handleSelect = (e) => {
 
     const year = Number(e)
@@ -114,10 +117,7 @@ class Home extends React.Component {
     const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
 
     this.setState({
-      dataSets: [
-        ...this.state.dataSets,
-        newBar
-      ],
+      dataSets: newBar,
       dates: dates
     },
       () => {
@@ -125,7 +125,7 @@ class Home extends React.Component {
       })
   };
 
-
+  // ---------------From MultiSelect---------------------
   onSelect(selectedList, selectedItem) {
     console.log("Tjohej onSelect");
     console.log(selectedList)
@@ -137,14 +137,17 @@ class Home extends React.Component {
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
-
-    this.setState({
-      dataSets: { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 },
+    const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
+    this.setState(prevState => ({
+      dataSets: [
+        ...prevState.dataSets,
+        { newBar }
+      ],
       dates: dates
     },
       () => {
         console.log("STATE  ", this.state.dataSets)
-      })
+      }))
 
   }
 
