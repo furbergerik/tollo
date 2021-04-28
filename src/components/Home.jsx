@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Doughnut } from 'react-chartjs-2';
 import './Home.css';
 import CountUp from 'react-countup';
-import data from "../data";
+import data from "../store1.json";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Bar } from 'react-chartjs-2';
+import { Multiselect } from 'multiselect-react-dropdown';
+import { Col, Form } from "react-bootstrap"
 
 
 function getDaylyData(year, month, dataType) {
@@ -48,12 +50,11 @@ function getWeeklyDaylyData(year, week, dataType) {
 function getMonthlyData(year, dataType) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
-  var labelMonth = []
   for (var i = 1; i < 13; i++) {
     var monthTot = sumArr(getDaylyData(year, i, dataType))
     listMonth.push(monthTot)
   }
-  // console.log(listMonth, year)
+
   return [listMonth, monthNames]
 }
 
@@ -93,12 +94,16 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: [],
-      dates: []
+      datasets: [
+      ]
+      ,
+      dates: [],
+      multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
     }
   }
 
   handleSelect = (e) => {
+
     const year = Number(e)
     const [neededData, dates] = getMonthlyData(year, "Total sales")
     // let dateList = Object.keys(neededData);
@@ -109,14 +114,37 @@ class Home extends React.Component {
     console.log("handleSelect: ", totSalesList);
 
     this.setState({
-      data: neededData,
+      dataset: neededData,
       dates: dates
+
+
     },
       () => {
         console.log("STATE  ", this.state.data)
       })
   };
 
+  onSelect(selectedList, selectedItem) {
+    console.log("Tjohej onSelect");
+    console.log(selectedList)
+    const year = Number(selectedItem.year);
+    console.log(year)
+    const [neededData, dates] = getMonthlyData(year, "Total sales")
+    // let dateList = Object.keys(neededData);
+    var totSalesList = [];
+    for (var i in neededData) {
+      totSalesList.push(neededData[i])
+    }
+
+    this.setState({
+      dataset: neededData,
+      dates: dates
+    },
+      () => {
+        console.log("STATE  ", this.state.data)
+      })
+
+  }
 
   render() {
     return (
@@ -137,6 +165,28 @@ class Home extends React.Component {
                 <Dropdown.Divider />
                 <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
               </DropdownButton>
+
+              <Multiselect
+                options={this.state.multiOptions} // Options to display in the dropdown
+
+                onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                onRemove={this.onRemove} // Function will trigger on remove event
+                displayValue="year" // Property name to display in the dropdown options
+              >
+                {/* <Multiselect.Item eventKey="2018">2018</Multiselect.Item>
+                <Multiselect.Item eventKey="2019">2019</Multiselect.Item>
+                <Multiselect.Item eventKey="2020">2020</Multiselect.Item> */}
+              </Multiselect>
+
+
+              {/* <Form.Group as={Col} controlId="my_multiselect_field">
+                <Form.Label>My multiselect</Form.Label>
+                <Form.Control as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
+                  <option value="field1">Field 1</option>
+                  <option value="field2">Field 2</option>
+                  <option value="field3">Field 3</option>
+                </Form.Control>
+              </Form.Group> */}
 
               <CountUp
                 start={-875.039}
@@ -163,12 +213,13 @@ class Home extends React.Component {
             <div className="col-xs-12 col-md-8 bg-warning colGrid">
 
               <div className="row bg-light col2">
+
                 <Bar
                   data={{
                     labels: this.state.dates,
                     datasets: [{
                       label: 'Data set #1',
-                      data: this.state.data,
+                      data: this.state.dataset,
                       backgroundColor:
                         'rgba(255, 99, 132, 0.2)',
                       borderWidth: 1

@@ -34,7 +34,15 @@ function getData() {
 
 class Overview extends React.Component {
   state = {
-    data: getData()
+    dataset: [{
+      label: 'Data test set wow',
+      data: [1, 2, 3, 4, 5]
+    },
+    {
+      label: 'Data test set wow 2222',
+      data: [6, 3, 4, 6, 2],
+    }
+    ]
   }
 
   render() {
@@ -56,10 +64,10 @@ class Overview extends React.Component {
             <div>
               <Bar
                 data={{
-                  labels: this.state.data.dateList,
+                  labels: ['lo', 'tho', 'sdkjf', 'dsf', 'sdf'],
                   datasets: [{
-                    label: 'Data set #1',
-                    data: this.state.data.totSalesList,
+                    label: this.state.dataset.label,
+                    data: this.state.dataset.data,
                     backgroundColor:
                       'rgba(255, 99, 132, 0.2)',
                     borderWidth: 1
