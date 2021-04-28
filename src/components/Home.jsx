@@ -94,8 +94,7 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      dataSets: [
-      ],
+      dataSets: [0],
       dates: [],
       multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
     }
@@ -138,16 +137,31 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
-    this.setState(prevState => ({
-      dataSets: [
-        ...prevState.dataSets,
-        { newBar }
-      ],
-      dates: dates
-    },
-      () => {
-        console.log("STATE  ", this.state.dataSets)
-      }))
+
+    if (this.state.dataSets == 0) {
+      console.log("Fans ingen dataSet från början");
+      this.setState({
+        dataSets: newBar,
+        dates: dates
+      },
+        () => {
+          console.log("STATE  ", this.state.dataSets)
+        })
+    } else {
+      // var newDataSet = this.state.dataSets.concat(newBar)
+      console.log("!!Fanns nått i dataSet!!");
+      this.setState(prevState => ({
+        dataSets: [
+          ...prevState.dataSets,
+          { newBar }],
+        dates: dates
+      },
+        () => {
+          console.log("STATE  ", this.state.dataSets)
+        }))
+    }
+
+
 
   }
 
