@@ -14,6 +14,7 @@ class Contact extends Component {
       admin:0,
       phone:123,
       email:''
+      // order of /add is: 
 
     },
     vegard:[],
@@ -70,8 +71,8 @@ class Contact extends Component {
     console.log(this.state.store2TotSales); 
   }
   addUser = _=>{
-    const {user}=this.state;
-    fetch(`http://tollo.duckdns.org:61338/add?email=${user.email}&first_name=${user.first_name}&last_name=${user.last_name}&password=${user.password}&username=${user.username}`)
+    const {user}=this.state.user;
+    fetch(`http://tollo.duckdns.org:61338/add?username=${user.username}&password=${user.password}&first_name=${user.first_name}&last_name=${user.last_name}&password=${user.store}&password=${user.admin}&password=${user.phone}&email=${user.email}`)
     .then(response => response.json())
     .then(this.getUser)
     .catch(err => console.error(err))
