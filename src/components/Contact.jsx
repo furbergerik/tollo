@@ -101,6 +101,61 @@ class Contact extends Component {
 
       </div>
       <div>{this.name()}</div>
+      <div className="row">
+      <div className=" col-xs-6 col-md-4 "></div>
+      <form className=" col-xs-6 col-md-4 ">
+      <div className="form-group">
+    <label for="exampleInputUsername">Username:</label>
+      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"></input>
+  </div>
+      <div className="form-group"  >
+    <label for="exampleInputEmail1">Email address:</label>
+    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
+    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone but your employer.</small>
+  </div>
+ 
+  <div className="form-group">
+    <label for="exampleInputPassword1">Password:</label>
+    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+  </div>
+  <label for="number">Name:</label>
+  <div className="input-group">
+  <div className="input-group-prepend">
+    <span className="input-group-text" id="">First and last name:</span>
+  </div>
+  <input type="text" className="form-control" placeholder="First Name"></input>
+  <input type="text" className="form-control" placeholder="Last Name"></input>
+</div>
+  <div className="form-group">
+    <label for="number">Phone Number:</label>
+    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"></input>
+  </div>
+  <label for="number">Which store do you work at?</label>
+  <div className="input-group mb-3">
+  <div className="input-group-prepend">
+    <label className="input-group-text" for="inputGroupSelect01">Stores</label>
+  </div>
+  <select className="custom-select" id="inputGroupSelect01">
+    <option defaultValue>Choose...</option>
+    <option value="1">Store One</option>
+    <option value="2">Store Two</option>
+    <option value="3">Store Three</option>
+    <option value="4">Store Four</option>
+    <option value="5">Store Five</option>
+    
+  </select>
+</div>
+
+ 
+  <div className="form-check">
+    
+    <input type="checkbox" className="form-check-input" id="exampleCheck1"></input>
+    <label className="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
+  
+    </div>
     </div>
   );
 
