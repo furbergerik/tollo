@@ -4,11 +4,14 @@ class Contact extends Component {
   state ={
     users:[],
     user:{
-      email:'',
+      username:'',
+      password:'',
       first_name:'',
       last_name:'',
-      password:''
-
+      store:1,
+      admin:0,
+      phone:123,
+      email:''
 
     },
     vegard:[],
@@ -66,22 +69,23 @@ class Contact extends Component {
   }
   addUser = _=>{
     const {user}=this.state;
-    fetch(`http://tollo.duckdns.org:61338/add?email=${user.email}&first_name=${user.first_name}&last_name=${user.last_name}&password=${user.password}&username=${user.username}`)
+    
+    fetch(`http://tollo.duckdns.org:61338/add?username=${user.username}&password=${user.password}&first_name=${user.first_name}&last_name=${user.last_name}&password=${user.store}&password=${user.admin}&password=${user.phone}&email=${user.email}`)
     .then(response => response.json())
     .then(this.getUser)
     .catch(err => console.error(err))
     
 
   }
-  renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
+  // renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
   render() {
-    const{users, user}=this.state;
+    // const{users, user}=this.state.user;
     return (
     
     <div className="App">
-      {/* {users.map(this.renderUser)} */}
+       {/* {users.map(this.renderUser)}  */}
 
-      <div>
+      {/* <div>
         <input value={user.email}
         onChange={e => this.setState({ user:{...user,email:e.target.value}})} />
          <input value={user.first_name}
@@ -94,7 +98,7 @@ class Contact extends Component {
         onChange={e => this.setState({ user:{...user,username:e.target.value}})} />
         <button onClick={this.addUser}>Add user</button>
 
-      </div>
+      </div> */}
       <div className="row">
       <div className=" col-xs-6 col-md-4 "></div>
       <form className=" col-xs-6 col-md-4 ">
@@ -113,24 +117,24 @@ class Contact extends Component {
     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
   </div>
   <label for="number">Name:</label>
-  <div class="input-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="">First and last name:</span>
+  <div className="input-group">
+  <div className="input-group-prepend">
+    <span className="input-group-text" id="">First and last name:</span>
   </div>
-  <input type="text" class="form-control" placeholder="First Name"></input>
-  <input type="text" class="form-control" placeholder="Last Name"></input>
+  <input type="text" className="form-control" placeholder="First Name"></input>
+  <input type="text" className="form-control" placeholder="Last Name"></input>
 </div>
   <div className="form-group">
     <label for="number">Phone Number:</label>
-    <input type="text" className="form-control" id="exampleInputPassword1" placeholder="0003332244"></input>
+    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"></input>
   </div>
   <label for="number">Which store do you work at?</label>
-  <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <label class="input-group-text" for="inputGroupSelect01">Stores</label>
+  <div className="input-group mb-3">
+  <div className="input-group-prepend">
+    <label className="input-group-text" for="inputGroupSelect01">Stores</label>
   </div>
-  <select class="custom-select" id="inputGroupSelect01">
-    <option selected>Choose...</option>
+  <select className="custom-select" id="inputGroupSelect01">
+    <option defaultValue>Choose...</option>
     <option value="1">Store One</option>
     <option value="2">Store Two</option>
     <option value="3">Store Three</option>
