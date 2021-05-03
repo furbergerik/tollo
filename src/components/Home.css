@@ -7,7 +7,16 @@
 
 /* --------------first column------------ */
 .colGrid{
-    height: 93vh;
+    height: 100vh;
+    margin-top: 2vh;
+}
+.header{
+    height: 5vh;
+}
+
+.individual{
+    background-color: #F94144;
+   
 }
 
 
@@ -15,5 +24,18 @@
 /* --------------second column------------ */
 
 .col2{
-    height: 50%;
+   height: 50vh;
+}
+.myStore{
+    position: relative;
+  margin: auto;
+  height: 40vh;
+  width: 60vw;
+}
+.row23{
+    width: 100%;
+}
+
+.dropDownButton{
+    text-align-last: end;
 }

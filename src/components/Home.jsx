@@ -53,13 +53,13 @@ function getMonthlyData(year, dataType, Average) {
   var listMonth = [];
   for (var i = 1; i < 13; i++) {
     var month = getDaylyData(year, i, dataType)
-    if(Average){
-     month = sumArr(month)/month.length
-     listMonth.push(month)
+    if (Average) {
+      month = sumArr(month) / month.length
+      listMonth.push(month)
     }
-    else{
-    month = sumArr(month)
-    listMonth.push(month)
+    else {
+      month = sumArr(month)
+      listMonth.push(month)
     }
   }
 
@@ -112,14 +112,13 @@ function sumArr(arr) {
 //console.log(soldProduct(2018, 1, 1));
 
 class Home extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      dataSets: [0],
-      dates: [],
-      multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
-    }
+
+  state = {
+    dataSets: [0],
+    dates: [],
+    multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
   }
+
 
 
 
@@ -134,14 +133,14 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     console.log("handleSelect: ", totSalesList);
-    const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
+    const newBar = { label: year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
 
     this.setState({
       dataSets: newBar,
       dates: dates
     },
       () => {
-        console.log("STATE  ", this.state.data)
+        console.log("STATE  ", this.state.dataSets)
       })
   };
 
@@ -157,10 +156,10 @@ class Home extends React.Component {
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
-    const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
+    const newBar = { label: year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
 
     if (this.state.dataSets == 0) {
-      console.log("Fans ingen dataSet från början");
+      console.log("Fanns ingen dataSet från början");
       this.setState({
         dataSets: newBar,
         dates: dates
@@ -169,21 +168,54 @@ class Home extends React.Component {
           console.log("STATE  ", this.state.dataSets)
         })
     } else {
-      // var newDataSet = this.state.dataSets.concat(newBar)
       console.log("!!Fanns nått i dataSet!!");
-      this.setState(prevState => ({
-        dataSets: [
-          ...prevState.dataSets,
-          { newBar }],
+      console.log("Gamla state:", this.state.dataSets);
+
+      let oldBar = this.state.dataSets
+
+      console.log("NewBar:", newBar);
+      console.log("OldBar", oldBar);
+
+      let updatedBar = [oldBar, newBar];
+      console.log("updatedBar: ", updatedBar);
+
+
+      // ---- RESET ----
+      // this.resetState();
+
+      // ---UPDATE
+      this.setState({
+        dataSets: updatedBar,
         dates: dates
       },
         () => {
-          console.log("STATE  ", this.state.dataSets)
-        }))
+          console.log("UPDATED state:  ", this.state.dataSets)
+        })
     }
+  }
+  resetState() {
+    this.setState({
+      dataSets: [{
+        label: 'test',
+        data: [1, 2, 4, 4, 5],
+        backgroundColor:
+          'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
+      },
+      {
+        label: 'test2',
+        data: [10, 22, 4, 4, 5],
+        backgroundColor:
+          'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
+      }],
+      dates: ['blipp', 'blapp', 'sdf', 'asd', 'iou']
+    },
+      () => {
+        console.log("RESET state:  ", this.state.dataSets)
+      })
 
-
-
+    console.log("State resettad!")
   }
 
   render() {
@@ -192,19 +224,13 @@ class Home extends React.Component {
         <div className="container-fluid">
           <div className="row colGrid">
             {/* -------------col one------------ */}
-            <div className="col-xs-12 colGrid  col-md-4 bg-warning">
-              <DropdownButton
-                alignRight
-                title="Select year"
-                id="dropdown-menu-align-right"
-                onSelect={this.handleSelect.bind(this)}
-              >
-                <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-              </DropdownButton>
+            <div className="col-xs-12 col-md-4 shadow">
+
+              <div className="individual shadow">
+                <div className="row ">ROW 1 INDIVIDUAL</div>
+                <div className="row"> ROW 2 INDIV</div>
+              </div>
+
 
               <Multiselect
                 options={this.state.multiOptions} // Options to display in the dropdown
@@ -247,35 +273,55 @@ class Home extends React.Component {
             </div>
 
             {/* -------------col two------------ */}
-            <div className="col-xs-12 col-md-8 bg-warning colGrid">
+            <div className="col-xs-12 col-md-8 bg-warning">
+              {/* own store */}
+              <div className="row-fluid bg-info">
+                <h1>Your Store:</h1>
+              </div>
 
               <div className="row bg-light col2">
+                <div className="myStore">
+                  <Bar
+                    data={{
+                      labels: this.state.dates,
+                      datasets: [this.state.dataSets]
+                    }}
 
-                <Bar
-                  data={{
-                    labels: this.state.dates,
-                    datasets: [
-                      this.state.dataSets
-                    ]
-                  }}
-
-                  options={{
-                    maintainAspectRatio: true,
-                    responsive: true,
-                    scales: {
-                      yAxes: [
-                        {
-                          ticks: {
-                            beginAtZero: true,
+                    options={{
+                      maintainAspectRatio: false,
+                      scales: {
+                        yAxes: [
+                          {
+                            ticks: {
+                              beginAtZero: true,
+                            }
                           }
-                        }
-                      ]
-                    }
-                  }}
-                />
+                        ]
+                      }
+                    }}
+                  />
+                </div>
+
+                <div className="row-float bg-info row23">
+                  <div className="bg-primary dropDownButton">
+                    <DropdownButton
+                      alignRight
+                      title="Select year"
+                      id="dropdown-menu-align-right"
+                      onSelect={this.handleSelect.bind(this)}
+                    >
+                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
+                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
+                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
+                    </DropdownButton>
+                  </div>
+                </div>
+
               </div>
               <div className="row bg-success col2">
-                row 2 col 2
+                row 2 col 2 HELLOOO
             </div>
 
             </div>
