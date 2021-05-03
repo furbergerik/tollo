@@ -115,14 +115,15 @@ class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      datasets: [
-      ]
-      ,
+      dataSets: [0],
       dates: [],
       multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
     }
   }
 
+
+
+  // ---------------From DropDown---------------------
   handleSelect = (e) => {
 
     const year = Number(e)
@@ -133,37 +134,55 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     console.log("handleSelect: ", totSalesList);
+    const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
 
     this.setState({
-      dataset: neededData,
+      dataSets: newBar,
       dates: dates
-
-
     },
       () => {
         console.log("STATE  ", this.state.data)
       })
   };
 
+  // ---------------From MultiSelect---------------------
   onSelect(selectedList, selectedItem) {
     console.log("Tjohej onSelect");
     console.log(selectedList)
     const year = Number(selectedItem.year);
     console.log(year)
     const [neededData, dates] = getMonthlyData(year, "Total sales")
-    // let dateList = Object.keys(neededData);
+
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
+    const newBar = { label: 'bartest', data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
 
-    this.setState({
-      dataset: neededData,
-      dates: dates
-    },
-      () => {
-        console.log("STATE  ", this.state.data)
-      })
+    if (this.state.dataSets == 0) {
+      console.log("Fans ingen dataSet från början");
+      this.setState({
+        dataSets: newBar,
+        dates: dates
+      },
+        () => {
+          console.log("STATE  ", this.state.dataSets)
+        })
+    } else {
+      // var newDataSet = this.state.dataSets.concat(newBar)
+      console.log("!!Fanns nått i dataSet!!");
+      this.setState(prevState => ({
+        dataSets: [
+          ...prevState.dataSets,
+          { newBar }],
+        dates: dates
+      },
+        () => {
+          console.log("STATE  ", this.state.dataSets)
+        }))
+    }
+
+
 
   }
 
@@ -235,14 +254,9 @@ class Home extends React.Component {
                 <Bar
                   data={{
                     labels: this.state.dates,
-                    datasets: [{
-                      label: 'Data set #1',
-                      data: this.state.dataset,
-                      backgroundColor:
-                        'rgba(255, 99, 132, 0.2)',
-                      borderWidth: 1
-                    },
-                    ],
+                    datasets: [
+                      this.state.dataSets
+                    ]
                   }}
 
                   options={{
