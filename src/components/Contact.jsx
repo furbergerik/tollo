@@ -49,12 +49,19 @@ class Contact extends Component {
     .catch(err => console.error(err)) 
   }
 
-  getStore1TotSales =_ =>{
+  async getStore1TotSales(){
+    const response = await fetch('http://tollo.duckdns.org:61338/store1/totSales');
+    const setOfData = await response.json();
+    return setOfData;
+  }
+  
+
+  /*getStore1TotSales =_ =>{
     fetch('http://tollo.duckdns.org:61338/store1/totSales')
     .then(response =>response.json())
     .then(data =>this.setState({store1TotSales:data}))
     .catch(err => console.error(err)) 
-  }
+  }*/
 
   getStore2TotSales =_ =>{
     fetch('http://tollo.duckdns.org:61338/store2/totSales')
