@@ -48,7 +48,8 @@ class Overview extends React.Component {
         'rgba(255, 99, 132, 0.2)',
       borderWidth: 1
     }
-    ]
+    ],
+    labels: ['lo', 'tho', 'sdkjf', 'dsf', 'sdf']
   }
 
   render() {
@@ -64,13 +65,14 @@ class Overview extends React.Component {
           </div>
 
         </div>
+        {console.log(this.state.dataset)}
 
         <div className="row">
           <div className="col-6">
             <div>
               <Bar
                 data={{
-                  labels: ['lo', 'tho', 'sdkjf', 'dsf', 'sdf'],
+                  labels: this.state.labels,
                   datasets: this.state.dataset
                 }}
 
