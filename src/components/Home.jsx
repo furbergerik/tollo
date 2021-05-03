@@ -8,7 +8,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
 import { Col, Form } from "react-bootstrap"
-
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 function getDaylyData(year, month, dataType) {
   var salesData = data["totSales"];
@@ -192,7 +192,17 @@ class Home extends React.Component {
         <div className="container-fluid">
           <div className="row colGrid">
             {/* -------------col one------------ */}
-            <div className="col-xs-12 colGrid  col-md-4 bg-warning">
+            <div className="col-xs-12 colGrid  col-md-4 bg-" >
+            <div>
+              Goal 1:
+  <ProgressBar variant="success" animated now={40} label={`${40}%`}/>
+  Goal 2:
+  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
+  Goal 3:
+  <ProgressBar variant="warning" animated now={60} label={`${60}%`}/>
+  Goal 4:
+  <ProgressBar variant="danger" animated now={80} label={`${80}%`}/>
+</div>
               <DropdownButton
                 alignRight
                 title="Select year"
