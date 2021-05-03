@@ -12,9 +12,10 @@ class Contact extends Component {
       password:'',
       store:1,
       admin:0,
-      phone:123,
+      phone:'123',
       email:''
       // order of /add is: 
+      //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
 
     },
     vegard:[],
