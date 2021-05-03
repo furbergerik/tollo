@@ -8,15 +8,9 @@
 /* --------------first column------------ */
 .colGrid{
     height: 100vh;
-    margin-top: 2vh;
 }
-.header{
-    height: 5vh;
-}
-
 .individual{
     background-color: #F94144;
-   
 }
 
 
@@ -24,19 +18,23 @@
 /* --------------second column------------ */
 
 .col2{
-   height: 50vh;
+   height: 45vh;
 }
 .myStore{
     position: relative;
   margin: auto;
   height: 40vh;
-  width: 60vw;
+  width: 30vw;
+}
+.rightCol{
+    /* border-radius: 2vh; */
 }
 .row23{
     width: 100%;
-    background-color: bisque;
+    background-color: rgb(241, 135, 135);
 }
 
 .dropDownButton{
     text-align-last: end;
+    width: 100%;
 }

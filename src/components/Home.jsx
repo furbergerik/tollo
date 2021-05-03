@@ -225,17 +225,17 @@ class Home extends React.Component {
           <div className="row colGrid">
             {/* -------------col one------------ */}
             <div className="col-xs-12 colGrid  col-md-4 bg-" >
-            <div>
-              Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`}/>
+              <div>
+                Goal 1:
+  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
   Goal 2:
   <ProgressBar variant="info" animated now={20} label={`${20}%`} />
   Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`}/>
+  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
   Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`}/>
-</div>
-          
+  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+              </div>
+
 
               <Multiselect
                 options={this.state.multiOptions} // Options to display in the dropdown
@@ -248,16 +248,6 @@ class Home extends React.Component {
                 <Multiselect.Item eventKey="2019">2019</Multiselect.Item>
                 <Multiselect.Item eventKey="2020">2020</Multiselect.Item> */}
               </Multiselect>
-
-
-              {/* <Form.Group as={Col} controlId="my_multiselect_field">
-                <Form.Label>My multiselect</Form.Label>
-                <Form.Control as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                  <option value="field1">Field 1</option>
-                  <option value="field2">Field 2</option>
-                  <option value="field3">Field 3</option>
-                </Form.Control>
-              </Form.Group> */}
 
               <CountUp
                 start={0}
@@ -278,14 +268,14 @@ class Home extends React.Component {
             </div>
 
             {/* -------------col two------------ */}
-            <div className="col-xs-12 col-md-8 bg-warning">
-              {/* own store */}
-              <div className="row-fluid bg-info">
-                <h1>Your Store:</h1>
+            <div className="col-xs-12 col-md-8 bg-warning rightCol">
+              {/* OWN STORE */}
+              <div className="row-fluid bg-light">
+                <h2>Your Store:</h2>
               </div>
 
               <div className="row bg-light col2">
-                <div className="myStore">
+                <div className="col-9 myStore">
                   <Bar
                     data={{
                       labels: this.state.dates,
@@ -306,8 +296,16 @@ class Home extends React.Component {
                     }}
                   />
                 </div>
+                <div className="col-3 border">
+                  <h1 className="border">stats!!</h1>
+                  <div>div</div>
+                  <div>div</div>
+                  <div>div</div>
+                  <div className="border">div</div>
+                </div>
 
-                <div className="row-float bg-info row23">
+
+                <div className="row23">
                   <div className="bg-primary dropDownButton">
                     <DropdownButton
                       alignRight
@@ -327,9 +325,9 @@ class Home extends React.Component {
               </div>
 
               {/* -------OTHER STORES------ */}
-              <div className="row col2">
+              <div className="row-fluid col2">
                 <div className="row-fluid bg-info">
-                  <h1>Other Store:</h1>
+                  <h2>Other Store:</h2>
                 </div>
 
                 <div className="myStore">
@@ -354,7 +352,9 @@ class Home extends React.Component {
                   />
                 </div>
 
-                <div className="row-float bg-info row23">
+
+
+                <div className="row-float row23">
                   <div className="bg-primary dropDownButton">
                     <DropdownButton
                       alignRight
