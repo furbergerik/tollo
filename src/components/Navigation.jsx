@@ -1,13 +1,16 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 
+
+
+
 function Navigation(props) {
   return (
     <div className="navigation">
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            React Multi-Page Website
+          <img src={process.env.PUBLIC_URL + '/img/tollo-logo.png'} width="140px"/>
           </Link>
 
           <div>
