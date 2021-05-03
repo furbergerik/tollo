@@ -1,3 +1,5 @@
+
+
 /* .firstCol{
     padding: 2vw;
 }
@@ -8,7 +10,6 @@
 /* --------------first column------------ */
 .colGrid{
     height: 100vh;
-    margin-top: 2vh;
 }
 .header{
     height: 5vh;
@@ -22,9 +23,22 @@
 
 
 /* --------------second column------------ */
-
+.col1{
+    background-color: #ff9395;
+}
 .col2{
    height: 50vh;
+}
+.progress-window{
+    text-align: initial;
+    box-shadow: 0 0 3px #191919;
+    background-color: #F94144;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin: px;
+    color: white;
+    font-family: 'Avenir Medium';
 }
 .myStore{
     position: relative;

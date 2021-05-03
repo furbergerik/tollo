@@ -224,18 +224,21 @@ class Home extends React.Component {
         <div className="container-fluid">
           <div className="row colGrid">
             {/* -------------col one------------ */}
-            <div className="col-xs-12 colGrid  col-md-4 bg-" >
-            <div>
-              Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`}/>
+            <div className="col-xs-12 colGrid col1 col-md-4" >
+              <div className="progress-window">
+              <img className="rounded-circle person"src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
+              </div>
+              <div className="progress-window">
+                Goal 1:
+  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
   Goal 2:
   <ProgressBar variant="info" animated now={20} label={`${20}%`} />
   Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`}/>
+  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
   Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`}/>
-</div>
-          
+  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+              </div>
+
 
               <Multiselect
                 options={this.state.multiOptions} // Options to display in the dropdown
