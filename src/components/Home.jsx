@@ -320,9 +320,53 @@ class Home extends React.Component {
                 </div>
 
               </div>
-              <div className="row bg-success col2">
-                row 2 col 2 HELLOOO
-            </div>
+
+              {/* -------OTHER STORES------ */}
+              <div className="row col2">
+                <div className="row-fluid bg-info">
+                  <h1>Other Store:</h1>
+                </div>
+
+                <div className="myStore">
+                  <Bar
+                    data={{
+                      labels: this.state.dates,
+                      datasets: [this.state.dataSets]
+                    }}
+
+                    options={{
+                      maintainAspectRatio: false,
+                      scales: {
+                        yAxes: [
+                          {
+                            ticks: {
+                              beginAtZero: true,
+                            }
+                          }
+                        ]
+                      }
+                    }}
+                  />
+                </div>
+
+                <div className="row-float bg-info row23">
+                  <div className="bg-primary dropDownButton">
+                    <DropdownButton
+                      alignRight
+                      title="Select year"
+                      id="dropdown-menu-align-right"
+                      onSelect={this.handleSelect.bind(this)}
+                    >
+                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
+                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
+                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
+                    </DropdownButton>
+                  </div>
+                </div>
+
+              </div>
 
             </div>
 
