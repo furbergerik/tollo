@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Doughnut } from 'react-chartjs-2';
 import './Home.css';
 import CountUp from 'react-countup';
-import data from "../store1.json";
+import data from "../store1";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Bar } from 'react-chartjs-2';
@@ -21,6 +21,7 @@ function getDaylyData(year, month, dataType) {
   //console.log("ny test:  ",listDay)
   return listDay
 }
+
 
 
 function getWeeklyDaylyData(year, week, dataType) {
@@ -47,12 +48,19 @@ function getWeeklyDaylyData(year, week, dataType) {
   return listDayInWeek
 }
 
-function getMonthlyData(year, dataType) {
+function getMonthlyData(year, dataType, Average) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
   for (var i = 1; i < 13; i++) {
-    var monthTot = sumArr(getDaylyData(year, i, dataType))
-    listMonth.push(monthTot)
+    var month = getDaylyData(year, i, dataType)
+    if(Average){
+     month = sumArr(month)/month.length
+     listMonth.push(month)
+    }
+    else{
+    month = sumArr(month)
+    listMonth.push(month)
+    }
   }
 
   return [listMonth, monthNames]
@@ -89,6 +97,19 @@ function sumArr(arr) {
   }, 0);
 }
 
+// function soldProduct(year, month, productId){
+//   var salesData = data["prodSales"];
+//   var amountOfProduct = 0;
+//   salesData[0]["prod Id"]
+//   for(var i in salesData){
+//     // if(salesData[i]["Year"] == year && salesData[i]["Month"] == month && salesData[i]["prod Id"] == productId){
+//     //   amountOfProduct += salesData[i]["Sales"]
+//     // }
+//   }
+//   return amountOfProduct;
+// }
+
+//console.log(soldProduct(2018, 1, 1));
 
 class Home extends React.Component {
   constructor() {
@@ -189,16 +210,13 @@ class Home extends React.Component {
               </Form.Group> */}
 
               <CountUp
-                start={-875.039}
-                end={160527.012}
+                start={0}
+                end={22020202}
                 duration={2.75}
                 separator=" "
-                decimals={4}
+                decimals={1}
                 decimal=","
-                prefix="EUR "
-                suffix=" left"
-                onEnd={() => console.log('Ended! 👏')}
-                onStart={() => console.log('Started! 💨')}
+                suffix=" SEK"
               >
                 {({ countUpRef, start }) => (
                   <div>
