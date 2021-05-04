@@ -10,13 +10,12 @@ class Contact extends Component {
       password:'',
       first_name:'',
       last_name:'',
-      password:'',
       store:1,
       admin:0,
       phone:'123',
-   
+     
       // order of /add is: 
-      //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+      
 
     },
     vegard:[],
@@ -28,6 +27,40 @@ class Contact extends Component {
     olle:null
 
   }
+  emailChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,email:event.target.value}});
+
+  }
+  usernameChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,username:event.target.value}});
+
+  }
+  passwordChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,password:event.target.value}});
+
+  }
+  first_nameChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,first_name:event.target.value}});
+
+  }
+  last_nameChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,last_name:event.target.value}});
+
+  }
+  storeChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,store:event.target.value}});
+
+  }
+  phoneChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,phone:event.target.value}});
+
+  }
+  submitHandler =(event) =>{
+    event.preventDefault();
+    console.log(this.state.user);
+
+  }
+  
   componentDidMount(){
    this.getUser();
    this.getJson();
@@ -80,13 +113,13 @@ class Contact extends Component {
     console.log(this.state.store2TotSales); 
   }
   addUser = _=>{
-    const {user}=this.state.user;
-   // console.log("hejhej");
-    //console.log(user.username);
-    fetch(`http://tollo.duckdns.org:61338/add?username=${user.username}&password=${user.password}&first_name=${user.first_name}&last_name=${user.last_name}&password=${user.store}&password=${user.admin}&password=${user.phone}&email=${user.email}`)
+    console.log("wtf");
+    //const {user}=this.state.user;
+    console.log(this.state.user.username);
+    //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+    fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
     .then(response => response.json())
-    //.then(console.log("kom igen mannen"))
-    .then(this.getUser)
+   // .then(this.getUser)
     .catch(err => console.error(err))
     
 
@@ -99,43 +132,43 @@ class Contact extends Component {
     <div className="App">
       {/* {users.map(this.renderUser)} */}
  
-      <div>{this.name()}</div>
+      {/* <div>{this.name()}</div> */}
       <br></br>
       <br></br>
       <div className="row ">
         {/* behöver hjälp med det här hur man får den till en sen! på små skärmar */}
       <div className=" col-xs-0 col-md-4 "></div>
-      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded">
+      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandler}>
       <h1 className="text-dark">Registration Form: </h1>
       <div className="form-group">
     <label for="exampleInputUsername">Username:</label>
       <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"
-        onChange={e => this.setState({ user:{...user,username:e.target.value}})}></input>
+        onChange={(this.usernameChangeHandler)}></input>
   </div>
       <div className="form-group"  >
     <label for="exampleInputEmail1">Email address:</label>
     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
-    onChange={e => this.setState({ user:{...user,email:e.target.value}})}></input>   
+    onChange={(this.emailChangeHandler)}></input>   
   </div>
  
   <div className="form-group">
     <label for="exampleInputPassword1">Password:</label>
     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
-    onChange={e => this.setState({ user:{...user,password:e.target.value}})}></input>
+    onChange={(this.passwordChangeHandler)}></input>
 
   </div>
   <label for="number">Name:</label>
   <div className="input-group">
   
   <input type="text" className="form-control" placeholder="First Name"
-  onChange={e => this.setState({ user:{...user,first_name:e.target.value}})}></input>
+  onChange={(this.first_nameChangeHandler)}></input>
   <input type="text" className="form-control" placeholder="Last Name"
-  onChange={e => this.setState({ user:{...user,last_name:e.target.value}})}></input>
+  onChange={(this.last_nameChangeHandler)}></input>
 </div>
   <div className="form-group">
     <label for="number">Phone Number:</label>
     <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"
-    onChange={e => this.setState({ user:{...user,phone:e.target.value}})}></input>
+    onChange={(this.storeChangeHandler)}></input>
   </div>
   <label for="number">Which store do you work at?</label>
   <div className="input-group mb-3">
@@ -143,7 +176,7 @@ class Contact extends Component {
     <label className="input-group-text" for="inputGroupSelect01">Stores</label>
   </div>
   <select className="custom-select" id="inputGroupSelect01"
-  onChange={e => this.setState({ user:{...user,store:e.target.value}})}>
+  onChange={(this.storeChangeHandler)}>
     <option defaultValue>Choose...</option>
     <option value="1">Store One</option>
     <option value="2">Store Two</option>
@@ -156,7 +189,7 @@ class Contact extends Component {
 
  
   
-  <button type="submit"  className="btn btn-success btn-lg" onClick={this.addUser}>Sign Up</button>
+  <button  className="btn btn-success btn-lg" onClick={this.addUser}>Sign Up</button>
   <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
   
