@@ -110,6 +110,7 @@ class Contact extends Component {
         <button onClick={this.addUser}>Add user</button>
 
       </div>
+      343A40
       <div>{this.name()}</div>
       <br></br>
       <br></br>
@@ -117,6 +118,7 @@ class Contact extends Component {
         {/* behöver hjälp med det här hur man får den till en sen! på små skärmar */}
       <div className=" col-xs-0 col-md-4 "></div>
       <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded">
+      <h1 className="text-dark">Registration Form: </h1>
       <div className="form-group">
     <label for="exampleInputUsername">Username:</label>
       <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"></input>
