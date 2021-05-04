@@ -14,7 +14,7 @@ class Contact extends Component {
       store:1,
       admin:0,
       phone:'123',
-      email:''
+   
       // order of /add is: 
       //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
 
@@ -81,8 +81,11 @@ class Contact extends Component {
   }
   addUser = _=>{
     const {user}=this.state.user;
+   // console.log("hejhej");
+    //console.log(user.username);
     fetch(`http://tollo.duckdns.org:61338/add?username=${user.username}&password=${user.password}&first_name=${user.first_name}&last_name=${user.last_name}&password=${user.store}&password=${user.admin}&password=${user.phone}&email=${user.email}`)
     .then(response => response.json())
+    //.then(console.log("kom igen mannen"))
     .then(this.getUser)
     .catch(err => console.error(err))
     
