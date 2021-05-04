@@ -95,22 +95,7 @@ class Contact extends Component {
     
     <div className="App">
       {/* {users.map(this.renderUser)} */}
-
-      <div>
-        <input value={user.email}
-        onChange={e => this.setState({ user:{...user,email:e.target.value}})} />
-         <input value={user.first_name}
-        onChange={e => this.setState({ user:{...user,first_name:e.target.value}})} />
-         <input value={user.last_name}
-        onChange={e => this.setState({ user:{...user,last_name:e.target.value}})} />
-         <input value={user.password}
-        onChange={e => this.setState({ user:{...user,password:e.target.value}})} />
-         <input value={user.username}
-        onChange={e => this.setState({ user:{...user,username:e.target.value}})} />
-        <button onClick={this.addUser}>Add user</button>
-
-      </div>
-      343A40
+ 
       <div>{this.name()}</div>
       <br></br>
       <br></br>
@@ -121,33 +106,41 @@ class Contact extends Component {
       <h1 className="text-dark">Registration Form: </h1>
       <div className="form-group">
     <label for="exampleInputUsername">Username:</label>
-      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"></input>
+      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"
+        onChange={e => this.setState({ user:{...user,username:e.target.value}})}></input>
   </div>
       <div className="form-group"  >
     <label for="exampleInputEmail1">Email address:</label>
-    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>   
+    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+    onChange={e => this.setState({ user:{...user,email:e.target.value}})}></input>   
   </div>
  
   <div className="form-group">
     <label for="exampleInputPassword1">Password:</label>
-    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
+    onChange={e => this.setState({ user:{...user,password:e.target.value}})}></input>
+
   </div>
   <label for="number">Name:</label>
   <div className="input-group">
   
-  <input type="text" className="form-control" placeholder="First Name"></input>
-  <input type="text" className="form-control" placeholder="Last Name"></input>
+  <input type="text" className="form-control" placeholder="First Name"
+  onChange={e => this.setState({ user:{...user,first_name:e.target.value}})}></input>
+  <input type="text" className="form-control" placeholder="Last Name"
+  onChange={e => this.setState({ user:{...user,last_name:e.target.value}})}></input>
 </div>
   <div className="form-group">
     <label for="number">Phone Number:</label>
-    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"></input>
+    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"
+    onChange={e => this.setState({ user:{...user,phone:e.target.value}})}></input>
   </div>
   <label for="number">Which store do you work at?</label>
   <div className="input-group mb-3">
   <div className="input-group-prepend">
     <label className="input-group-text" for="inputGroupSelect01">Stores</label>
   </div>
-  <select className="custom-select" id="inputGroupSelect01">
+  <select className="custom-select" id="inputGroupSelect01"
+  onChange={e => this.setState({ user:{...user,store:e.target.value}})}>
     <option defaultValue>Choose...</option>
     <option value="1">Store One</option>
     <option value="2">Store Two</option>
@@ -160,8 +153,8 @@ class Contact extends Component {
 
  
   
-  <button type="submit" className="btn btn-success btn-lg">Sign Up</button>
-  <button  className="btn btn-warning btn-lg ml-3">Sign Up</button>
+  <button type="submit"  className="btn btn-success btn-lg" onClick={this.addUser}>Sign Up</button>
+  <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
   
     </div>
