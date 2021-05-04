@@ -1,5 +1,6 @@
 import { Component } from 'react';
-
+//http://tollo.duckdns.org
+//192.168.0.111
 class Contact extends Component {
   state ={
     users:[],
@@ -9,13 +10,12 @@ class Contact extends Component {
       password:'',
       first_name:'',
       last_name:'',
-      password:'',
       store:1,
       admin:0,
       phone:'123',
-      email:''
+     
       // order of /add is: 
-      //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+      
 
     },
     vegard:[],
@@ -27,6 +27,40 @@ class Contact extends Component {
     olle:null
 
   }
+  emailChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,email:event.target.value}});
+
+  }
+  usernameChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,username:event.target.value}});
+
+  }
+  passwordChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,password:event.target.value}});
+
+  }
+  first_nameChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,first_name:event.target.value}});
+
+  }
+  last_nameChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,last_name:event.target.value}});
+
+  }
+  storeChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,store:event.target.value}});
+
+  }
+  phoneChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,phone:event.target.value}});
+
+  }
+  submitHandler =(event) =>{
+    event.preventDefault();
+    console.log(this.state.user);
+
+  }
+  
   componentDidMount(){
    this.getUser();
    this.getJson();
@@ -66,7 +100,7 @@ class Contact extends Component {
   getStore2TotSales =_ =>{
     fetch('http://tollo.duckdns.org:61338/store2/totSales')
     .then(response =>response.json())
-    .then(data =>this.setState({store2TotSales:data}))
+    .then(data => console.log(data))
     .catch(err => console.error(err)) 
   }
 
@@ -79,10 +113,13 @@ class Contact extends Component {
     console.log(this.state.store2TotSales); 
   }
   addUser = _=>{
-    const {user}=this.state.user;
-    fetch(`http://tollo.duckdns.org:61338/add?username=${user.username}&password=${user.password}&first_name=${user.first_name}&last_name=${user.last_name}&password=${user.store}&password=${user.admin}&password=${user.phone}&email=${user.email}`)
+    console.log("wtf");
+    //const {user}=this.state.user;
+    console.log(this.state.user.username);
+    //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+    fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
     .then(response => response.json())
-    .then(this.getUser)
+   // .then(this.getUser)
     .catch(err => console.error(err))
     
 
@@ -94,57 +131,52 @@ class Contact extends Component {
     
     <div className="App">
       {/* {users.map(this.renderUser)} */}
-
-      <div>
-        <input value={user.email}
-        onChange={e => this.setState({ user:{...user,email:e.target.value}})} />
-         <input value={user.first_name}
-        onChange={e => this.setState({ user:{...user,first_name:e.target.value}})} />
-         <input value={user.last_name}
-        onChange={e => this.setState({ user:{...user,last_name:e.target.value}})} />
-         <input value={user.password}
-        onChange={e => this.setState({ user:{...user,password:e.target.value}})} />
-         <input value={user.username}
-        onChange={e => this.setState({ user:{...user,username:e.target.value}})} />
-        <button onClick={this.addUser}>Add user</button>
-
-      </div>
-      <div>{this.name()}</div>
-      <div className="row">
-      <div className=" col-xs-6 col-md-4 "></div>
-      <form className=" col-xs-6 col-md-4 ">
+ 
+      {/* <div>{this.name()}</div> */}
+      <br></br>
+      <br></br>
+      <div className="row ">
+        {/* behöver hjälp med det här hur man får den till en sen! på små skärmar */}
+      <div className=" col-xs-0 col-md-4 "></div>
+      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandler}>
+      <h1 className="text-dark">Registration Form: </h1>
       <div className="form-group">
     <label for="exampleInputUsername">Username:</label>
-      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"></input>
+      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"
+        onChange={(this.usernameChangeHandler)}></input>
   </div>
       <div className="form-group"  >
     <label for="exampleInputEmail1">Email address:</label>
-    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone but your employer.</small>
+    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+    onChange={(this.emailChangeHandler)}></input>   
   </div>
  
   <div className="form-group">
     <label for="exampleInputPassword1">Password:</label>
-    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"></input>
+    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
+    onChange={(this.passwordChangeHandler)}></input>
+
   </div>
   <label for="number">Name:</label>
   <div className="input-group">
-  <div className="input-group-prepend">
-    <span className="input-group-text" id="">First and last name:</span>
-  </div>
-  <input type="text" className="form-control" placeholder="First Name"></input>
-  <input type="text" className="form-control" placeholder="Last Name"></input>
+  
+  <input type="text" className="form-control" placeholder="First Name"
+  onChange={(this.first_nameChangeHandler)}></input>
+  <input type="text" className="form-control" placeholder="Last Name"
+  onChange={(this.last_nameChangeHandler)}></input>
 </div>
   <div className="form-group">
     <label for="number">Phone Number:</label>
-    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"></input>
+    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"
+    onChange={(this.storeChangeHandler)}></input>
   </div>
   <label for="number">Which store do you work at?</label>
   <div className="input-group mb-3">
   <div className="input-group-prepend">
     <label className="input-group-text" for="inputGroupSelect01">Stores</label>
   </div>
-  <select className="custom-select" id="inputGroupSelect01">
+  <select className="custom-select" id="inputGroupSelect01"
+  onChange={(this.storeChangeHandler)}>
     <option defaultValue>Choose...</option>
     <option value="1">Store One</option>
     <option value="2">Store Two</option>
@@ -156,12 +188,9 @@ class Contact extends Component {
 </div>
 
  
-  <div className="form-check">
-    
-    <input type="checkbox" className="form-check-input" id="exampleCheck1"></input>
-    <label className="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" className="btn btn-primary">Submit</button>
+  
+  <button  className="btn btn-success btn-lg" onClick={this.addUser}>Sign Up</button>
+  <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
   
     </div>

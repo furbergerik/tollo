@@ -1,3 +1,5 @@
+
+
 /* .firstCol{
     padding: 2vw;
 }
@@ -8,35 +10,106 @@
 /* --------------first column------------ */
 .colGrid{
     height: 100vh;
-    margin-top: 2vh;
 }
 .header{
     height: 5vh;
 }
-
+.other-store{
+background-color: #9abad8;
+margin-right: 15px;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+}
+.own-store{
+    margin-right: 15px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    background-color: #c1e8dc;
+}
 .individual{
-    background-color: #F94144;
-   
+    background-color: #ff9395;
+    height: -webkit-fill-available;
+}
+.person {
+    border: 10px solid transparent;
+    margin-bottom: 10px;
+    width: 60%;
+    height: 50%;
+    opacity: 1 !important;
 }
 
-
-
+.dep-container{
+    width: -webkit-fill-available;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 3px #191919;
+}
 /* --------------second column------------ */
-
+.col1{
+    background-color: white
+}
 .col2{
-   height: 50vh;
+   height: 45vh;
+}
+.store-window{
+    height: 350px;
+    text-align: initial;
+    box-shadow: 0 0 3px #191919;
+    background-color: #F94144;
+    padding: 20px;
+    border-radius: 10px;
+    /* margin-top: 15px; */
+    /* margin: 15px; */
+    /* margin-bottom: 15px; */
+    color: white;
+    font-family: 'Avenir Medium'
+}
+.window-1{
+    background-color: #43AA8B;
+    margin-right: 15px;
+}
+.window-2{
+    background-color: #43AA8B;
+}
+.window-3{
+    background-color: #577590;
+    margin-right: 15px;
+}
+.window-4{
+    background-color: #577590;
+    margin-right: 15px;
+}
+.window-5{
+    background-color: #577590;
+}
+
+.progress-window{
+    text-align: initial;
+    box-shadow: 0 0 3px #191919;
+    background-color: #F94144;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    color: white;
+    font-family: 'Avenir Medium';
 }
 .myStore{
     position: relative;
   margin: auto;
   height: 40vh;
-  width: 60vw;
+  width: 30vw;
+}
+.rightCol{
+    /* border-radius: 2vh; */
 }
 .row23{
     width: 100%;
-    background-color: bisque;
+    background-color: rgb(241, 135, 135);
 }
 
 .dropDownButton{
     text-align-last: end;
+    width: 100%;
 }
