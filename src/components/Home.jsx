@@ -221,12 +221,17 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="container-fluid">
+        <div className="container-fluid h-100">
           <div className="row colGrid">
             {/* -------------col one------------ */}
-            <div className="col-xs-12 colGrid  col-md-4 bg-" >
-              <div>
-                Goal 1:
+            <div className="col-xs-12 colGrid col1 col-md-4" >
+              <div className="dep-container individual">
+                <div className="progress-window">
+                  <img className="rounded-circle person profile-pic" src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
+                  <h4>Welcome back Olle!</h4>
+                </div>
+                <div className="progress-window">
+                  Goal 1:
   <ProgressBar variant="success" animated now={40} label={`${40}%`} />
   Goal 2:
   <ProgressBar variant="info" animated now={20} label={`${20}%`} />
@@ -234,48 +239,52 @@ class Home extends React.Component {
   <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
   Goal 4:
   <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+                </div>
+                <div className="progress-window">
+                  Goal 1:
+  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
+  Goal 2:
+  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
+  Goal 3:
+  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
+  Goal 4:
+  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+                </div>
+
+                <CountUp
+                  start={0}
+                  end={22020202}
+                  duration={2.75}
+                  separator=" "
+                  decimals={1}
+                  decimal=","
+                  suffix=" SEK"
+                >
+                  {({ countUpRef, start }) => (
+                    <div>
+                      <span ref={countUpRef} />
+                      <button onClick={start}>Start</button>
+                    </div>
+                  )}
+                </CountUp>
               </div>
-
-
-              <Multiselect
-                options={this.state.multiOptions} // Options to display in the dropdown
-
-                onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                onRemove={this.onRemove} // Function will trigger on remove event
-                displayValue="year" // Property name to display in the dropdown options
-              >
-                {/* <Multiselect.Item eventKey="2018">2018</Multiselect.Item>
-                <Multiselect.Item eventKey="2019">2019</Multiselect.Item>
-                <Multiselect.Item eventKey="2020">2020</Multiselect.Item> */}
-              </Multiselect>
-
-              <CountUp
-                start={0}
-                end={22020202}
-                duration={2.75}
-                separator=" "
-                decimals={1}
-                decimal=","
-                suffix=" SEK"
-              >
-                {({ countUpRef, start }) => (
-                  <div>
-                    <span ref={countUpRef} />
-                    <button onClick={start}>Start</button>
-                  </div>
-                )}
-              </CountUp>
             </div>
 
             {/* -------------col two------------ */}
-            <div className="col-xs-12 col-md-8 bg-warning rightCol">
-              {/* OWN STORE */}
-              <div className="row-fluid bg-light">
-                <h2>Your Store:</h2>
-              </div>
+            <div className="col-xs-12 col-md-8">
+              {/* own store */}
 
-              <div className="row bg-light col2">
-                <div className="col-9 myStore">
+
+
+              <div className="row col2">
+                <div className="dep-container own-store">
+                  <div className="store-window window-1">
+
+                  </div>
+                  <div className="store-window window-2">
+
+                  </div>
+                  {/* <div className="myStore">
                   <Bar
                     data={{
                       labels: this.state.dates,
@@ -320,17 +329,23 @@ class Home extends React.Component {
                       <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                     </DropdownButton>
                   </div>
+                </div> */}
                 </div>
-
               </div>
 
               {/* -------OTHER STORES------ */}
-              <div className="row-fluid col2">
-                <div className="row-fluid bg-info">
-                  <h2>Other Store:</h2>
-                </div>
+              <div className="row col2">
+                <div className="dep-container other-store">
+                  <div className="store-window window-3">
 
-                <div className="myStore">
+                  </div>
+                  <div className="store-window window-4">
+
+                  </div>
+                  <div className="store-window window-5">
+
+                  </div>
+                  {/* <div className="myStore">
                   <Bar
                     data={{
                       labels: this.state.dates,
@@ -369,10 +384,10 @@ class Home extends React.Component {
                       <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                     </DropdownButton>
                   </div>
+                </div> */}
+
                 </div>
-
               </div>
-
             </div>
 
 
