@@ -123,7 +123,7 @@ class Home extends React.Component {
 
 
   // ---------------From DropDown---------------------
-  handleSelect = (e) => {
+  handleYearSelect = (e) => {
 
     const year = Number(e)
     const [neededData, dates] = getMonthlyData(year, "Total sales")
@@ -311,7 +311,7 @@ class Home extends React.Component {
                       alignRight
                       title="Select year"
                       id="dropdown-menu-align-right"
-                      onSelect={this.handleSelect.bind(this)}
+                      onSelect={this.handleYearSelect.bind(this)}
                     >
                       <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
                       <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
