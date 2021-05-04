@@ -1,5 +1,6 @@
 import { Component } from 'react';
-
+//http://tollo.duckdns.org
+//192.168.0.111
 class Contact extends Component {
   state ={
     users:[],
@@ -66,7 +67,7 @@ class Contact extends Component {
   getStore2TotSales =_ =>{
     fetch('http://tollo.duckdns.org:61338/store2/totSales')
     .then(response =>response.json())
-    .then(data =>this.setState({store2TotSales:data}))
+    .then(data => console.log(data))
     .catch(err => console.error(err)) 
   }
 
@@ -110,17 +111,19 @@ class Contact extends Component {
 
       </div>
       <div>{this.name()}</div>
-      <div className="row">
-      <div className=" col-xs-6 col-md-4 "></div>
-      <form className=" col-xs-6 col-md-4 ">
+      <br></br>
+      <br></br>
+      <div className="row ">
+        {/* behöver hjälp med det här hur man får den till en sen! på små skärmar */}
+      <div className=" col-xs-0 col-md-4 "></div>
+      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded">
       <div className="form-group">
     <label for="exampleInputUsername">Username:</label>
       <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"></input>
   </div>
       <div className="form-group"  >
     <label for="exampleInputEmail1">Email address:</label>
-    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone but your employer.</small>
+    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"></input>   
   </div>
  
   <div className="form-group">
@@ -129,9 +132,7 @@ class Contact extends Component {
   </div>
   <label for="number">Name:</label>
   <div className="input-group">
-  <div className="input-group-prepend">
-    <span className="input-group-text" id="">First and last name:</span>
-  </div>
+  
   <input type="text" className="form-control" placeholder="First Name"></input>
   <input type="text" className="form-control" placeholder="Last Name"></input>
 </div>
@@ -156,12 +157,9 @@ class Contact extends Component {
 </div>
 
  
-  <div className="form-check">
-    
-    <input type="checkbox" className="form-check-input" id="exampleCheck1"></input>
-    <label className="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" className="btn btn-primary">Submit</button>
+  
+  <button type="submit" className="btn btn-success btn-lg">Sign Up</button>
+  <button  className="btn btn-warning btn-lg ml-3">Sign Up</button>
       </form>
   
     </div>
