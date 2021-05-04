@@ -10,19 +10,24 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import { Col, Form } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
-function getDaylyData(year, month, dataType) {
-  var salesData = data["totSales"];
+
+
+async function getDaylyData(year, month, dataType) {
+  const salesData = await getStore1TotSales();
+  var monthData = salesData[year][month];
   var listDay = [];
-  for (var i in salesData) {
-    if (salesData[i]["Year"] == year && salesData[i]["Month"] == month) {
-      listDay.push(salesData[i][dataType])
-    }
+  for (var i in monthData){
+    listDay.push(monthData[i][dataType]);
   }
-  //console.log("ny test:  ",listDay)
   return listDay
 }
 
-
+async function getStore1TotSales(){
+  const response = await fetch('http://tollo.duckdns.org:61338/store1v2/totSales');
+  const setOfData = await response.json();
+  const test = setOfData.data;
+  return test;
+}
 
 function getWeeklyDaylyData(year, week, dataType) {
   var salesData = data["totSales"];
@@ -48,11 +53,11 @@ function getWeeklyDaylyData(year, week, dataType) {
   return listDayInWeek
 }
 
-function getMonthlyData(year, dataType, Average) {
+async function getMonthlyData(year, dataType, Average) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
   for (var i = 1; i < 13; i++) {
-    var month = getDaylyData(year, i, dataType)
+    var month = await getDaylyData(year, "m"+i, dataType)
     if (Average) {
       month = sumArr(month) / month.length
       listMonth.push(month)
@@ -116,24 +121,26 @@ class Home extends React.Component {
   state = {
     dataSets: [0],
     dates: [],
-    multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
+    multiOptions: [{ year: "y2018" }, { year: "y2019" }, { year: "y2020" }]
   }
 
 
 
 
   // ---------------From DropDown---------------------
-  handleSelect = (e) => {
+  handleSelect = async(e) => {
 
-    const year = Number(e)
-    const [neededData, dates] = getMonthlyData(year, "Total sales")
+    const year = "y"+Number(e)
+
+    
+    const [neededData, dates] = await getMonthlyData(year, "Total sales")
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
     console.log("handleSelect: ", totSalesList);
-    const newBar = { label: year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
+    const newBar = { label: Number(e), data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
 
     this.setState({
       dataSets: newBar,
