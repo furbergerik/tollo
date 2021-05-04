@@ -221,12 +221,14 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="container-fluid">
+        <div className="container-fluid h-100">
           <div className="row colGrid">
             {/* -------------col one------------ */}
             <div className="col-xs-12 colGrid col1 col-md-4" >
+              <div className="dep-container individual">
               <div className="progress-window">
-              <img className="rounded-circle person"src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
+                <img className="rounded-circle person profile-pic" src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
+                <h4>Welcome back Olle!</h4>
               </div>
               <div className="progress-window">
                 Goal 1:
@@ -238,29 +240,16 @@ class Home extends React.Component {
   Goal 4:
   <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
               </div>
-
-
-              <Multiselect
-                options={this.state.multiOptions} // Options to display in the dropdown
-
-                onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                onRemove={this.onRemove} // Function will trigger on remove event
-                displayValue="year" // Property name to display in the dropdown options
-              >
-                {/* <Multiselect.Item eventKey="2018">2018</Multiselect.Item>
-                <Multiselect.Item eventKey="2019">2019</Multiselect.Item>
-                <Multiselect.Item eventKey="2020">2020</Multiselect.Item> */}
-              </Multiselect>
-
-
-              {/* <Form.Group as={Col} controlId="my_multiselect_field">
-                <Form.Label>My multiselect</Form.Label>
-                <Form.Control as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
-                  <option value="field1">Field 1</option>
-                  <option value="field2">Field 2</option>
-                  <option value="field3">Field 3</option>
-                </Form.Control>
-              </Form.Group> */}
+              <div className="progress-window">
+                Goal 1:
+  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
+  Goal 2:
+  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
+  Goal 3:
+  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
+  Goal 4:
+  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+              </div>
 
               <CountUp
                 start={0}
@@ -278,17 +267,24 @@ class Home extends React.Component {
                   </div>
                 )}
               </CountUp>
+              </div>
             </div>
 
             {/* -------------col two------------ */}
-            <div className="col-xs-12 col-md-8 bg-warning">
+            <div className="col-xs-12 col-md-8">
               {/* own store */}
-              <div className="row-fluid bg-info">
-                <h1>Your Store:</h1>
-              </div>
+              
+              
 
-              <div className="row bg-light col2">
-                <div className="myStore">
+              <div className="row col2">
+              <div className="dep-container own-store">
+                <div className="store-window window-1">
+
+                </div>
+                <div className="store-window window-2">
+                  
+                </div>
+                {/* <div className="myStore">
                   <Bar
                     data={{
                       labels: this.state.dates,
@@ -325,17 +321,23 @@ class Home extends React.Component {
                       <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                     </DropdownButton>
                   </div>
+                </div> */}
                 </div>
-
               </div>
 
               {/* -------OTHER STORES------ */}
               <div className="row col2">
-                <div className="row-fluid bg-info">
-                  <h1>Other Store:</h1>
-                </div>
+              <div className="dep-container other-store">
+              <div className="store-window window-3">
 
-                <div className="myStore">
+                  </div>
+                  <div className="store-window window-4">
+  
+                    </div>
+                    <div className="store-window window-5">
+  
+                    </div>
+                {/* <div className="myStore">
                   <Bar
                     data={{
                       labels: this.state.dates,
@@ -372,10 +374,10 @@ class Home extends React.Component {
                       <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                     </DropdownButton>
                   </div>
-                </div>
+                </div> */}
 
               </div>
-
+              </div>
             </div>
 
 
