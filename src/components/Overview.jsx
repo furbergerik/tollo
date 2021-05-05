@@ -103,16 +103,20 @@ class Overview extends React.Component {
                 // labels: this.state.data.dateList,
                 datasets: [{
                   label: 'Data set #1',
-                  data: this.state.dataset.data,
+                  data: [10, 22, 4, 4, 5],
                   backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)'
+                    'rgba(255, 206, 86, 0.2)',
+                    '#F3722C',
+                    '#F9C74F'
                   ],
                   borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
+                    'rgba(255, 206, 86, 1)',
+                    '#F3722C',
+                    '#F9C74F'
                   ],
                   borderWidth: 1
                 }],
