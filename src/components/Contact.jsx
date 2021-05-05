@@ -125,10 +125,11 @@ class Contact extends Component {
 
   }
   login = _=>{
-    console.log("wtf");
+    console.log("login");
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
     fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
     .then(response => response.json())
+    .then(data=>console.log("inloggförsök:"+data))
     .catch(err => console.error(err))
     
 
