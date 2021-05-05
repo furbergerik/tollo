@@ -430,15 +430,15 @@ class Home extends React.Component {
                   <div className="store-window window-5">
                     <div className="headline">Product Of The Month Revenue</div>
                     <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={1342} /> TKR</div>
+                    <div className="top1-score"><CountUp end={132} /> TKR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={1132} /> TKR</div>
+                    <div className="top1-score"><CountUp end={132} /> TKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={954} /> TKR</div>
+                    <div className="top1-score"><CountUp end={94} /> TKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={758} /> TKR</div>
+                    <div className="top1-score"><CountUp end={78} /> TKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={654} /> TKR</div>
+                    <div className="top1-score"><CountUp end={64} /> TKR</div>
                   </div>
 
 
