@@ -37,7 +37,15 @@ grid-template-columns: 1fr 1fr 1fr;
     height: 50%;
     opacity: 1 !important;
 }
-
+.submit-button{
+    border: 0;
+    background-color: #f3c6c7;
+    margin-top: 15px;
+    width: 100px;
+    height: 30px;
+    color: #88191a;
+    border-radius: 5px;
+}
 .dep-container{
     width: -webkit-fill-available;
     padding: 20px;
@@ -79,14 +87,14 @@ grid-template-columns: 1fr 1fr 1fr;
     margin-right: 15px;
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 4fr;
 }
 .window-4{
     background-color: #577590;
     margin-right: 15px;
     display:grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+    
+    grid-template-columns: 3fr 4fr;
 
 }
 .window-5{
@@ -215,19 +223,24 @@ position: relative;
 .rightCol{
     /* border-radius: 2vh; */
 }
-
-
+.row23{
+    width: 100%;
+    background-color: rgb(241, 135, 135);
+}
+.row{
+    height: 50%;
+}
 .myStore{
     position: relative;
-      margin-top: -1.5vh;
-      height: 30vh;
-      width: 30vw;
-      background-color: rgba(255, 255, 255, 0.884);
-      border-style: solid;
-      border-color: #c1e8dc;
-      border-width: 0.1vh;
-      box-shadow: 0 0 3px #c1e8dc;
-    
+    margin-top: -1.5vh;
+    height: 30vh;
+    border-radius: 10px;
+    width: 30vw;
+    background-color: rgba(255, 255, 255, 0.884);
+    border-style: solid;
+    border-color: #c1e8dc;
+    border-width: 0.1vh;
+    box-shadow: 0 0 3px #191919;
     }
     .myStoreTitle{
         font-size: medium;

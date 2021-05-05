@@ -9,6 +9,7 @@ import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
 import { Col, Form } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import NumericInput from 'react-numeric-input';
 
 async function getDataForOneDay(year, month, day, dataType) {
   const salesForOneDay = await getStoreTotSales();
@@ -283,14 +284,12 @@ class Home extends React.Component {
   <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
                 </div>
                 <div className="progress-window">
-                  Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
-  Goal 2:
-  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
-  Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
-  Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+                  New mebers: 
+                <NumericInput className="form-control"/>
+                Sells of Product of the Month:
+                <NumericInput className="form-control"/>
+                <button className="submit-button">Submit</button>
+
                 </div>
 
 
