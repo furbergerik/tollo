@@ -322,7 +322,6 @@ class Home extends React.Component {
               <div className="top1-score"><CountUp end={758} /> TKR</div>
               <div className="top1">Store 5</div>
               <div className="top1-score"><CountUp end={654} /> TKR</div>
-                
                     </div>
           
 
