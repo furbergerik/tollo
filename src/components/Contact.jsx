@@ -119,6 +119,7 @@ class Contact extends Component {
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
     fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
     .then(response => response.json())
+    .then(data => console.log(data))
    // .then(this.getUser)
     .catch(err => console.error(err))
     
@@ -129,7 +130,7 @@ class Contact extends Component {
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
     fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
     .then(response => response.json())
-    .then(data=>console.log("inloggförsök:"+data))
+    .then(data=>console.log(data))
     .catch(err => console.error(err))
     
 
@@ -152,7 +153,7 @@ class Contact extends Component {
       <h1 className="text-dark">Registration Form: </h1>
       <div className="form-group">
     <label for="exampleInputUsername">Username:</label>
-      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"
+      <input type="invalid" className="form-control" id="exampleInputUserName" placeholder="Username"
         onChange={(this.usernameChangeHandler)}></input>
   </div>
       <div className="form-group"  >

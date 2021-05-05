@@ -9,6 +9,7 @@ import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
 import { Col, Form } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import NumericInput from 'react-numeric-input';
 
 async function getDataForOneDay(year, month, day, dataType) {
   const salesForOneDay = await getStoreTotSales();
@@ -16,6 +17,7 @@ async function getDataForOneDay(year, month, day, dataType) {
   var dailySales;
   for (var i in theDayData) {
     if (theDayData[i]["Day"] == day) {
+      dailySales = theDayData[i][dataType];
     }
   }
   return dailySales;
@@ -23,14 +25,21 @@ async function getDataForOneDay(year, month, day, dataType) {
 
 
 
-async function getDaylyData(year, month, dataCategory, dataType) {
+async function getDaylyData(year, month, dataCategory, dataType, ID) {
   const salesData = await getStoreTotSales(dataCategory);
-  var monthData = salesData[year][month];
+
+  if(dataCategory == "totSales"){
+    var monthData = salesData[year][month];
+  }
+  else {
+    var monthData = salesData[ID][year][month];
+  }
+
   var listDay = [];
   for (var i in monthData) {
     listDay.push(monthData[i][dataType]);
   }
-  return listDay
+  return listDay;
 }
 
 async function getStoreTotSales(dataCategory) {
@@ -78,11 +87,11 @@ function getWeeklyDaylyData(year, week, dataType) {
   return listDayInWeek
 }
 
-async function getMonthlyData(year, dataCategory, dataType, Average) {
+async function getMonthlyData(year, dataCategory, dataType, Average, ID) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
   for (var i = 1; i < 13; i++) {
-    var month = await getDaylyData(year, "m" + i, dataCategory, dataType)
+    var month = await getDaylyData(year, "m" + i, dataCategory, dataType, ID)
     if (Average) {
       month = sumArr(month) / month.length
       listMonth.push(month)
@@ -96,7 +105,7 @@ async function getMonthlyData(year, dataCategory, dataType, Average) {
   return [listMonth, monthNames]
 }
 
-function getYearlyData(dataCategory, dataType) {
+function getYearlyData(dataCategory, dataType, ID) {
   var salesData = data["totSales"];
   var listYear = [];
   var year = salesData[0]["Year"];
@@ -111,7 +120,7 @@ function getYearlyData(dataCategory, dataType) {
   }
   year = year - yearCount + 1
   for (var i = 0; i < yearCount; i++) {
-    var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType))
+    var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType, false, ID))
     listYear.push(yearTot)
   }
   console.log(labelYear)
@@ -164,7 +173,7 @@ class Home extends React.Component {
     const year = "y" + Number(e)
 
 
-    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false)
+    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false, "0")
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
     for (var i in neededData) {
@@ -190,7 +199,7 @@ class Home extends React.Component {
     var yearFix = "y" + year;
 
     console.log(year)
-    const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false)
+    const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0)
 
     var totSalesList = [];
     for (var i in neededData) {
@@ -275,14 +284,12 @@ class Home extends React.Component {
   <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
                 </div>
                 <div className="progress-window">
-                  Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
-  Goal 2:
-  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
-  Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
-  Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+                  New mebers: 
+                <NumericInput className="form-control"/>
+                Sells of Product of the Month:
+                <NumericInput className="form-control"/>
+                <button className="submit-button">Submit</button>
+
                 </div>
 
 
