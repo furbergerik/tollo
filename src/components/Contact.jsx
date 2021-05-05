@@ -124,6 +124,15 @@ class Contact extends Component {
     
 
   }
+  login = _=>{
+    console.log("wtf");
+    //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+    fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
+    .then(response => response.json())
+    .catch(err => console.error(err))
+    
+
+  }
   renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
   render() {
     const{users, user}=this.state;
@@ -192,8 +201,25 @@ class Contact extends Component {
   <button  className="btn btn-success btn-lg" onClick={this.addUser}>Sign Up</button>
   <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
-  
     </div>
+    <div className="row ">
+    <div className=" col-xs-0 col-md-4 "></div>
+      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandler}>
+      <h1 className="text-dark">Login: </h1>
+      <div className="form-group">
+    <label for="exampleInputUsername">Username:</label>
+      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"
+        onChange={(this.usernameChangeHandler)}></input>
+  </div>
+  <div className="form-group">
+    <label for="exampleInputPassword1">Password:</label>
+    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
+    onChange={(this.passwordChangeHandler)}></input>
+
+  </div>
+  <button  className="btn btn-warning btn-lg ml-3"onClick={this.login}>Sign In</button>
+      </form>
+      </div>
     </div>
   );
 
