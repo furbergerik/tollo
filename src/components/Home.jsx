@@ -10,19 +10,49 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import { Col, Form } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
 
-function getDaylyData(year, month, dataType) {
-  var salesData = data["totSales"];
-  var listDay = [];
-  for (var i in salesData) {
-    if (salesData[i]["Year"] == year && salesData[i]["Month"] == month) {
-      listDay.push(salesData[i][dataType])
+async function getDataForOneDay(year, month, day, dataType) {
+  const salesForOneDay = await getStoreTotSales();
+  var theDayData = salesForOneDay[year][month];
+  var dailySales;
+  for (var i in theDayData) {
+    if (theDayData[i]["Day"] == day) {
     }
   }
-  //console.log("ny test:  ",listDay)
-  return listDay
+  return dailySales;
 }
 
 
+
+async function getDaylyData(year, month, dataCategory, dataType) {
+  const salesData = await getStoreTotSales(dataCategory);
+  var monthData = salesData[year][month];
+  var listDay = [];
+  for (var i in monthData) {
+    listDay.push(monthData[i][dataType]);
+  }
+  return listDay
+}
+
+async function getStoreTotSales(dataCategory) {
+  if (dataCategory == "totSales") {
+    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/totSales');
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+  else if (dataCategory == "depSales") {
+    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/depSales');
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+  else if (dataCategory == "prodSales") {
+    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/prodSales');
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+}
 
 function getWeeklyDaylyData(year, week, dataType) {
   var salesData = data["totSales"];
@@ -48,11 +78,11 @@ function getWeeklyDaylyData(year, week, dataType) {
   return listDayInWeek
 }
 
-function getMonthlyData(year, dataType, Average) {
+async function getMonthlyData(year, dataCategory, dataType, Average) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
   for (var i = 1; i < 13; i++) {
-    var month = getDaylyData(year, i, dataType)
+    var month = await getDaylyData(year, "m" + i, dataCategory, dataType)
     if (Average) {
       month = sumArr(month) / month.length
       listMonth.push(month)
@@ -66,7 +96,7 @@ function getMonthlyData(year, dataType, Average) {
   return [listMonth, monthNames]
 }
 
-function getYearlyData(dataType) {
+function getYearlyData(dataCategory, dataType) {
   var salesData = data["totSales"];
   var listYear = [];
   var year = salesData[0]["Year"];
@@ -81,7 +111,7 @@ function getYearlyData(dataType) {
   }
   year = year - yearCount + 1
   for (var i = 0; i < yearCount; i++) {
-    var yearTot = sumArr(getMonthlyData(year + i, dataType))
+    var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType))
     listYear.push(yearTot)
   }
   console.log(labelYear)
@@ -111,6 +141,7 @@ function sumArr(arr) {
 
 //console.log(soldProduct(2018, 1, 1));
 
+
 class Home extends React.Component {
 
   state = {
@@ -128,10 +159,12 @@ class Home extends React.Component {
   }
 
   // ---------------From DropDown---------------------
-  handleYearSelect = (e) => {
+  handleYearSelect = async (e) => {
 
-    const year = Number(e)
-    const [neededData, dates] = getMonthlyData(year, "Total sales")
+    const year = "y" + Number(e)
+
+
+    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false)
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
     for (var i in neededData) {
@@ -150,12 +183,14 @@ class Home extends React.Component {
   };
 
   // ---------------From MultiSelect---------------------
-  onSelect(selectedList, selectedItem) {
+  onSelect = async (selectedList, selectedItem) => {
     console.log("Tjohej onSelect");
     console.log(selectedList)
-    const year = Number(selectedItem.year);
+    var year = Number(selectedItem.year);
+    var yearFix = "y" + year;
+
     console.log(year)
-    var [neededData, dates] = getMonthlyData(year, "Total sales")
+    const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false)
 
     var totSalesList = [];
     for (var i in neededData) {
@@ -215,6 +250,8 @@ class Home extends React.Component {
   }
 
 
+
+
   render() {
     return (
       <div className="home">
@@ -248,28 +285,14 @@ class Home extends React.Component {
   <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
                 </div>
 
-                <CountUp
-                  start={0}
-                  end={22020202}
-                  duration={2.75}
-                  separator=" "
-                  decimals={1}
-                  decimal=","
-                  suffix=" SEK"
-                >
-                  {({ countUpRef, start }) => (
-                    <div>
-                      <span ref={countUpRef} />
-                      <button onClick={start}>Start</button>
-                    </div>
-                  )}
-                </CountUp>
+
               </div>
             </div>
 
             {/* -------------col two------------ */}
             <div className="col-xs-12 col-md-8">
               {/* own store */}
+
 
 
 
@@ -300,6 +323,7 @@ class Home extends React.Component {
                       />
                     </div>
 
+                    <p className="myStoreTitle topSellers">Top sellers:</p>
 
                     <div>
                       <div className="dropDownButton">
@@ -369,20 +393,58 @@ class Home extends React.Component {
                   </div>
 
                 </div>
+
               </div>
+
+
+
+
 
               {/* -------OTHER STORES------ */}
               <div className="row col2">
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
-
+                    <div className="headline">Top Selling Store //(This Month)</div>
+                    <div className="top1">Store 3</div>
+                    <div className="top1-score"><CountUp end={1342} /> TKR</div>
+                    <div className="top1">Store 1</div>
+                    <div className="top1-score"><CountUp end={1132} /> TKR</div>
+                    <div className="top1">Store 4</div>
+                    <div className="top1-score"><CountUp end={954} /> TKR</div>
+                    <div className="top1">Store 2</div>
+                    <div className="top1-score"><CountUp end={758} /> TKR</div>
+                    <div className="top1">Store 5</div>
+                    <div className="top1-score"><CountUp end={654} /> TKR</div>
                   </div>
                   <div className="store-window window-4">
+                    <div className="headline">Top Selling Store</div>
+                    <div className="top1">Store 3</div>
+                    <div className="top1-score"><CountUp end={1342} /> TKR</div>
+                    <div className="top1">Store 1</div>
+                    <div className="top1-score"><CountUp end={1132} /> TKR</div>
+                    <div className="top1">Store 4</div>
+                    <div className="top1-score"><CountUp end={954} /> TKR</div>
+                    <div className="top1">Store 2</div>
+                    <div className="top1-score"><CountUp end={758} /> TKR</div>
+                    <div className="top1">Store 5</div>
+                    <div className="top1-score"><CountUp end={654} /> TKR</div>
 
                   </div>
                   <div className="store-window window-5">
-
+                    <div className="headline">Top Selling Store</div>
+                    <div className="top1">Store 3</div>
+                    <div className="top1-score"><CountUp end={1342} /> TKR</div>
+                    <div className="top1">Store 1</div>
+                    <div className="top1-score"><CountUp end={1132} /> TKR</div>
+                    <div className="top1">Store 4</div>
+                    <div className="top1-score"><CountUp end={954} /> TKR</div>
+                    <div className="top1">Store 2</div>
+                    <div className="top1-score"><CountUp end={758} /> TKR</div>
+                    <div className="top1">Store 5</div>
+                    <div className="top1-score"><CountUp end={654} /> TKR</div>
                   </div>
+
+
                 </div>
               </div>
             </div>
