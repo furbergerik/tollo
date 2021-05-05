@@ -12,8 +12,22 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 
 
-async function getDaylyData(year, month, dataType) {
-  const salesData = await getStore1TotSales();
+
+async function getDataForOneDay(year, month, day, dataType){
+  const salesForOneDay = await getStoreTotSales();
+  var theDayData = salesForOneDay[year][month];
+  var dailySales; 
+  for (var i in theDayData){
+    if (theDayData[i]["Day"] == day){
+    }
+  }
+  return dailySales;
+}
+
+
+
+async function getDaylyData(year, month, dataCategory, dataType) {
+  const salesData = await getStoreTotSales(dataCategory);
   var monthData = salesData[year][month];
   var listDay = [];
   for (var i in monthData){
@@ -22,12 +36,27 @@ async function getDaylyData(year, month, dataType) {
   return listDay
 }
 
-async function getStore1TotSales(){
-  const response = await fetch('http://tollo.duckdns.org:61338/store1v2/totSales');
-  const setOfData = await response.json();
-  const test = setOfData.data;
-  return test;
+async function getStoreTotSales(dataCategory){
+  if (dataCategory == "totSales"){
+    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/totSales');
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+  else if (dataCategory == "depSales"){
+    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/depSales');
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+  else if (dataCategory == "prodSales"){
+    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/prodSales');
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
 }
+
 
 function getWeeklyDaylyData(year, week, dataType) {
   var salesData = data["totSales"];
@@ -53,11 +82,11 @@ function getWeeklyDaylyData(year, week, dataType) {
   return listDayInWeek
 }
 
-async function getMonthlyData(year, dataType, Average) {
+async function getMonthlyData(year, dataCategory, dataType, Average) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
   for (var i = 1; i < 13; i++) {
-    var month = await getDaylyData(year, "m"+i, dataType)
+    var month = await getDaylyData(year, "m"+i, dataCategory, dataType)
     if (Average) {
       month = sumArr(month) / month.length
       listMonth.push(month)
@@ -71,7 +100,7 @@ async function getMonthlyData(year, dataType, Average) {
   return [listMonth, monthNames]
 }
 
-function getYearlyData(dataType) {
+function getYearlyData(dataCategory, dataType) {
   var salesData = data["totSales"];
   var listYear = [];
   var year = salesData[0]["Year"];
@@ -86,7 +115,7 @@ function getYearlyData(dataType) {
   }
   year = year - yearCount + 1
   for (var i = 0; i < yearCount; i++) {
-    var yearTot = sumArr(getMonthlyData(year + i, dataType))
+    var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType))
     listYear.push(yearTot)
   }
   console.log(labelYear)
@@ -128,12 +157,12 @@ class Home extends React.Component {
 
 
   // ---------------From DropDown---------------------
-  handleYearSelect = async(e) => {
+  handleSelect = async(e) => {
 
     const year = "y"+Number(e)
 
     
-    const [neededData, dates] = await getMonthlyData(year, "Total sales")
+    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales")
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
     for (var i in neededData) {
@@ -157,7 +186,7 @@ class Home extends React.Component {
     console.log(selectedList)
     const year = Number(selectedItem.year);
     console.log(year)
-    const [neededData, dates] = getMonthlyData(year, "Total sales")
+    const [neededData, dates] = getMonthlyData(year, "totSales", "Total sales")
 
     var totSalesList = [];
     for (var i in neededData) {
@@ -228,131 +257,71 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div className="container-fluid h-100">
+        <div className="container-fluid">
           <div className="row colGrid">
             {/* -------------col one------------ */}
-            <div className="col-xs-12 colGrid col1 col-md-4" >
-              <div className="dep-container individual">
-                <div className="progress-window">
-                  <img className="rounded-circle person profile-pic" src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
-                  <h4>Welcome back Olle!</h4>
-                </div>
-                <div className="progress-window">
-                  Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
+            <div className="col-xs-12 colGrid  col-md-4 bg-" >
+            <div>
+              Goal 1:
+  <ProgressBar variant="success" animated now={40} label={`${40}%`}/>
   Goal 2:
   <ProgressBar variant="info" animated now={20} label={`${20}%`} />
   Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
+  <ProgressBar variant="warning" animated now={60} label={`${60}%`}/>
   Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
-                </div>
-                <div className="progress-window">
-                  Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
-  Goal 2:
-  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
-  Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
-  Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
-                </div>
+  <ProgressBar variant="danger" animated now={80} label={`${80}%`}/>
+</div>
+          
 
-                <CountUp
-                  start={0}
-                  end={22020202}
-                  duration={2.75}
-                  separator=" "
-                  decimals={1}
-                  decimal=","
-                  suffix=" SEK"
-                >
-                  {({ countUpRef, start }) => (
-                    <div>
-                      <span ref={countUpRef} />
-                      <button onClick={start}>Start</button>
-                    </div>
-                  )}
-                </CountUp>
-              </div>
+              <Multiselect
+                options={this.state.multiOptions} // Options to display in the dropdown
+
+                onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                onRemove={this.onRemove} // Function will trigger on remove event
+                displayValue="year" // Property name to display in the dropdown options
+              >
+                {/* <Multiselect.Item eventKey="2018">2018</Multiselect.Item>
+                <Multiselect.Item eventKey="2019">2019</Multiselect.Item>
+                <Multiselect.Item eventKey="2020">2020</Multiselect.Item> */}
+              </Multiselect>
+
+
+              {/* <Form.Group as={Col} controlId="my_multiselect_field">
+                <Form.Label>My multiselect</Form.Label>
+                <Form.Control as="select" multiple value={field} onChange={e => setField([].slice.call(e.target.selectedOptions).map(item => item.value))}>
+                  <option value="field1">Field 1</option>
+                  <option value="field2">Field 2</option>
+                  <option value="field3">Field 3</option>
+                </Form.Control>
+              </Form.Group> */}
+
+              <CountUp
+                start={0}
+                end={22020202}
+                duration={2.75}
+                separator=" "
+                decimals={1}
+                decimal=","
+                suffix=" SEK"
+              >
+                {({ countUpRef, start }) => (
+                  <div>
+                    <span ref={countUpRef} />
+                    <button onClick={start}>Start</button>
+                  </div>
+                )}
+              </CountUp>
             </div>
 
             {/* -------------col two------------ */}
-            <div className="col-xs-12 col-md-8">
+            <div className="col-xs-12 col-md-8 bg-warning">
               {/* own store */}
-
-
-
-              <div className="row col2">
-                <div className="dep-container own-store">
-                  <div className="store-window window-1">
-
-                  </div>
-                  <div className="store-window window-2">
-
-                  </div>
-                  {/* <div className="myStore">
-                  <Bar
-                    data={{
-                      labels: this.state.dates,
-                      datasets: [this.state.dataSets]
-                    }}
-
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              beginAtZero: true,
-                            }
-                          }
-                        ]
-                      }
-                    }}
-                  />
-                </div>
-                <div className="col-3 border">
-                  <h1 className="border">stats!!</h1>
-                  <div>div</div>
-                  <div>div</div>
-                  <div>div</div>
-                  <div className="border">div</div>
-                </div>
-
-
-                <div className="row23">
-                  <div className="bg-primary dropDownButton">
-                    <DropdownButton
-                      alignRight
-                      title="Select year"
-                      id="dropdown-menu-align-right"
-                      onSelect={this.handleYearSelect.bind(this)}
-                    >
-                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                    </DropdownButton>
-                  </div>
-                </div> */}
-                </div>
+              <div className="row-fluid bg-info">
+                <h1>Your Store:</h1>
               </div>
 
-              {/* -------OTHER STORES------ */}
-              <div className="row col2">
-                <div className="dep-container other-store">
-                  <div className="store-window window-3">
-
-                  </div>
-                  <div className="store-window window-4">
-
-                  </div>
-                  <div className="store-window window-5">
-
-                  </div>
-                  {/* <div className="myStore">
+              <div className="row bg-light col2">
+                <div className="myStore">
                   <Bar
                     data={{
                       labels: this.state.dates,
@@ -374,9 +343,7 @@ class Home extends React.Component {
                   />
                 </div>
 
-
-
-                <div className="row-float row23">
+                <div className="row-float bg-info row23">
                   <div className="bg-primary dropDownButton">
                     <DropdownButton
                       alignRight
@@ -391,10 +358,57 @@ class Home extends React.Component {
                       <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                     </DropdownButton>
                   </div>
-                </div> */}
-
                 </div>
+
               </div>
+
+              {/* -------OTHER STORES------ */}
+              <div className="row col2">
+                <div className="row-fluid bg-info">
+                  <h1>Other Store:</h1>
+                </div>
+
+                <div className="myStore">
+                  <Bar
+                    data={{
+                      labels: this.state.dates,
+                      datasets: [this.state.dataSets]
+                    }}
+
+                    options={{
+                      maintainAspectRatio: false,
+                      scales: {
+                        yAxes: [
+                          {
+                            ticks: {
+                              beginAtZero: true,
+                            }
+                          }
+                        ]
+                      }
+                    }}
+                  />
+                </div>
+
+                <div className="row-float bg-info row23">
+                  <div className="bg-primary dropDownButton">
+                    <DropdownButton
+                      alignRight
+                      title="Select year"
+                      id="dropdown-menu-align-right"
+                      onSelect={this.handleSelect.bind(this)}
+                    >
+                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
+                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
+                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
+                    </DropdownButton>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
 
