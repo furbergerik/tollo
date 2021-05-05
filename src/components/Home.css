@@ -137,10 +137,33 @@ position: relative;
   box-shadow: 0 0 3px #c1e8dc;
 
 }
+.myStoreTitleGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
 .myStoreTitle{
     font-size: medium;
     text-align: center;
     margin-top: -2vh;
+    grid-column: 2 /span 1;
+}
+.multiSelectContainer{
+    width: 10vh;
+    z-index: 1;
+    grid-column: 3 /span 1;
+    margin-bottom: -10vh;
+    margin-left: 5vw;   
+}
+.multiselectContainer{
+    background-color: #F94144;
+}
+.searchBox{
+    border: dotted;
+	font-size: 12px;
+    background-color: #c1e8dcb2;
+}
+.inputField{
+    background-color: darkred;
 }
 
 .myStoreTitle.topSellers{
@@ -228,11 +251,6 @@ position: relative;
       border-width: 0.1vh;
       box-shadow: 0 0 3px #c1e8dc;
     
-    }
-    .myStoreTitle{
-        font-size: medium;
-        text-align: center;
-        margin-top: -2vh;
     }
     
     .myStoreTitle.topSellers{

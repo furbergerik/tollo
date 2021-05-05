@@ -153,7 +153,7 @@ class Home extends React.Component {
     }],
     dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
     numberOfBars: 0,
-    multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }],
+    multiOptions: [{ 'year': "2018" }, { 'year': "2019" }, { 'year': "2020" }],
     colorCount: 1,
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590']
   }
@@ -299,7 +299,17 @@ class Home extends React.Component {
               <div className="row col2">
                 <div className="dep-container own-store">
                   <div className="store-window window-1">
-                    <p className="myStoreTitle">Store 1</p>
+                    <div className="myStoreTitleGrid">
+                      <p className="myStoreTitle">Store 1</p>
+                      <div className="multiSelectContainer"><Multiselect
+                        options={this.state.multiOptions} // Options to display in the dropdown
+                        onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                        onRemove={this.onRemove} // Function will trigger on remove event
+                        displayValue="year" // Property name to display in the dropdown options
+                      >
+                      </Multiselect></div>
+                    </div>
+
                     <div className="myStore">
                       <Bar
                         data={{
@@ -322,11 +332,8 @@ class Home extends React.Component {
                         }}
                       />
                     </div>
-
-                    <p className="myStoreTitle topSellers">Top sellers:</p>
-
                     <div>
-                      <div className="dropDownButton">
+                      {/* <div className="dropDownButton">
                         <DropdownButton
                           alignRight
                           title="Select year"
@@ -341,17 +348,7 @@ class Home extends React.Component {
                           <Dropdown.Divider />
                           <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                         </DropdownButton>
-                      </div>
-                      <Multiselect
-                        options={this.state.multiOptions} // Options to display in the dropdown
-                        onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                        onRemove={this.onRemove} // Function will trigger on remove event
-                        displayValue="year" // Property name to display in the dropdown options
-                      >
-                        {/* <Multiselect.Item eventKey="2018">2018</Multiselect.Item>
-                        <Multiselect.Item eventKey="2019">2019</Multiselect.Item>
-                        <Multiselect.Item eventKey="2020">2020</Multiselect.Item> */}
-                      </Multiselect>
+                      </div> */}
                     </div>
 
                   </div>
@@ -417,21 +414,21 @@ class Home extends React.Component {
                     <div className="top1-score"><CountUp end={654} /> TKR</div>
                   </div>
                   <div className="store-window window-4">
-                    <div className="headline">Top Selling Store</div>
+                    <div className="headline">Top Selling Store // (This Year)</div>
                     <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={1342} /> TKR</div>
+                    <div className="top1-score"><CountUp end={16, 1} /> MkR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={1132} /> TKR</div>
+                    <div className="top1-score"><CountUp end={12, 3} /> MKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={954} /> TKR</div>
+                    <div className="top1-score"><CountUp end={12, 2} /> MKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={758} /> TKR</div>
+                    <div className="top1-score"><CountUp end={11, 0} /> MKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={654} /> TKR</div>
+                    <div className="top1-score"><CountUp end={10, 3} /> MKR</div>
 
                   </div>
                   <div className="store-window window-5">
-                    <div className="headline">Top Selling Store</div>
+                    <div className="headline">Product Of The Month Revenue</div>
                     <div className="top1">Store 3</div>
                     <div className="top1-score"><CountUp end={1342} /> TKR</div>
                     <div className="top1">Store 1</div>
