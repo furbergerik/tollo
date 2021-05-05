@@ -276,52 +276,7 @@ class Home extends React.Component {
                   <div className="store-window window-2">
 
                   </div>
-                  {/* <div className="myStore">
-                  <Bar
-                    data={{
-                      labels: this.state.dates,
-                      datasets: [this.state.dataSets]
-                    }}
-
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              beginAtZero: true,
-                            }
-                          }
-                        ]
-                      }
-                    }}
-                  />
-                </div>
-                <div className="col-3 border">
-                  <h1 className="border">stats!!</h1>
-                  <div>div</div>
-                  <div>div</div>
-                  <div>div</div>
-                  <div className="border">div</div>
-                </div>
-
-
-                <div className="row23">
-                  <div className="bg-primary dropDownButton">
-                    <DropdownButton
-                      alignRight
-                      title="Select year"
-                      id="dropdown-menu-align-right"
-                      onSelect={this.handleYearSelect.bind(this)}
-                    >
-                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                    </DropdownButton>
-                  </div>
-                </div> */}
+                
                 </div>
               </div>
 
@@ -369,46 +324,7 @@ class Home extends React.Component {
               <div className="top1-score"><CountUp end={654} /> TKR</div>
                 
                     </div>
-                {/* <div className="myStore">
-                  <Bar
-                    data={{
-                      labels: this.state.dates,
-                      datasets: [this.state.dataSets]
-                    }}
-
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              beginAtZero: true,
-                            }
-                          }
-                        ]
-                      }
-                    }}
-                  />
-                </div>
-
-
-
-                <div className="row-float row23">
-                  <div className="bg-primary dropDownButton">
-                    <DropdownButton
-                      alignRight
-                      title="Select year"
-                      id="dropdown-menu-align-right"
-                      onSelect={this.handleSelect.bind(this)}
-                    >
-                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                    </DropdownButton>
-                  </div>
-                </div> */}
+          
 
                 </div>
               </div>
