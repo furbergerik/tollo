@@ -114,13 +114,18 @@ function sumArr(arr) {
 class Home extends React.Component {
 
   state = {
-    dataSets: [0],
-    dates: [],
-    multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }]
+    dataSets: [{
+      label: 'Store progress',
+      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
+    }],
+    dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+    numberOfBars: 0,
+    multiOptions: [{ year: "2018" }, { year: "2019" }, { year: "2020" }],
+    colorCount: 1,
+    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590']
   }
-
-
-
 
   // ---------------From DropDown---------------------
   handleYearSelect = (e) => {
@@ -133,8 +138,8 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     console.log("handleSelect: ", totSalesList);
-    const newBar = { label: year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
-
+    var newBar = { label: "Revenue:  " + year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
+    newBar = [newBar];
     this.setState({
       dataSets: newBar,
       dates: dates
@@ -150,73 +155,65 @@ class Home extends React.Component {
     console.log(selectedList)
     const year = Number(selectedItem.year);
     console.log(year)
-    const [neededData, dates] = getMonthlyData(year, "Total sales")
+    var [neededData, dates] = getMonthlyData(year, "Total sales")
 
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
-    const newBar = { label: year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
+    var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
 
-    if (this.state.dataSets == 0) {
+    if (this.state.dataSets[0].label == 'Store progress') {
       console.log("Fanns ingen dataSet från början");
       this.setState({
-        dataSets: newBar,
-        dates: dates
+        dataSets: [newBar],
+        dates: dates,
+        numberOfBars: 1
       },
         () => {
           console.log("STATE  ", this.state.dataSets)
         })
     } else {
+      // test-loggar
       console.log("!!Fanns nått i dataSet!!");
-      console.log("Gamla state:", this.state.dataSets);
 
-      let oldBar = this.state.dataSets
-
-      console.log("NewBar:", newBar);
-      console.log("OldBar", oldBar);
-
-      let updatedBar = [oldBar, newBar];
-      console.log("updatedBar: ", updatedBar);
-
-
-      // ---- RESET ----
-      // this.resetState();
+      // color generation---
+      var localColorCount = this.state.colorCount;
+      if (localColorCount < 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: localColorCount + 1
+        })
+      }
+      if (localColorCount == 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: 0
+        })
+      }
+      //---Make new array for state--
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
 
       // ---UPDATE
+      var localNumberOfBars = this.state.numberOfBars;
       this.setState({
         dataSets: updatedBar,
-        dates: dates
+        dates: dates,
+        numberOfBars: localNumberOfBars + 1
       },
         () => {
           console.log("UPDATED state:  ", this.state.dataSets)
         })
     }
   }
-  resetState() {
-    this.setState({
-      dataSets: [{
-        label: 'test',
-        data: [1, 2, 4, 4, 5],
-        backgroundColor:
-          'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      },
-      {
-        label: 'test2',
-        data: [10, 22, 4, 4, 5],
-        backgroundColor:
-          'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      }],
-      dates: ['blipp', 'blapp', 'sdf', 'asd', 'iou']
-    },
-      () => {
-        console.log("RESET state:  ", this.state.dataSets)
-      })
 
-    console.log("State resettad!")
-  }
 
   render() {
     return (
@@ -279,57 +276,98 @@ class Home extends React.Component {
               <div className="row col2">
                 <div className="dep-container own-store">
                   <div className="store-window window-1">
+                    <p className="myStoreTitle">Store 1</p>
+                    <div className="myStore">
+                      <Bar
+                        data={{
+                          labels: this.state.dates,
+                          datasets: this.state.dataSets
+                        }}
+
+                        options={{
+                          backgroundColor: "red",
+                          maintainAspectRatio: false,
+                          scales: {
+                            yAxes: [
+                              {
+                                ticks: {
+                                  beginAtZero: true,
+                                }
+                              }
+                            ]
+                          }
+                        }}
+                      />
+                    </div>
+
+
+                    <div>
+                      <div className="dropDownButton">
+                        <DropdownButton
+                          alignRight
+                          title="Select year"
+                          id="dropdown-menu-align-right"
+                          size="sm"
+                          variant="secondary"
+                          onSelect={this.handleYearSelect.bind(this)}
+                        >
+                          <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
+                          <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
+                          <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
+                        </DropdownButton>
+                      </div>
+                      <Multiselect
+                        options={this.state.multiOptions} // Options to display in the dropdown
+                        onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                        onRemove={this.onRemove} // Function will trigger on remove event
+                        displayValue="year" // Property name to display in the dropdown options
+                      >
+                        {/* <Multiselect.Item eventKey="2018">2018</Multiselect.Item>
+                        <Multiselect.Item eventKey="2019">2019</Multiselect.Item>
+                        <Multiselect.Item eventKey="2020">2020</Multiselect.Item> */}
+                      </Multiselect>
+                    </div>
 
                   </div>
                   <div className="store-window window-2">
 
+                    <div className="storeDetails">
+                      <div className="myStoreTitle">This Month:</div>
+                      <div className="monthInfo">
+                        <div>Top department:</div>
+                        <div className="textRight">
+                          <div>Outdoor:</div>
+                          <div>
+                            <CountUp
+                              start={0}
+                              end={31634}
+                              duration={2.75}
+                              separator=" "
+                              decimals={0}
+                              decimal=","
+                              suffix=" SEK"
+                            >
+                            </CountUp>
+                          </div>
+                        </div>
+                        <div className="borderTop">Product of the Month:</div>
+                        <div className="productOfMonth textRight borderTop">Air Force 1 - Nike</div>
+                      </div>
+                    </div>
+
+                    <p className="myStoreTitle topSellers">Top sellers:</p>
+
+                    <div className="scrollTopList">
+                      <div className="topSeller">1. Olle Kindvall</div>
+                      <div className="topSeller">2. Georgios</div>
+                      <div className="topSeller">3. Vegge P</div>
+                      <div className="topSeller">4. Hugo Sjönneby</div>
+                      <div className="topSeller">5. Georgios</div>
+                    </div>
                   </div>
-                  {/* <div className="myStore">
-                  <Bar
-                    data={{
-                      labels: this.state.dates,
-                      datasets: [this.state.dataSets]
-                    }}
 
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              beginAtZero: true,
-                            }
-                          }
-                        ]
-                      }
-                    }}
-                  />
-                </div>
-                <div className="col-3 border">
-                  <h1 className="border">stats!!</h1>
-                  <div>div</div>
-                  <div>div</div>
-                  <div>div</div>
-                  <div className="border">div</div>
-                </div>
-
-
-                <div className="row23">
-                  <div className="bg-primary dropDownButton">
-                    <DropdownButton
-                      alignRight
-                      title="Select year"
-                      id="dropdown-menu-align-right"
-                      onSelect={this.handleYearSelect.bind(this)}
-                    >
-                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                    </DropdownButton>
-                  </div>
-                </div> */}
                 </div>
               </div>
 
@@ -345,47 +383,6 @@ class Home extends React.Component {
                   <div className="store-window window-5">
 
                   </div>
-                  {/* <div className="myStore">
-                  <Bar
-                    data={{
-                      labels: this.state.dates,
-                      datasets: [this.state.dataSets]
-                    }}
-
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: {
-                        yAxes: [
-                          {
-                            ticks: {
-                              beginAtZero: true,
-                            }
-                          }
-                        ]
-                      }
-                    }}
-                  />
-                </div>
-
-
-
-                <div className="row-float row23">
-                  <div className="bg-primary dropDownButton">
-                    <DropdownButton
-                      alignRight
-                      title="Select year"
-                      id="dropdown-menu-align-right"
-                      onSelect={this.handleSelect.bind(this)}
-                    >
-                      <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                      <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                      <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                    </DropdownButton>
-                  </div>
-                </div> */}
-
                 </div>
               </div>
             </div>
