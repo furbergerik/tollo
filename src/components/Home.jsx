@@ -258,22 +258,7 @@ class Home extends React.Component {
   <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
                 </div>
 
-                <CountUp
-                  start={0}
-                  end={22020202}
-                  duration={2.75}
-                  separator=" "
-                  decimals={1}
-                  decimal=","
-                  suffix=" SEK"
-                >
-                  {({ countUpRef, start }) => (
-                    <div>
-                      <span ref={countUpRef} />
-                      <button onClick={start}>Start</button>
-                    </div>
-                  )}
-                </CountUp>
+             
               </div>
             </div>
 
@@ -342,17 +327,49 @@ class Home extends React.Component {
 
               {/* -------OTHER STORES------ */}
               <div className="row col2">
-                <div className="dep-container other-store">
-                  <div className="store-window window-3">
-
+              <div className="dep-container other-store">
+              <div className="store-window window-3">
+                <div className="headline">Top Selling Store //(This Month)</div>
+                <div className="top1">Store 3</div>
+              <div className="top1-score"><CountUp end={1342} /> TKR</div>
+              <div className="top1">Store 1</div>
+              <div className="top1-score"><CountUp end={1132} /> TKR</div>
+              <div className="top1">Store 4</div>
+              <div className="top1-score"><CountUp end={954} /> TKR</div>
+              <div className="top1">Store 2</div>
+              <div className="top1-score"><CountUp end={758} /> TKR</div>
+              <div className="top1">Store 5</div>
+              <div className="top1-score"><CountUp end={654} /> TKR</div>
                   </div>
                   <div className="store-window window-4">
-
-                  </div>
-                  <div className="store-window window-5">
-
-                  </div>
-                  {/* <div className="myStore">
+                  <div className="headline">Top Selling Store</div>
+                <div className="top1">Store 3</div>
+              <div className="top1-score"><CountUp end={1342} /> TKR</div>
+              <div className="top1">Store 1</div>
+              <div className="top1-score"><CountUp end={1132} /> TKR</div>
+              <div className="top1">Store 4</div>
+              <div className="top1-score"><CountUp end={954} /> TKR</div>
+              <div className="top1">Store 2</div>
+              <div className="top1-score"><CountUp end={758} /> TKR</div>
+              <div className="top1">Store 5</div>
+              <div className="top1-score"><CountUp end={654} /> TKR</div>
+          
+                    </div>
+                    <div className="store-window window-5">
+                    <div className="headline">Top Selling Store</div>
+                <div className="top1">Store 3</div>
+              <div className="top1-score"><CountUp end={1342} /> TKR</div>
+              <div className="top1">Store 1</div>
+              <div className="top1-score"><CountUp end={1132} /> TKR</div>
+              <div className="top1">Store 4</div>
+              <div className="top1-score"><CountUp end={954} /> TKR</div>
+              <div className="top1">Store 2</div>
+              <div className="top1-score"><CountUp end={758} /> TKR</div>
+              <div className="top1">Store 5</div>
+              <div className="top1-score"><CountUp end={654} /> TKR</div>
+                
+                    </div>
+                {/* <div className="myStore">
                   <Bar
                     data={{
                       labels: this.state.dates,
