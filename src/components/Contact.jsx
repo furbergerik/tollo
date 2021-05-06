@@ -65,56 +65,9 @@ class Contact extends Component {
   }
   
   componentDidMount(){
-   this.getUser();
-   this.getJson();
-   this.getStore1TotSales();
-   this.getStore2TotSales();
-  }
-  getUser =_ =>{
-    fetch('http://tollo.duckdns.org:61338/')
-    .then(response =>response.json())
-    .then(response =>this.setState({users:response.data}))
-    .catch(err => console.error(err)) 
-    console.log("yo");
-
 
   }
-  getJson =_ =>{
-    fetch('http://tollo.duckdns.org:61338/test')
-    .then(response =>response.json())
-    .then(data =>this.setState({vegard:data}))
-    .catch(err => console.error(err)) 
-  }
 
-  async getStore1TotSales(){
-    const response = await fetch('http://tollo.duckdns.org:61338/store1/totSales');
-    const setOfData = await response.json();
-    return setOfData;
-  }
-  
-
-  /*getStore1TotSales =_ =>{
-    fetch('http://tollo.duckdns.org:61338/store1/totSales')
-    .then(response =>response.json())
-    .then(data =>this.setState({store1TotSales:data}))
-    .catch(err => console.error(err)) 
-  }*/
-
-  getStore2TotSales =_ =>{
-    fetch('http://tollo.duckdns.org:61338/store2/totSales')
-    .then(response =>response.json())
-    .then(data => console.log(data))
-    .catch(err => console.error(err)) 
-  }
-
-  name() {
-    console.log("kukens");
-    console.log(this.state.vegard);
-    console.log("Store 1 tot sales");
-    console.log(this.state.store1TotSales);
-    console.log("Store 2 tot sales");
-    console.log(this.state.store2TotSales); 
-  }
   addUser = _=>{
     console.log("wtf");
     //const {user}=this.state.user;
