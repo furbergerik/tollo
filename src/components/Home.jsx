@@ -23,8 +23,6 @@ async function getDataForOneDay(year, month, day, dataType) {
   return dailySales;
 }
 
-
-
 async function getDaylyData(year, month, dataCategory, dataType, ID) {
   const salesData = await getStoreTotSales(dataCategory);
 
@@ -258,6 +256,26 @@ class Home extends React.Component {
     }
   }
 
+  onRemove(selectedList, removedItem) {
+    console.log("Remove function");
+    console.log("selectedList in remove: ", selectedList)
+    console.log("removedItem in remove: ", removedItem.year);
+    var currentList = this.state.dataSets;
+    var updatedList = []
+    currentList.forEach(element => {
+      if (element.label != removedItem.year) {
+        updatedList.push(element);
+      }
+    });
+    console.log("updatedList ready to replace: ", updatedList);
+
+    this.setState({
+      dataSets: updatedList
+    })
+
+
+  }
+
 
 
 
@@ -284,9 +302,9 @@ class Home extends React.Component {
   <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
                 </div>
                 <div className="progress-window">
-                  New mebers:
+                  New members:
                 <NumericInput className="form-control" />
-                Sells of Product of the Month:
+                Product of the Month:
                 <NumericInput className="form-control" />
                   <button className="submit-button">Submit</button>
 
@@ -300,9 +318,6 @@ class Home extends React.Component {
             <div className="col-xs-12 col-md-8">
               {/* own store */}
 
-
-
-
               <div className="row col2">
                 <div className="dep-container own-store">
                   <div className="store-window window-1">
@@ -312,10 +327,11 @@ class Home extends React.Component {
                         <Multiselect
                           options={this.state.multiOptions} // Options to display in the dropdown
                           onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                          onRemove={this.onRemove} // Function will trigger on remove event
+                          onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
                           displayValue="year" // Property name to display in the dropdown options
                         >
-                        </Multiselect></div>
+                        </Multiselect>
+                      </div>
                     </div>
 
                     <div className="myStore">

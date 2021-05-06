@@ -161,6 +161,7 @@ position: relative;
     grid-column: 3 /span 1;
     margin-bottom: -10vh;
     margin-left: 5vw;   
+    color: #191919;
 }
 .multiselectContainer{
     background-color: #F94144;
