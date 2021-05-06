@@ -12,7 +12,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 
 async function getDataForOneDay(year, month, day, dataType) {
-  const salesForOneDay = await getStoreTotSales();
+  const salesForOneDay = await getStoreData();
   var theDayData = salesForOneDay[year][month];
   var dailySales;
   for (var i in theDayData) {
@@ -25,16 +25,9 @@ async function getDataForOneDay(year, month, day, dataType) {
 
 
 
-async function getDaylyData(year, month, dataCategory, dataType, ID) {
-  const salesData = await getStoreTotSales(dataCategory);
-
-  if (dataCategory == "totSales") {
-    var monthData = salesData[year][month];
-  }
-  else {
-    var monthData = salesData[ID][year][month];
-  }
-
+async function getDaylyData(year, month, dataCategory, dataType, ID, storeNr) {
+  const salesData = await getStoreData(dataCategory, ID, storeNr);
+  var monthData = salesData[year][month];
   var listDay = [];
   for (var i in monthData) {
     listDay.push(monthData[i][dataType]);
@@ -42,21 +35,18 @@ async function getDaylyData(year, month, dataCategory, dataType, ID) {
   return listDay;
 }
 
-async function getStoreTotSales(dataCategory) {
-  if (dataCategory == "totSales") {
-    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/totSales');
+async function getStoreData(dataCategory, ID, storeNr) {
+  if (ID == 0) {
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store'+storeNr+'v2/'+dataCategory
+    const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
     return finalSet;
   }
-  else if (dataCategory == "depSales") {
-    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/depSales');
-    const setOfData = await response.json();
-    const finalSet = setOfData.data;
-    return finalSet;
-  }
-  else if (dataCategory == "prodSales") {
-    const response = await fetch('http://tollo.duckdns.org:61338/store1v2/prodSales');
+
+  else {
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store'+storeNr+'v2/'+dataCategory+'/'+ID
+    const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
     return finalSet;
@@ -87,11 +77,11 @@ function getWeeklyDaylyData(year, week, dataType) {
   return listDayInWeek
 }
 
-async function getMonthlyData(year, dataCategory, dataType, Average, ID) {
+async function getMonthlyData(year, dataCategory, dataType, Average, ID, storeNr) {
   var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
   var listMonth = [];
   for (var i = 1; i < 13; i++) {
-    var month = await getDaylyData(year, "m" + i, dataCategory, dataType, ID)
+    var month = await getDaylyData(year, "m" + i, dataCategory, dataType, ID, storeNr)
     if (Average) {
       month = sumArr(month) / month.length
       listMonth.push(month)
@@ -105,7 +95,7 @@ async function getMonthlyData(year, dataCategory, dataType, Average, ID) {
   return [listMonth, monthNames]
 }
 
-function getYearlyData(dataCategory, dataType, ID) {
+function getYearlyData(dataCategory, dataType, ID, storeNr) {
   var salesData = data["totSales"];
   var listYear = [];
   var year = salesData[0]["Year"];
@@ -120,7 +110,7 @@ function getYearlyData(dataCategory, dataType, ID) {
   }
   year = year - yearCount + 1
   for (var i = 0; i < yearCount; i++) {
-    var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType, false, ID))
+    var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType, false, ID, storeNr))
     listYear.push(yearTot)
   }
   console.log(labelYear)
@@ -173,7 +163,7 @@ class Home extends React.Component {
     const year = "y" + Number(e)
 
 
-    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false, "0")
+    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false, 0, 1)
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
     for (var i in neededData) {
@@ -199,7 +189,7 @@ class Home extends React.Component {
     var yearFix = "y" + year;
 
     console.log(year)
-    const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0)
+    const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0, 1)
 
     var totSalesList = [];
     for (var i in neededData) {
