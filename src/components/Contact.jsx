@@ -58,6 +58,9 @@ class Contact extends Component {
   submitHandler =(event) =>{
     event.preventDefault();
     console.log(this.state.user);
+    event.target.className += " was-validated";
+    this.addUser();
+   // event.target.reset();
 
   }
   
@@ -122,8 +125,6 @@ class Contact extends Component {
     .then(data => console.log(data))
    // .then(this.getUser)
     .catch(err => console.error(err))
-    
-
   }
   login = _=>{
     console.log("login");
@@ -135,6 +136,10 @@ class Contact extends Component {
     
 
   }
+  cancelCourse = () => { 
+    document.getElementById("reg-form").reset();
+  }
+  
   renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
   render() {
     const{users, user}=this.state;
@@ -149,44 +154,48 @@ class Contact extends Component {
       <div className="row ">
         {/* behöver hjälp med det här hur man får den till en sen! på små skärmar */}
       <div className=" col-xs-0 col-md-4 "></div>
-      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandler}>
+      <form className="needs-validation" className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" novalidate id="reg-form" onSubmit={this.submitHandler}>
       <h1 className="text-dark">Registration Form: </h1>
-      <div className="form-group">
+      <div className="form-group ">
     <label for="exampleInputUsername">Username:</label>
-      <input type="invalid" className="form-control" id="exampleInputUserName" placeholder="Username"
+      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username" required
         onChange={(this.usernameChangeHandler)}></input>
+            <div className="invalid-feedback">
+                Please provide a valid city.
+              </div>
+              <div className="valid-feedback">Looks good!</div>
   </div>
-      <div className="form-group"  >
+      <div className="form-group "  >
     <label for="exampleInputEmail1">Email address:</label>
-    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"
+    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required
     onChange={(this.emailChangeHandler)}></input>   
   </div>
  
-  <div className="form-group">
+  <div className="form-group ">
     <label for="exampleInputPassword1">Password:</label>
-    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
+    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required
     onChange={(this.passwordChangeHandler)}></input>
 
   </div>
   <label for="number">Name:</label>
-  <div className="input-group">
+  <div className="input-group ">
   
-  <input type="text" className="form-control" placeholder="First Name"
+  <input type="text" className="form-control" placeholder="First Name" required
   onChange={(this.first_nameChangeHandler)}></input>
-  <input type="text" className="form-control" placeholder="Last Name"
+  <input type="text" className="form-control" placeholder="Last Name" required
   onChange={(this.last_nameChangeHandler)}></input>
 </div>
-  <div className="form-group">
+  <div className="form-group ">
     <label for="number">Phone Number:</label>
-    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244"
+    <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244" required
     onChange={(this.storeChangeHandler)}></input>
   </div>
   <label for="number">Which store do you work at?</label>
-  <div className="input-group mb-3">
+  <div className="input-group mb-3 ">
   <div className="input-group-prepend">
     <label className="input-group-text" for="inputGroupSelect01">Stores</label>
   </div>
-  <select className="custom-select" id="inputGroupSelect01"
+  <select className="custom-select" id="inputGroupSelect01" required
   onChange={(this.storeChangeHandler)}>
     <option defaultValue>Choose...</option>
     <option value="1">Store One</option>
@@ -200,7 +209,7 @@ class Contact extends Component {
 
  
   
-  <button  className="btn btn-success btn-lg" onClick={this.addUser}>Sign Up</button>
+  <button  className="btn btn-success btn-lg">Sign Up</button>
   <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
     </div>
@@ -209,13 +218,13 @@ class Contact extends Component {
       <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandler}>
       <h1 className="text-dark">Login: </h1>
       <div className="form-group">
-    <label for="exampleInputUsername">Username:</label>
-      <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username"
+    <label for="exampleInputUsername1">Username:</label>
+      <input type="text" className="form-control" id="exampleInputUserName1" placeholder="Username"
         onChange={(this.usernameChangeHandler)}></input>
   </div>
   <div className="form-group">
-    <label for="exampleInputPassword1">Password:</label>
-    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
+    <label for="exampleInputPassword11">Password:</label>
+    <input type="password" className="form-control" id="exampleInputPassword11" placeholder="Password"
     onChange={(this.passwordChangeHandler)}></input>
 
   </div>
