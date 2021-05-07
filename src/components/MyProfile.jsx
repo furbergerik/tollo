@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import './MyProfile.css';
 //http://tollo.duckdns.org
 //192.168.0.111
 class MyProfile extends Component {
@@ -9,7 +10,8 @@ class MyProfile extends Component {
     oldNumber:"",
     newNumber:"",
     oldEmail:"",
-    newEmail:""
+    newEmail:"",
+    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590']
   }
   props={
     olle:null
@@ -84,35 +86,97 @@ class MyProfile extends Component {
     return (
     
     <div className="App">
-      {/* {users.map(this.renderUser)} */}
- 
-      {/* <div>{this.name()}</div> */}
-      <br></br>
-      <br></br>
-    
-  <div className="row ">
-    <div className=" col-xs-0 col-md-4 "></div>
-      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandler}>
-      <h1 className="text-dark">Change Password: </h1>
-      <div className="form-group">
-    <label for="exampleInputUsername1">Current Password:</label>
-      <input value={this.state.newPassword} type="password" className="form-control" id="exampleInputUserName1" placeholder="Password"
-        onChange={(this.passwordChangeHandler)}></input>
-  </div>
-  <div className="form-group">
-    <label for="exampleInputPassword11">New Password:</label>
-    <input value={this.state.newPassword} type="password" className="form-control" id="exampleInputPassword11" placeholder="New Password"
-    onChange={(this.passwordChangeHandler)}></input>
+        <div className="row">
+        <div className="mt-2 col-md-5 offset-md-1" id="rightBar">
+        <h1>My store and sales info:</h1>
+        <div className="profile-pic"  >
+
+      <span id="cameraIcon"></span>
+      <span className="fas fa-camera" >      Change Image</span>
 
   </div>
-  <button  className="btn btn-warning btn-lg ml-3"onClick={this.login}>Sign In</button>
-      </form>
-      </div>
+        
+        <h3>My stores statistics</h3>
+        <h3>My personal info </h3>
+
+
+        </div>
+            
+    <div className="col-md-5  offset-md-0">  
+            <div className="mt-2" id="topLeftBar">
+                <h1>Profile Information:</h1>
+                <h3>Username:</h3>
+                <h3>Name:</h3>
+                <div  className="test">
+                <h3>Phone Number:</h3>
+                <p className="ml-3">Change </p>
+
+                </div>
+                <div  className="test">
+                <h3>Email:</h3>
+                <p className="ml-3">Change </p>
+
+                </div>
+                <div  className="test">
+                <h3>Password:</h3>
+                <p className="ml-3">Change </p>
+
+                </div>
+  
+
+            </div>
+           
+
+
+        </div>
+       
+        </div>
+        <div></div>
+  
     </div>
   );
+      
 
   
   }
 }
 
 export default MyProfile;
+
+// <div className="row ">
+//     <div className=" col-xs-0 col-md-4 "></div>
+//       <form className=" col-xs-1 col-md-4  shadow p-1 mb-2 bg-white rounded" onSubmit={this.submitHandler}>
+//       <h1 className="text-dark">Change Password: </h1>
+//       <div className="form-group">
+//     <label for="exampleInputUsername1">Current Password:</label>
+//       <input value={this.state.newPassword} type="password" className="form-control" id="exampleInputUserName1" placeholder="Current Password"
+//         onChange={(this.passwordChangeHandler)}></input>
+//   </div>
+//   <div className="form-group">
+//     <label for="exampleInputPassword11">New Password:</label>
+//     <input value={this.state.newPassword} type="password" className="form-control" id="exampleInputPassword11" placeholder="New Password"
+//     onChange={(this.passwordChangeHandler)}></input>
+
+//   </div>
+//   <button  className="btn btn-warning btn-lg ml-3"onClick={this.login}>Change Password</button>
+//       </form>
+//       </div>
+      
+//       <div className="row">
+//     <div className=" col-xs-0 col-md-4 "></div>
+//       <form className=" col-xs-1 col-md-4  shadow p-1 mb-2 bg-white rounded" onSubmit={this.submitHandler}>
+//       <h1 className="text-dark">Current Email: </h1>
+//       <div className="form-group">
+//     <label for="exampleInputEmail">Current Password:</label>
+//       <input value={this.state.newPassword} type="text" className="form-control" id="exampleInputEmail" placeholder="Current Email"
+//         onChange={(this.passwordChangeHandler)}></input>
+//   </div>
+//   <div className="form-group">
+//     <label for="exampleInputEmail2">New Email:</label>
+//     <input value={this.state.newPassword} type="text" className="form-control" id="exampleInputEmail2" placeholder="New Email"
+//     onChange={(this.passwordChangeHandler)}></input>
+
+//   </div>
+//   <button  className="btn btn-warning btn-lg ml-3"onClick={this.login}>Change Email</button>
+//       </form>
+//       </div>
