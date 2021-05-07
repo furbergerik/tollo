@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 
 
   
-function Registration() {
-    const [regUser, setAllUsers] = useState({
+class  Registration extends Component {
+    Constructor(){
+      this.regUserChangeHandler=this.regUserChangeHandler.bind(this);
+    }
+    state={
         username: '',
         email: '',
         password: '',
@@ -11,15 +14,15 @@ function Registration() {
         last_name: '',
         phone: '',
         store: '',
-     });
-     this.regUserChangeHandler=this.regUserChangeHandler.bind(this);
+     }
+   
       regUserChangeHandler =(event) => {
-        this.setAllUsers({...regUser, [event.target.name]: event.target.value });
+        this.setAllUsers({ [event.target.name]: event.target.value });
     
       }
-      
     
-    return (
+    render() {
+      return(
         <div>
         <div className=" col-xs-0 col-md-4 "></div>
       <form className="needs-validation" className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" novalidate id="reg-form" onSubmit={this.submitHandler}>
@@ -81,7 +84,8 @@ function Registration() {
   <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
     </div>
-    );
+      )
+  }
   }
   
   export default Registration;
