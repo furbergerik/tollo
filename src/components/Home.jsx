@@ -13,6 +13,7 @@ import { Col, Form } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 
+
 async function getDataForOneDay(year, month, day, dataType) {
   const salesForOneDay = await getStoreData();
   var theDayData = salesForOneDay[year][month];
@@ -163,8 +164,6 @@ class Home extends React.Component {
   handleYearSelect = async (e) => {
 
     const year = "y" + Number(e)
-
-
     const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false, 0, 1) //0 = totSales, 1 = store1
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
@@ -198,6 +197,12 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+
+    var currentData = this.state.dataSets
+
+    if (currentData.length == 0) {
+      console.log("tom datasets!!!!!!!!!!")
+    }
 
     if (this.state.dataSets[0].label == 'Store progress') {
       console.log("Fanns ingen dataSet från början");
@@ -252,20 +257,32 @@ class Home extends React.Component {
 
   onRemove(selectedList, removedItem) {
     console.log("Remove function");
-    console.log("selectedList in remove: ", selectedList)
-    console.log("removedItem in remove: ", removedItem.year);
-    var currentList = this.state.dataSets;
-    var updatedList = []
-    currentList.forEach(element => {
-      if (element.label != removedItem.year) {
-        updatedList.push(element);
-      }
-    });
-    console.log("updatedList ready to replace: ", updatedList);
+    const initialList = [{
+      label: 'Store progress',
+      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
+    }]
 
-    this.setState({
-      dataSets: updatedList
-    })
+    if (selectedList.length == 0) {
+      this.setState({
+        dataSets: initialList
+      })
+    } else {
+      var currentList = this.state.dataSets;
+      var updatedList = []
+
+      currentList.forEach(element => {
+        if (element.label != removedItem.year) {
+          updatedList.push(element);
+        }
+      });
+      console.log("updatedList ready to replace: ", updatedList);
+
+      this.setState({
+        dataSets: updatedList
+      })
+    }
   }
 
   buttonClick(timePeriod) {
