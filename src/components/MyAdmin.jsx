@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './MyProfile.css';
+import Registration from './Registration.jsx';
 //http://tollo.duckdns.org
 //192.168.0.111
 class MyAdmin extends Component {
@@ -86,6 +87,18 @@ class MyAdmin extends Component {
     return (
     
     <div className="App">
+        {<Registration></Registration>}
+        <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-lg">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked></input> Overview
+  </label>
+  <label class="btn btn-secondary btn-lg">
+Store Statistics  </label>
+  <label class="btn btn-secondary btn-lg ">
+    <input type="radio" name="options" id="option3" autocomplete="off"></input> User Registration
+  </label>
+</div>
+
     </div>
   );
       

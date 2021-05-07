@@ -85,6 +85,7 @@ class MyProfile extends Component {
     const{users, user}=this.state;
     return (
     
+
     <div className="App">
         <div className="row">
         <div className="mt-2 col-md-5 offset-md-1" id="rightBar">
