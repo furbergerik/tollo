@@ -7,9 +7,12 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Button from 'react-bootstrap/Button';
 import { Col, Form } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
+
 
 async function getDataForOneDay(year, month, day, dataType) {
   const salesForOneDay = await getStoreData();
@@ -37,7 +40,7 @@ async function getDaylyData(year, month, dataCategory, dataType, ID, storeNr) {
 
 async function getStoreData(dataCategory, ID, storeNr) {
   if (ID == 0) {
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store'+storeNr+'v2/'+dataCategory
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -45,7 +48,7 @@ async function getStoreData(dataCategory, ID, storeNr) {
   }
 
   else {
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store'+storeNr+'v2/'+dataCategory+'/'+ID
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -161,9 +164,7 @@ class Home extends React.Component {
   handleYearSelect = async (e) => {
 
     const year = "y" + Number(e)
-
-
-    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false, 0, 1)
+    const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false, 0, 1) //0 = totSales, 1 = store1
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
     for (var i in neededData) {
@@ -196,6 +197,12 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+
+    var currentData = this.state.dataSets
+
+    if (currentData.length == 0) {
+      console.log("tom datasets!!!!!!!!!!")
+    }
 
     if (this.state.dataSets[0].label == 'Store progress') {
       console.log("Fanns ingen dataSet från början");
@@ -250,27 +257,37 @@ class Home extends React.Component {
 
   onRemove(selectedList, removedItem) {
     console.log("Remove function");
-    console.log("selectedList in remove: ", selectedList)
-    console.log("removedItem in remove: ", removedItem.year);
-    var currentList = this.state.dataSets;
-    var updatedList = []
-    currentList.forEach(element => {
-      if (element.label != removedItem.year) {
-        updatedList.push(element);
-      }
-    });
-    console.log("updatedList ready to replace: ", updatedList);
+    const initialList = [{
+      label: 'Store progress',
+      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
+    }]
 
-    this.setState({
-      dataSets: updatedList
-    })
+    if (selectedList.length == 0) {
+      this.setState({
+        dataSets: initialList
+      })
+    } else {
+      var currentList = this.state.dataSets;
+      var updatedList = []
 
+      currentList.forEach(element => {
+        if (element.label != removedItem.year) {
+          updatedList.push(element);
+        }
+      });
+      console.log("updatedList ready to replace: ", updatedList);
 
+      this.setState({
+        dataSets: updatedList
+      })
+    }
   }
 
-
-
-
+  buttonClick(timePeriod) {
+    console.log(timePeriod)
+  }
   render() {
     return (
       <div className="home">
@@ -315,15 +332,6 @@ class Home extends React.Component {
                   <div className="store-window window-1">
                     <div className="myStoreTitleGrid">
                       <p className="myStoreTitle">Store 1</p>
-                      <div className="multiSelectContainer">
-                        <Multiselect
-                          options={this.state.multiOptions} // Options to display in the dropdown
-                          onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                          onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                          displayValue="year" // Property name to display in the dropdown options
-                        >
-                        </Multiselect>
-                      </div>
                     </div>
 
                     <div className="myStore">
@@ -348,8 +356,8 @@ class Home extends React.Component {
                         }}
                       />
                     </div>
-                    <div>
-                      {/* <div className="dropDownButton">
+                    {/* <div>
+                      <div className="dropDownButton">
                         <DropdownButton
                           alignRight
                           title="Select year"
@@ -364,7 +372,25 @@ class Home extends React.Component {
                           <Dropdown.Divider />
                           <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                         </DropdownButton>
-                      </div> */}
+                      </div>
+                    </div> */}
+
+                    <div className="buttonGrid">
+
+                      <div className="buttonGroupContainer">
+                        <ButtonGroup aria-label="Basic example">
+                          <Button variant="secondary" onClick={this.buttonClick('year')}>Year</Button>
+                          <Button variant="secondary">Month</Button>
+                          <Button variant="secondary">Week</Button>
+                          <Multiselect
+                            options={this.state.multiOptions} // Options to display in the dropdown
+                            onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                            onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
+                            displayValue="year" // Property name to display in the dropdown options
+                          >
+                          </Multiselect>
+                        </ButtonGroup>
+                      </div>
                     </div>
 
                   </div>
