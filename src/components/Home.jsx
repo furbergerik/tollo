@@ -7,6 +7,8 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Button from 'react-bootstrap/Button';
 import { Col, Form } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
@@ -170,7 +172,6 @@ class Home extends React.Component {
 
     const year = "y" + Number(e)
 
-
     const [neededData, dates] = await getMonthlyData(year, "totSales", "Total sales", false, "0")
     // let dateList = Object.keys(neededData);
     var totSalesList = [];
@@ -272,13 +273,11 @@ class Home extends React.Component {
     this.setState({
       dataSets: updatedList
     })
-
-
   }
 
-
-
-
+  buttonClick(timePeriod) {
+    console.log(timePeriod)
+  }
   render() {
     return (
       <div className="home">
@@ -323,15 +322,6 @@ class Home extends React.Component {
                   <div className="store-window window-1">
                     <div className="myStoreTitleGrid">
                       <p className="myStoreTitle">Store 1</p>
-                      <div className="multiSelectContainer">
-                        <Multiselect
-                          options={this.state.multiOptions} // Options to display in the dropdown
-                          onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                          onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                          displayValue="year" // Property name to display in the dropdown options
-                        >
-                        </Multiselect>
-                      </div>
                     </div>
 
                     <div className="myStore">
@@ -356,8 +346,8 @@ class Home extends React.Component {
                         }}
                       />
                     </div>
-                    <div>
-                      {/* <div className="dropDownButton">
+                    {/* <div>
+                      <div className="dropDownButton">
                         <DropdownButton
                           alignRight
                           title="Select year"
@@ -372,7 +362,25 @@ class Home extends React.Component {
                           <Dropdown.Divider />
                           <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
                         </DropdownButton>
-                      </div> */}
+                      </div>
+                    </div> */}
+
+                    <div className="buttonGrid">
+
+                      <div className="buttonGroupContainer">
+                        <ButtonGroup aria-label="Basic example">
+                          <Button variant="secondary" onClick={this.buttonClick('year')}>Year</Button>
+                          <Button variant="secondary">Month</Button>
+                          <Button variant="secondary">Week</Button>
+                          <Multiselect
+                            options={this.state.multiOptions} // Options to display in the dropdown
+                            onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                            onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
+                            displayValue="year" // Property name to display in the dropdown options
+                          >
+                          </Multiselect>
+                        </ButtonGroup>
+                      </div>
                     </div>
 
                   </div>
