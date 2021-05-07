@@ -157,7 +157,8 @@ class Home extends React.Component {
     numberOfBars: 0,
     multiOptions: [{ 'year': "2018" }, { 'year': "2019" }, { 'year': "2020" }],
     colorCount: 1,
-    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590']
+    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
+    monthlyCompList: []
   }
 
   // ---------------From DropDown---------------------
