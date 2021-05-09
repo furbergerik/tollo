@@ -157,7 +157,8 @@ class Home extends React.Component {
     numberOfBars: 0,
     multiOptions: [{ 'year': "2018" }, { 'year': "2019" }, { 'year': "2020" }],
     colorCount: 1,
-    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590']
+    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
+    activePeriod: 'year'
   }
 
   // ---------------From DropDown---------------------
@@ -197,12 +198,6 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
-
-    var currentData = this.state.dataSets
-
-    if (currentData.length == 0) {
-      console.log("tom datasets!!!!!!!!!!")
-    }
 
     if (this.state.dataSets[0].label == 'Store progress') {
       console.log("Fanns ingen dataSet från början");
@@ -285,9 +280,26 @@ class Home extends React.Component {
     }
   }
 
-  buttonClick(timePeriod) {
-    console.log(timePeriod)
+  buttonClickYear() {
+    console.log("Ett year ett year ett year")
+    this.setState({
+      activePeriod: 'year'
+    })
   }
+  buttonClickMonth() {
+    console.log("Ett mooooooooonth")
+    this.setState({
+      activePeriod: 'month'
+    })
+  }
+  buttonClickWeek() {
+    console.log("Ett weeeeeeeeeeeeek")
+    this.setState({
+      activePeriod: 'week'
+    })
+  }
+
+
   render() {
     return (
       <div className="home">
@@ -379,14 +391,18 @@ class Home extends React.Component {
 
                       <div className="buttonGroupContainer">
                         <ButtonGroup aria-label="Basic example">
-                          <Button variant="secondary" onClick={this.buttonClick('year')}>Year</Button>
-                          <Button variant="secondary">Month</Button>
-                          <Button variant="secondary">Week</Button>
+                          <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
+                          <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
+                          <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
                           <Multiselect
                             options={this.state.multiOptions} // Options to display in the dropdown
                             onSelect={this.onSelect.bind(this)} // Function will trigger on select event
                             onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                            displayValue="year" // Property name to display in the dropdown options
+                            displayValue={this.state.activePeriod} // Property name to display in the dropdown options
+                            placeholder="Select time period"
+                            showCheckbox="true"
+                            closeOnSelect="false"
+                            hidePlaceholder="true"
                           >
                           </Multiselect>
                         </ButtonGroup>
