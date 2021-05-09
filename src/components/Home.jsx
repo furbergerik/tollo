@@ -155,10 +155,14 @@ class Home extends React.Component {
     }],
     dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
     numberOfBars: 0,
-    multiOptions: [{ 'year': "2018" }, { 'year': "2019" }, { 'year': "2020" }],
+    multiOptions: [
+      { 'year': "2018" },
+      { 'year': "2019" },
+      { 'year': "2020" }],
     colorCount: 1,
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
-    activePeriod: 'year'
+    activePeriod: 'year',
+    year: '2018'
   }
 
   // ---------------From DropDown---------------------
@@ -187,6 +191,89 @@ class Home extends React.Component {
   onSelect = async (selectedList, selectedItem) => {
     console.log("Tjohej onSelect");
     console.log(selectedList)
+
+    var activePeriod = this.state.activePeriod;
+
+    if (activePeriod == 'year') {
+      console.log("Det var ett år");
+      this.onSelectYear(selectedList, selectedItem);
+    } else if (activePeriod == 'month') {
+      console.log("nu ska de va månad tjoho!")
+
+      console.log(selectedList)
+      if (selectedList.length < 2) {
+        console.log("bara ett år")
+        return;
+      } else {
+        this.onSelectMonth(selectedList, selectedItem)
+      }
+
+    }
+
+  }
+
+  onSelectMonth = async (selectedList, selectedItem) => {
+    console.log("nu kommer vi hit och ska hitta månad!")
+    const monthDict = {
+      'Jan': 'm1',
+      'Feb': 'm2',
+      'Mar': 'm3',
+      'Apr': 'm4',
+      'May': 'm5',
+      'Jun': 'm6',
+      'Jul': 'm7',
+      'Aug': 'm8',
+      'Sept': 'm9',
+      'Oct': 'm10',
+      'Nov': 'm11',
+      'Dec': 'm12'
+    };
+    var selectedYear;
+    var selectedMonth;
+
+    selectedList.forEach(element => {
+      if (element.group == 'year') {
+        console.log("år: ", element["month"])
+        selectedYear = String(element['month'])
+      }
+      if (element.group == 'month') {
+        console.log("månad: ", element["month"])
+        selectedMonth = String(element["month"])
+      }
+    });
+
+    var year = Number(selectedYear);
+    var yearFix = "y" + year;
+
+    const neededData = await getDaylyData(yearFix, monthDict[selectedMonth], "totSales", "Total sales", false, 1, 1)
+    // (year, month, dataCategory, dataType, ID, storeNr)
+    var totSalesList = [];
+    for (var i in neededData) {
+      totSalesList.push(neededData[i])
+    }
+
+    console.log("data from month man boy:  ", neededData)
+
+    var monthDates = [];
+    var i = 1;
+    neededData.forEach(element => {
+      monthDates.push(selectedMonth + " " + i)
+      i = i + 1;
+    });
+    console.log(monthDates)
+
+
+    var newBar = { label: selectedYear + " " + selectedMonth, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+
+    this.setState({
+      dataSets: [newBar],
+      dates: monthDates
+    })
+
+  }
+
+
+  onSelectYear = async (selectedList, selectedItem) => {
     var year = Number(selectedItem.year);
     var yearFix = "y" + year;
 
@@ -283,13 +370,33 @@ class Home extends React.Component {
   buttonClickYear() {
     console.log("Ett year ett year ett year")
     this.setState({
-      activePeriod: 'year'
+      activePeriod: 'year',
+      multiOptions: [
+        { 'year': "2018", 'group': 'year' },
+        { 'year': "2019", 'group': 'year' },
+        { 'year': "2020", 'group': 'year' }]
     })
   }
   buttonClickMonth() {
-    console.log("Ett mooooooooonth")
+    const months = [
+      { 'month': "2018", 'group': 'year' },
+      { 'month': "2019", 'group': 'year' },
+      { 'month': "2020", 'group': 'year' },
+      { 'month': "Jan", 'group': 'month' },
+      { 'month': "Feb", 'group': 'month' },
+      { 'month': "Mar", 'group': 'month' },
+      { 'month': "Apr", 'group': 'month' },
+      { 'month': "May", 'group': 'month' },
+      { 'month': "Jun", 'group': 'month' },
+      { 'month': "Jul", 'group': 'month' },
+      { 'month': "Aug", 'group': 'month' },
+      { 'month': "Sept", 'group': 'month' },
+      { 'month': "Oct", 'group': 'month' },
+      { 'month': "Nov", 'group': 'month' },
+      { 'month': "Dec", 'group': 'month' },]
     this.setState({
-      activePeriod: 'month'
+      activePeriod: 'month',
+      multiOptions: months
     })
   }
   buttonClickWeek() {
@@ -399,6 +506,7 @@ class Home extends React.Component {
                             onSelect={this.onSelect.bind(this)} // Function will trigger on select event
                             onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
                             displayValue={this.state.activePeriod} // Property name to display in the dropdown options
+                            groupBy="group"
                             placeholder="Select time period"
                             showCheckbox="true"
                             closeOnSelect="false"
