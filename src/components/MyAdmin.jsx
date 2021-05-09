@@ -1,8 +1,10 @@
 import { Component } from 'react';
 import './MyProfile.css';
+import Registration from './Registration.jsx';
 //http://tollo.duckdns.org
 //192.168.0.111
-class MyProfile extends Component {
+class MyAdmin extends Component {
+  
   state ={
     users:[],
     oldPassword:"",
@@ -85,55 +87,24 @@ class MyProfile extends Component {
     const{users, user}=this.state;
     return (
     
-
     <div className="App">
-        <div className="row">
-        <div className="mt-2 col-md-5 offset-md-1" id="rightBar">
-        <h1>My store and sales info:</h1>
-        <div className="profile-pic"  >
-
-      <span id="cameraIcon"></span>
-      <span className="fas fa-camera" >      Change Image</span>
-
-  </div>
-        
-        <h3>My stores statistics</h3>
-        <h3>My personal info </h3>
-
-
-        </div>
-            
-    <div className="col-md-5  offset-md-0">  
-            <div className="mt-2" id="topLeftBar">
-                <h1>Profile Information:</h1>
-                <h3>Username:</h3>
-                <h3>Name:</h3>
-                <div  className="test">
-                <h3>Phone Number:</h3>
-                <p className="ml-3">Change </p>
-
-                </div>
-                <div  className="test">
-                <h3>Email:</h3>
-                <p className="ml-3">Change </p>
-
-                </div>
-                <div  className="test">
-                <h3>Password:</h3>
-                <p className="ml-3">Change </p>
-
-                </div>
-  
-
-            </div>
-           
+    
+        <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+  <label class="btn btn-secondary active btn-lg">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked></input> Overview
+  </label>
+  <label class="btn btn-secondary btn-lg">
+      <input type="radio" name="options" id="option2" autocomplete="off" checked></input>
+Store Statistics  </label>
+  <label class="btn btn-secondary btn-lg ">
+    <input type="radio" name="options" id="option3" autocomplete="off"></input> User Registration
+  </label>
+</div>
+<div className="offset-md-4">
+{<Registration></Registration>}
+</div>
 
 
-        </div>
-       
-        </div>
-        <div></div>
-  
     </div>
   );
       
@@ -142,7 +113,7 @@ class MyProfile extends Component {
   }
 }
 
-export default MyProfile;
+export default MyAdmin;
 
 // <div className="row ">
 //     <div className=" col-xs-0 col-md-4 "></div>

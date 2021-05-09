@@ -5,3 +5,4 @@ export { default as About } from "./About";
 export { default as Contact } from "./Contact";
 export { default as Overview } from "./Overview";
 export { default as MyProfile } from "./MyProfile";
+export { default as MyAdmin } from "./MyAdmin";
