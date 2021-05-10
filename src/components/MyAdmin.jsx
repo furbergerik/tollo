@@ -13,12 +13,19 @@ class MyAdmin extends Component {
     newNumber:"",
     oldEmail:"",
     newEmail:"",
-    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590']
-  }
+    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
+    tab: "Store"
+    }
   props={
     olle:null
 
+    
   }
+  selectedButton = (buttonClicked) => {
+    console.log(this.state.tab);
+    this.setState({tab: buttonClicked});
+  }
+
   passwordChangeHandler =(event) => {
     this.setState({ [event.target.name]: event.target.value });
 
@@ -85,25 +92,80 @@ class MyAdmin extends Component {
   renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
   render() {
     const{users, user}=this.state;
+    let message
+    if (this.state.tab == "Store"){
+      message = 
+      <div>            
+        <h1>My store and sales info:</h1>
+        <div className="profile-pic"  >
+          <span id="cameraIcon"></span>
+          <span className="fas fa-camera" >Change Image</span>
+        </div>
+
+        <h3>My stores statistics</h3>
+        <h3>My personal info </h3>
+      </div>
+    }
+
+    else if(this.state.tab == "Department"){
+      message = <div>Nu är det department</div>
+    }
+
+    else if(this.state.tab == "Settings"){
+      message = 
+      <div>
+        <div className="mt-2" >
+        {<Registration></Registration>}
+        </div>
+        
+        <h1>Profile Information:</h1>
+        <h3>Username:</h3>
+        <h3>Name:</h3>
+
+        <div className="test">
+          <h3>Phone Number:</h3>
+          <p className="ml-3">Change </p>
+        </div>
+
+        <div className="test">
+          <h3>Email:</h3>
+          <p className="ml-3">Change </p>
+        </div>
+
+        <div className="test">
+          <h3>Password:</h3>
+          <p className="ml-3">Change </p>
+        </div>
+
+      </div>
+    }
     return (
     
     <div className="App">
     
-        <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
-  <label class="btn btn-secondary active btn-lg">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked></input> Overview
-  </label>
-  <label class="btn btn-secondary btn-lg">
-      <input type="radio" name="options" id="option2" autocomplete="off" checked></input>
-Store Statistics  </label>
-  <label class="btn btn-secondary btn-lg ">
-    <input type="radio" name="options" id="option3" autocomplete="off"></input> User Registration
-  </label>
-</div>
+    <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+          <label class="btn btn-secondary active btn-lg">
+            <input type="radio" name="options" id="option1" autocomplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
+          </label>
+          <label class="btn btn-secondary btn-lg">
+            <input type="radio" name="options" id="option2" autocomplete="off" onClick={this.selectedButton.bind(this, "Department")}></input>
+          My store  
+          </label>
+          <label class="btn btn-secondary btn-lg ">
+            <input type="radio" name="options" id="option3" autocomplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input>
+            Settings and Registration
+          </label>
+        </div>
 <div className="offset-md-4">
-{<Registration></Registration>}
+
+</div>
+<div className="row">
+
+<div className="mt-2 col-md-10 offset-md-1" id="rightBar">
+  {message}
 </div>
 
+</div>
 
     </div>
   );
