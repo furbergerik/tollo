@@ -27,7 +27,6 @@ async function getDataForOneDay(year, month, day, dataType) {
 }
 
 
-
 async function getDaylyData(year, month, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
   var monthData = salesData[year][month];
@@ -120,7 +119,33 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
   return { labelYear, listYear }
 }
 
+async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
+  var topList =[];
+  for(var i = 1; i < 6; i++){
+    var monthTot= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+    monthTot = sumArr(monthTot)
+    topList.push(["Store " + i, monthTot])
+  }
+  console.log("denna datan", topList)
+  return topList
+}
 
+let bubbleSort = (inputArr) => {
+  let len = inputArr.length;
+  console.log(inputArr[0])
+  for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len; j++) {
+        console.log(inputArr[j][1])
+          if (inputArr[j][1] < inputArr[j + 1][1]) {
+              let tmp = inputArr[j];
+              inputArr[j] = inputArr[j + 1];
+              inputArr[j + 1] = tmp;
+          }
+      }
+      console.log(inputArr)
+  }
+  return inputArr;
+};
 
 function sumArr(arr) {
   //var arr=Object.values(obj)
@@ -142,7 +167,8 @@ function sumArr(arr) {
 // }
 
 //console.log(soldProduct(2018, 1, 1));
-
+var test = getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
+console.log(bubbleSort(test))
 
 class Home extends React.Component {
 
@@ -161,9 +187,9 @@ class Home extends React.Component {
       { 'year': "2020" }],
     colorCount: 1,
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
-    monthlyCompList: [],
     activePeriod: 'year',
-    year: '2018'
+    year: '2018',
+    monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
   }
 
   // ---------------From DropDown---------------------
@@ -187,6 +213,10 @@ class Home extends React.Component {
         console.log("STATE  ", this.state.dataSets)
       })
   };
+
+  test = async () => {
+    return this.state.monthlyCompList[0]
+  }
 
   // ---------------From MultiSelect---------------------
   onSelect = async (selectedList, selectedItem) => {
@@ -273,6 +303,19 @@ class Home extends React.Component {
 
   }
 
+  makeToplist = async () => {
+    console.log("Hej")
+    
+    const theTopList = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
+    console.log("gjdhfdfdsfds  ",theTopList)
+    theTopList = bubbleSort(theTopList);
+   
+    const topListItems =[];
+    // for (const [index, value] of theTopList.entries()) {
+    //   topListItems.push(<li key={index}>{value}</li>)
+    // }
+  }
+
 
   onSelectYear = async (selectedList, selectedItem) => {
     var year = Number(selectedItem.year);
@@ -337,6 +380,7 @@ class Home extends React.Component {
         })
     }
   }
+
 
   onRemove(selectedList, removedItem) {
     console.log("Remove function");
@@ -409,6 +453,7 @@ class Home extends React.Component {
 
 
   render() {
+
     return (
       <div className="home">
         <div className="container-fluid h-100">
@@ -422,13 +467,13 @@ class Home extends React.Component {
                 </div>
                 <div className="progress-window">
                   Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
-  Goal 2:
-  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
-  Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
-  Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+                  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
+                  Goal 2:
+                  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
+                  Goal 3:
+                  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
+                  Goal 4:
+                  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
                 </div>
                 <div className="progress-window">
                   New members:
@@ -569,53 +614,48 @@ class Home extends React.Component {
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store //(This Month)</div>
+                    {this.makeToplist().toString()} 
                     <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={1342} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5}  end={1111} /> TKR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={1132} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={1132} /> TKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={954} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={954} /> TKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={758} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={758} /> TKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={654} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={654} /> TKR</div>
                   </div>
                   <div className="store-window window-4">
                     <div className="headline">Top Selling Store // (This Year)</div>
                     <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={16, 1} /> MkR</div>
+                    <div className="top1-score"><CountUp duration={5} end={16, 1} /> MkR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={12, 3} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={12, 3} /> MKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={12, 2} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={12, 2} /> MKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={11, 0} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={11, 0} /> MKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={10, 3} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={10, 3} /> MKR</div>
 
                   </div>
                   <div className="store-window window-5">
                     <div className="headline">Product Of The Month Revenue</div>
                     <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={132} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={22} /> TKR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={132} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={132} /> TKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={94} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={94} /> TKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={78} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={78} /> TKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={64} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={64} /> TKR</div>
                   </div>
-
-
                 </div>
               </div>
             </div>
-
-
-
-
           </div>
         </div>
       </div>
