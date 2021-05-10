@@ -294,21 +294,56 @@ class Home extends React.Component {
 
 
     var newBar = { label: selectedMonth + " " + selectedYear, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
-
     const monthYear = [
       { 'month': '2018' },
       { 'month': '2019' },
       { 'month': '2020' }
     ]
 
-    this.setState({
-      dataSets: [newBar],
-      dates: monthDates,
-      multiOptions: monthYear,
-      singleSelect: "false",
-      yearSelect: "false"
-    })
+    if (this.state.dataSets[0].label == 'Store progress') {
+      console.log("Fanns ingen dataSet från början");
+      this.setState({
+        dataSets: [newBar],
+        dates: monthDates,
+        multiOptions: monthYear,
+        singleSelect: "false",
+        yearSelect: "false",
+        numberOfBars: 1
+      })
+    } else {
+      console.log("fanns nått där, nu ska vi göra nått!")
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
+      var localColorCount = this.state.colorCount;
+      if (localColorCount < 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: localColorCount + 1
+        })
+      }
+      if (localColorCount == 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: 0
+        })
+      }
 
+      console.log("Updated MONTH Bar: ", updatedBar)
+      var localNumberOfBars = this.state.numberOfBars;
+      this.setState({
+        dataSets: updatedBar,
+        dates: monthDates,
+        numberOfBars: localNumberOfBars + 1,
+        yearSelected: "false",
+        multiOptions: monthYear
+      })
+    }
   }
 
 
@@ -336,8 +371,17 @@ class Home extends React.Component {
           console.log("STATE  ", this.state.dataSets)
         })
     } else {
-      // test-loggar
+      // create and fix updatedBar
       console.log("!!Fanns nått i dataSet!!");
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
+
 
       // color generation---
       var localColorCount = this.state.colorCount;
@@ -426,7 +470,8 @@ class Home extends React.Component {
       multiOptions: [
         { 'year': "2018", 'group': 'year' },
         { 'year': "2019", 'group': 'year' },
-        { 'year': "2020", 'group': 'year' }]
+        { 'year': "2020", 'group': 'year' }],
+      colorCount: 1
     })
   }
   buttonClickMonth() {
@@ -446,13 +491,26 @@ class Home extends React.Component {
       dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
       activePeriod: 'month',
       singleSelect: "true",
-      multiOptions: monthYear
+      multiOptions: monthYear,
+      colorCount: 1
     })
   }
   buttonClickWeek() {
     console.log("Ett weeeeeeeeeeeeek")
     this.setState({
       activePeriod: 'week'
+    })
+  }
+  buttonClickClear() {
+    console.log("Clear!!")
+    this.setState({
+      dataSets: [{
+        label: 'Store progress',
+        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
+      }],
+      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
     })
   }
 
@@ -561,8 +619,8 @@ class Home extends React.Component {
                             closeOnSelect="true"
                             hidePlaceholder="true"
                             singleSelect={this.state.singleSelect}
-                          >
-                          </Multiselect>
+                          ></Multiselect>
+                          <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
                         </ButtonGroup>
                       </div>
                     </div>
