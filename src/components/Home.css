@@ -161,6 +161,7 @@ position: relative;
 }
 .buttonGroupContainer{
     grid-column: 1/span 3;
+    max-height: 3vw;
 }
 .multiSelectContainer{
     z-index: 1;
@@ -258,11 +259,6 @@ border-radius: 15px;
     background: rgba(245, 245, 245, 0.801);
   }
 
-
-
-.rightCol{
-    /* border-radius: 2vh; */
-}
 .row23{
     width: 100%;
     background-color: rgb(241, 135, 135);
