@@ -162,7 +162,10 @@ class Home extends React.Component {
     colorCount: 1,
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
     activePeriod: 'year',
-    year: '2018'
+    year: '2018',
+    singleSelect: "false",
+    yearSelected: "false",
+    selectedYear: ''
   }
 
   // ---------------From DropDown---------------------
@@ -198,91 +201,88 @@ class Home extends React.Component {
       console.log("Det var ett år");
       this.onSelectYear(selectedList, selectedItem);
     } else if (activePeriod == 'month') {
-      console.log("nu ska de va månad tjoho!")
-
       console.log("selectedList :", selectedList)
 
-      if (selectedList.length < 2) {
+
+      var yearSelect = this.state.yearSelected;
+      if (yearSelect == "false") {
         console.log("bara ett år")
 
         var selectedYear = String(selectedList[0]['month'])
         console.log(selectedYear)
 
-
         const months = [
-          { 'month': "Jan " + selectedYear },
-          { 'month': "Feb " + selectedYear },
-          { 'month': "Mar " + selectedYear },
-          { 'month': "Apr " + selectedYear },
-          { 'month': "May " + selectedYear },
-          { 'month': "Jun " + selectedYear },
-          { 'month': "Jul " + selectedYear },
-          { 'month': "Aug " + selectedYear },
-          { 'month': "Sept " + selectedYear },
-          { 'month': "Oct " + selectedYear },
-          { 'month': "Nov " + selectedYear },
-          { 'month': "Dec " + selectedYear }]
+          { 'month': "Jan " + selectedYear, 'id': 1 },
+          { 'month': "Feb " + selectedYear, 'id': 2 },
+          { 'month': "Mar " + selectedYear, 'id': 3 },
+          { 'month': "Apr " + selectedYear, 'id': 4 },
+          { 'month': "May " + selectedYear, 'id': 5 },
+          { 'month': "Jun " + selectedYear, 'id': 6 },
+          { 'month': "Jul " + selectedYear, 'id': 7 },
+          { 'month': "Aug " + selectedYear, 'id': 8 },
+          { 'month': "Sept " + selectedYear, 'id': 9 },
+          { 'month': "Oct " + selectedYear, 'id': 10 },
+          { 'month': "Nov " + selectedYear, 'id': 11 },
+          { 'month': "Dec " + selectedYear, 'id': 12 }]
 
         console.log(months)
 
         this.setState({
+          singleSelect: "false",
+          yearSelected: "true",
+          selectedYear: selectedYear,
           multiOptions: months
-        },
-          () => {
-            console.log("Months i state  ", this.state.multiOptions)
-          })
-
-        console.log("state settad!")
+        })
         return;
       } else {
-        this.onSelectMonth(selectedList, selectedItem)
+
+        var selectedYear = this.state.selectedYear;
+        var selectedMonthID = selectedList[0]['id'];
+        this.onSelectMonth(selectedYear, selectedMonthID)
+
+        this.setState({
+          yearSelected: "false"
+        })
+
       }
 
     }
 
   }
 
-  onSelectMonth = async (selectedList, selectedItem) => {
+  onSelectMonth = async (selectedYear, selectedMonthID) => {
     console.log("nu kommer vi hit och ska hitta månad!")
+
     const monthDict = {
-      'Jan': 'm1',
-      'Feb': 'm2',
-      'Mar': 'm3',
-      'Apr': 'm4',
-      'May': 'm5',
-      'Jun': 'm6',
-      'Jul': 'm7',
-      'Aug': 'm8',
-      'Sept': 'm9',
-      'Oct': 'm10',
-      'Nov': 'm11',
-      'Dec': 'm12'
+      1: ['m1', 'Jan'],
+      2: ['m2', 'Feb'],
+      3: ['m3', 'Mar'],
+      4: ['m4', 'Apr'],
+      5: ['m5', 'May'],
+      6: ['m6', 'Jun'],
+      7: ['m7', 'Jul'],
+      8: ['m8', 'Aug'],
+      9: ['m9', 'Sept'],
+      10: ['m10', 'Oct'],
+      11: ['m11', 'Nov'],
+      12: ['m12', 'Dec']
     };
     var selectedYear;
-    var selectedMonth;
+    var selectedMonth = monthDict[selectedMonthID][1];
+    var monthForFunction = monthDict[selectedMonthID][0]
+    console.log("month For function= ", monthForFunction)
 
-    selectedList.forEach(element => {
-      if (element.group == 'year') {
-        console.log("år: ", element["month"])
-        selectedYear = String(element['month'])
-      }
-      if (element.group == 'month') {
-        console.log("månad: ", element["month"])
-        selectedMonth = String(element["month"])
-      }
-    });
+    console.log("selected Year: ", selectedYear, "  selectedMonth:  ", selectedMonth);
 
     var year = Number(selectedYear);
     var yearFix = "y" + year;
 
-    const neededData = await getDaylyData(yearFix, monthDict[selectedMonth], "totSales", "Total sales", false, 1, 1)
+    const neededData = await getDaylyData(yearFix, monthForFunction, "totSales", "Total sales", false, 1, 1)
     // (year, month, dataCategory, dataType, ID, storeNr)
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
-
-    console.log("data from month man boy:  ", neededData)
 
     var monthDates = [];
     var i = 1;
@@ -293,11 +293,20 @@ class Home extends React.Component {
     console.log(monthDates)
 
 
-    var newBar = { label: selectedYear + " " + selectedMonth, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+    var newBar = { label: selectedMonth + " " + selectedYear, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+
+    const monthYear = [
+      { 'month': '2018' },
+      { 'month': '2019' },
+      { 'month': '2020' }
+    ]
 
     this.setState({
       dataSets: [newBar],
-      dates: monthDates
+      dates: monthDates,
+      multiOptions: monthYear,
+      singleSelect: "false",
+      yearSelect: "false"
     })
 
   }
@@ -402,6 +411,17 @@ class Home extends React.Component {
   buttonClickYear() {
     console.log("Ett year ett year ett year")
     this.setState({
+      singleSelect: "false"
+    })
+    this.setState({
+      dataSets: [{
+        label: 'Store progress',
+        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
+      }],
+      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+      singleSelect: "false",
       activePeriod: 'year',
       multiOptions: [
         { 'year': "2018", 'group': 'year' },
@@ -410,22 +430,6 @@ class Home extends React.Component {
     })
   }
   buttonClickMonth() {
-    // const months = [
-    //   { 'month': "2018", 'group': 'year' },
-    //   { 'month': "2019", 'group': 'year' },
-    //   { 'month': "2020", 'group': 'year' },
-    //   { 'month': "Jan", 'group': 'month' },
-    //   { 'month': "Feb", 'group': 'month' },
-    //   { 'month': "Mar", 'group': 'month' },
-    //   { 'month': "Apr", 'group': 'month' },
-    //   { 'month': "May", 'group': 'month' },
-    //   { 'month': "Jun", 'group': 'month' },
-    //   { 'month': "Jul", 'group': 'month' },
-    //   { 'month': "Aug", 'group': 'month' },
-    //   { 'month': "Sept", 'group': 'month' },
-    //   { 'month': "Oct", 'group': 'month' },
-    //   { 'month': "Nov", 'group': 'month' },
-    //   { 'month': "Dec", 'group': 'month' },]
 
     const monthYear = [
       { 'month': '2018' },
@@ -433,7 +437,15 @@ class Home extends React.Component {
       { 'month': '2020' }
     ]
     this.setState({
+      dataSets: [{
+        label: 'Store progress',
+        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
+      }],
+      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
       activePeriod: 'month',
+      singleSelect: "true",
       multiOptions: monthYear
     })
   }
@@ -548,6 +560,7 @@ class Home extends React.Component {
                             showCheckbox="true"
                             closeOnSelect="true"
                             hidePlaceholder="true"
+                            singleSelect={this.state.singleSelect}
                           >
                           </Multiselect>
                         </ButtonGroup>
