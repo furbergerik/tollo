@@ -1,6 +1,8 @@
 import { Component } from 'react';
 //http://tollo.duckdns.org
 //192.168.0.111
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 class Contact extends Component {
   state ={
     users:[],
@@ -63,6 +65,14 @@ class Contact extends Component {
    // event.target.reset();
 
   }
+  submitHandlerLogIn =(event) =>{
+    event.preventDefault();
+    console.log(this.state.user);
+    event.target.className += " was-validated";
+    this.login();
+   // event.target.reset();
+
+  }
   
   componentDidMount(){
 
@@ -73,18 +83,21 @@ class Contact extends Component {
     //const {user}=this.state.user;
     console.log(this.state.user.username);
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-    fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
-    .then(response => response.json())
+   // fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
+   fetch(`localhost:61339/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`) 
+   .then(response => response.json())
     .then(data => console.log(data))
    // .then(this.getUser)
     .catch(err => console.error(err))
   }
   login = _=>{
     console.log("login");
+ 
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-    fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
+    //fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
+    fetch(`http://localhost:61339/login?username=${this.state.user.username}&password=${this.state.user.password}`)
     .then(response => response.json())
-    .then(data=>console.log(data))
+    .then(data=>cookies.set('jwt', data[4], { path: '/' }))
     .catch(err => console.error(err))
     
 
@@ -168,7 +181,7 @@ class Contact extends Component {
     </div>
     <div className="row ">
     <div className=" col-xs-0 col-md-4 "></div>
-      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandler}>
+      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn}>
       <h1 className="text-dark">Login: </h1>
       <div className="form-group">
     <label for="exampleInputUsername1">Username:</label>
@@ -181,7 +194,7 @@ class Contact extends Component {
     onChange={(this.passwordChangeHandler)}></input>
 
   </div>
-  <button  className="btn btn-warning btn-lg ml-3"onClick={this.login}>Sign In</button>
+  <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
       </div>
     </div>
