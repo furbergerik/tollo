@@ -200,9 +200,39 @@ class Home extends React.Component {
     } else if (activePeriod == 'month') {
       console.log("nu ska de va månad tjoho!")
 
-      console.log(selectedList)
+      console.log("selectedList :", selectedList)
+
       if (selectedList.length < 2) {
         console.log("bara ett år")
+
+        var selectedYear = String(selectedList[0]['month'])
+        console.log(selectedYear)
+
+
+        const months = [
+          { 'month': "Jan " + selectedYear },
+          { 'month': "Feb " + selectedYear },
+          { 'month': "Mar " + selectedYear },
+          { 'month': "Apr " + selectedYear },
+          { 'month': "May " + selectedYear },
+          { 'month': "Jun " + selectedYear },
+          { 'month': "Jul " + selectedYear },
+          { 'month': "Aug " + selectedYear },
+          { 'month': "Sept " + selectedYear },
+          { 'month': "Oct " + selectedYear },
+          { 'month': "Nov " + selectedYear },
+          { 'month': "Dec " + selectedYear }]
+
+        console.log(months)
+
+        this.setState({
+          multiOptions: months
+        },
+          () => {
+            console.log("Months i state  ", this.state.multiOptions)
+          })
+
+        console.log("state settad!")
         return;
       } else {
         this.onSelectMonth(selectedList, selectedItem)
@@ -345,10 +375,12 @@ class Home extends React.Component {
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderWidth: 1
     }]
+    const initialDates = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
 
     if (selectedList.length == 0) {
       this.setState({
-        dataSets: initialList
+        dataSets: initialList,
+        dates: initialDates
       })
     } else {
       var currentList = this.state.dataSets;
@@ -378,25 +410,31 @@ class Home extends React.Component {
     })
   }
   buttonClickMonth() {
-    const months = [
-      { 'month': "2018", 'group': 'year' },
-      { 'month': "2019", 'group': 'year' },
-      { 'month': "2020", 'group': 'year' },
-      { 'month': "Jan", 'group': 'month' },
-      { 'month': "Feb", 'group': 'month' },
-      { 'month': "Mar", 'group': 'month' },
-      { 'month': "Apr", 'group': 'month' },
-      { 'month': "May", 'group': 'month' },
-      { 'month': "Jun", 'group': 'month' },
-      { 'month': "Jul", 'group': 'month' },
-      { 'month': "Aug", 'group': 'month' },
-      { 'month': "Sept", 'group': 'month' },
-      { 'month': "Oct", 'group': 'month' },
-      { 'month': "Nov", 'group': 'month' },
-      { 'month': "Dec", 'group': 'month' },]
+    // const months = [
+    //   { 'month': "2018", 'group': 'year' },
+    //   { 'month': "2019", 'group': 'year' },
+    //   { 'month': "2020", 'group': 'year' },
+    //   { 'month': "Jan", 'group': 'month' },
+    //   { 'month': "Feb", 'group': 'month' },
+    //   { 'month': "Mar", 'group': 'month' },
+    //   { 'month': "Apr", 'group': 'month' },
+    //   { 'month': "May", 'group': 'month' },
+    //   { 'month': "Jun", 'group': 'month' },
+    //   { 'month': "Jul", 'group': 'month' },
+    //   { 'month': "Aug", 'group': 'month' },
+    //   { 'month': "Sept", 'group': 'month' },
+    //   { 'month': "Oct", 'group': 'month' },
+    //   { 'month': "Nov", 'group': 'month' },
+    //   { 'month': "Dec", 'group': 'month' },]
+
+    const monthYear = [
+      { 'month': '2018' },
+      { 'month': '2019' },
+      { 'month': '2020' }
+    ]
     this.setState({
       activePeriod: 'month',
-      multiOptions: months
+      multiOptions: monthYear
     })
   }
   buttonClickWeek() {
@@ -505,11 +543,10 @@ class Home extends React.Component {
                             options={this.state.multiOptions} // Options to display in the dropdown
                             onSelect={this.onSelect.bind(this)} // Function will trigger on select event
                             onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                            displayValue={this.state.activePeriod} // Property name to display in the dropdown options
-                            groupBy="group"
+                            displayValue={this.state.activePeriod} // Property name to display in the dropdown option
                             placeholder="Select time period"
                             showCheckbox="true"
-                            closeOnSelect="false"
+                            closeOnSelect="true"
                             hidePlaceholder="true"
                           >
                           </Multiselect>
