@@ -116,30 +116,30 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
 async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   var topList = [];
   var topListStore = [];
-  for(var i = 1; i < 6; i++){
-    var monthTot= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+  for (var i = 1; i < 6; i++) {
+    var monthTot = await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
     monthTot = sumArr(monthTot)
     topList.push(monthTot)
     topListStore.push("Store " + i)
   }
-  [topList, topListStore]=bubbleSort(topList, topListStore);
+  [topList, topListStore] = bubbleSort(topList, topListStore);
   console.log("denna datan", topList)
   return [topList, topListStore]
 }
 
-function bubbleSort(inputArr, inputLabel){
+function bubbleSort(inputArr, inputLabel) {
   var len = inputArr.length;
   for (let i = 0; i < len; i++) {
-      for (let j = 0; j < len; j++) {
-          if (inputArr[j] < inputArr[j + 1]) {
-              let tmp = inputArr[j];
-              let tmpLabel = inputLabel[j]
-              inputArr[j] = inputArr[j + 1];
-              inputLabel[j] = inputLabel[j+1]
-              inputLabel[j+1] = tmpLabel;
-              inputArr[j + 1] = tmp;
-          }
+    for (let j = 0; j < len; j++) {
+      if (inputArr[j] < inputArr[j + 1]) {
+        let tmp = inputArr[j];
+        let tmpLabel = inputLabel[j]
+        inputArr[j] = inputArr[j + 1];
+        inputLabel[j] = inputLabel[j + 1]
+        inputLabel[j + 1] = tmpLabel;
+        inputArr[j + 1] = tmp;
       }
+    }
   }
   return [inputArr, inputLabel];
 };
@@ -225,7 +225,7 @@ class Home extends React.Component {
     }],
     initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
     monthlyCompList: [],
-    monthlyCompListStore:[]
+    monthlyCompListStore: []
   }
 
   // ---------------From DropDown---------------------
@@ -727,24 +727,25 @@ class Home extends React.Component {
     })
   }
 
-  componentDidMount = async () =>{
-    const [theTopList, theTopListStore]  = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
-    this.setState({monthlyCompList: theTopList,
-                   monthlyCompListStore: theTopListStore
+  componentDidMount = async () => {
+    const [theTopList, theTopListStore] = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
+    this.setState({
+      monthlyCompList: theTopList,
+      monthlyCompListStore: theTopListStore
     });
   }
 
 
   render() {
-    const storeRev=[];
-    const storeRevName=[];
+    const storeRev = [];
+    const storeRevName = [];
     for (const [index, value] of this.state.monthlyCompList.entries()) {
-      storeRev.push(<div className="top1-score" style={{gridRow:2*index+3}}><CountUp className="kong"separator=" " key={index} duration={5}  suffix=" SEK" end={value} /></div>)
+      storeRev.push(<div className="top1-score" style={{ gridRow: 2 * index + 3 }}><CountUp className="kong" separator=" " key={index} duration={5} suffix=" SEK" end={value} /></div>)
     }
     for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-      storeRevName.push(<div style={{gridRow:2*index+2}} key={index}className="top1">{value}</div>)
+      storeRevName.push(<div style={{ gridRow: 2 * index + 2 }} key={index} className="top1">{value}</div>)
     }
-  
+
     return (
       <div className="home">
         <div className="container-fluid h-100">
@@ -772,7 +773,6 @@ class Home extends React.Component {
                 Product of the Month:
                 <NumericInput className="form-control" />
                   <button className="submit-button">Submit</button>
-
                 </div>
 
 
@@ -812,27 +812,9 @@ class Home extends React.Component {
                         }}
                       />
                     </div>
-                    {/* <div>
-                      <div className="dropDownButton">
-                        <DropdownButton
-                          alignRight
-                          title="Select year"
-                          id="dropdown-menu-align-right"
-                          size="sm"
-                          variant="secondary"
-                          onSelect={this.handleYearSelect.bind(this)}
-                        >
-                          <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                          <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                          <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                          <Dropdown.Divider />
-                          <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                        </DropdownButton>
-                      </div>
-                    </div> */}
+
 
                     <div className="buttonGrid">
-
                       <div className="buttonGroupContainer">
                         <ButtonGroup aria-label="Basic example">
                           <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
@@ -853,7 +835,24 @@ class Home extends React.Component {
                         </ButtonGroup>
                       </div>
                     </div>
-
+                    {/* <div>
+                      <div className="dropDownButton">
+                        <DropdownButton
+                          alignRight
+                          title="Select year"
+                          id="dropdown-menu-align-right"
+                          size="sm"
+                          variant="secondary"
+                          onSelect={this.handleYearSelect.bind(this)}
+                        >
+                          <Dropdown.Item eventKey="Total sales">Revenue</Dropdown.Item>
+                          <Dropdown.Item eventKey="2019">Procentual Growth</Dropdown.Item>
+                          <Dropdown.Item eventKey="2020">Department revenue</Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
+                        </DropdownButton>
+                      </div>
+                    </div> */}
                   </div>
                   <div className="store-window window-2">
 
@@ -863,7 +862,7 @@ class Home extends React.Component {
                         <div>Top department:</div>
                         <div className="textRight">
                           <div>Outdoor:</div>
-                            <div>
+                          <div>
                             <CountUp
                               start={0}
                               end={31634}
@@ -905,9 +904,9 @@ class Home extends React.Component {
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store //(This Month)</div>
-                    {storeRevName} 
-                    {storeRev} 
-                     {/* <div className="top1">Store 3</div>
+                    {storeRevName}
+                    {storeRev}
+                    {/* <div className="top1">Store 3</div>
                     <div className="top1-score"><CountUp duration={5}  end={1111} /> TKR</div>
                     <div className="top1">Store 1</div>
                     <div className="top1-score"><CountUp duration={5} end={1132} /> TKR</div>
