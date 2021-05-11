@@ -165,7 +165,14 @@ class Home extends React.Component {
     year: '2018',
     singleSelect: "false",
     yearSelected: "false",
-    selectedYear: ''
+    selectedYear: '',
+    initialDataSet: [{
+      label: 'Store progress',
+      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
+    }],
+    initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
   }
 
   // ---------------From DropDown---------------------
@@ -481,14 +488,11 @@ class Home extends React.Component {
       { 'month': '2019' },
       { 'month': '2020' }
     ]
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
-      dataSets: [{
-        label: 'Store progress',
-        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      }],
-      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+      dataSets: initial,
+      dates: initDates,
       activePeriod: 'month',
       singleSelect: "true",
       multiOptions: monthYear,
@@ -497,20 +501,21 @@ class Home extends React.Component {
   }
   buttonClickWeek() {
     console.log("Ett weeeeeeeeeeeeek")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
-      activePeriod: 'week'
+      activePeriod: 'week',
+      dataSets: initial,
+      dates: initDates
     })
   }
   buttonClickClear() {
     console.log("Clear!!")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
-      dataSets: [{
-        label: 'Store progress',
-        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      }],
-      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
+      dataSets: initial,
+      dates: initDates
     })
   }
 
@@ -616,7 +621,7 @@ class Home extends React.Component {
                             displayValue={this.state.activePeriod} // Property name to display in the dropdown option
                             placeholder="Select time period"
                             showCheckbox="true"
-                            closeOnSelect="true"
+                            closeOnSelect="false"
                             hidePlaceholder="true"
                             singleSelect={this.state.singleSelect}
                           ></Multiselect>
