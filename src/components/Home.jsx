@@ -9,7 +9,7 @@ import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button';
-import { Col, Form } from "react-bootstrap"
+import { Col, Form, ThemeProvider } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 
@@ -25,7 +25,6 @@ async function getDataForOneDay(year, month, day, dataType) {
   }
   return dailySales;
 }
-
 
 
 async function getDaylyData(year, month, dataCategory, dataType, ID, storeNr) {
@@ -56,27 +55,21 @@ async function getStoreData(dataCategory, ID, storeNr) {
   }
 }
 
-function getWeeklyDaylyData(year, week, dataType) {
-  var salesData = data["totSales"];
+async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
+  const salesData = await getStoreData(dataCategory, ID, storeNr);
+  console.log("salesData: ", salesData)
   var listDayInWeek = [];
-  if (week == 1) {
-    for (var i in salesData) {
-      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week && salesData[i]["Month"] == 1) {
-        listDayInWeek.push(salesData[i][dataType])
-      }
-      else if (salesData[i]["Year"] == year - 1 && salesData[i]["Week"] == week && salesData[i]["Month"] == 12) {
-        listDayInWeek.push(salesData[i][dataType])
-      }
-    }
-  }
-  else {
-    for (var i in salesData) {
-      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week) {
-        listDayInWeek.push(salesData[i][dataType])
+  var yearLevel = salesData[year]
+  for (var i in yearLevel) {
+    var monthLevel = yearLevel[i]
+    for (var i in monthLevel) {
+      if (monthLevel[i]['Week'] == week) {
+        // console.log("Denna ska vi spara!! ", monthLevel[i]);
+        listDayInWeek.push(monthLevel[i])
       }
     }
   }
-  //console.log("ny test:  ",listDay)
+
   return listDayInWeek
 }
 
@@ -120,7 +113,36 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
   return { labelYear, listYear }
 }
 
+async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
+  var topList = [];
+  var topListStore = [];
+  for(var i = 1; i < 6; i++){
+    var monthTot= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+    monthTot = sumArr(monthTot)
+    topList.push(monthTot)
+    topListStore.push("Store " + i)
+  }
+  [topList, topListStore]=bubbleSort(topList, topListStore);
+  console.log("denna datan", topList)
+  return [topList, topListStore]
+}
 
+function bubbleSort(inputArr, inputLabel){
+  var len = inputArr.length;
+  for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len; j++) {
+          if (inputArr[j] < inputArr[j + 1]) {
+              let tmp = inputArr[j];
+              let tmpLabel = inputLabel[j]
+              inputArr[j] = inputArr[j + 1];
+              inputLabel[j] = inputLabel[j+1]
+              inputLabel[j+1] = tmpLabel;
+              inputArr[j + 1] = tmp;
+          }
+      }
+  }
+  return [inputArr, inputLabel];
+};
 
 function sumArr(arr) {
   //var arr=Object.values(obj)
@@ -128,6 +150,33 @@ function sumArr(arr) {
     return a + b
   }, 0);
 }
+
+// async function {
+//   console.log("Hej")
+//   const [theTopList, theTopListStore]  = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
+//   console.log("gjdhfdfdsfds  ",theTopList)
+//   // [theTopList, theTopListStore] = bubbleSort(theTopList, theTopListStore);
+//   const theRealDeal = [];
+//   console.log("herererererer  ",theTopList)
+//    for (const [index, value] of theTopList.entries()) {
+//     theRealDeal.push(<div key={index}>{value}</div>)
+//    }
+//    console.log(theRealDeal)
+//    return(theRealDeal)
+// }
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
 
 // function soldProduct(year, month, productId){
 //   var salesData = data["prodSales"];
@@ -142,7 +191,8 @@ function sumArr(arr) {
 // }
 
 //console.log(soldProduct(2018, 1, 1));
-
+// var test = getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
+// console.log(bubbleSort(test))
 
 class Home extends React.Component {
 
@@ -163,9 +213,19 @@ class Home extends React.Component {
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
     activePeriod: 'year',
     year: '2018',
+    monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
     singleSelect: "false",
     yearSelected: "false",
-    selectedYear: ''
+    selectedYear: '',
+    initialDataSet: [{
+      label: 'Store progress',
+      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
+    }],
+    initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+    monthlyCompList: [],
+    monthlyCompListStore:[]
   }
 
   // ---------------From DropDown---------------------
@@ -190,12 +250,17 @@ class Home extends React.Component {
       })
   };
 
+  test = async () => {
+    return this.state.monthlyCompList[0]
+  }
+
   // ---------------From MultiSelect---------------------
   onSelect = async (selectedList, selectedItem) => {
     console.log("Tjohej onSelect");
     console.log(selectedList)
 
     var activePeriod = this.state.activePeriod;
+    var yearSelect = this.state.yearSelected;
 
     if (activePeriod == 'year') {
       console.log("Det var ett år");
@@ -203,11 +268,8 @@ class Home extends React.Component {
     } else if (activePeriod == 'month') {
       console.log("selectedList :", selectedList)
 
-
-      var yearSelect = this.state.yearSelected;
-      if (yearSelect == "false") {
+      if (yearSelect == false) {
         console.log("bara ett år")
-
         var selectedYear = String(selectedList[0]['month'])
         console.log(selectedYear)
 
@@ -228,25 +290,170 @@ class Home extends React.Component {
         console.log(months)
 
         this.setState({
-          singleSelect: "false",
-          yearSelected: "true",
+          singleSelect: true,
+          yearSelected: true,
           selectedYear: selectedYear,
           multiOptions: months
         })
         return;
-      } else {
+      } else if (yearSelect == true) {
 
         var selectedYear = this.state.selectedYear;
         var selectedMonthID = selectedList[0]['id'];
         this.onSelectMonth(selectedYear, selectedMonthID)
 
         this.setState({
-          yearSelected: "false"
+          yearSelected: false
         })
-
       }
 
+    } else if (activePeriod == "week") {
+      console.log("OnSelect: nu är det vecka mina bekanta")
+      const weeks = [
+        { 'week': "week " + 1, 'id': 1 },
+        { 'week': "week " + 2, 'id': 2 },
+        { 'week': "week " + 3, 'id': 3 },
+        { 'week': "week " + 4, 'id': 4 },
+        { 'week': "week " + 5, 'id': 5 },
+        { 'week': "week " + 6, 'id': 6 },
+        { 'week': "week " + 7, 'id': 7 },
+        { 'week': "week " + 8, 'id': 8 },
+        { 'week': "week " + 9, 'id': 9 },
+        { 'week': "week " + 10, 'id': 10 },
+        { 'week': "week " + 11, 'id': 11 },
+        { 'week': "week " + 12, 'id': 12 },
+        { 'week': "week " + 13, 'id': 13 },
+        { 'week': "week " + 14, 'id': 14 },
+        { 'week': "week " + 15, 'id': 15 },
+        { 'week': "week " + 16, 'id': 16 },
+        { 'week': "week " + 17, 'id': 17 },
+        { 'week': "week " + 18, 'id': 18 },
+        { 'week': "week " + 19, 'id': 19 },
+        { 'week': "week " + 20, 'id': 20 },
+        { 'week': "week " + 21, 'id': 21 },
+        { 'week': "week " + 22, 'id': 22 },
+        { 'week': "week " + 23, 'id': 23 },
+        { 'week': "week " + 24, 'id': 24 },
+        { 'week': "week " + 25, 'id': 25 },
+        { 'week': "week " + 26, 'id': 26 },
+        { 'week': "week " + 27, 'id': 27 },
+        { 'week': "week " + 28, 'id': 28 },
+        { 'week': "week " + 29, 'id': 29 },
+        { 'week': "week " + 30, 'id': 30 },
+        { 'week': "week " + 31, 'id': 31 },
+        { 'week': "week " + 32, 'id': 32 },
+        { 'week': "week " + 33, 'id': 33 },
+        { 'week': "week " + 34, 'id': 34 },
+        { 'week': "week " + 35, 'id': 35 },
+        { 'week': "week " + 36, 'id': 36 },
+        { 'week': "week " + 37, 'id': 37 },
+        { 'week': "week " + 38, 'id': 38 },
+        { 'week': "week " + 39, 'id': 39 },
+        { 'week': "week " + 40, 'id': 40 },
+        { 'week': "week " + 41, 'id': 41 },
+        { 'week': "week " + 42, 'id': 42 },
+        { 'week': "week " + 43, 'id': 43 },
+        { 'week': "week " + 44, 'id': 44 },
+        { 'week': "week " + 45, 'id': 45 },
+        { 'week': "week " + 46, 'id': 46 },
+        { 'week': "week " + 47, 'id': 47 },
+        { 'week': "week " + 48, 'id': 48 },
+        { 'week': "week " + 49, 'id': 49 },
+        { 'week': "week " + 50, 'id': 50 },
+        { 'week': "week " + 51, 'id': 51 },
+        { 'week': "week " + 52, 'id': 52 }]
+
+      if (yearSelect == false) {
+        console.log("bara ett år")
+        console.log(selectedList)
+        var selectedYear = String(selectedList[0]['week'])
+        console.log(selectedYear)
+
+        this.setState({
+          yearSelected: true,
+          selectedYear: selectedYear,
+          multiOptions: weeks
+        })
+        return;
+      } else if (yearSelect == true) {
+        var selectedYear = this.state.selectedYear
+        var selectedWeek = String(selectedItem['id']);
+
+        this.onSelectWeek(selectedYear, selectedWeek);
+      }
     }
+
+  }
+  onSelectWeek = async (year, week) => {
+    console.log("Inne i onselectweek")
+    var yearFix = 'y' + String(year);
+    var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, 1);
+
+    var weekDateList = []
+    var salesWeekdayList = []
+    for (var i in weekList) {
+      // console.log(weekList[i])
+      weekDateList.push(weekList[i]['Day'] + "/" + weekList[i]['Month'])
+      salesWeekdayList.push(weekList[i]['Total sales'])
+    }
+    console.log("Date List: ", weekDateList)
+    console.log("salesWeekdayList: ", salesWeekdayList);
+
+
+    var newBar = { label: "Week " + week + " " + year, data: salesWeekdayList, backgroundColor: '#F94144', borderWidth: 1 }
+    const weekYears = [
+      { 'week': '2018' },
+      { 'week': '2019' },
+      { 'week': '2020' }]
+
+    if (this.state.dataSets[0].label == 'Store progress') {
+      console.log("WEEK: Fanns ingen dataSet från början");
+      this.setState({
+        dataSets: [newBar],
+        dates: weekDateList,
+        yearSelected: false,
+        multiOptions: weekYears,
+        numberOfBars: 1
+      })
+
+    } else {
+      console.log("WEEK: fanns nått där, nu ska vi göra nått!")
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
+      //---- color generator
+      var localColorCount = this.state.colorCount;
+      if (localColorCount < 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: localColorCount + 1
+        })
+      }
+      if (localColorCount == 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: 0
+        })
+      }
+      //--- Update Week bars
+      console.log("Updated WEEK Bar: ", updatedBar)
+      var localNumberOfBars = this.state.numberOfBars;
+
+      const weekSimpleDates = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'] //Because the dates will differ from week to week
+      this.setState({
+        dataSets: updatedBar,
+        dates: weekSimpleDates,
+        numberOfBars: localNumberOfBars + 1,
+        yearSelected: false,
+        multiOptions: weekYears
+      })
+    }
+
 
   }
 
@@ -278,7 +485,7 @@ class Home extends React.Component {
     var yearFix = "y" + year;
 
     const neededData = await getDaylyData(yearFix, monthForFunction, "totSales", "Total sales", false, 1, 1)
-    // (year, month, dataCategory, dataType, ID, storeNr)
+
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
@@ -287,7 +494,7 @@ class Home extends React.Component {
     var monthDates = [];
     var i = 1;
     neededData.forEach(element => {
-      monthDates.push(selectedMonth + " " + i)
+      monthDates.push(i)
       i = i + 1;
     });
     console.log(monthDates)
@@ -306,11 +513,12 @@ class Home extends React.Component {
         dataSets: [newBar],
         dates: monthDates,
         multiOptions: monthYear,
-        singleSelect: "false",
-        yearSelect: "false",
+        singleSelect: true,
+        yearSelect: false,
         numberOfBars: 1
       })
     } else {
+      //---- Create updated bar of months
       console.log("fanns nått där, nu ska vi göra nått!")
       var oldBar = this.state.dataSets;
       console.log("OldBar ofixad: ", oldBar);
@@ -320,6 +528,7 @@ class Home extends React.Component {
       } else {
         updatedBar = oldBar.concat(newBar);
       }
+      //---- color generator
       var localColorCount = this.state.colorCount;
       if (localColorCount < 6) {
         newBar.backgroundColor = this.state.colorOptions[localColorCount]
@@ -333,14 +542,16 @@ class Home extends React.Component {
           colorCount: 0
         })
       }
+      // -------------------
 
+      //--- Update month bars
       console.log("Updated MONTH Bar: ", updatedBar)
       var localNumberOfBars = this.state.numberOfBars;
       this.setState({
         dataSets: updatedBar,
         dates: monthDates,
         numberOfBars: localNumberOfBars + 1,
-        yearSelected: "false",
+        yearSelected: false,
         multiOptions: monthYear
       })
     }
@@ -454,24 +665,20 @@ class Home extends React.Component {
 
   buttonClickYear() {
     console.log("Ett year ett year ett year")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
-      singleSelect: "false"
-    })
-    this.setState({
-      dataSets: [{
-        label: 'Store progress',
-        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      }],
-      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
-      singleSelect: "false",
+      dataSets: initial,
+      dates: initDates,
+      singleSelect: false,
+      showArrow: true,
       activePeriod: 'year',
       multiOptions: [
         { 'year': "2018", 'group': 'year' },
         { 'year': "2019", 'group': 'year' },
         { 'year': "2020", 'group': 'year' }],
-      colorCount: 1
+      colorCount: 1,
+      yearSelected: false,
     })
   }
   buttonClickMonth() {
@@ -481,41 +688,63 @@ class Home extends React.Component {
       { 'month': '2019' },
       { 'month': '2020' }
     ]
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
-      dataSets: [{
-        label: 'Store progress',
-        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      }],
-      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+      dataSets: initial,
+      dates: initDates,
       activePeriod: 'month',
       singleSelect: "true",
       multiOptions: monthYear,
-      colorCount: 1
+      colorCount: 1,
+      yearSelected: false,
     })
   }
   buttonClickWeek() {
     console.log("Ett weeeeeeeeeeeeek")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
+    const weekYear = [
+      { 'week': '2018' },
+      { 'week': '2019' },
+      { 'week': '2020' }]
     this.setState({
-      activePeriod: 'week'
+      activePeriod: 'week',
+      dataSets: initial,
+      dates: initDates,
+      yearSelected: false,
+      multiOptions: weekYear,
+      singleSelect: true
     })
   }
   buttonClickClear() {
     console.log("Clear!!")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
-      dataSets: [{
-        label: 'Store progress',
-        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      }],
-      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
+      dataSets: initial,
+      dates: initDates
     })
+  }
+
+  componentDidMount = async () =>{
+    const [theTopList, theTopListStore]  = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
+    this.setState({monthlyCompList: theTopList,
+                   monthlyCompListStore: theTopListStore
+    });
   }
 
 
   render() {
+    const storeRev=[];
+    const storeRevName=[];
+    for (const [index, value] of this.state.monthlyCompList.entries()) {
+      storeRev.push(<div className="top1-score" style={{gridRow:2*index+3}}><CountUp className="kong"separator=" " key={index} duration={5}  suffix=" SEK" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.monthlyCompListStore.entries()) {
+      storeRevName.push(<div style={{gridRow:2*index+2}} key={index}className="top1">{value}</div>)
+    }
+  
     return (
       <div className="home">
         <div className="container-fluid h-100">
@@ -529,13 +758,13 @@ class Home extends React.Component {
                 </div>
                 <div className="progress-window">
                   Goal 1:
-  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
-  Goal 2:
-  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
-  Goal 3:
-  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
-  Goal 4:
-  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+                  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
+                  Goal 2:
+                  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
+                  Goal 3:
+                  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
+                  Goal 4:
+                  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
                 </div>
                 <div className="progress-window">
                   New members:
@@ -616,7 +845,7 @@ class Home extends React.Component {
                             displayValue={this.state.activePeriod} // Property name to display in the dropdown option
                             placeholder="Select time period"
                             showCheckbox="true"
-                            closeOnSelect="true"
+                            closeOnSelect="false"
                             hidePlaceholder="true"
                             singleSelect={this.state.singleSelect}
                           ></Multiselect>
@@ -634,7 +863,7 @@ class Home extends React.Component {
                         <div>Top department:</div>
                         <div className="textRight">
                           <div>Outdoor:</div>
-                          <div>
+                            <div>
                             <CountUp
                               start={0}
                               end={31634}
@@ -676,53 +905,49 @@ class Home extends React.Component {
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store //(This Month)</div>
-                    <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={1342} /> TKR</div>
+                    {storeRevName} 
+                    {storeRev} 
+                     {/* <div className="top1">Store 3</div>
+                    <div className="top1-score"><CountUp duration={5}  end={1111} /> TKR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={1132} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={1132} /> TKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={954} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={954} /> TKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={758} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={758} /> TKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={654} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={654} /> TKR</div> */}
                   </div>
                   <div className="store-window window-4">
                     <div className="headline">Top Selling Store // (This Year)</div>
                     <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={16, 1} /> MkR</div>
+                    <div className="top1-score"><CountUp duration={5} end={16, 1} /> MkR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={12, 3} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={12, 3} /> MKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={12, 2} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={12, 2} /> MKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={11, 0} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={11, 0} /> MKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={10, 3} /> MKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={10, 3} /> MKR</div>
 
                   </div>
                   <div className="store-window window-5">
                     <div className="headline">Product Of The Month Revenue</div>
                     <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp end={132} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={22} /> TKR</div>
                     <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp end={132} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={132} /> TKR</div>
                     <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp end={94} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={94} /> TKR</div>
                     <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp end={78} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={78} /> TKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp end={64} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={64} /> TKR</div>
                   </div>
-
-
                 </div>
               </div>
             </div>
-
-
-
-
           </div>
         </div>
       </div>
