@@ -203,6 +203,7 @@ class Home extends React.Component {
     console.log(selectedList)
 
     var activePeriod = this.state.activePeriod;
+    var yearSelect = this.state.yearSelected;
 
     if (activePeriod == 'year') {
       console.log("Det var ett år");
@@ -210,8 +211,6 @@ class Home extends React.Component {
     } else if (activePeriod == 'month') {
       console.log("selectedList :", selectedList)
 
-
-      var yearSelect = this.state.yearSelected;
       if (yearSelect == "false") {
         console.log("bara ett år")
 
@@ -253,8 +252,84 @@ class Home extends React.Component {
 
       }
 
+    } else if (activePeriod == "week") {
+      console.log("nu är det vecka mina bekanta")
+      console.log("Year select: ", yearSelect)
+      if (yearSelect == false) {
+        console.log("bara ett år")
+        console.log(selectedList)
+        var selectedYear = String(selectedList[0]['week'])
+        console.log(selectedYear)
+
+        const weeks = [
+          { 'week': "week " + 1, 'id': 1 },
+          { 'week': "week " + 2, 'id': 2 },
+          { 'week': "week " + 3, 'id': 3 },
+          { 'week': "week " + 4, 'id': 4 },
+          { 'week': "week " + 5, 'id': 5 },
+          { 'week': "week " + 6, 'id': 6 },
+          { 'week': "week " + 7, 'id': 7 },
+          { 'week': "week " + 8, 'id': 8 },
+          { 'week': "week " + 9, 'id': 9 },
+          { 'week': "week " + 10, 'id': 10 },
+          { 'week': "week " + 11, 'id': 11 },
+          { 'week': "week " + 12, 'id': 12 },
+          { 'week': "week " + 13, 'id': 13 },
+          { 'week': "week " + 14, 'id': 14 },
+          { 'week': "week " + 15, 'id': 15 },
+          { 'week': "week " + 16, 'id': 16 },
+          { 'week': "week " + 17, 'id': 17 },
+          { 'week': "week " + 18, 'id': 18 },
+          { 'week': "week " + 19, 'id': 19 },
+          { 'week': "week " + 20, 'id': 20 },
+          { 'week': "week " + 21, 'id': 21 },
+          { 'week': "week " + 22, 'id': 22 },
+          { 'week': "week " + 23, 'id': 23 },
+          { 'week': "week " + 24, 'id': 24 },
+          { 'week': "week " + 25, 'id': 25 },
+          { 'week': "week " + 26, 'id': 26 },
+          { 'week': "week " + 27, 'id': 27 },
+          { 'week': "week " + 28, 'id': 28 },
+          { 'week': "week " + 29, 'id': 29 },
+          { 'week': "week " + 30, 'id': 30 },
+          { 'week': "week " + 31, 'id': 31 },
+          { 'week': "week " + 32, 'id': 32 },
+          { 'week': "week " + 33, 'id': 33 },
+          { 'week': "week " + 34, 'id': 34 },
+          { 'week': "week " + 35, 'id': 35 },
+          { 'week': "week " + 36, 'id': 36 },
+          { 'week': "week " + 37, 'id': 37 },
+          { 'week': "week " + 38, 'id': 38 },
+          { 'week': "week " + 39, 'id': 39 },
+          { 'week': "week " + 40, 'id': 40 },
+          { 'week': "week " + 41, 'id': 41 },
+          { 'week': "week " + 42, 'id': 42 },
+          { 'week': "week " + 43, 'id': 43 },
+          { 'week': "week " + 44, 'id': 44 },
+          { 'week': "week " + 45, 'id': 45 },
+          { 'week': "week " + 46, 'id': 46 },
+          { 'week': "week " + 47, 'id': 47 },
+          { 'week': "week " + 48, 'id': 48 },
+          { 'week': "week " + 49, 'id': 49 },
+          { 'week': "week " + 50, 'id': 50 },
+          { 'week': "week " + 51, 'id': 51 },
+          { 'week': "week " + 52, 'id': 52 }]
+
+        this.setState({
+          singleSelect: "false",
+          yearSelected: "true",
+          selectedYear: selectedYear,
+          multiOptions: weeks
+        })
+        return;
+      } else {
+
+      }
     }
 
+  }
+  onSelectWeek = async (selectList, selectItem) => {
+    console.log("Inne i onselectweek")
   }
 
   onSelectMonth = async (selectedYear, selectedMonthID) => {
@@ -464,21 +539,19 @@ class Home extends React.Component {
     this.setState({
       singleSelect: "false"
     })
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
-      dataSets: [{
-        label: 'Store progress',
-        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderWidth: 1
-      }],
-      dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+      dataSets: initial,
+      dates: initDates,
       singleSelect: "false",
       activePeriod: 'year',
       multiOptions: [
         { 'year': "2018", 'group': 'year' },
         { 'year': "2019", 'group': 'year' },
         { 'year': "2020", 'group': 'year' }],
-      colorCount: 1
+      colorCount: 1,
+      yearSelected: false,
     })
   }
   buttonClickMonth() {
@@ -496,17 +569,24 @@ class Home extends React.Component {
       activePeriod: 'month',
       singleSelect: "true",
       multiOptions: monthYear,
-      colorCount: 1
+      colorCount: 1,
+      yearSelected: false,
     })
   }
   buttonClickWeek() {
     console.log("Ett weeeeeeeeeeeeek")
     var initial = this.state.initialDataSet;
     var initDates = this.state.initialDates;
+    const weekYear = [
+      { 'week': '2018' },
+      { 'week': '2019' },
+      { 'week': '2020' }]
     this.setState({
       activePeriod: 'week',
       dataSets: initial,
-      dates: initDates
+      dates: initDates,
+      yearSelected: false,
+      multiOptions: weekYear
     })
   }
   buttonClickClear() {
