@@ -14,20 +14,43 @@ class  Registration extends Component {
         last_name: '',
         phone: '',
         store: '',
+        admin:0,
+        department:1
      }
    
       regUserChangeHandler =(event) => {
-        this.setAllUsers({ [event.target.name]: event.target.value });
+        this.setState({ [event.target.name]: event.target.value });
     
       }
+   
+      addUser = _=>{
+        console.log("wtf");
+        //const {user}=this.state.user;
+        console.log(this.state.username);
+        //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+       // fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
+      // fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}`) 
+       fetch(`http://localhost:61339/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}`) 
+       .then(response => response.json())
+        .then(data => console.log(data))
+       // .then(this.getUser)
+        .catch(err => console.error(err))
+      }
+      submitHandler =(event) =>{
+        event.preventDefault();
+        console.log(this.state);
+        event.target.className += " was-validated";
+        this.addUser();
+       // event.target.reset();
     
+      }
     render() {
       return(
         <div>
-        <div className=" col-xs-0 col-md-4 "></div>
-      <form className="needs-validation" className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" novalidate id="reg-form" onSubmit={this.submitHandler}>
-      <h1 className="text-dark">Registration Form: </h1>
-      <div className="form-group ">
+        
+      <form className="needs-validation"  className="shadow p-3 mb-5 bg-white rounded" id="test1"novalidate id="reg-form" onSubmit={this.submitHandler}>
+      <h1 className="text-dark" >Registration Form: </h1>
+      <div className="form-group " className="test1">
     <label for="exampleInputUsername">Username:</label>
       <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username" required name="username"
         onChange={(this.regUserChangeHandler)}></input>
@@ -36,13 +59,13 @@ class  Registration extends Component {
               </div>
               <div className="valid-feedback">Looks good!</div>
   </div>
-      <div className="form-group "  >
+      <div className="form-group " className="test1" >
     <label for="exampleInputEmail1">Email address:</label>
     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required name="email"
     onChange={(this.regUserChangeHandler)}></input>   
   </div>
  
-  <div className="form-group ">
+  <div className="form-group "className="test1">
     <label for="exampleInputPassword1">Password:</label>
     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required name="password"
     onChange={(this.regUserChangeHandler)}></input>
@@ -56,7 +79,7 @@ class  Registration extends Component {
   <input type="text" className="form-control" placeholder="Last Name" required  name="last_name"
   onChange={(this.regUserChangeHandler)}></input>
 </div>
-  <div className="form-group ">
+  <div className="form-group "className="test1">
     <label for="number">Phone Number:</label>
     <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244" required name="phone"
     onChange={(this.regUserChangeHandler)}></input>
@@ -64,7 +87,7 @@ class  Registration extends Component {
   <label for="number">Which store do you work at?</label>
   <div className="input-group mb-3 ">
   <div className="input-group-prepend">
-    <label className="input-group-text" for="inputGroupSelect01">Stores</label>
+    <label className="input-group-text" for="inputGroupSelect01">Store:</label>
   </div>
   <select className="custom-select" id="inputGroupSelect01" required  name="store"
   onChange={(this.regUserChangeHandler)}>
@@ -77,11 +100,25 @@ class  Registration extends Component {
     
   </select>
 </div>
-
+<div className="input-group mb-3 ">
+  <div className="input-group-prepend">
+    <label className="input-group-text" for="inputGroupSelect01">Department:</label>
+  </div>
+  <select className="custom-select" id="inputGroupSelect01" required  name="department"
+  onChange={(this.regUserChangeHandler)}>
+    <option defaultValue>Choose...</option>
+    <option value="Footwear">Footwear</option>
+    <option value="Bikes">Bikes</option>
+    <option value="Sportswear">Sportswear</option>
+    <option value="Ice_hockey_equipment">Ice_hockey_equipment</option>
+    <option value="Outdoor">Outdoor</option>
+    <option value="Supplements">Supplements</option>
+    <option value="Racket_sports">Racket_sports</option>
+  </select>
+</div>
  
   
   <button  className="btn btn-success btn-lg">Sign Up</button>
-  <button  className="btn btn-warning btn-lg ml-3">Sign In</button>
       </form>
     </div>
       )

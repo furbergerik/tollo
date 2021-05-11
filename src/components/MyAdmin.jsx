@@ -85,6 +85,17 @@ class MyAdmin extends Component {
     
 
   }
+  login = _=>{
+    console.log("getUsers");
+    const store =4;
+    //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+    fetch(`http://tollo.duckdns.org:61338/getUsers?store='${store}'&username=${null}`)
+    .then(response => response.json())
+    .then(data=>console.log(data))
+    .catch(err => console.error(err))
+    
+
+  }
   cancelCourse = () => { 
     document.getElementById("reg-form").reset();
   }
@@ -92,6 +103,10 @@ class MyAdmin extends Component {
   renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
   render() {
     const{users, user}=this.state;
+    // const listUser=getUsers();
+    // const listItems = numbers.map((number) =>
+ // <li>{number}</li>
+   // );
     let message
     if (this.state.tab == "Store"){
       message = 
@@ -113,11 +128,10 @@ class MyAdmin extends Component {
 
     else if(this.state.tab == "Settings"){
       message = 
-      <div>
-        <div className="mt-2" >
-        {<Registration></Registration>}
-        </div>
-        
+      <div className="mt-2 row ">
+          
+        <div className="col-md-3 offset-1">
+        <div className="test" >
         <h1>Profile Information:</h1>
         <h3>Username:</h3>
         <h3>Name:</h3>
@@ -125,7 +139,7 @@ class MyAdmin extends Component {
         <div className="test">
           <h3>Phone Number:</h3>
           <p className="ml-3">Change </p>
-        </div>
+        
 
         <div className="test">
           <h3>Email:</h3>
@@ -136,8 +150,19 @@ class MyAdmin extends Component {
           <h3>Password:</h3>
           <p className="ml-3">Change </p>
         </div>
+        </div>
+        </div>
+   
+</div>
+<div>
 
-      </div>
+</div>
+<div >
+        {<Registration></Registration>}
+   
+        </div>
+
+  </div>
     }
     return (
     
