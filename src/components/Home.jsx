@@ -9,7 +9,7 @@ import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button';
-import { Col, Form } from "react-bootstrap"
+import { Col, Form, ThemeProvider } from "react-bootstrap"
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 
@@ -114,31 +114,34 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
 }
 
 async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
-  var topList =[];
+  var topList = [];
+  var topListStore = [];
   for(var i = 1; i < 6; i++){
     var monthTot= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
     monthTot = sumArr(monthTot)
-    topList.push(["Store " + i, monthTot])
+    topList.push(monthTot)
+    topListStore.push("Store " + i)
   }
+  [topList, topListStore]=bubbleSort(topList, topListStore);
   console.log("denna datan", topList)
-  return topList
+  return [topList, topListStore]
 }
 
-let bubbleSort = (inputArr) => {
-  let len = inputArr.length;
-  console.log(inputArr[0])
+function bubbleSort(inputArr, inputLabel){
+  var len = inputArr.length;
   for (let i = 0; i < len; i++) {
       for (let j = 0; j < len; j++) {
-        console.log(inputArr[j][1])
-          if (inputArr[j][1] < inputArr[j + 1][1]) {
+          if (inputArr[j] < inputArr[j + 1]) {
               let tmp = inputArr[j];
+              let tmpLabel = inputLabel[j]
               inputArr[j] = inputArr[j + 1];
+              inputLabel[j] = inputLabel[j+1]
+              inputLabel[j+1] = tmpLabel;
               inputArr[j + 1] = tmp;
           }
       }
-      console.log(inputArr)
   }
-  return inputArr;
+  return [inputArr, inputLabel];
 };
 
 function sumArr(arr) {
@@ -147,6 +150,33 @@ function sumArr(arr) {
     return a + b
   }, 0);
 }
+
+// async function {
+//   console.log("Hej")
+//   const [theTopList, theTopListStore]  = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
+//   console.log("gjdhfdfdsfds  ",theTopList)
+//   // [theTopList, theTopListStore] = bubbleSort(theTopList, theTopListStore);
+//   const theRealDeal = [];
+//   console.log("herererererer  ",theTopList)
+//    for (const [index, value] of theTopList.entries()) {
+//     theRealDeal.push(<div key={index}>{value}</div>)
+//    }
+//    console.log(theRealDeal)
+//    return(theRealDeal)
+// }
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
 
 // function soldProduct(year, month, productId){
 //   var salesData = data["prodSales"];
@@ -161,8 +191,8 @@ function sumArr(arr) {
 // }
 
 //console.log(soldProduct(2018, 1, 1));
-var test = getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
-console.log(bubbleSort(test))
+// var test = getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
+// console.log(bubbleSort(test))
 
 class Home extends React.Component {
 
@@ -193,7 +223,9 @@ class Home extends React.Component {
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderWidth: 1
     }],
-    initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
+    initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+    monthlyCompList: [],
+    monthlyCompListStore:[]
   }
 
   // ---------------From DropDown---------------------
@@ -525,19 +557,6 @@ class Home extends React.Component {
     }
   }
 
-  makeToplist = async () => {
-    console.log("Hej")
-    
-    const theTopList = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
-    console.log("gjdhfdfdsfds  ",theTopList)
-    theTopList = bubbleSort(theTopList);
-   
-    const topListItems =[];
-    // for (const [index, value] of theTopList.entries()) {
-    //   topListItems.push(<li key={index}>{value}</li>)
-    // }
-  }
-
 
   onSelectYear = async (selectedList, selectedItem) => {
     var year = Number(selectedItem.year);
@@ -611,7 +630,6 @@ class Home extends React.Component {
         })
     }
   }
-
 
   onRemove(selectedList, removedItem) {
     console.log("Remove function");
@@ -708,9 +726,24 @@ class Home extends React.Component {
     })
   }
 
+  componentDidMount = async () =>{
+    const [theTopList, theTopListStore]  = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
+    this.setState({monthlyCompList: theTopList,
+                   monthlyCompListStore: theTopListStore
+    });
+  }
+
 
   render() {
-
+    const storeRev=[];
+    const storeRevName=[];
+    for (const [index, value] of this.state.monthlyCompList.entries()) {
+      storeRev.push(<div className="top1-score" style={{gridRow:2*index+3}}><CountUp className="kong"separator=" " key={index} duration={5}  suffix=" SEK" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.monthlyCompListStore.entries()) {
+      storeRevName.push(<div style={{gridRow:2*index+2}} key={index}className="top1">{value}</div>)
+    }
+  
     return (
       <div className="home">
         <div className="container-fluid h-100">
@@ -829,7 +862,7 @@ class Home extends React.Component {
                         <div>Top department:</div>
                         <div className="textRight">
                           <div>Outdoor:</div>
-                          <div>
+                            <div>
                             <CountUp
                               start={0}
                               end={31634}
@@ -871,8 +904,9 @@ class Home extends React.Component {
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store //(This Month)</div>
-                    {this.makeToplist().toString()} 
-                    <div className="top1">Store 3</div>
+                    {storeRevName} 
+                    {storeRev} 
+                     {/* <div className="top1">Store 3</div>
                     <div className="top1-score"><CountUp duration={5}  end={1111} /> TKR</div>
                     <div className="top1">Store 1</div>
                     <div className="top1-score"><CountUp duration={5} end={1132} /> TKR</div>
@@ -881,7 +915,7 @@ class Home extends React.Component {
                     <div className="top1">Store 2</div>
                     <div className="top1-score"><CountUp duration={5} end={758} /> TKR</div>
                     <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp duration={5} end={654} /> TKR</div>
+                    <div className="top1-score"><CountUp duration={5} end={654} /> TKR</div> */}
                   </div>
                   <div className="store-window window-4">
                     <div className="headline">Top Selling Store // (This Year)</div>
