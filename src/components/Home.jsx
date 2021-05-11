@@ -56,27 +56,21 @@ async function getStoreData(dataCategory, ID, storeNr) {
   }
 }
 
-function getWeeklyDaylyData(year, week, dataType) {
-  var salesData = data["totSales"];
+async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
+  const salesData = await getStoreData(dataCategory, ID, storeNr);
+  console.log("salesData: ", salesData)
   var listDayInWeek = [];
-  if (week == 1) {
-    for (var i in salesData) {
-      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week && salesData[i]["Month"] == 1) {
-        listDayInWeek.push(salesData[i][dataType])
-      }
-      else if (salesData[i]["Year"] == year - 1 && salesData[i]["Week"] == week && salesData[i]["Month"] == 12) {
-        listDayInWeek.push(salesData[i][dataType])
-      }
-    }
-  }
-  else {
-    for (var i in salesData) {
-      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week) {
-        listDayInWeek.push(salesData[i][dataType])
+  var yearLevel = salesData[year]
+  for (var i in yearLevel) {
+    var monthLevel = yearLevel[i]
+    for (var i in monthLevel) {
+      if (monthLevel[i]['Week'] == week) {
+        // console.log("Denna ska vi spara!! ", monthLevel[i]);
+        listDayInWeek.push(monthLevel[i])
       }
     }
   }
-  //console.log("ny test:  ",listDay)
+
   return listDayInWeek
 }
 
@@ -211,9 +205,8 @@ class Home extends React.Component {
     } else if (activePeriod == 'month') {
       console.log("selectedList :", selectedList)
 
-      if (yearSelect == "false") {
+      if (yearSelect == false) {
         console.log("bara ett år")
-
         var selectedYear = String(selectedList[0]['month'])
         console.log(selectedYear)
 
@@ -234,102 +227,171 @@ class Home extends React.Component {
         console.log(months)
 
         this.setState({
-          singleSelect: "false",
-          yearSelected: "true",
+          singleSelect: true,
+          yearSelected: true,
           selectedYear: selectedYear,
           multiOptions: months
         })
         return;
-      } else {
+      } else if (yearSelect == true) {
 
         var selectedYear = this.state.selectedYear;
         var selectedMonthID = selectedList[0]['id'];
         this.onSelectMonth(selectedYear, selectedMonthID)
 
         this.setState({
-          yearSelected: "false"
+          yearSelected: false
         })
-
       }
 
     } else if (activePeriod == "week") {
-      console.log("nu är det vecka mina bekanta")
-      console.log("Year select: ", yearSelect)
+      console.log("OnSelect: nu är det vecka mina bekanta")
+      const weeks = [
+        { 'week': "week " + 1, 'id': 1 },
+        { 'week': "week " + 2, 'id': 2 },
+        { 'week': "week " + 3, 'id': 3 },
+        { 'week': "week " + 4, 'id': 4 },
+        { 'week': "week " + 5, 'id': 5 },
+        { 'week': "week " + 6, 'id': 6 },
+        { 'week': "week " + 7, 'id': 7 },
+        { 'week': "week " + 8, 'id': 8 },
+        { 'week': "week " + 9, 'id': 9 },
+        { 'week': "week " + 10, 'id': 10 },
+        { 'week': "week " + 11, 'id': 11 },
+        { 'week': "week " + 12, 'id': 12 },
+        { 'week': "week " + 13, 'id': 13 },
+        { 'week': "week " + 14, 'id': 14 },
+        { 'week': "week " + 15, 'id': 15 },
+        { 'week': "week " + 16, 'id': 16 },
+        { 'week': "week " + 17, 'id': 17 },
+        { 'week': "week " + 18, 'id': 18 },
+        { 'week': "week " + 19, 'id': 19 },
+        { 'week': "week " + 20, 'id': 20 },
+        { 'week': "week " + 21, 'id': 21 },
+        { 'week': "week " + 22, 'id': 22 },
+        { 'week': "week " + 23, 'id': 23 },
+        { 'week': "week " + 24, 'id': 24 },
+        { 'week': "week " + 25, 'id': 25 },
+        { 'week': "week " + 26, 'id': 26 },
+        { 'week': "week " + 27, 'id': 27 },
+        { 'week': "week " + 28, 'id': 28 },
+        { 'week': "week " + 29, 'id': 29 },
+        { 'week': "week " + 30, 'id': 30 },
+        { 'week': "week " + 31, 'id': 31 },
+        { 'week': "week " + 32, 'id': 32 },
+        { 'week': "week " + 33, 'id': 33 },
+        { 'week': "week " + 34, 'id': 34 },
+        { 'week': "week " + 35, 'id': 35 },
+        { 'week': "week " + 36, 'id': 36 },
+        { 'week': "week " + 37, 'id': 37 },
+        { 'week': "week " + 38, 'id': 38 },
+        { 'week': "week " + 39, 'id': 39 },
+        { 'week': "week " + 40, 'id': 40 },
+        { 'week': "week " + 41, 'id': 41 },
+        { 'week': "week " + 42, 'id': 42 },
+        { 'week': "week " + 43, 'id': 43 },
+        { 'week': "week " + 44, 'id': 44 },
+        { 'week': "week " + 45, 'id': 45 },
+        { 'week': "week " + 46, 'id': 46 },
+        { 'week': "week " + 47, 'id': 47 },
+        { 'week': "week " + 48, 'id': 48 },
+        { 'week': "week " + 49, 'id': 49 },
+        { 'week': "week " + 50, 'id': 50 },
+        { 'week': "week " + 51, 'id': 51 },
+        { 'week': "week " + 52, 'id': 52 }]
+
       if (yearSelect == false) {
         console.log("bara ett år")
         console.log(selectedList)
         var selectedYear = String(selectedList[0]['week'])
         console.log(selectedYear)
 
-        const weeks = [
-          { 'week': "week " + 1, 'id': 1 },
-          { 'week': "week " + 2, 'id': 2 },
-          { 'week': "week " + 3, 'id': 3 },
-          { 'week': "week " + 4, 'id': 4 },
-          { 'week': "week " + 5, 'id': 5 },
-          { 'week': "week " + 6, 'id': 6 },
-          { 'week': "week " + 7, 'id': 7 },
-          { 'week': "week " + 8, 'id': 8 },
-          { 'week': "week " + 9, 'id': 9 },
-          { 'week': "week " + 10, 'id': 10 },
-          { 'week': "week " + 11, 'id': 11 },
-          { 'week': "week " + 12, 'id': 12 },
-          { 'week': "week " + 13, 'id': 13 },
-          { 'week': "week " + 14, 'id': 14 },
-          { 'week': "week " + 15, 'id': 15 },
-          { 'week': "week " + 16, 'id': 16 },
-          { 'week': "week " + 17, 'id': 17 },
-          { 'week': "week " + 18, 'id': 18 },
-          { 'week': "week " + 19, 'id': 19 },
-          { 'week': "week " + 20, 'id': 20 },
-          { 'week': "week " + 21, 'id': 21 },
-          { 'week': "week " + 22, 'id': 22 },
-          { 'week': "week " + 23, 'id': 23 },
-          { 'week': "week " + 24, 'id': 24 },
-          { 'week': "week " + 25, 'id': 25 },
-          { 'week': "week " + 26, 'id': 26 },
-          { 'week': "week " + 27, 'id': 27 },
-          { 'week': "week " + 28, 'id': 28 },
-          { 'week': "week " + 29, 'id': 29 },
-          { 'week': "week " + 30, 'id': 30 },
-          { 'week': "week " + 31, 'id': 31 },
-          { 'week': "week " + 32, 'id': 32 },
-          { 'week': "week " + 33, 'id': 33 },
-          { 'week': "week " + 34, 'id': 34 },
-          { 'week': "week " + 35, 'id': 35 },
-          { 'week': "week " + 36, 'id': 36 },
-          { 'week': "week " + 37, 'id': 37 },
-          { 'week': "week " + 38, 'id': 38 },
-          { 'week': "week " + 39, 'id': 39 },
-          { 'week': "week " + 40, 'id': 40 },
-          { 'week': "week " + 41, 'id': 41 },
-          { 'week': "week " + 42, 'id': 42 },
-          { 'week': "week " + 43, 'id': 43 },
-          { 'week': "week " + 44, 'id': 44 },
-          { 'week': "week " + 45, 'id': 45 },
-          { 'week': "week " + 46, 'id': 46 },
-          { 'week': "week " + 47, 'id': 47 },
-          { 'week': "week " + 48, 'id': 48 },
-          { 'week': "week " + 49, 'id': 49 },
-          { 'week': "week " + 50, 'id': 50 },
-          { 'week': "week " + 51, 'id': 51 },
-          { 'week': "week " + 52, 'id': 52 }]
-
         this.setState({
-          singleSelect: "false",
-          yearSelected: "true",
+          yearSelected: true,
           selectedYear: selectedYear,
           multiOptions: weeks
         })
         return;
-      } else {
+      } else if (yearSelect == true) {
+        var selectedYear = this.state.selectedYear
+        var selectedWeek = String(selectedItem['id']);
 
+        this.onSelectWeek(selectedYear, selectedWeek);
       }
     }
 
   }
-  onSelectWeek = async (selectList, selectItem) => {
+  onSelectWeek = async (year, week) => {
     console.log("Inne i onselectweek")
+    var yearFix = 'y' + String(year);
+    var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, 1);
+
+    var weekDateList = []
+    var salesWeekdayList = []
+    for (var i in weekList) {
+      // console.log(weekList[i])
+      weekDateList.push(weekList[i]['Day'] + "/" + weekList[i]['Month'])
+      salesWeekdayList.push(weekList[i]['Total sales'])
+    }
+    console.log("Date List: ", weekDateList)
+    console.log("salesWeekdayList: ", salesWeekdayList);
+
+
+    var newBar = { label: "Week " + week + " " + year, data: salesWeekdayList, backgroundColor: '#F94144', borderWidth: 1 }
+    const weekYears = [
+      { 'week': '2018' },
+      { 'week': '2019' },
+      { 'week': '2020' }]
+
+    if (this.state.dataSets[0].label == 'Store progress') {
+      console.log("WEEK: Fanns ingen dataSet från början");
+      this.setState({
+        dataSets: [newBar],
+        dates: weekDateList,
+        yearSelected: false,
+        multiOptions: weekYears,
+        numberOfBars: 1
+      })
+
+    } else {
+      console.log("WEEK: fanns nått där, nu ska vi göra nått!")
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
+      //---- color generator
+      var localColorCount = this.state.colorCount;
+      if (localColorCount < 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: localColorCount + 1
+        })
+      }
+      if (localColorCount == 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: 0
+        })
+      }
+      //--- Update Week bars
+      console.log("Updated WEEK Bar: ", updatedBar)
+      var localNumberOfBars = this.state.numberOfBars;
+
+      const weekSimpleDates = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'] //Because the dates will differ from week to week
+      this.setState({
+        dataSets: updatedBar,
+        dates: weekSimpleDates,
+        numberOfBars: localNumberOfBars + 1,
+        yearSelected: false,
+        multiOptions: weekYears
+      })
+    }
+
+
   }
 
   onSelectMonth = async (selectedYear, selectedMonthID) => {
@@ -360,7 +422,7 @@ class Home extends React.Component {
     var yearFix = "y" + year;
 
     const neededData = await getDaylyData(yearFix, monthForFunction, "totSales", "Total sales", false, 1, 1)
-    // (year, month, dataCategory, dataType, ID, storeNr)
+
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
@@ -369,7 +431,7 @@ class Home extends React.Component {
     var monthDates = [];
     var i = 1;
     neededData.forEach(element => {
-      monthDates.push(selectedMonth + " " + i)
+      monthDates.push(i)
       i = i + 1;
     });
     console.log(monthDates)
@@ -388,11 +450,12 @@ class Home extends React.Component {
         dataSets: [newBar],
         dates: monthDates,
         multiOptions: monthYear,
-        singleSelect: "false",
-        yearSelect: "false",
+        singleSelect: true,
+        yearSelect: false,
         numberOfBars: 1
       })
     } else {
+      //---- Create updated bar of months
       console.log("fanns nått där, nu ska vi göra nått!")
       var oldBar = this.state.dataSets;
       console.log("OldBar ofixad: ", oldBar);
@@ -402,6 +465,7 @@ class Home extends React.Component {
       } else {
         updatedBar = oldBar.concat(newBar);
       }
+      //---- color generator
       var localColorCount = this.state.colorCount;
       if (localColorCount < 6) {
         newBar.backgroundColor = this.state.colorOptions[localColorCount]
@@ -415,14 +479,16 @@ class Home extends React.Component {
           colorCount: 0
         })
       }
+      // -------------------
 
+      //--- Update month bars
       console.log("Updated MONTH Bar: ", updatedBar)
       var localNumberOfBars = this.state.numberOfBars;
       this.setState({
         dataSets: updatedBar,
         dates: monthDates,
         numberOfBars: localNumberOfBars + 1,
-        yearSelected: "false",
+        yearSelected: false,
         multiOptions: monthYear
       })
     }
@@ -536,15 +602,12 @@ class Home extends React.Component {
 
   buttonClickYear() {
     console.log("Ett year ett year ett year")
-    this.setState({
-      singleSelect: "false"
-    })
     var initial = this.state.initialDataSet;
     var initDates = this.state.initialDates;
     this.setState({
       dataSets: initial,
       dates: initDates,
-      singleSelect: "false",
+      singleSelect: false,
       activePeriod: 'year',
       multiOptions: [
         { 'year': "2018", 'group': 'year' },
@@ -586,7 +649,8 @@ class Home extends React.Component {
       dataSets: initial,
       dates: initDates,
       yearSelected: false,
-      multiOptions: weekYear
+      multiOptions: weekYear,
+      singleSelect: true
     })
   }
   buttonClickClear() {
