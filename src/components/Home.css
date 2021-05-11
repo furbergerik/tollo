@@ -162,6 +162,7 @@ position: relative;
 .buttonGroupContainer{
     grid-column: 1/span 3;
     max-height: 3vw;
+    max-width: 5vw; 
 }
 .multiSelectContainer{
     z-index: 1;

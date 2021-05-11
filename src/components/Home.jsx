@@ -55,27 +55,21 @@ async function getStoreData(dataCategory, ID, storeNr) {
   }
 }
 
-function getWeeklyDaylyData(year, week, dataType) {
-  var salesData = data["totSales"];
+async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
+  const salesData = await getStoreData(dataCategory, ID, storeNr);
+  console.log("salesData: ", salesData)
   var listDayInWeek = [];
-  if (week == 1) {
-    for (var i in salesData) {
-      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week && salesData[i]["Month"] == 1) {
-        listDayInWeek.push(salesData[i][dataType])
-      }
-      else if (salesData[i]["Year"] == year - 1 && salesData[i]["Week"] == week && salesData[i]["Month"] == 12) {
-        listDayInWeek.push(salesData[i][dataType])
-      }
-    }
-  }
-  else {
-    for (var i in salesData) {
-      if (salesData[i]["Year"] == year && salesData[i]["Week"] == week) {
-        listDayInWeek.push(salesData[i][dataType])
+  var yearLevel = salesData[year]
+  for (var i in yearLevel) {
+    var monthLevel = yearLevel[i]
+    for (var i in monthLevel) {
+      if (monthLevel[i]['Week'] == week) {
+        // console.log("Denna ska vi spara!! ", monthLevel[i]);
+        listDayInWeek.push(monthLevel[i])
       }
     }
   }
-  //console.log("ny test:  ",listDay)
+
   return listDayInWeek
 }
 
@@ -189,7 +183,17 @@ class Home extends React.Component {
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
     activePeriod: 'year',
     year: '2018',
-    monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
+    monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
+    singleSelect: "false",
+    yearSelected: "false",
+    selectedYear: '',
+    initialDataSet: [{
+      label: 'Store progress',
+      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      borderWidth: 1
+    }],
+    initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
   }
 
   // ---------------From DropDown---------------------
@@ -224,83 +228,301 @@ class Home extends React.Component {
     console.log(selectedList)
 
     var activePeriod = this.state.activePeriod;
+    var yearSelect = this.state.yearSelected;
 
     if (activePeriod == 'year') {
       console.log("Det var ett år");
       this.onSelectYear(selectedList, selectedItem);
     } else if (activePeriod == 'month') {
-      console.log("nu ska de va månad tjoho!")
+      console.log("selectedList :", selectedList)
 
-      console.log(selectedList)
-      if (selectedList.length < 2) {
+      if (yearSelect == false) {
         console.log("bara ett år")
+        var selectedYear = String(selectedList[0]['month'])
+        console.log(selectedYear)
+
+        const months = [
+          { 'month': "Jan " + selectedYear, 'id': 1 },
+          { 'month': "Feb " + selectedYear, 'id': 2 },
+          { 'month': "Mar " + selectedYear, 'id': 3 },
+          { 'month': "Apr " + selectedYear, 'id': 4 },
+          { 'month': "May " + selectedYear, 'id': 5 },
+          { 'month': "Jun " + selectedYear, 'id': 6 },
+          { 'month': "Jul " + selectedYear, 'id': 7 },
+          { 'month': "Aug " + selectedYear, 'id': 8 },
+          { 'month': "Sept " + selectedYear, 'id': 9 },
+          { 'month': "Oct " + selectedYear, 'id': 10 },
+          { 'month': "Nov " + selectedYear, 'id': 11 },
+          { 'month': "Dec " + selectedYear, 'id': 12 }]
+
+        console.log(months)
+
+        this.setState({
+          singleSelect: true,
+          yearSelected: true,
+          selectedYear: selectedYear,
+          multiOptions: months
+        })
         return;
-      } else {
-        this.onSelectMonth(selectedList, selectedItem)
+      } else if (yearSelect == true) {
+
+        var selectedYear = this.state.selectedYear;
+        var selectedMonthID = selectedList[0]['id'];
+        this.onSelectMonth(selectedYear, selectedMonthID)
+
+        this.setState({
+          yearSelected: false
+        })
       }
 
+    } else if (activePeriod == "week") {
+      console.log("OnSelect: nu är det vecka mina bekanta")
+      const weeks = [
+        { 'week': "week " + 1, 'id': 1 },
+        { 'week': "week " + 2, 'id': 2 },
+        { 'week': "week " + 3, 'id': 3 },
+        { 'week': "week " + 4, 'id': 4 },
+        { 'week': "week " + 5, 'id': 5 },
+        { 'week': "week " + 6, 'id': 6 },
+        { 'week': "week " + 7, 'id': 7 },
+        { 'week': "week " + 8, 'id': 8 },
+        { 'week': "week " + 9, 'id': 9 },
+        { 'week': "week " + 10, 'id': 10 },
+        { 'week': "week " + 11, 'id': 11 },
+        { 'week': "week " + 12, 'id': 12 },
+        { 'week': "week " + 13, 'id': 13 },
+        { 'week': "week " + 14, 'id': 14 },
+        { 'week': "week " + 15, 'id': 15 },
+        { 'week': "week " + 16, 'id': 16 },
+        { 'week': "week " + 17, 'id': 17 },
+        { 'week': "week " + 18, 'id': 18 },
+        { 'week': "week " + 19, 'id': 19 },
+        { 'week': "week " + 20, 'id': 20 },
+        { 'week': "week " + 21, 'id': 21 },
+        { 'week': "week " + 22, 'id': 22 },
+        { 'week': "week " + 23, 'id': 23 },
+        { 'week': "week " + 24, 'id': 24 },
+        { 'week': "week " + 25, 'id': 25 },
+        { 'week': "week " + 26, 'id': 26 },
+        { 'week': "week " + 27, 'id': 27 },
+        { 'week': "week " + 28, 'id': 28 },
+        { 'week': "week " + 29, 'id': 29 },
+        { 'week': "week " + 30, 'id': 30 },
+        { 'week': "week " + 31, 'id': 31 },
+        { 'week': "week " + 32, 'id': 32 },
+        { 'week': "week " + 33, 'id': 33 },
+        { 'week': "week " + 34, 'id': 34 },
+        { 'week': "week " + 35, 'id': 35 },
+        { 'week': "week " + 36, 'id': 36 },
+        { 'week': "week " + 37, 'id': 37 },
+        { 'week': "week " + 38, 'id': 38 },
+        { 'week': "week " + 39, 'id': 39 },
+        { 'week': "week " + 40, 'id': 40 },
+        { 'week': "week " + 41, 'id': 41 },
+        { 'week': "week " + 42, 'id': 42 },
+        { 'week': "week " + 43, 'id': 43 },
+        { 'week': "week " + 44, 'id': 44 },
+        { 'week': "week " + 45, 'id': 45 },
+        { 'week': "week " + 46, 'id': 46 },
+        { 'week': "week " + 47, 'id': 47 },
+        { 'week': "week " + 48, 'id': 48 },
+        { 'week': "week " + 49, 'id': 49 },
+        { 'week': "week " + 50, 'id': 50 },
+        { 'week': "week " + 51, 'id': 51 },
+        { 'week': "week " + 52, 'id': 52 }]
+
+      if (yearSelect == false) {
+        console.log("bara ett år")
+        console.log(selectedList)
+        var selectedYear = String(selectedList[0]['week'])
+        console.log(selectedYear)
+
+        this.setState({
+          yearSelected: true,
+          selectedYear: selectedYear,
+          multiOptions: weeks
+        })
+        return;
+      } else if (yearSelect == true) {
+        var selectedYear = this.state.selectedYear
+        var selectedWeek = String(selectedItem['id']);
+
+        this.onSelectWeek(selectedYear, selectedWeek);
+      }
     }
 
   }
+  onSelectWeek = async (year, week) => {
+    console.log("Inne i onselectweek")
+    var yearFix = 'y' + String(year);
+    var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, 1);
 
-  onSelectMonth = async (selectedList, selectedItem) => {
+    var weekDateList = []
+    var salesWeekdayList = []
+    for (var i in weekList) {
+      // console.log(weekList[i])
+      weekDateList.push(weekList[i]['Day'] + "/" + weekList[i]['Month'])
+      salesWeekdayList.push(weekList[i]['Total sales'])
+    }
+    console.log("Date List: ", weekDateList)
+    console.log("salesWeekdayList: ", salesWeekdayList);
+
+
+    var newBar = { label: "Week " + week + " " + year, data: salesWeekdayList, backgroundColor: '#F94144', borderWidth: 1 }
+    const weekYears = [
+      { 'week': '2018' },
+      { 'week': '2019' },
+      { 'week': '2020' }]
+
+    if (this.state.dataSets[0].label == 'Store progress') {
+      console.log("WEEK: Fanns ingen dataSet från början");
+      this.setState({
+        dataSets: [newBar],
+        dates: weekDateList,
+        yearSelected: false,
+        multiOptions: weekYears,
+        numberOfBars: 1
+      })
+
+    } else {
+      console.log("WEEK: fanns nått där, nu ska vi göra nått!")
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
+      //---- color generator
+      var localColorCount = this.state.colorCount;
+      if (localColorCount < 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: localColorCount + 1
+        })
+      }
+      if (localColorCount == 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: 0
+        })
+      }
+      //--- Update Week bars
+      console.log("Updated WEEK Bar: ", updatedBar)
+      var localNumberOfBars = this.state.numberOfBars;
+
+      const weekSimpleDates = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'] //Because the dates will differ from week to week
+      this.setState({
+        dataSets: updatedBar,
+        dates: weekSimpleDates,
+        numberOfBars: localNumberOfBars + 1,
+        yearSelected: false,
+        multiOptions: weekYears
+      })
+    }
+
+
+  }
+
+  onSelectMonth = async (selectedYear, selectedMonthID) => {
     console.log("nu kommer vi hit och ska hitta månad!")
+
     const monthDict = {
-      'Jan': 'm1',
-      'Feb': 'm2',
-      'Mar': 'm3',
-      'Apr': 'm4',
-      'May': 'm5',
-      'Jun': 'm6',
-      'Jul': 'm7',
-      'Aug': 'm8',
-      'Sept': 'm9',
-      'Oct': 'm10',
-      'Nov': 'm11',
-      'Dec': 'm12'
+      1: ['m1', 'Jan'],
+      2: ['m2', 'Feb'],
+      3: ['m3', 'Mar'],
+      4: ['m4', 'Apr'],
+      5: ['m5', 'May'],
+      6: ['m6', 'Jun'],
+      7: ['m7', 'Jul'],
+      8: ['m8', 'Aug'],
+      9: ['m9', 'Sept'],
+      10: ['m10', 'Oct'],
+      11: ['m11', 'Nov'],
+      12: ['m12', 'Dec']
     };
     var selectedYear;
-    var selectedMonth;
+    var selectedMonth = monthDict[selectedMonthID][1];
+    var monthForFunction = monthDict[selectedMonthID][0]
+    console.log("month For function= ", monthForFunction)
 
-    selectedList.forEach(element => {
-      if (element.group == 'year') {
-        console.log("år: ", element["month"])
-        selectedYear = String(element['month'])
-      }
-      if (element.group == 'month') {
-        console.log("månad: ", element["month"])
-        selectedMonth = String(element["month"])
-      }
-    });
+    console.log("selected Year: ", selectedYear, "  selectedMonth:  ", selectedMonth);
 
     var year = Number(selectedYear);
     var yearFix = "y" + year;
 
-    const neededData = await getDaylyData(yearFix, monthDict[selectedMonth], "totSales", "Total sales", false, 1, 1)
-    // (year, month, dataCategory, dataType, ID, storeNr)
+    const neededData = await getDaylyData(yearFix, monthForFunction, "totSales", "Total sales", false, 1, 1)
+
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
 
-    console.log("data from month man boy:  ", neededData)
-
     var monthDates = [];
     var i = 1;
     neededData.forEach(element => {
-      monthDates.push(selectedMonth + " " + i)
+      monthDates.push(i)
       i = i + 1;
     });
     console.log(monthDates)
 
 
-    var newBar = { label: selectedYear + " " + selectedMonth, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+    var newBar = { label: selectedMonth + " " + selectedYear, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+    const monthYear = [
+      { 'month': '2018' },
+      { 'month': '2019' },
+      { 'month': '2020' }
+    ]
 
-    this.setState({
-      dataSets: [newBar],
-      dates: monthDates
-    })
+    if (this.state.dataSets[0].label == 'Store progress') {
+      console.log("Fanns ingen dataSet från början");
+      this.setState({
+        dataSets: [newBar],
+        dates: monthDates,
+        multiOptions: monthYear,
+        singleSelect: true,
+        yearSelect: false,
+        numberOfBars: 1
+      })
+    } else {
+      //---- Create updated bar of months
+      console.log("fanns nått där, nu ska vi göra nått!")
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
+      //---- color generator
+      var localColorCount = this.state.colorCount;
+      if (localColorCount < 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: localColorCount + 1
+        })
+      }
+      if (localColorCount == 6) {
+        newBar.backgroundColor = this.state.colorOptions[localColorCount]
+        this.setState({
+          colorCount: 0
+        })
+      }
+      // -------------------
 
+      //--- Update month bars
+      console.log("Updated MONTH Bar: ", updatedBar)
+      var localNumberOfBars = this.state.numberOfBars;
+      this.setState({
+        dataSets: updatedBar,
+        dates: monthDates,
+        numberOfBars: localNumberOfBars + 1,
+        yearSelected: false,
+        multiOptions: monthYear
+      })
+    }
   }
 
   makeToplist = async () => {
@@ -341,8 +563,17 @@ class Home extends React.Component {
           console.log("STATE  ", this.state.dataSets)
         })
     } else {
-      // test-loggar
+      // create and fix updatedBar
       console.log("!!Fanns nått i dataSet!!");
+      var oldBar = this.state.dataSets;
+      console.log("OldBar ofixad: ", oldBar);
+      var updatedBar = [];
+      if (this.state.numberOfBars == 1) {
+        updatedBar = [oldBar[0], newBar];
+      } else {
+        updatedBar = oldBar.concat(newBar);
+      }
+
 
       // color generation---
       var localColorCount = this.state.colorCount;
@@ -390,10 +621,12 @@ class Home extends React.Component {
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderWidth: 1
     }]
+    const initialDates = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec']
 
     if (selectedList.length == 0) {
       this.setState({
-        dataSets: initialList
+        dataSets: initialList,
+        dates: initialDates
       })
     } else {
       var currentList = this.state.dataSets;
@@ -414,40 +647,64 @@ class Home extends React.Component {
 
   buttonClickYear() {
     console.log("Ett year ett year ett year")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
+      dataSets: initial,
+      dates: initDates,
+      singleSelect: false,
       activePeriod: 'year',
       multiOptions: [
         { 'year': "2018", 'group': 'year' },
         { 'year': "2019", 'group': 'year' },
-        { 'year': "2020", 'group': 'year' }]
+        { 'year': "2020", 'group': 'year' }],
+      colorCount: 1,
+      yearSelected: false,
     })
   }
   buttonClickMonth() {
-    const months = [
-      { 'month': "2018", 'group': 'year' },
-      { 'month': "2019", 'group': 'year' },
-      { 'month': "2020", 'group': 'year' },
-      { 'month': "Jan", 'group': 'month' },
-      { 'month': "Feb", 'group': 'month' },
-      { 'month': "Mar", 'group': 'month' },
-      { 'month': "Apr", 'group': 'month' },
-      { 'month': "May", 'group': 'month' },
-      { 'month': "Jun", 'group': 'month' },
-      { 'month': "Jul", 'group': 'month' },
-      { 'month': "Aug", 'group': 'month' },
-      { 'month': "Sept", 'group': 'month' },
-      { 'month': "Oct", 'group': 'month' },
-      { 'month': "Nov", 'group': 'month' },
-      { 'month': "Dec", 'group': 'month' },]
+
+    const monthYear = [
+      { 'month': '2018' },
+      { 'month': '2019' },
+      { 'month': '2020' }
+    ]
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
     this.setState({
+      dataSets: initial,
+      dates: initDates,
       activePeriod: 'month',
-      multiOptions: months
+      singleSelect: "true",
+      multiOptions: monthYear,
+      colorCount: 1,
+      yearSelected: false,
     })
   }
   buttonClickWeek() {
     console.log("Ett weeeeeeeeeeeeek")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
+    const weekYear = [
+      { 'week': '2018' },
+      { 'week': '2019' },
+      { 'week': '2020' }]
     this.setState({
-      activePeriod: 'week'
+      activePeriod: 'week',
+      dataSets: initial,
+      dates: initDates,
+      yearSelected: false,
+      multiOptions: weekYear,
+      singleSelect: true
+    })
+  }
+  buttonClickClear() {
+    console.log("Clear!!")
+    var initial = this.state.initialDataSet;
+    var initDates = this.state.initialDates;
+    this.setState({
+      dataSets: initial,
+      dates: initDates
     })
   }
 
@@ -551,14 +808,14 @@ class Home extends React.Component {
                             options={this.state.multiOptions} // Options to display in the dropdown
                             onSelect={this.onSelect.bind(this)} // Function will trigger on select event
                             onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                            displayValue={this.state.activePeriod} // Property name to display in the dropdown options
-                            groupBy="group"
+                            displayValue={this.state.activePeriod} // Property name to display in the dropdown option
                             placeholder="Select time period"
                             showCheckbox="true"
                             closeOnSelect="false"
                             hidePlaceholder="true"
-                          >
-                          </Multiselect>
+                            singleSelect={this.state.singleSelect}
+                          ></Multiselect>
+                          <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
                         </ButtonGroup>
                       </div>
                     </div>
