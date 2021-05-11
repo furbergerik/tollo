@@ -158,26 +158,28 @@ position: relative;
 .buttonGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    max-height: 3vh;
 }
 .buttonGroupContainer{
-    grid-column: 1/span 3;
+    grid-column: 1/span 4;
     max-height: 3vw;
     max-width: 5vw; 
+    align-self: center;
 }
-.multiSelectContainer{
+#multiSelectContainer{
     z-index: 1;
     grid-column: 3 /span 1;  
     background-color: rgba(255, 255, 255, 0.884);
+    max-height: 3vh;
 }
 #multiselectContainerReact{
     color: #191919;
 }
-.searchBox{
-	font-size: 12px;
-    background-color: #c1e8dcb2;
-}
-.inputField{
-    background-color: darkred;
+
+
+#chips{
+    margin-top: -10px;
+    background-color: #191919;
 }
 
 .myStoreTitle.topSellers{

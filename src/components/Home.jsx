@@ -608,6 +608,7 @@ class Home extends React.Component {
       dataSets: initial,
       dates: initDates,
       singleSelect: false,
+      showArrow: true,
       activePeriod: 'year',
       multiOptions: [
         { 'year': "2018", 'group': 'year' },
