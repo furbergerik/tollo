@@ -127,7 +127,21 @@ async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   return [topList, topListStore]
 }
 
-function bubbleSort(inputArr, inputLabel) {
+async function getTopStoreMonthlyData(year, dataCategory, dataType, ID) {
+  var topList = [];
+  var topListStore = [];
+  for(var i = 1; i < 6; i++){
+    var monthTot= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+    monthTot = sumArr(monthTot)
+    topList.push(monthTot)
+    topListStore.push("Store " + i)
+  }
+  [topList, topListStore]=bubbleSort(topList, topListStore);
+  console.log("denna datan", topList)
+  return [topList, topListStore]
+}
+
+function bubbleSort(inputArr, inputLabel){
   var len = inputArr.length;
   for (let i = 0; i < len; i++) {
     for (let j = 0; j < len; j++) {
