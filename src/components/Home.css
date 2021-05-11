@@ -111,15 +111,17 @@ grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
 }
 .top1{
-    font-size: 20px;
+    font-size: 1vw;
     text-align: inherit;
     align-self: end;
+    grid-column: 1/3;
 }
 .top1-score{
     color: #85bb65;
     text-align: end;
     align-self: end;
-    font-size: 20px;
+    font-size: 1vw;
+    grid-column: 1/3;
     font-family: 'Avenir Black';
 }
 
@@ -192,7 +194,20 @@ position: relative;
  border-style: none;
  margin-top: 0.5vh;
 }
+._2iA8p44d0WZ-WqRBGcAuEV{
+border-radius: 15px;
+    padding: 4px;
+    color: #43aa8b;
+    min-height: 22px;
+    position: relative;
+    background-color: #c1e8db;
+    margin-top: 3px;
+    height: 39px;
+}
 
+._3vLmCG3bB3CM2hhAiQX1tN {
+    color:black;
+}
 .storeDetails{
     border-radius: 1vh;
     height: 15vh;
