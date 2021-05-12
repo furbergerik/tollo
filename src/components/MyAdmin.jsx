@@ -143,8 +143,8 @@ class MyAdmin extends Component {
       <div>            
         <h1>My store and sales info:</h1>
         <div className="profile-pic"  >
-          <span id="cameraIcon"></span>
-          <span className="fas fa-camera" >Change Image</span>
+          <span id="spanFix cameraIcon"></span>
+          <span className="spanFix fas fa-camera" >Change Image</span>
         </div>
 
         <h3>My stores statistics</h3>
