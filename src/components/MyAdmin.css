@@ -1,0 +1,80 @@
+ /* colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'] */
+.info{
+    display: inline-block;
+    font-weight:bold;
+    margin:5px;
+
+
+
+}
+.profileInfo{
+    background-color: #F8961E;
+    height:620px ;
+
+}
+
+div.employee{
+    background-color:#F9C74F ;
+    max-height: 620px;
+
+}
+
+ #rightBar{
+    background-color: #F94144;
+  
+
+
+
+}
+
+#topLeftBar{
+    background-color: #F8961E;
+
+
+}
+#botLeftBar{
+    background-color: #F9C74F;
+
+}
+.test h3{
+    display:inline ;
+ 
+
+}
+.test p{
+    display:inline;
+   font-weight: bold;
+
+}
+.profile-pic {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    background-image: url('https://cdn.pixabay.com/photo/2015/12/22/20/42/face-1104763_960_720.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    color: transparent;
+    transition: all .3s ease;
+
+  
+    
+
+    }
+    .profile-pic:hover{
+      
+            background-color: rgba(0,0,0,.5);
+            z-index: 10000;
+            color: rgba(250,250,250,1);
+            transition: all .3s ease;
+          
+          
+
+    }
+    span {
+        display: inline-flex;
+        justify-content: center;
+        margin: 10%;
+        align-items: center;
+        padding: .2em;
+      }
