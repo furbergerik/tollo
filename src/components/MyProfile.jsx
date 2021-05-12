@@ -155,8 +155,8 @@ class MyProfile extends Component {
         <h1>My store and sales info:</h1>
         <div className="row offset-md-1">
           <div class="col-md-4" className="profile-pic">
-            <span id="cameraIcon"></span>
-            <span className="fas fa-camera" >Change Image</span>
+            <span className="spanFix" id="cameraIcon"></span>
+            <span className="spanFix fas fa-camera" >Change Image</span>
           </div>
           <div class="col-md-4"><h5>My store statistics</h5>
           <h6>Total store sales last month: {this.state.totSales} SEK</h6>
