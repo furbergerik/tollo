@@ -18,8 +18,30 @@ async function getStoreData(dataCategory='addSales', ID=0, storeNr='4') {
 
     return 0;      
   }
-
 }
+
+  async function login(username, password){
+    console.log("login");
+ 
+    //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
+    //fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
+    var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+    var response = await fetchedData.json();
+    cookies.set ("username", {key: response[1]}, {path: '/'});
+    cookies.set ("jwt", {key: response[4]}, {path: '/'});
+
+
+    //.then(response => response.json())
+    //.then(data=>cookies.set ("username", {key: data[1]}, {path: '/'}))
+    //.then(data=>cookies.set ("jwt", {key: data[4]}, {path: '/'}))
+    //.then(data=>cookies.set ('jwt', data[4], { path: '/' }))
+    //.then(data=>console.log(data[4]))
+    //.catch(err => console.error(err))
+    
+
+  }
+
+
 class Contact extends Component {
   state ={
     users:[],
@@ -86,7 +108,8 @@ class Contact extends Component {
     event.preventDefault();
     console.log(this.state.user);
     event.target.className += " was-validated";
-    await this.login();
+    console.log("inne i submithandler");
+    await login(this.state.user.username, this.state.user.password);
 
     const x = await getStoreData(); 
    // event.target.reset();
@@ -109,18 +132,20 @@ class Contact extends Component {
    // .then(this.getUser)
     .catch(err => console.error(err))
   }
-  login =async _=>{
+  /*login =async _=>{
     console.log("login");
  
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
     //fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
     fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
     .then(response => response.json())
-    .then(data=>cookies.set('jwt', data[4], { path: '/' }))
+    //.then(data=>cookies.set ('jwt', data[4], { path: '/' }))
+    .then(data=>console.log(data[4]))
     .catch(err => console.error(err))
     
 
-  }
+  }*/
+
   cancelCourse = () => { 
     document.getElementById("reg-form").reset();
   }
@@ -201,7 +226,7 @@ class Contact extends Component {
     </div>
     <div className="row ">
     <div className=" col-xs-0 col-md-4 "></div>
-      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn}>
+      <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
       <h1 className="text-dark">Login: </h1>
       <div className="form-group">
     <label for="exampleInputUsername1">Username:</label>

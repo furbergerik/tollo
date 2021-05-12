@@ -2,7 +2,9 @@ import { Component } from 'react';
 import './MyProfile.css';
 import Cookies from 'universal-cookie';
 //http://tollo.duckdns.org
-//192.168.0.111
+//192.168.0.111ä
+const cookies = new Cookies();
+
 
 async function getStoreData(dataCategory, ID, storeNr){
   if (ID == 0) {
@@ -35,7 +37,9 @@ class MyProfile extends Component {
     tab: "Store",
     totSales: "",
     totProfit: "",
-    margin: ""
+    margin: "",
+    store: "",
+    department: ""
     
   }
   props = {
@@ -43,19 +47,22 @@ class MyProfile extends Component {
 
   }
 
-  getUserInfo = async() => {
-    const response = await fetch('http://tollo.duckdns.org:61338/getUsers?store=null&username=b');
-    console.log(response);
+  getUserInfo = async(userType) => {
+    var x = (cookies.get('username')).key;
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/getUsers?username=' + x;
+    const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
-    console.log(setOfData);
     const finalSet = setOfData.data;
-    return finalSet;
+    if (userType == "store"){
+      return finalSet[0].store;
+    }
+    else if (userType == "department"){
+      return finalSet[0].department;
+    }
   }
 
   getMonthlyData = async(year, month, dataCategory, dataType, ID, storeNr) => {
-    console.log("kommer vi hit?")
     const salesData = await getStoreData(dataCategory, ID, storeNr);
-    console.log(salesData);
     var monthData = salesData[year][month];
     var listDay = 0;
     if (dataType == "Profit %"){
@@ -111,9 +118,11 @@ class MyProfile extends Component {
   }
 
   async componentDidMount() {
-    this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, 1)});
-    this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, 1)});
-    this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, 1)});
+    this.setState({store: await this.getUserInfo("store")});
+    this.setState({department: await this.getUserInfo("department")})
+    this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, this.state.store)});
+    this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, this.state.store)});
+    this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, this.state.store)});
   }
 
   addUser = _ => {

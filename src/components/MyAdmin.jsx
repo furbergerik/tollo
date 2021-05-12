@@ -178,7 +178,7 @@ class MyAdmin extends Component {
           {this.state.users.map((person,index)=>(
             <div >
             <p className="info">Name:</p>
-            <p style={{display:"inline-block"}}>{person.first_name} {person.last_name}</p>
+            <p style={{display:"inline-block"}}>{person.username} {person.last_name}</p>
             <p className="info"> Works in Department:</p>
             <p style={{display:"inline-block"}}>{person.department} </p>
             <br></br>
