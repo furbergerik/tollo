@@ -1,0 +1,16 @@
+.labels{
+    font-weight: bold;
+    font-size: 115%;
+
+
+}
+.changeButton{
+    size:80%;
+    color: white;
+ 
+}
+
+ /* colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'] */
+.btn-default, .btn-default:hover, .btn-default:active, .btn-default:visited {
+    background-color: #577590 !important;
+}

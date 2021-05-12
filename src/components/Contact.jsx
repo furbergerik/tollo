@@ -6,6 +6,8 @@ const cookies = new Cookies();
 async function getStoreData(dataCategory='addSales', ID=0, storeNr='4') {
   console.log("yo");
   if (ID == 0) {
+  
+    var testForm='http://tollo.duckdns.org:61338/store'+'/getUsers?username='+cookies.get('username')
     var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory+'?jwt='+cookies.get('jwt')
     console.log(fetchingFrom);
     const response = await fetch(fetchingFrom);

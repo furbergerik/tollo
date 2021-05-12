@@ -55,6 +55,7 @@ async function getStoreData(dataCategory, ID, storeNr) {
   }
 }
 
+
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
   console.log("salesData: ", salesData)
