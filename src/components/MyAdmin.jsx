@@ -11,8 +11,9 @@ async function getUsers() {
   const department="Footwear"
   console.log("hola");
 
-   var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
-   //var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}`
+ //  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
+  // var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}`
+   var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${1}&department=${department}`
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
