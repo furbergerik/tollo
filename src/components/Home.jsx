@@ -55,6 +55,15 @@ async function getStoreData(dataCategory, ID, storeNr) {
   }
 }
 
+async function getProductOfTheMonth(month) {
+    month = 0;
+    var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}`
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+}
+
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
   console.log("salesData: ", salesData)
@@ -113,24 +122,71 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
   return { labelYear, listYear }
 }
 
+async function getToplistProductOfTheMonthData(year, month, dataCategory, dataType, ID, storeNr) {
+  const productData = await getStoreData(dataCategory, "p"+ID, storeNr);
+  var monthData = productData[year][month];
+  var listDay = [];
+  for (var i in monthData) {
+    listDay.push(monthData[i][dataType]);
+  }
+  return listDay;
+}
+
+
+async function getTopStoreMonthlyCompData(year, month, dataCategory, dataType) { 
+  var topList = [];
+  var topListStore = [];
+  if(year == 2018){
+    for(var i = 1; i < 6; i++){
+    topList.push(0)
+    topListStore.push("Store " + i)
+  }
+}
+  else {
+  for(var i = 1; i < 6; i++){
+    var monthTot1= await getDaylyData("y" + (year-1), "m" + month, dataCategory, dataType, 0, i)
+    var monthTot2= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, 0, i)
+    monthTot1 = sumArr(monthTot1)
+    monthTot2 = sumArr(monthTot2)
+    var monthTot = (monthTot2/monthTot1)*100-100;
+    //monthTot = monthTot.toFixed(2);
+    monthTot = Math.floor(monthTot);
+    topList.push(monthTot)
+    topListStore.push("Store " + i)
+  }
+  }
+  [topList, topListStore]=bubbleSort(topList, topListStore);
+  return [topList, topListStore]
+}
+
 async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   var topList = [];
   var topListStore = [];
-  for (var i = 1; i < 6; i++) {
-    var monthTot = await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+  if(ID == false){
+  for(var i = 1; i < 6; i++){
+    var monthTot= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
     monthTot = sumArr(monthTot)
     topList.push(monthTot)
     topListStore.push("Store " + i)
   }
-  [topList, topListStore] = bubbleSort(topList, topListStore);
-  console.log("denna datan", topList)
+}
+else {
+  const monthOfProduct =await getProductOfTheMonth(1)
+  for(var i = 1; i < 6; i++){
+  var monthTot= await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+    monthTot = sumArr(monthTot)
+    topList.push(monthTot)
+    topListStore.push("Store " + i)
+}
+}
+  [topList, topListStore]=bubbleSort(topList, topListStore);
   return [topList, topListStore]
 }
 
-function bubbleSort(inputArr, inputLabel) {
+function bubbleSort(inputArr, inputLabel){
   var len = inputArr.length;
-  for (let i = 0; i < len; i++) {
-    for (let j = 0; j < len; j++) {
+  for (let i = 0; i < len-1; i++) {
+    for (let j = 0; j < len-1; j++) {
       if (inputArr[j] < inputArr[j + 1]) {
         let tmp = inputArr[j];
         let tmpLabel = inputLabel[j]
@@ -224,8 +280,12 @@ class Home extends React.Component {
       borderWidth: 1
     }],
     initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+    monthlyList: [],
+    monthlyListStore: [],
     monthlyCompList: [],
-    monthlyCompListStore: []
+    monthlyCompListStore: [],
+    pruductMonthly: [],
+    pruductMonthlyStore: []
   }
 
   // ---------------From DropDown---------------------
@@ -728,10 +788,18 @@ class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    const [theTopList, theTopListStore] = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
+    const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(2020, 3, "totSales", "Total sales", 0);
+    const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(2019, 3, "totSales", "Total sales");
+    const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(2020, 3, "prodSales", "Sales", 6);
+
     this.setState({
-      monthlyCompList: theTopList,
-      monthlyCompListStore: theTopListStore
+      monthlyList: theTopList1,
+      monthlyListStore: theTopListStore1,
+      monthlyCompList: theTopList2,
+      monthlyCompListStore: theTopListStore2,
+      pruductMonthly: theTopList3,
+      pruductMonthlyStore: theTopListStore3
+
     });
   }
 
@@ -739,11 +807,29 @@ class Home extends React.Component {
   render() {
     const storeRev = [];
     const storeRevName = [];
+    for (const [index, value] of this.state.monthlyList.entries()) {
+      storeRev.push(<div className="top1-score" style={{ gridRow:index + 2 }}><CountUp className="kong" separator=" " key={index} duration={5} suffix=" SEK" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.monthlyListStore.entries()) {
+      storeRevName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
+    }
+
+    const storeRevComp = [];
+    const storeRevCompName = [];
     for (const [index, value] of this.state.monthlyCompList.entries()) {
-      storeRev.push(<div className="top1-score" style={{ gridRow: 2 * index + 3 }}><CountUp className="kong" separator=" " key={index} duration={5} suffix=" SEK" end={value} /></div>)
+      storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={index} duration={5} suffix=" %" end={value} /></div>)
     }
     for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-      storeRevName.push(<div style={{ gridRow: 2 * index + 2 }} key={index} className="top1">{value}</div>)
+      storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
+    }
+
+    const storeProdOfMo = [];
+    const storeProdOfMoName = [];
+    for (const [index, value] of this.state.pruductMonthly.entries()) {
+      storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={index} duration={5} suffix=" products" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.pruductMonthlyStore.entries()) {
+      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
     }
 
     return (
@@ -903,46 +989,19 @@ class Home extends React.Component {
               <div className="row col2">
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
-                    <div className="headline">Top Selling Store //(This Month)</div>
+                    <div className="headline">Top Selling Store: This Month</div>
                     {storeRevName}
                     {storeRev}
-                    {/* <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp duration={5}  end={1111} /> TKR</div>
-                    <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp duration={5} end={1132} /> TKR</div>
-                    <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp duration={5} end={954} /> TKR</div>
-                    <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp duration={5} end={758} /> TKR</div>
-                    <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp duration={5} end={654} /> TKR</div> */}
                   </div>
                   <div className="store-window window-4">
-                    <div className="headline">Top Selling Store // (This Year)</div>
-                    <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp duration={5} end={16, 1} /> MkR</div>
-                    <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp duration={5} end={12, 3} /> MKR</div>
-                    <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp duration={5} end={12, 2} /> MKR</div>
-                    <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp duration={5} end={11, 0} /> MKR</div>
-                    <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp duration={5} end={10, 3} /> MKR</div>
-
+                    <div className="headline">Most Improved Store This Month</div>
+                    {storeRevComp}
+                    {storeRevCompName}
                   </div>
                   <div className="store-window window-5">
-                    <div className="headline">Product Of The Month Revenue</div>
-                    <div className="top1">Store 3</div>
-                    <div className="top1-score"><CountUp duration={5} end={22} /> TKR</div>
-                    <div className="top1">Store 1</div>
-                    <div className="top1-score"><CountUp duration={5} end={132} /> TKR</div>
-                    <div className="top1">Store 4</div>
-                    <div className="top1-score"><CountUp duration={5} end={94} /> TKR</div>
-                    <div className="top1">Store 2</div>
-                    <div className="top1-score"><CountUp duration={5} end={78} /> TKR</div>
-                    <div className="top1">Store 5</div>
-                    <div className="top1-score"><CountUp duration={5} end={64} /> TKR</div>
+                    <div className="headline">Product Of The Month</div>
+                    {storeProdOfMo}
+                    {storeProdOfMoName}
                   </div>
                 </div>
               </div>
