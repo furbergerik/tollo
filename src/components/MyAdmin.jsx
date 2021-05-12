@@ -1,11 +1,30 @@
 import { Component } from 'react';
-import './MyProfile.css';
+import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
+import './MyAdmin.css';
+
 import Registration from './Registration.jsx';
+
 //http://tollo.duckdns.org
 //192.168.0.111
+async function getUsers() {
+  const department="Footwear"
+  console.log("hola");
+
+   // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
+   var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}`
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+
+}
+
 class MyAdmin extends Component {
   
+  
+  
   state ={
+    hasMounted:false,
     users:[],
     oldPassword:"",
     newPassword:"",
@@ -21,6 +40,16 @@ class MyAdmin extends Component {
 
     
   }
+  componentDidMount= async() =>{
+    if(!this.state.hasMounted){
+      this.callGetUsers();
+      this.setState({hasMounted:true});
+
+    }
+    
+  }
+ 
+  
   selectedButton = (buttonClicked) => {
     console.log(this.state.tab);
     this.setState({tab: buttonClicked});
@@ -59,9 +88,12 @@ class MyAdmin extends Component {
    // event.target.reset();
 
   }
-  
-  componentDidMount(){
 
+  callGetUsers=async()=>{
+    console.log("här");
+    const finalSet=await getUsers("Footwear");
+    console.log(finalSet);
+    this.setState({users:finalSet});
   }
 
   addUser = _=>{
@@ -75,6 +107,7 @@ class MyAdmin extends Component {
    // .then(this.getUser)
     .catch(err => console.error(err))
   }
+
   login = _=>{
     console.log("login");
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
@@ -85,28 +118,23 @@ class MyAdmin extends Component {
     
 
   }
-  login = _=>{
-    console.log("getUsers");
-    const store =4;
-    //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-    fetch(`http://tollo.duckdns.org:61338/getUsers?store='${store}'&username=${null}`)
-    .then(response => response.json())
-    .then(data=>console.log(data))
-    .catch(err => console.error(err))
-    
 
-  }
   cancelCourse = () => { 
     document.getElementById("reg-form").reset();
   }
   
-  renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
+  
+  //renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
   render() {
-    const{users, user}=this.state;
-    // const listUser=getUsers();
-    // const listItems = numbers.map((number) =>
- // <li>{number}</li>
+  
+    //const{users}=this.state.users;
+   
+    //const listItems = listUser.map((number) =><li>{number}</li>
    // );
+
+   console.log("hej");
+ 
+ 
     let message
     if (this.state.tab == "Store"){
       message = 
@@ -131,9 +159,10 @@ class MyAdmin extends Component {
       <div className="mt-2 row ">
           
         <div className="col-md-3 offset-1">
-        <div className="test" >
+        <div className="profileInfo shadow p-3 mb-5 rounded" >
         <h1>Profile Information:</h1>
         <h3>Username:</h3>
+        <br></br>
         <h3>Name:</h3>
 
         <div className="test">
@@ -157,13 +186,31 @@ class MyAdmin extends Component {
 <div>
 
 </div>
-<div >
+<div className="offset-1">
         {<Registration></Registration>}
    
+        </div>
+        <div   className="employee offset-1 overflow-auto shadow p-3 mb-5 rounded">
+          <h1>Store employees:</h1> 
+          {this.state.users.map((person,index)=>(
+            <div >
+            <p className="info">Name:</p>
+            <p style={{display:"inline-block"}}>{person.first_name} {person.last_name}</p>
+            <p className="info"> Works in Department:</p>
+            <p style={{display:"inline-block"}}>{person.department} </p>
+            <br></br>
+            <p className="info" > Contact:</p>
+            <p style={{display:"inline-block"}}>{person.phone}</p>
+            </div>
+          )) }
+       
+
+    
         </div>
 
   </div>
     }
+  
     return (
     
     <div className="App">
