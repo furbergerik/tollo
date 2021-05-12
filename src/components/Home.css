@@ -111,15 +111,17 @@ grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
 }
 .top1{
-    font-size: 20px;
+    font-size: 1vw;
     text-align: inherit;
     align-self: end;
+    grid-column: 1/3;
 }
 .top1-score{
     color: #85bb65;
     text-align: end;
     align-self: end;
-    font-size: 20px;
+    font-size: 1vw;
+    grid-column: 1/3;
     font-family: 'Avenir Black';
 }
 
@@ -158,25 +160,28 @@ position: relative;
 .buttonGrid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    max-height: 3vh;
 }
 .buttonGroupContainer{
-    grid-column: 1/span 3;
+    grid-column: 1/span 4;
     max-height: 3vw;
+    max-width: 5vw; 
+    align-self: center;
 }
-.multiSelectContainer{
+#multiSelectContainer{
     z-index: 1;
     grid-column: 3 /span 1;  
     background-color: rgba(255, 255, 255, 0.884);
+    max-height: 3vh;
 }
 #multiselectContainerReact{
     color: #191919;
 }
-.searchBox{
-	font-size: 12px;
-    background-color: #c1e8dcb2;
-}
-.inputField{
-    background-color: darkred;
+
+
+#chips{
+    margin-top: -10px;
+    background-color: #191919;
 }
 
 .myStoreTitle.topSellers{
@@ -189,7 +194,20 @@ position: relative;
  border-style: none;
  margin-top: 0.5vh;
 }
+._2iA8p44d0WZ-WqRBGcAuEV{
+border-radius: 15px;
+    padding: 4px;
+    color: #43aa8b;
+    min-height: 22px;
+    position: relative;
+    background-color: #c1e8db;
+    margin-top: 3px;
+    height: 39px;
+}
 
+._3vLmCG3bB3CM2hhAiQX1tN {
+    color:black;
+}
 .storeDetails{
     border-radius: 1vh;
     height: 15vh;
