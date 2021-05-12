@@ -3,6 +3,7 @@ import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import './MyAdmin.css';
 
 import Registration from './Registration.jsx';
+import UserInformation from './UserInformation';
 
 //http://tollo.duckdns.org
 //192.168.0.111
@@ -10,8 +11,8 @@ async function getUsers() {
   const department="Footwear"
   console.log("hola");
 
-   // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
-   var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}`
+   var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
+   //var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}`
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -160,26 +161,7 @@ class MyAdmin extends Component {
           
         <div className="col-md-3 offset-1">
         <div className="profileInfo shadow p-3 mb-5 rounded" >
-        <h1>Profile Information:</h1>
-        <h3>Username:</h3>
-        <br></br>
-        <h3>Name:</h3>
-
-        <div className="test">
-          <h3>Phone Number:</h3>
-          <p className="ml-3">Change </p>
-        
-
-        <div className="test">
-          <h3>Email:</h3>
-          <p className="ml-3">Change </p>
-        </div>
-
-        <div className="test">
-          <h3>Password:</h3>
-          <p className="ml-3">Change </p>
-        </div>
-        </div>
+        {<UserInformation></UserInformation>}
         </div>
    
 </div>
