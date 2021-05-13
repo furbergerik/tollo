@@ -5,7 +5,21 @@ async function getUsers(username) {
     console.log("hola");
   
      // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
-     var fetchingFrom = `http://localhost:61339/getUsers?store=${1}&username=${username}`
+     //var fetchingFrom = `http://localhost:61339/getUsers?store=${1}&username=${username}`
+    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}`
+      const response = await fetch(fetchingFrom);
+      const setOfData = await response.json();
+      const finalSet = setOfData.data[0];
+      return finalSet;
+  
+  }
+  async function updatePassword(username,password) {
+   
+    console.log("hola");
+  
+     // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
+  //   var fetchingFrom = `http://localhost:61339/updateUserPassword?username=${username}&password=${password}`
+  var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPassword?username=${username}&password=${password}`
    // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
@@ -13,6 +27,35 @@ async function getUsers(username) {
       return finalSet;
   
   }
+  async function updateEmail(username,email) {
+   
+    console.log("hola");
+  
+     // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
+    // var fetchingFrom = `http://localhost:61339/updateUserEmail?username=${username}&email=${email}`
+     var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserEmail?username=${username}&email=${email}`
+   // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}`
+      const response = await fetch(fetchingFrom);
+      const setOfData = await response.json();
+      const finalSet = setOfData.data[0];
+      return finalSet;
+  
+  }
+  async function updatePhone(username,phone) {
+   
+    console.log("hola");
+  
+     // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
+    // var fetchingFrom = `http://localhost:61339/updateUserPhone?username=${username}&phone=${phone}`
+     var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPhone?username=${username}&phone=${phone}`
+   // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}`
+      const response = await fetch(fetchingFrom);
+      const setOfData = await response.json();
+      const finalSet = setOfData.data[0];
+      return finalSet;
+  
+  }
+  
   
   
 class  userInformation extends Component {
@@ -33,6 +76,7 @@ class  userInformation extends Component {
         department:1,
         oldPassword:null,
         newPassword:null,
+        confirmPassword:false,
      }
      callGetUsers=async()=>{
         console.log("här");
@@ -55,16 +99,19 @@ class  userInformation extends Component {
     
       }
       ChangeHandler =(event) => {
-        this.setState({ [event.target.name]: event.target.value });
+          this.setState({ [event.target.name]: event.target.value });
+       
     
       }
-   
+      passwordCheckHandler=(event)=>{
+        this.setState({ [event.target.name]: !this.state.confirmPassword});
+      }
   
-      changePhone =() =>{
+      changePhone =async () =>{
 
         console.log(this.state.phone);
         if(this.state.phone!==null ){
-
+          await updatePhone(this.state.user.username,this.state.phone);
 
         }else{
             console.log("gick in hit");
@@ -73,11 +120,11 @@ class  userInformation extends Component {
        // event.target.reset();
     
       }
-      changeEmail=() =>{
+      changeEmail=async () =>{
    
         console.log(this.state.email);
         if(this.state.email!==null){
-
+          await updateEmail(this.state.user.username,this.state.email);
 
         }else{
             console.log("gick in hit");
@@ -86,15 +133,14 @@ class  userInformation extends Component {
        // event.target.reset();
     
       }
-      changePassword=() =>{
-       
-        console.log(this.state.oldPassword);
+      changePassword=async () =>{
         console.log(this.state.newPassword);
-        if(this.state.oldPassword!==null || this.state.newPassword!==null){
+        console.log(this.state.confirmPassword);
+        if(this.state.newPassword!==null && this.state.confirmPassword!==false){
 
-
+          await updatePassword(this.state.user.username,this.state.newPassword);
         }else{
-            console.log("gick in hit");
+         
         }
      
 
@@ -134,9 +180,7 @@ class  userInformation extends Component {
         <div className="test">
           <h3 >Password:</h3>
           <div className="input-group ">
-  <input type="text" class="form-control" placeholder="Current Password" aria-label="Recipient's username" aria-describedby="basic-addon2" required
-   name="oldPassword" onChange={(this.ChangeHandler)}></input>
-  
+
   <div className="mt-1 input-group ">
   <input type="password" class="form-control" placeholder="New Password" aria-label="Recipient's username" aria-describedby="basic-addon2" required
   name="newPassword"  onChange={(this.ChangeHandler)}></input>
@@ -145,7 +189,7 @@ class  userInformation extends Component {
   </div>
   </div>
   <div className="offset-7  form-check lm">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="confirmPassword" onClick={(this.passwordCheckHandler.bind(this))}></input>
   <label class="form-check-label" for="flexCheckDefault">
         Confirm Password
   </label>
