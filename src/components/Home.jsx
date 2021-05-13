@@ -9,9 +9,20 @@ import { Bar } from 'react-chartjs-2';
 import { Multiselect } from 'multiselect-react-dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button';
-import { Col, Form, ThemeProvider } from "react-bootstrap"
+import { Col, Form, ThemeProvider } from "react-bootstrap";
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
+
+
+async function getUserSales(username, count) {
+  var username = String(username)
+  var fetchingFrom = 'http://tollo.duckdns.org:61338/updateMember?username=?username=' + '${' + username + '}' + '&count=${' + count + '}'
+  const response = await fetch(fetchingFrom);
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+  console.log(finalSet)
+  return finalSet;
+}
 
 
 async function getDataForOneDay(year, month, day, dataType) {
@@ -56,12 +67,12 @@ async function getStoreData(dataCategory, ID, storeNr) {
 }
 
 async function getProductOfTheMonth(month) {
-    month = 0;
-    var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}`
-    const response = await fetch(fetchingFrom);
-    const setOfData = await response.json();
-    const finalSet = setOfData.data;
-    return finalSet;
+  month = 0;
+  var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}`
+  const response = await fetch(fetchingFrom);
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+  return finalSet;
 }
 
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
@@ -123,7 +134,7 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
 }
 
 async function getToplistProductOfTheMonthData(year, month, dataCategory, dataType, ID, storeNr) {
-  const productData = await getStoreData(dataCategory, "p"+ID, storeNr);
+  const productData = await getStoreData(dataCategory, "p" + ID, storeNr);
   var monthData = productData[year][month];
   var listDay = [];
   for (var i in monthData) {
@@ -133,60 +144,60 @@ async function getToplistProductOfTheMonthData(year, month, dataCategory, dataTy
 }
 
 
-async function getTopStoreMonthlyCompData(year, month, dataCategory, dataType) { 
+async function getTopStoreMonthlyCompData(year, month, dataCategory, dataType) {
   var topList = [];
   var topListStore = [];
-  if(year == 2018){
-    for(var i = 1; i < 6; i++){
-    topList.push(0)
-    topListStore.push("Store " + i)
+  if (year == 2018) {
+    for (var i = 1; i < 6; i++) {
+      topList.push(0)
+      topListStore.push("Store " + i)
+    }
   }
-}
   else {
-  for(var i = 1; i < 6; i++){
-    var monthTot1= await getDaylyData("y" + (year-1), "m" + month, dataCategory, dataType, 0, i)
-    var monthTot2= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, 0, i)
-    monthTot1 = sumArr(monthTot1)
-    monthTot2 = sumArr(monthTot2)
-    var monthTot = (monthTot2/monthTot1)*100-100;
-    //monthTot = monthTot.toFixed(2);
-    monthTot = Math.floor(monthTot);
-    topList.push(monthTot)
-    topListStore.push("Store " + i)
+    for (var i = 1; i < 6; i++) {
+      var monthTot1 = await getDaylyData("y" + (year - 1), "m" + month, dataCategory, dataType, 0, i)
+      var monthTot2 = await getDaylyData("y" + year, "m" + month, dataCategory, dataType, 0, i)
+      monthTot1 = sumArr(monthTot1)
+      monthTot2 = sumArr(monthTot2)
+      var monthTot = (monthTot2 / monthTot1) * 100 - 100;
+      //monthTot = monthTot.toFixed(2);
+      monthTot = Math.floor(monthTot);
+      topList.push(monthTot)
+      topListStore.push("Store " + i)
+    }
   }
-  }
-  [topList, topListStore]=bubbleSort(topList, topListStore);
+  [topList, topListStore] = bubbleSort(topList, topListStore);
   return [topList, topListStore]
 }
 
 async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   var topList = [];
   var topListStore = [];
-  if(ID == false){
-  for(var i = 1; i < 6; i++){
-    var monthTot= await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
-    monthTot = sumArr(monthTot)
-    topList.push(monthTot)
-    topListStore.push("Store " + i)
+  if (ID == false) {
+    for (var i = 1; i < 6; i++) {
+      var monthTot = await getDaylyData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+      monthTot = sumArr(monthTot)
+      topList.push(monthTot)
+      topListStore.push("Store " + i)
+    }
   }
-}
-else {
-  const monthOfProduct =await getProductOfTheMonth(1)
-  for(var i = 1; i < 6; i++){
-  var monthTot= await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, ID, i)
-    monthTot = sumArr(monthTot)
-    topList.push(monthTot)
-    topListStore.push("Store " + i)
-}
-}
-  [topList, topListStore]=bubbleSort(topList, topListStore);
+  else {
+    const monthOfProduct = await getProductOfTheMonth(1)
+    for (var i = 1; i < 6; i++) {
+      var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+      monthTot = sumArr(monthTot)
+      topList.push(monthTot)
+      topListStore.push("Store " + i)
+    }
+  }
+  [topList, topListStore] = bubbleSort(topList, topListStore);
   return [topList, topListStore]
 }
 
-function bubbleSort(inputArr, inputLabel){
+function bubbleSort(inputArr, inputLabel) {
   var len = inputArr.length;
-  for (let i = 0; i < len-1; i++) {
-    for (let j = 0; j < len-1; j++) {
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - 1; j++) {
       if (inputArr[j] < inputArr[j + 1]) {
         let tmp = inputArr[j];
         let tmpLabel = inputLabel[j]
@@ -284,6 +295,7 @@ class Home extends React.Component {
     monthlyListStore: [],
     monthlyCompList: [],
     monthlyCompListStore: [],
+    productOfMonthSales: 0,
     pruductMonthly: [],
     pruductMonthlyStore: []
   }
@@ -787,6 +799,14 @@ class Home extends React.Component {
     })
   }
 
+  submitButton(input) {
+    console.log("Submit")
+  }
+  pOfMonth() {
+    var productSales = this.state.productOfMonthSales
+    console.log("Tja bitch")
+  }
+
   componentDidMount = async () => {
     const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(2020, 3, "totSales", "Total sales", 0);
     const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(2019, 3, "totSales", "Total sales");
@@ -808,7 +828,7 @@ class Home extends React.Component {
     const storeRev = [];
     const storeRevName = [];
     for (const [index, value] of this.state.monthlyList.entries()) {
-      storeRev.push(<div className="top1-score" style={{ gridRow:index + 2 }}><CountUp className="kong" separator=" " key={index} duration={5} suffix=" SEK" end={value} /></div>)
+      storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={index} duration={5} suffix=" SEK" end={value} /></div>)
     }
     for (const [index, value] of this.state.monthlyListStore.entries()) {
       storeRevName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
@@ -857,8 +877,8 @@ class Home extends React.Component {
                   New members:
                 <NumericInput className="form-control" />
                 Product of the Month:
-                <NumericInput className="form-control" />
-                  <button className="submit-button">Submit</button>
+                <NumericInput className="form-control" type='number' onChange={this.pOfMonth.bind(this)} />
+                  <button className="submit-button" onClick={this.submitButton}>Submit</button>
                 </div>
 
 
