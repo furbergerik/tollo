@@ -71,7 +71,7 @@ div.employee{
           
 
     }
-    span {
+    span.spanFix {
         display: inline-flex;
         justify-content: center;
         margin: 10%;

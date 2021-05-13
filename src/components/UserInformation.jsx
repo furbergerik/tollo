@@ -5,8 +5,8 @@ async function getUsers(username) {
     console.log("hola");
   
      // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
-    // var fetchingFrom = `http://localhost:61339/getUsers?store=${1}&username=${username}`
-    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}`
+     var fetchingFrom = `http://localhost:61339/getUsers?store=${1}&username=${username}`
+   // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];
@@ -26,13 +26,13 @@ class  userInformation extends Component {
 
         },
         username: '',
-        phone: '',
+        phone: null,
         first_name: '',
         last_name: '',
-        phone: '',
+        email: null,
         department:1,
-        oldPassword:'',
-        newPassword:'',
+        oldPassword:null,
+        newPassword:null,
      }
      callGetUsers=async()=>{
         console.log("här");
@@ -54,11 +54,49 @@ class  userInformation extends Component {
         this.setState({ [event.target.name]: event.target.value });
     
       }
+      ChangeHandler =(event) => {
+        this.setState({ [event.target.name]: event.target.value });
+    
+      }
    
-      submitHandler =(event) =>{
-        event.preventDefault();
-        console.log(this.state);
-        event.target.className += " was-validated";
+  
+      changePhone =() =>{
+
+        console.log(this.state.phone);
+        if(this.state.phone!==null ){
+
+
+        }else{
+            console.log("gick in hit");
+        }
+
+       // event.target.reset();
+    
+      }
+      changeEmail=() =>{
+   
+        console.log(this.state.email);
+        if(this.state.email!==null){
+
+
+        }else{
+            console.log("gick in hit");
+        }
+
+       // event.target.reset();
+    
+      }
+      changePassword=() =>{
+       
+        console.log(this.state.oldPassword);
+        console.log(this.state.newPassword);
+        if(this.state.oldPassword!==null || this.state.newPassword!==null){
+
+
+        }else{
+            console.log("gick in hit");
+        }
+     
 
        // event.target.reset();
     
@@ -73,17 +111,48 @@ class  userInformation extends Component {
 
         <div className="test" >
           <h3>Phone Number:{this.state.user.phone}</h3>
-          <p className="ml-3">Change </p>
-        
+          <div className="input-group ">
+  <input type="text" class="form-control" placeholder="Change Phone Number" aria-label="Recipient's username" aria-describedby="basic-addon2"required
+   name="phone" onChange={(this.ChangeHandler)}></input>
+  <div className="input-group-append">
+    <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changePhone.bind(this)}>Change</button>
+  </div>
+</div>
 
         <div className="test">
           <h3>Email:{this.state.user.email}</h3>
-          <p className="ml-3">Change </p>
+          <div className="input-group ">
+  <input type="text" class="form-control" placeholder="Change Email" aria-label="Recipient's username" aria-describedby="basic-addon2" required
+   name="email"onChange={(this.ChangeHandler)}></input>
+  <div className="input-group-append">
+    <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changeEmail.bind(this)}>Change</button>
+  </div>
+</div>
+      
         </div>
 
         <div className="test">
-          <h3>Password:</h3>
-          <p className="ml-3">Change </p>
+          <h3 >Password:</h3>
+          <div className="input-group ">
+  <input type="text" class="form-control" placeholder="Current Password" aria-label="Recipient's username" aria-describedby="basic-addon2" required
+   name="oldPassword" onChange={(this.ChangeHandler)}></input>
+  
+  <div className="mt-1 input-group ">
+  <input type="password" class="form-control" placeholder="New Password" aria-label="Recipient's username" aria-describedby="basic-addon2" required
+  name="newPassword"  onChange={(this.ChangeHandler)}></input>
+  <div className="input-group-append">
+    <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changePassword.bind(this)}>Change</button>
+  </div>
+  </div>
+  <div className="offset-7  form-check lm">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></input>
+  <label class="form-check-label" for="flexCheckDefault">
+        Confirm Password
+  </label>
+</div>
+  
+</div>
+        
         </div>
         </div>
 
