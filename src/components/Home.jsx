@@ -14,15 +14,32 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 
 
-async function getUserSales(username, count) {
+async function getUserSales(username) {
   var username = String(username)
-  var fetchingFrom = 'http://tollo.duckdns.org:61338/updateMember?username=?username=' + '${' + username + '}' + '&count=${' + count + '}'
+  var fetchingFrom = `http://tollo.duckdns.org:61338/getMemberProduct?username='${username}'`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log(finalSet)
   return finalSet;
 }
+async function updateMemberships(username, count) {
+  var username = String(username)
+  var fetchingFrom = `http://tollo.duckdns.org:61338/updateMember?username='${username}'&count=${count}`
+  const response = await fetch(fetchingFrom);
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+  return finalSet;
+}
+async function updateProductSales(username, count) {
+  var username = String(username)
+  var fetchingFrom = `http://tollo.duckdns.org:61338/updateProduct?username='${username}'&count=${count}`
+  const response = await fetch(fetchingFrom);
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+  return finalSet;
+}
+
+
 
 
 async function getDataForOneDay(year, month, day, dataType) {
@@ -264,6 +281,7 @@ function NumberList(props) {
 class Home extends React.Component {
 
   state = {
+    username: 'b', //MÅSTE SÄTTAS DYNAMISKT SEN!!
     dataSets: [{
       label: 'Store progress',
       data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
@@ -295,7 +313,15 @@ class Home extends React.Component {
     monthlyListStore: [],
     monthlyCompList: [],
     monthlyCompListStore: [],
-    productOfMonthSales: 0,
+    productGoal: 250,
+    membershipGoal: 50,
+    productPercent: 0,
+    memberPercent: 0,
+    currentProductOfMonthSales: 0,
+    currentMemberships: 0,
+    totalProducts: 0,
+    totalMemberships: 0,
+    initialUserSales: false,
     pruductMonthly: [],
     pruductMonthlyStore: []
   }
@@ -799,18 +825,79 @@ class Home extends React.Component {
     })
   }
 
-  submitButton(input) {
+  submitButton = async () => {
     console.log("Submit")
+
+    var username = this.state.username
+
+    var userSales = await getUserSales(username)
+    console.log(userSales)
+
+    var members = userSales['members']
+    var products = userSales['productSold']
+
+    var newProducts = this.state.currentProductOfMonthSales
+    var newMemberships = this.state.currentMemberships
+
+    var totalMemberships = members + newMemberships
+    var totalProducts = products + newProducts
+
+    var membershipGoal = this.state.membershipGoal
+    var productGoal = this.state.productGoal
+
+    var memberPercent = (totalMemberships / membershipGoal) * 100
+    var productPercent = (totalProducts / productGoal) * 100
+
+    await updateMemberships(username, totalMemberships)
+    await updateProductSales(username, totalProducts)
+
+    this.setState({
+      totalProducts: totalProducts,
+      totalMemberships: totalMemberships,
+      currentMemberships: 0,
+      currentProductOfMonthSales: 0,
+      memberPercent: memberPercent,
+      productPercent: productPercent
+    })
   }
-  pOfMonth() {
-    var productSales = this.state.productOfMonthSales
-    console.log("Tja bitch")
+  pOfMonth(valueAsNumber, valueAsString, input) {
+    console.log("product sold!")
+    this.setState({
+      currentProductOfMonthSales: valueAsNumber
+    })
+  }
+  memberships(valueAsNumber, valueAsString, input) {
+    console.log("membership signed!")
+    this.setState({
+      currentMemberships: valueAsNumber
+    })
+  }
+  initUserSales = async () => {
+    var username = this.state.username
+    var userSales = await getUserSales(username)
+    console.log("initial user sales: ", userSales)
+
+    var totalMemberships = userSales['members']
+    var totalProducts = userSales['productSold']
+
+    var membershipGoal = this.state.membershipGoal
+    var productGoal = this.state.productGoal
+    var memberPercent = (totalMemberships / membershipGoal) * 100
+    var productPercent = (totalProducts / productGoal) * 100
+    this.setState({
+      totalMemberships: totalMemberships,
+      totalProducts: totalProducts,
+      memberPercent: memberPercent,
+      productPercent: productPercent
+    })
   }
 
   componentDidMount = async () => {
     const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(2020, 3, "totSales", "Total sales", 0);
     const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(2019, 3, "totSales", "Total sales");
     const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(2020, 3, "prodSales", "Sales", 6);
+
+
 
     this.setState({
       monthlyList: theTopList1,
@@ -821,6 +908,14 @@ class Home extends React.Component {
       pruductMonthlyStore: theTopListStore3
 
     });
+    console.log("hej i componentdidmount")
+    if (this.state.initialUserSales == false) {
+      console.log("nu ska usersales laddas!")
+      this.initUserSales()
+      this.setState({
+        initialUserSales: true
+      })
+    }
   }
 
 
@@ -859,25 +954,21 @@ class Home extends React.Component {
             {/* -------------col one------------ */}
             <div className="col-xs-12 colGrid col1 col-md-4" >
               <div className="dep-container individual">
-                <div className="progress-window">
+                <div className="progress-window userBox">
                   <img className="rounded-circle person profile-pic" src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
                   <h4>Welcome back Olle!</h4>
                 </div>
                 <div className="progress-window">
-                  Goal 1:
-                  <ProgressBar variant="success" animated now={40} label={`${40}%`} />
-                  Goal 2:
-                  <ProgressBar variant="info" animated now={20} label={`${20}%`} />
-                  Goal 3:
-                  <ProgressBar variant="warning" animated now={60} label={`${60}%`} />
-                  Goal 4:
-                  <ProgressBar variant="danger" animated now={80} label={`${80}%`} />
+                  Membership Goal:
+                  <ProgressBar variant="success" animated now={this.state.memberPercent} label={this.state.totalMemberships} />
+                  Product of the Month Goal:
+                  <ProgressBar variant="info" animated now={this.state.productPercent} label={this.state.totalProducts} />
                 </div>
                 <div className="progress-window">
                   New members:
-                <NumericInput className="form-control" />
+                <NumericInput className="form-control" onChange={this.memberships.bind(this)} min={0} value={this.state.currentMemberships} />
                 Product of the Month:
-                <NumericInput className="form-control" type='number' onChange={this.pOfMonth.bind(this)} />
+                <NumericInput className="form-control" onChange={this.pOfMonth.bind(this)} min={0} value={this.state.currentProductOfMonthSales} />
                   <button className="submit-button" onClick={this.submitButton}>Submit</button>
                 </div>
 

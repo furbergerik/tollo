@@ -129,9 +129,12 @@ grid-template-columns: 1fr 1fr 1fr;
     background-color: #F94144;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 15px;
+    margin-top: 2vh;
     color: white;
     font-family: 'Avenir Medium';
+}
+.progress-window.userBox{
+    margin-top: 0;
 }
 .myStore{
 position: relative;
