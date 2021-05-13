@@ -14,6 +14,17 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 
 
+async function getUserSales(username, count) {
+  var username = String(username)
+  var fetchingFrom = 'http://tollo.duckdns.org:61338/updateMember?username=?username=' + '${' + username + '}' + '&count=${' + count + '}'
+  const response = await fetch(fetchingFrom);
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+  console.log(finalSet)
+  return finalSet;
+}
+
+
 async function getDataForOneDay(year, month, day, dataType) {
   const salesForOneDay = await getStoreData();
   var theDayData = salesForOneDay[year][month];
@@ -123,7 +134,7 @@ async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
     topListStore.push("Store " + i)
   }
   [topList, topListStore] = bubbleSort(topList, topListStore);
-  console.log("denna datan", topList)
+  // console.log("denna datan", topList)
   return [topList, topListStore]
 }
 
@@ -225,7 +236,8 @@ class Home extends React.Component {
     }],
     initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
     monthlyCompList: [],
-    monthlyCompListStore: []
+    monthlyCompListStore: [],
+    productOfMonthSales: 0
   }
 
   // ---------------From DropDown---------------------
@@ -727,6 +739,14 @@ class Home extends React.Component {
     })
   }
 
+  submitButton(input) {
+    console.log("Submit")
+  }
+  pOfMonth() {
+    var productSales = this.state.productOfMonthSales
+    console.log("Tja bitch")
+  }
+
   componentDidMount = async () => {
     const [theTopList, theTopListStore] = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
     this.setState({
@@ -771,8 +791,8 @@ class Home extends React.Component {
                   New members:
                 <NumericInput className="form-control" />
                 Product of the Month:
-                <NumericInput className="form-control" />
-                  <button className="submit-button">Submit</button>
+                <NumericInput className="form-control" type='number' onChange={this.pOfMonth.bind(this)} />
+                  <button className="submit-button" onClick={this.submitButton}>Submit</button>
                 </div>
 
 
