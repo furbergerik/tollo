@@ -1,18 +1,21 @@
 import { Component } from 'react';
 import { ThemeConsumer } from 'react-bootstrap/esm/ThemeProvider';
 import './MyAdmin.css';
-
+import Cookies from 'universal-cookie';
 import Registration from './Registration.jsx';
 import UserInformation from './UserInformation';
+
+const cookies = new Cookies();
 
 //http://tollo.duckdns.org
 //192.168.0.111
 async function getUsers(department) {
   console.log("hola");
   console.log(department);
+  var token = (cookies.get('jwt')).key;
  //  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
   // var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}`
-  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${1}&department=${department}`
+  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${1}&department=${department}&token=${token}`
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -112,23 +115,14 @@ class MyAdmin extends Component {
     //const {user}=this.state.user;
     console.log(this.state.user.username);
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-    fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
+    var token = (cookies.get('jwt')).key;
+    fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}&token=${token}`)
     .then(response => response.json())
     .then(data => console.log(data))
    // .then(this.getUser)
     .catch(err => console.error(err))
   }
 
-  login = _=>{
-    console.log("login");
-    //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-    fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
-    .then(response => response.json())
-    .then(data=>console.log(data))
-    .catch(err => console.error(err))
-    
-
-  }
 
   cancelCourse = () => { 
     document.getElementById("reg-form").reset();

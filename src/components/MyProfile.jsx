@@ -9,7 +9,7 @@ const cookies = new Cookies();
 async function getStoreData(dataCategory, ID, storeNr){
   if (ID == 0) {
     var token = (cookies.get('jwt')).key;
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '&token=' + token
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -18,7 +18,7 @@ async function getStoreData(dataCategory, ID, storeNr){
 
   else {
     var token = (cookies.get('jwt')).key;
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '&token=' + token
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -105,7 +105,8 @@ function sumArr(arr) {
   }, 0);
 }
 
-console.log(getMonthlyProductData(2020, 12, "prodSales", "Sales", 1, 8))
+//Fuckar upp med fetchen om funktioner körs här
+//console.log(getMonthlyProductData(2020, 12, "prodSales", "Sales", 1, 8))
 
 class MyProfile extends Component {
   state = {
@@ -132,7 +133,8 @@ class MyProfile extends Component {
 
   getUserInfo = async(userType) => {
     var x = (cookies.get('username')).key;
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/getUsers?username=' + x;
+    var token = (cookies.get('jwt')).key;
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/getUsers?username=' + x + '&token=' +token;
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
