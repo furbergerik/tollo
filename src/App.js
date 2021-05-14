@@ -1,27 +1,127 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation, Footer, Home, About, Contact,MyProfile, MyAdmin, Overview } from "./components";
+import { Navigation, Footer, Home, About ,MyProfile, MyAdmin, Overview } from "./components";
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+
+async function login(username, password){
+
+  var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+  var response = await fetchedData.json();
+  console.log(response);
+  cookies.set ("username", {key: response[1]}, {path: '/'});
+  cookies.set ("jwt", {key: response[0]}, {path: '/'});
+
+}
 
 class App extends Component {
+
+  state={
+    users:[],
+    user:{
+      email:'',
+      username:'',
+      password:'',
+      first_name:'',
+      last_name:'',
+      store:1,
+      admin:0,
+      phone:'123',
+     
+      // order of /add is: 
+      
+
+    },
+    loggedIn: false
+  }
+  props={
+    olle:null
+  }
+
+  usernameChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,username:event.target.value}});
+
+  }
+  passwordChangeHandler =(event) => {
+    this.setState({user:{...this.state.user,password:event.target.value}});
+
+  }
+
+  submitHandlerLogIn =async (event) =>{
+    event.preventDefault();
+    console.log(this.state.user);
+    event.target.className += " was-validated";
+    console.log("inne i submithandler");
+    await login(this.state.user.username, this.state.user.password);
+    this.componentDidMount();
+  }
+
+componentDidMount = () => {
+    var x= (cookies.get('jwt'));
+    console.log(x);
+    if (typeof x !== 'undefined'){
+      this.setState({loggedIn: x.key})
+    }
+  }
+  
+
+
   render() {
-    return (
-      <div className="App">
-        <Router>
-          <Navigation />
-          <Switch>
-            <Route path="/" exact component={() => <div><Home /> </div>} />
-            <Route path="/about" exact component={() => <About />} />
-            <Route path="/contact" exact component={() => <Contact />} />
-            <Route path="/MyProfile" exact component={() => <MyProfile />} />
-            <Route path="/MyAdmin" exact component={() => <MyAdmin />} />
-            <Route path="/overview" exact component={() => <Overview />} />
-          </Switch>
-          {/* <Footer /> */}
-        </Router>
+
+    if (this.state.loggedIn){
+        return (
+        <div className="App">
+          <Router>
+            <Navigation />
+            <Switch>
+              <Route path="/" exact component={() => <div><Home /> </div>} />
+              <Route path="/about" exact component={() => <About />} />
+              <Route path="/MyProfile" exact component={() => <MyProfile />} />
+              <Route path="/MyAdmin" exact component={() => <MyAdmin />} />
+              <Route path="/overview" exact component={() => <Overview />} />
+            </Switch>
+            {/* <Footer /> */}
+          </Router>
+        </div>
+      );
+    }
+    else{
+      return (
+    
+
+        <div className="App">
+          {/* {users.map(this.renderUser)} */}
+     
+          {/* <div>{this.name()}</div> */}
+          <br></br>
+          <br></br>
+          <div className="row ">
+            {/* behöver hjälp med det här hur man får den till en sen! på små skärmar */}
+          <div className=" col-xs-0 col-md-4 "></div>
+        </div>
+        <div className="row ">
+        <div className=" col-xs-0 col-md-4 "></div>
+          <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
+          <h1 className="text-dark">Login: </h1>
+          <div className="form-group">
+        <label for="exampleInputUsername1">Username:</label>
+          <input type="text" className="form-control" id="exampleInputUserName1" placeholder="Username"
+            onChange={(this.usernameChangeHandler)}></input>
       </div>
-    );
+      <div className="form-group">
+        <label for="exampleInputPassword11">Password:</label>
+        <input type="password" className="form-control" id="exampleInputPassword11" placeholder="Password"
+        onChange={(this.passwordChangeHandler)}></input>
+    
+      </div>
+      <button className ="btn btn-warning btn-lg ml-3" onClick={this.props.onClick}>Sign In</button>
+          </form>
+          </div>
+        </div>
+      );
+    }
   }
 }
 
