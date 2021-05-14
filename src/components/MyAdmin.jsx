@@ -7,13 +7,12 @@ import UserInformation from './UserInformation';
 
 //http://tollo.duckdns.org
 //192.168.0.111
-async function getUsers() {
-  const department="Footwear"
+async function getUsers(department) {
   console.log("hola");
-
+  console.log(department);
  //  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin/${1}/${department}`
   // var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}`
-   var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${1}&department=${department}`
+  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${1}&department=${department}`
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -35,7 +34,8 @@ class MyAdmin extends Component {
     oldEmail:"",
     newEmail:"",
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
-    tab: "Store"
+    tab: "Store",
+    department:'Footwear'
     }
   props={
     olle:null
@@ -44,7 +44,7 @@ class MyAdmin extends Component {
   }
   componentDidMount= async() =>{
     if(!this.state.hasMounted){
-      this.callGetUsers();
+      this.callGetUsers(this.state.department);
       this.setState({hasMounted:true});
 
     }
@@ -90,10 +90,19 @@ class MyAdmin extends Component {
    // event.target.reset();
 
   }
+  departmentChangeHandler=async (event) => {
+    this.setState({ [event.target.name]: event.target.value });
 
-  callGetUsers=async()=>{
+
+    console.log("hej");
+
+    
+
+  }
+
+  callGetUsers=async(department)=>{
     console.log("här");
-    const finalSet=await getUsers("Footwear");
+    const finalSet=await getUsers(department);
     console.log(finalSet);
     this.setState({users:finalSet});
   }
@@ -123,6 +132,11 @@ class MyAdmin extends Component {
 
   cancelCourse = () => { 
     document.getElementById("reg-form").reset();
+  }
+  handleClick=async() =>{
+    await this.callGetUsers(this.state.department);
+
+    
   }
   
   
@@ -160,7 +174,7 @@ class MyAdmin extends Component {
       message = 
       <div className="mt-2 row ">
           
-        <div className="col-md-3 offset-1">
+        <div className="col-md-3 offset-1 ">
         <div className="profileInfo shadow p-3 mb-5 rounded" >
         {<UserInformation></UserInformation>}
         </div>
@@ -175,6 +189,26 @@ class MyAdmin extends Component {
         </div>
         <div   className="employee offset-1 overflow-auto shadow p-3 mb-5 rounded">
           <h1>Store employees:</h1> 
+          <div className="input-group mb-3 ">
+  <div className="input-group-prepend">
+    <label className="input-group-text" for="inputGroupSelect01">Department:</label>
+  </div>
+  <select className="custom-select" id="inputGroupSelect01" required  name="department"
+  onChange={(this.departmentChangeHandler.bind(this))}>
+
+    <option defaultValue value="Footwear">Footwear</option>
+    <option value="Bikes">Bikes</option>
+    <option value="Sportswear">Sportswear</option>
+    <option value="Ice_hockey_equipment">Ice_hockey_equipment</option>
+    <option value="Outdoor">Outdoor</option>
+    <option value="Supplements">Supplements</option>
+    <option value="Racket_sports">Racket_sports</option>
+  </select>
+  <div className="input-group-append">
+    <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.handleClick.bind(this)}>Change</button>
+  </div>
+</div>
+
           {this.state.users.map((person,index)=>(
             <div >
             <p className="info">Name:</p>
@@ -202,10 +236,7 @@ class MyAdmin extends Component {
           <label class="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autocomplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
           </label>
-          <label class="btn btn-secondary btn-lg">
-            <input type="radio" name="options" id="option2" autocomplete="off" onClick={this.selectedButton.bind(this, "Department")}></input>
-          My store  
-          </label>
+          
           <label class="btn btn-secondary btn-lg ">
             <input type="radio" name="options" id="option3" autocomplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input>
             Settings and Registration
@@ -216,7 +247,7 @@ class MyAdmin extends Component {
 </div>
 <div className="row">
 
-<div className="mt-2 col-md-10 offset-md-1" id="rightBar">
+<div className="mt-1 col-md-12" id="rightBar">
   {message}
 </div>
 
