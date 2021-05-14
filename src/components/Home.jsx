@@ -288,14 +288,16 @@ class Home extends React.Component {
 
   state = {
     initialRender: true,
+    currentMonth: 11,
+    currentDate: 31,
     userInfo: [{
       username: 'b',
       firstName: '',
       lastName: '',
       store: '',
       department: '',
-      yourDepartmentSales: ''
     }],
+    yourDepMonthSales: 0,
     dataSets: [{
       label: 'Store progress',
       data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
@@ -925,7 +927,7 @@ class Home extends React.Component {
   getUserInfo = async () => {
     var x = (cookies.get('username')).key;
     var token = (cookies.get('jwt')).key;
-    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}` ;
+    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
 
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
@@ -961,6 +963,13 @@ class Home extends React.Component {
         pruductMonthly: theTopList3,
         pruductMonthlyStore: theTopListStore3
       });
+
+      const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
+      var currentMonthDepSales = depMonthSales[0][this.state.currentMonth]
+      console.log(currentMonthDepSales)
+      this.setState({
+        yourDepMonthSales: currentMonthDepSales
+      })
 
       this.setState({
         initialRender: false //Ändras till false så kör bara en gång
@@ -1112,12 +1121,12 @@ class Home extends React.Component {
                           <div>
                             <CountUp
                               start={0}
-                              end={31634}
+                              end={this.state.yourDepMonthSales}
                               duration={2.75}
                               separator=" "
                               decimals={0}
                               decimal=","
-                              suffix=" SEK"
+                              suffix=" # of sales"
                             >
                             </CountUp>
                           </div>
