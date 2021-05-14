@@ -281,7 +281,7 @@ class Home extends React.Component {
   state = {
     initialRender: true,
     userInfo: [{
-      username: '',
+      username: 'b',
       firstName: '',
       lastName: '',
       store: '',
@@ -880,23 +880,28 @@ class Home extends React.Component {
   }
   initUserSales = async () => {
     var username = this.state.userInfo.username
-    console.log("Username: ", username)
-    var userSales = await getUserSales(username)
-    console.log("initial user sales: ", userSales)
+    if (username != undefined) {
 
-    var totalMemberships = userSales['members']
-    var totalProducts = userSales['productSold']
+      console.log("Username: ", username)
+      var userSales = await getUserSales(username)
+      console.log("initial user sales: ", userSales)
 
-    var membershipGoal = this.state.membershipGoal
-    var productGoal = this.state.productGoal
-    var memberPercent = (totalMemberships / membershipGoal) * 100
-    var productPercent = (totalProducts / productGoal) * 100
-    this.setState({
-      totalMemberships: totalMemberships,
-      totalProducts: totalProducts,
-      memberPercent: memberPercent,
-      productPercent: productPercent,
-    })
+      var totalMemberships = userSales['members']
+      var totalProducts = userSales['productSold']
+
+      var membershipGoal = this.state.membershipGoal
+      var productGoal = this.state.productGoal
+      var memberPercent = (totalMemberships / membershipGoal) * 100
+      var productPercent = (totalProducts / productGoal) * 100
+      this.setState({
+        totalMemberships: totalMemberships,
+        totalProducts: totalProducts,
+        memberPercent: memberPercent,
+        productPercent: productPercent,
+      })
+    } else {
+      console.log("----undvek katastrof!-------")
+    }
   }
 
   getYears = async () => {
