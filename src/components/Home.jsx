@@ -280,6 +280,8 @@ class Home extends React.Component {
 
   state = {
     initialRender: true,
+    currentMonth: 11,
+    currentDate: 31,
     userInfo: [{
       username: 'b',
       firstName: '',
@@ -955,6 +957,12 @@ class Home extends React.Component {
       this.setState({
         initialRender: false //Ändras till false så kör bara en gång
       })
+
+      //getMonthlyData(year, dataCategory, dataType, Average, ID, storeNr) 
+
+      const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
+
+      console.log(depMonthSales)
     }
   }
 
