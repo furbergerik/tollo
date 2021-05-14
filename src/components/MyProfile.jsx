@@ -24,6 +24,86 @@ async function getStoreData(dataCategory, ID, storeNr){
   }
 }
 
+async function getDepartmentProducts(departmentId) {
+  var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/department?department=${departmentId}`
+  const response = await fetch(fetchingFrom);
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+  console.log()
+  return finalSet;
+}
+
+
+async function getMonthlyProductData(year, month, dataCategory, dataType, storeNr, departmentId){
+  var listMonth = [];
+  var listMonthProd = []
+  var productIdList = await getDepartmentProducts(departmentId)
+  console.log(productIdList)
+  for (var i in productIdList) {
+  var salesData = await getStoreData(dataCategory, 'p'+productIdList[i], storeNr);
+  console.log(salesData)
+  var monthData = salesData['y'+year]['m'+month];
+  var listDay = 0;
+    for (var j in monthData) {
+      listDay+=monthData[j][dataType];
+    }
+      var depName=monthData[0]["Title"]
+      listMonth.push(listDay)
+      listMonthProd.push(depName)
+    }
+    bubbleSort(listMonth, listMonthProd)
+    return [listMonth, listMonthProd]
+
+}
+
+async function getMonthlyDepartmentData(year, month, dataCategory, dataType, storeNr){
+  var listMonth = [];
+  var listMonthDep = []
+  console.log("department: ",getDepartmentProducts(0))
+  if(month == 0){
+  }
+  for (var i = 1; i < 8; i++) {
+  var salesData = await getStoreData(dataCategory, 'd'+i, storeNr);
+  var monthData = salesData['y'+year]['m'+month];
+  var listDay = 0;
+    for (var j in monthData) {
+      listDay+=monthData[j][dataType];
+    }
+      var depName=monthData[0]["Dep Title"]
+      listMonth.push(listDay)
+      listMonthDep.push(depName)
+    }
+    bubbleSort(listMonth, listMonthDep)
+    return [listMonth, listMonthDep]
+}
+
+
+function bubbleSort(inputArr, inputLabel) {
+  var len = inputArr.length;
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - 1; j++) {
+      if (inputArr[j] < inputArr[j + 1]) {
+        let tmp = inputArr[j];
+        let tmpLabel = inputLabel[j]
+        inputArr[j] = inputArr[j + 1];
+        inputLabel[j] = inputLabel[j + 1]
+        inputLabel[j + 1] = tmpLabel;
+        inputArr[j + 1] = tmp;
+      }
+    }
+  }
+  return [inputArr, inputLabel];
+};
+
+function sumArr(arr) {
+  //var arr=Object.values(obj)
+  return arr.reduce(function (a, b) {
+    return a + b
+  }, 0);
+}
+
+console.log(getMonthlyProductData(2020, 12, "prodSales", "Sales", 1, 8))
+
 class MyProfile extends Component {
   state = {
     users: [],
@@ -151,6 +231,8 @@ class MyProfile extends Component {
   }
 
   renderUser = ({ user_id, username }) => <div key={user_id}>{username}</div>
+
+
   render() {
     const { users, user } = this.state;
 
@@ -211,7 +293,7 @@ class MyProfile extends Component {
 
       
       <div className="App">
-        <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+        <div class="btn-group btn-group-toggle mt-2 col-md-6 container-my-profile" data-toggle="buttons">
           <label class="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
           </label>
@@ -227,7 +309,7 @@ class MyProfile extends Component {
 
         <div className="row">
 
-          <div className="mt-2 col-md-10 offset-md-1" id="rightBar">
+          <div className="mt-2 col-md-10 offset-md-1 container-my-profile" id="rightBar">
             {message}
           </div>
 

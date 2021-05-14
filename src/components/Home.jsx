@@ -93,6 +93,7 @@ async function getProductOfTheMonth(month) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
+  console.log()
   return finalSet;
 }
 
@@ -204,8 +205,9 @@ async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   }
   else {
     const monthOfProduct = await getProductOfTheMonth(1)
+    console.log("product id",monthOfProduct)
     for (var i = 1; i < 6; i++) {
-      var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, ID, i)
+      var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, 1, i)
       monthTot = sumArr(monthTot)
       topList.push(monthTot)
       topListStore.push("Store " + i)
@@ -1162,7 +1164,7 @@ class Home extends React.Component {
                     {storeRev}
                   </div>
                   <div className="store-window window-4">
-                    <div className="headline">Most Improved Store This Month</div>
+                    <div className="headline">Most Improved Store: This Month</div>
                     {storeRevComp}
                     {storeRevCompName}
                   </div>
