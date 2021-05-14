@@ -9,10 +9,12 @@ const cookies = new Cookies();
 async function login(username, password){
 
   var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+//  var fetchedData = await fetch(`http://localhost:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
   cookies.set ("username", {key: response[1]}, {path: '/'});
-  cookies.set ("jwt", {key: response[0]}, {path: '/'});
+  cookies.set ("jwt", {key: response[4]}, {path: '/'});
+  return response[0];
 
 }
 
@@ -54,7 +56,8 @@ class App extends Component {
     console.log(this.state.user);
     event.target.className += " was-validated";
     console.log("inne i submithandler");
-    await login(this.state.user.username, this.state.user.password);
+    var x=await login(this.state.user.username, this.state.user.password);
+    this.setState({loggedIn:x});
     this.componentDidMount();
   }
 
@@ -62,7 +65,7 @@ componentDidMount = () => {
     var x= (cookies.get('jwt'));
     console.log(x);
     if (typeof x !== 'undefined'){
-      this.setState({loggedIn: x.key})
+      this.setState({loggedIn: true})
     }
   }
   
