@@ -8,7 +8,8 @@ const cookies = new Cookies();
 
 async function getStoreData(dataCategory, ID, storeNr){
   if (ID == 0) {
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory
+    var token = (cookies.get('jwt')).key;
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '&token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -16,7 +17,8 @@ async function getStoreData(dataCategory, ID, storeNr){
   }
 
   else {
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID
+    var token = (cookies.get('jwt')).key;
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '&token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -25,7 +27,8 @@ async function getStoreData(dataCategory, ID, storeNr){
 }
 
 async function getDepartmentProducts(departmentId) {
-  var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/department?department=${departmentId}`
+  var token = (cookies.get('jwt')).key;
+  var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/department?department=${departmentId}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
@@ -210,7 +213,8 @@ class MyProfile extends Component {
     //const {user}=this.state.user;
     console.log(this.state.user.username);
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-    fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}`)
+    var token = (cookies.get('jwt')).key;
+    fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}&token=${token}`)
       .then(response => response.json())
       .then(data => console.log(data))
       // .then(this.getUser)
@@ -220,7 +224,8 @@ class MyProfile extends Component {
   login = _ => {
     console.log("login");
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-    fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}`)
+    var token = (cookies.get('jwt')).key;
+    fetch(`http://tollo.duckdns.org:61338/login?username=${this.state.user.username}&password=${this.state.user.password}&token=${token}`)
       .then(response => response.json())
       .then(data => console.log(data))
       .catch(err => console.error(err))
