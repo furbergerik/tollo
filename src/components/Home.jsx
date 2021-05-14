@@ -41,7 +41,6 @@ async function updateProductSales(username, count) {
   return finalSet;
 }
 
-
 async function getDataForOneDay(year, month, day, dataType) {
   const salesForOneDay = await getStoreData();
   var theDayData = salesForOneDay[year][month];
@@ -53,7 +52,6 @@ async function getDataForOneDay(year, month, day, dataType) {
   }
   return dailySales;
 }
-
 
 async function getDaylyData(year, month, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
@@ -930,8 +928,6 @@ class Home extends React.Component {
 
 
   componentDidMount = async () => {
-
-
 
     if (this.state.initialRender == true) {
       await this.getUserInfo()
