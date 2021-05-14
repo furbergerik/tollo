@@ -12,6 +12,8 @@ import Button from 'react-bootstrap/Button';
 import { Col, Form, ThemeProvider } from "react-bootstrap";
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 
 async function getUserSales(username) {
@@ -38,8 +40,6 @@ async function updateProductSales(username, count) {
   const finalSet = setOfData.data;
   return finalSet;
 }
-
-
 
 
 async function getDataForOneDay(year, month, day, dataType) {
@@ -281,7 +281,15 @@ function NumberList(props) {
 class Home extends React.Component {
 
   state = {
-    username: 'b', //MÅSTE SÄTTAS DYNAMISKT SEN!!
+    initialRender: true,
+    userInfo: [{
+      username: '',
+      firstName: '',
+      lastName: '',
+      store: '',
+      department: '',
+      yourDepartmentSales: ''
+    }],
     dataSets: [{
       label: 'Store progress',
       data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
@@ -313,6 +321,7 @@ class Home extends React.Component {
     monthlyListStore: [],
     monthlyCompList: [],
     monthlyCompListStore: [],
+    yearList: [],
     productGoal: 250,
     membershipGoal: 50,
     productPercent: 0,
@@ -321,7 +330,6 @@ class Home extends React.Component {
     currentMemberships: 0,
     totalProducts: 0,
     totalMemberships: 0,
-    initialUserSales: false,
     pruductMonthly: [],
     pruductMonthlyStore: []
   }
@@ -828,7 +836,7 @@ class Home extends React.Component {
   submitButton = async () => {
     console.log("Submit")
 
-    var username = this.state.username
+    var username = this.state.userInfo.username
 
     var userSales = await getUserSales(username)
     console.log(userSales)
@@ -873,7 +881,8 @@ class Home extends React.Component {
     })
   }
   initUserSales = async () => {
-    var username = this.state.username
+    var username = this.state.userInfo.username
+    console.log("Username: ", username)
     var userSales = await getUserSales(username)
     console.log("initial user sales: ", userSales)
 
@@ -888,32 +897,62 @@ class Home extends React.Component {
       totalMemberships: totalMemberships,
       totalProducts: totalProducts,
       memberPercent: memberPercent,
-      productPercent: productPercent
+      productPercent: productPercent,
     })
   }
 
-  componentDidMount = async () => {
-    const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(2020, 3, "totSales", "Total sales", 0);
-    const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(2019, 3, "totSales", "Total sales");
-    const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(2020, 3, "prodSales", "Sales", 6);
+  getYears = async () => {
+    var yearFetch = 'http://tollo.duckdns.org:61338/getYear'
+    const yearResponse = await fetch(yearFetch);
+    const yearSetOfData = await yearResponse.json();
+    const yearSet = yearSetOfData.data;
+    this.setState({
+      yearList: yearSet
+    })
+  }
+  getUserInfo = async () => {
+    var x = (cookies.get('username')).key;
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/getUsers?username=' + x;
 
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
 
+    var department = finalSet[0].department
+    var departmentFix = department.replace('_', ' ')
+
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store }
 
     this.setState({
-      monthlyList: theTopList1,
-      monthlyListStore: theTopListStore1,
-      monthlyCompList: theTopList2,
-      monthlyCompListStore: theTopListStore2,
-      pruductMonthly: theTopList3,
-      pruductMonthlyStore: theTopListStore3
+      userInfo: userInfoArray
+    })
+  }
 
-    });
-    console.log("hej i componentdidmount")
-    if (this.state.initialUserSales == false) {
-      console.log("nu ska usersales laddas!")
-      this.initUserSales()
+
+  componentDidMount = async () => {
+
+
+
+    if (this.state.initialRender == true) {
+      await this.getUserInfo()
+      await this.initUserSales()
+      await this.getYears()
+
+      const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(2020, 3, "totSales", "Total sales", 0);
+      const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(2019, 3, "totSales", "Total sales");
+      const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(2020, 3, "prodSales", "Sales", 6);
+
       this.setState({
-        initialUserSales: true
+        monthlyList: theTopList1,
+        monthlyListStore: theTopListStore1,
+        monthlyCompList: theTopList2,
+        monthlyCompListStore: theTopListStore2,
+        pruductMonthly: theTopList3,
+        pruductMonthlyStore: theTopListStore3
+      });
+
+      this.setState({
+        initialRender: false //Ändras till false så kör bara en gång
       })
     }
   }
@@ -956,7 +995,7 @@ class Home extends React.Component {
               <div className="dep-container individual">
                 <div className="progress-window userBox">
                   <img className="rounded-circle person profile-pic" src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
-                  <h4>Welcome back Olle!</h4>
+                  <h4>Welcome back {this.state.userInfo.firstName}</h4>
                 </div>
                 <div className="progress-window">
                   Membership Goal:
@@ -966,9 +1005,9 @@ class Home extends React.Component {
                 </div>
                 <div className="progress-window">
                   New members:
-                <NumericInput className="form-control" onChange={this.memberships.bind(this)} min={0} value={this.state.currentMemberships} />
+                <NumericInput className="form-control" onChange={this.memberships.bind(this)} value={this.state.currentMemberships} />
                 Product of the Month:
-                <NumericInput className="form-control" onChange={this.pOfMonth.bind(this)} min={0} value={this.state.currentProductOfMonthSales} />
+                <NumericInput className="form-control" onChange={this.pOfMonth.bind(this)} value={this.state.currentProductOfMonthSales} />
                   <button className="submit-button" onClick={this.submitButton}>Submit</button>
                 </div>
 
@@ -984,7 +1023,7 @@ class Home extends React.Component {
                 <div className="dep-container own-store">
                   <div className="store-window window-1">
                     <div className="myStoreTitleGrid">
-                      <p className="myStoreTitle">Store 1</p>
+                      <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
                     </div>
 
                     <div className="myStore">
@@ -1056,9 +1095,9 @@ class Home extends React.Component {
                     <div className="storeDetails">
                       <div className="myStoreTitle">This Month:</div>
                       <div className="monthInfo">
-                        <div>Top department:</div>
+                        <div>Your department:</div>
                         <div className="textRight">
-                          <div>Outdoor:</div>
+                          <div>{this.state.userInfo.department}:</div>
                           <div>
                             <CountUp
                               start={0}
