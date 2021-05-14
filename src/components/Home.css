@@ -18,7 +18,7 @@
 background-color: #9abad8;
 margin-right: 15px;
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
+grid-template-columns: 1fr 15px 1fr 15px 1fr;
 }
 .own-store{
     margin-right: 15px;
@@ -62,7 +62,6 @@ grid-template-columns: 1fr 1fr 1fr;
    height: 45vh;
 }
 .store-window{
-    height: 39vh;
     text-align: initial;
     box-shadow: 0 0 3px #191919;
     background-color: #F94144;
@@ -84,24 +83,27 @@ grid-template-columns: 1fr 1fr 1fr;
 }
 .window-3{
     background-color: #577590;
-    margin-right: 15px;
+
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 3fr 4fr;
+    grid-column: 1;
 }
 .window-4{
     background-color: #577590;
-    margin-right: 15px;
+
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 3fr 4fr;
+    grid-column: 3;
 }
 .window-5{
     background-color: #577590;
-    margin-right: 15px;
+
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 3fr 4fr;
+    grid-column: 5;
 }
 .headline{
     font-size: 15px;
