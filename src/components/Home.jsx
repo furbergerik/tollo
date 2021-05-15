@@ -92,7 +92,6 @@ async function getStoreData(dataCategory, ID, storeNr) {
 }
 
 async function getProductOfTheMonth(month) {
-  month = 0;
   var token = (cookies.get('jwt')).key;
  // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
   var fetchingFrom = `http://192.168.0.111:61339/store1v2/productMonth?month=${month}&token=${token}`
@@ -222,8 +221,8 @@ async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
     }
   }
   else {
-    const monthOfProduct = await getProductOfTheMonth(1)
-    console.log("product id",monthOfProduct)
+    const monthOfProduct = await getProductOfTheMonth(0)
+    console.log("product id", monthOfProduct)
     for (var i = 1; i < 6; i++) {
       var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, 1, i)
       monthTot = sumArr(monthTot)
@@ -801,6 +800,13 @@ class Home extends React.Component {
     console.log("Ett year ett year ett year")
     var initial = this.state.initialDataSet;
     var initDates = this.state.initialDates;
+
+    var yearList = []
+    var currentYears = this.state.yearList
+    for (var i = 0; i < currentYears.length; i++) {
+      console.log(currentYears[i])
+    }
+
     this.setState({
       dataSets: initial,
       dates: initDates,
