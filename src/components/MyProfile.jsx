@@ -2,6 +2,7 @@ import { Component } from 'react';
 import './MyProfile.css';
 import Cookies from 'universal-cookie';
 import UserInformation from './UserInformation';
+import MyAdmin from './MyAdmin';
 //http://tollo.duckdns.org
 //192.168.0.111ä
 const cookies = new Cookies();
@@ -126,8 +127,14 @@ class MyProfile extends Component {
     totSales: "",
     totProfit: "",
     margin: "",
-    store: "",
-    department: ""
+    userInfo: [{
+      username: 'b',
+      firstName: '',
+      lastName: '',
+      store: '',
+      department: '',
+      admin: 0
+    }]
     
   }
   props = {
@@ -135,7 +142,7 @@ class MyProfile extends Component {
 
   }
 
-  getUserInfo = async(userType) => {
+  /*getUserInfo = async(userType) => {
     var x = (cookies.get('username')).key;
     var token = (cookies.get('jwt')).key;
     //var fetchingFrom = 'http://tollo.duckdns.org:61338/getUsers?username=' + x + '&token=' +token;
@@ -149,6 +156,26 @@ class MyProfile extends Component {
     else if (userType == "department"){
       return finalSet[0].department;
     }
+  }*/
+
+  getUserInfo = async () => {
+    var x = (cookies.get('username')).key;
+    var token = (cookies.get('jwt')).key;
+    //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
+    var fetchingFrom = `http://192.168.0.111:61339/getUsers?username=${x}&token=${token}`;
+
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+
+    var department = finalSet[0].department
+    var departmentFix = department.replace('_', ' ')
+
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath, admin: finalSet[0].admin }
+
+    this.setState({
+      userInfo: userInfoArray
+    })
   }
 
   getMonthlyData = async(year, month, dataCategory, dataType, ID, storeNr) => {
@@ -208,11 +235,12 @@ class MyProfile extends Component {
   }
 
   async componentDidMount() {
-    this.setState({store: await this.getUserInfo("store")});
-    this.setState({department: await this.getUserInfo("department")})
-    this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, this.state.store)});
-    this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, this.state.store)});
-    this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, this.state.store)});
+    this.setState({store: await this.getUserInfo()});
+    this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, this.state.userInfo.store)});
+    this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, this.state.userInfo.store)});
+    this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, this.state.userInfo.store)});
+    console.log("Är det admin?");
+    console.log(this.state.userInfo.admin);
   }
 
   addUser = _ => {
@@ -250,9 +278,6 @@ class MyProfile extends Component {
   render() {
     const { users, user } = this.state;
 
-
-
-    
     let message
     if (this.state.tab == "Store"){
       message = 
@@ -306,6 +331,13 @@ class MyProfile extends Component {
       </div>
     }
 
+    if (this.state.userInfo.admin == 1){
+      return(
+      <div><MyAdmin></MyAdmin></div>
+      )
+    }
+
+    else {
     
     return (
 
@@ -336,6 +368,7 @@ class MyProfile extends Component {
 
       </div>
     );
+    }
 
 
 

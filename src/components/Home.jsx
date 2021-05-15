@@ -265,17 +265,17 @@ function sumArr(arr) {
 //    return(theRealDeal)
 // }
 
-function NumberList(props) {
-  const numbers = props.numbers;
-  const listItems = numbers.map((number) =>
-    <li key={number.toString()}>
-      {number}
-    </li>
-  );
-  return (
-    <ul>{listItems}</ul>
-  );
-}
+// function NumberList(props) {
+//   const numbers = props.numbers;
+//   const listItems = numbers.map((number) =>
+//     <li key={number.toString()}>
+//       {number}
+//     </li>
+//   );
+//   return (
+//     <ul>{listItems}</ul>
+//   );
+// }
 
 
 // function soldProduct(year, month, productId){
@@ -298,8 +298,7 @@ class Home extends React.Component {
 
   state = {
     initialRender: true,
-    currentMonth: 11,
-    currentDate: 31,
+    currentdate: [],
     userInfo: [{
       username: 'b',
       firstName: '',
@@ -351,9 +350,17 @@ class Home extends React.Component {
     totalMemberships: 0,
     productMonthly: [],
     productMonthlyStore: [],
-    topSellerList: [],
+    topSellerListMem: [],
+    topSellerListProd: [],
     productMonthlyName: "",
     otherStoreRendered: false,
+    storeRevState: [],
+    storeRevNameState: [],
+    storeRevCompState: [],
+    storeRevCompNameState: [],
+    storeProdOfMoState: [],
+    storeProdOfMoNameStete: []
+
   }
 
   // ---------------From DropDown---------------------
@@ -489,7 +496,8 @@ class Home extends React.Component {
         { 'week': "week " + 49, 'id': 49 },
         { 'week': "week " + 50, 'id': 50 },
         { 'week': "week " + 51, 'id': 51 },
-        { 'week': "week " + 52, 'id': 52 }]
+        { 'week': "week " + 52, 'id': 52 },
+        { 'week': "week " + 53, 'id': 53 }]
 
       if (yearSelect == false) {
         console.log("bara ett år")
@@ -516,6 +524,7 @@ class Home extends React.Component {
     console.log("Inne i onselectweek")
     var yearFix = 'y' + String(year);
     var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, this.state.userInfo.store);
+    console.log("weeklist: ", weekList)
 
     var weekDateList = []
     var salesWeekdayList = []
@@ -804,7 +813,7 @@ class Home extends React.Component {
     this.setState({
       dataSets: initial,
       dates: initDates,
-      singleSelect: false,
+      singleSelect: true,
       showArrow: true,
       activePeriod: 'year',
       multiOptions: yearList,
@@ -896,6 +905,7 @@ class Home extends React.Component {
       memberPercent: memberPercent,
       productPercent: productPercent
     })
+    this.myStoreTopSellers()
   }
   pOfMonth(valueAsNumber, valueAsString, input) {
     console.log("product sold!")
@@ -912,11 +922,7 @@ class Home extends React.Component {
   initUserSales = async () => {
     var username = this.state.userInfo.username
     if (username != undefined) {
-
-      console.log("Username: ", username)
       var userSales = await getUserSales(username)
-      console.log("initial user sales: ", userSales)
-
       var totalMemberships = userSales['members']
       var totalProducts = userSales['productSold']
 
@@ -946,6 +952,21 @@ class Home extends React.Component {
       yearList: yearSet
     })
   }
+  getCurrentDate = async () => {
+    var token = (cookies.get('jwt')).key;
+    //var yearFetch = `http://tollo.duckdns.org:61338/getYear?token=${token}`
+    var dateFetch = `http://192.168.0.111:61339/getDate?token=${token}`
+    const dateResponse = await fetch(dateFetch);
+    const dateSetOfData = await dateResponse.json();
+    const dateSet = dateSetOfData.data;
+
+    var dateList = []
+    dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
+
+    this.setState({
+      currentDate: dateList
+    })
+  }
   getUserInfo = async () => {
     var x = (cookies.get('username')).key;
     var token = (cookies.get('jwt')).key;
@@ -959,7 +980,7 @@ class Home extends React.Component {
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
 
-    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store,profilePath:finalSet[0].profilePath }
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath }
 
     this.setState({
       userInfo: userInfoArray
@@ -990,29 +1011,78 @@ class Home extends React.Component {
     for (var i = 0; i < 5; i++) {
       topFiveProductsSellers.push(productsSellers[i])
     }
-    console.log(topFiveMembersSellers, "top membersellers")
-    console.log(topFiveProductsSellers, "top product sellers")
-
     this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
   }
   createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
-    console.log("hej")
-
-    var topList = []
+    var topListMem = []
     for (var seller in topFiveMembersSellers) {
       if (topFiveMembersSellers[seller] != undefined) {
-        console.log("hej igen", topFiveMembersSellers[seller])
-        topList.push(<div className="topSeller">
+        topListMem.push(<div key={seller} className="topSeller">
           {topFiveMembersSellers[seller].members}{"  "}{topFiveMembersSellers[seller].first_name}{" "}{topFiveMembersSellers[seller].last_name}
         </div>)
       }
     }
-    console.log(topList)
+    var topListProd = []
+    for (var seller in topFiveProductsSellers) {
+      if (topFiveProductsSellers[seller] != undefined) {
+        topListProd.push(<div key={seller + "a"} className="topSeller">
+          {topFiveProductsSellers[seller].productSold}{"  "}{topFiveProductsSellers[seller].first_name}{" "}{topFiveProductsSellers[seller].last_name}
+        </div>)
+      }
+    }
     this.setState({
-      topSellerList: topList
+      topSellerListMem: topListMem,
+      topSellerListProd: topListProd
     })
 
   }
+
+  // setInitDataSet = async () => {
+
+  //   const initData = await getWeeklyDaylyData("y" + this.state.currentDate[0].year, this.state.currentDate[0].week, "totSales", "Total sales", 0, this.state.userInfo.store)
+  //   console.log("this week data to print in graaafff: ", initData)
+
+  // }
+  createOtherStoreData() {
+    console.log("hejjdjwsdsjjk")
+    const storeRev = [];
+    const storeRevName = [];
+    var keys = Math.floor(Math.random() * 1000000);
+    for (const [index, value] of this.state.monthlyList.entries()) {
+      storeRev.push(<div className="top1-score" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} suffix=" SEK" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.monthlyListStore.entries()) {
+      var keys = Math.floor(Math.random() * 100000);
+      storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1">{value}</div>)
+    }
+    const storeRevComp = [];
+    const storeRevCompName = [];
+    for (const [index, value] of this.state.monthlyCompList.entries()) {
+      storeRevComp.push(<div key={keys * 3 + index} className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" duration={5} suffix=" %" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.monthlyCompListStore.entries()) {
+      storeRevCompName.push(<div key={keys * 4 + index} style={{ gridRow: index + 2 }} className="top1">{value}</div>)
+    }
+
+    const storeProdOfMo = [];
+    const storeProdOfMoName = [];
+    for (const [index, value] of this.state.productMonthly.entries()) {
+      storeProdOfMo.push(<div className="top1-score" key={keys * 5 + index} style={{ gridRow: index + 2 }}><CountUp className="kong" duration={5} suffix=" products" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.productMonthlyStore.entries()) {
+      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys * 6 + index} className="top1">{value}</div>)
+    }
+    this.setState({
+      storeRevState: storeRev,
+      storeRevNameState: storeRevName,
+      storeRevCompState: storeRevComp,
+      storeRevCompNameState: storeRevCompName,
+      storeProdOfMoState: storeProdOfMo,
+      storeProdOfMoNameStete: storeProdOfMoName
+    })
+
+  }
+
 
   componentDidMount = async () => {
 
@@ -1020,8 +1090,9 @@ class Home extends React.Component {
       await this.getUserInfo()
       await this.initUserSales()
       await this.getYears()
-
+      await this.getCurrentDate()
       await this.myStoreTopSellers()
+      // await this.setInitDataSet() Nice att fixa sen, men kmr ta en stund!!
 
 
       const yearList = this.state.yearList
@@ -1040,9 +1111,10 @@ class Home extends React.Component {
         productMonthlyStore: theTopListStore3,
         productMonthlyName: prodMon
       });
-
+      this.createOtherStoreData();
       const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
-      var currentMonthDepSales = depMonthSales[0][this.state.currentMonth]
+      var currentMonthDepSales = depMonthSales[0][this.state.currentDate[0].month - 1]
+
       this.setState({
         yourDepMonthSales: currentMonthDepSales
       })
@@ -1055,33 +1127,33 @@ class Home extends React.Component {
 
 
   render() {
-    const storeRev = [];
-    const storeRevName = [];
-    var keys = Math.floor(Math.random()*1000000);
-    for (const [index, value] of this.state.monthlyList.entries()) {
-      storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
-    }
-    for (const [index, value] of this.state.monthlyListStore.entries()) {
-      var keys = Math.floor(Math.random()*100000);
-      storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
-    }
-    const storeRevComp = [];
-    const storeRevCompName = [];
-    for (const [index, value] of this.state.monthlyCompList.entries()) {
-      storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
-    }
-    for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-      storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
-    }
+    // const storeRev = [];
+    // const storeRevName = [];
+    // var keys = Math.floor(Math.random()*1000000);
+    // for (const [index, value] of this.state.monthlyList.entries()) {
+    //   storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
+    // }
+    // for (const [index, value] of this.state.monthlyListStore.entries()) {
+    //   var keys = Math.floor(Math.random()*100000);
+    //   storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
+    // }
+    // const storeRevComp = [];
+    // const storeRevCompName = [];
+    // for (const [index, value] of this.state.monthlyCompList.entries()) {
+    //   storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
+    // }
+    // for (const [index, value] of this.state.monthlyCompListStore.entries()) {
+    //   storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
+    // }
 
-    const storeProdOfMo = [];
-    const storeProdOfMoName = [];
-    for (const [index, value] of this.state.productMonthly.entries()) {
-      storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
-    }
-    for (const [index, value] of this.state.productMonthlyStore.entries()) {
-      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
-    }
+    // const storeProdOfMo = [];
+    // const storeProdOfMoName = [];
+    // for (const [index, value] of this.state.productMonthly.entries()) {
+    //   storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
+    // }
+    // for (const [index, value] of this.state.productMonthlyStore.entries()) {
+    //   storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
+    // }
     return (
       <div className="home">
         <div className="container-fluid h-100">
@@ -1090,9 +1162,9 @@ class Home extends React.Component {
             <div className="col-xs-12 colGrid col1 col-md-4" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
-                <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
-            
-          </div>
+                  <div class="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
+
+                  </div>
                   <h4>Welcome back {this.state.userInfo.firstName}</h4>
                 </div>
                 <div className="progress-window">
@@ -1147,47 +1219,28 @@ class Home extends React.Component {
                       />
                     </div>
 
-
-                    <div className="buttonGrid">
-                      <div className="buttonGroupContainer">
-                        <ButtonGroup aria-label="Basic example">
-                          <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
-                          <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
-                          <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
-                          <Multiselect
-                            options={this.state.multiOptions} // Options to display in the dropdown
-                            onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                            onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                            displayValue={this.state.activePeriod} // Property name to display in the dropdown option
-                            placeholder="Select time period"
-                            showCheckbox="true"
-                            closeOnSelect="false"
-                            hidePlaceholder="true"
-                            singleSelect={this.state.singleSelect}
-                          ></Multiselect>
-                          <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
-                        </ButtonGroup>
-                      </div>
+                    <div className="buttonGroupContainer">
+                      <ButtonGroup aria-label="Basic example">
+                        <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
+                        <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
+                        <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
+                        <Multiselect
+                          options={this.state.multiOptions} // Options to display in the dropdown
+                          onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                          onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
+                          displayValue={this.state.activePeriod} // Property name to display in the dropdown option
+                          placeholder="Select time period"
+                          showCheckbox="true"
+                          closeOnSelect="false"
+                          hidePlaceholder="true"
+                          singleSelect={this.state.singleSelect}
+                          showArrow={false}
+                        ></Multiselect>
+                        <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
+                      </ButtonGroup>
                     </div>
-                    {/* <div>
-                      <div className="dropDownButton">
-                        <DropdownButton
-                          alignRight
-                          title="Select year"
-                          id="dropdown-menu-align-right"
-                          size="sm"
-                          variant="secondary"
-                          onSelect={this.handleYearSelect.bind(this)}
-                        >
-                          <Dropdown.Item eventKey="Total sales">Revenue</Dropdown.Item>
-                          <Dropdown.Item eventKey="2019">Procentual Growth</Dropdown.Item>
-                          <Dropdown.Item eventKey="2020">Department revenue</Dropdown.Item>
-                          <Dropdown.Divider />
-                          <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                        </DropdownButton>
-                      </div>
-                    </div> */}
                   </div>
+
                   <div className="store-window window-2">
 
                     <div className="storeDetails">
@@ -1214,7 +1267,7 @@ class Home extends React.Component {
                       </div>
                     </div>
 
-                    <p className="myStoreTitle topSellers">Top sellers:</p>
+                    <p className="myStoreTitle topSellers">Top sellers: Memberships</p>
 
                     <div className="scrollTopList">
                       {/* <div className="topSeller">1. Olle Kindvall</div>
@@ -1222,7 +1275,7 @@ class Home extends React.Component {
                       <div className="topSeller">3. Vegge P</div>
                       <div className="topSeller">4. Hugo Sjönneby</div>
                       <div className="topSeller">5. Georgios</div> */}
-                      {this.state.topSellerList}
+                      {this.state.topSellerListMem}
                     </div>
                   </div>
                 </div>
@@ -1237,18 +1290,18 @@ class Home extends React.Component {
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store: This Month</div>
-                    {storeRevName}
-                    {storeRev}
+                    {this.state.storeRevNameState}
+                    {this.state.storeRevState}
                   </div>
                   <div className="store-window window-4">
                     <div className="headline">Most Improved Store: This Month</div>
-                    {storeRevComp}
-                    {storeRevCompName}
+                    {this.state.storeRevCompState}
+                    {this.state.storeRevCompNameState}
                   </div>
                   <div className="store-window window-5">
                     <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
-                    {storeProdOfMo}
-                    {storeProdOfMoName}
+                    {this.state.storeProdOfMoState}
+                    {this.state.storeProdOfMoNameState}
                   </div>
                 </div>
               </div>
