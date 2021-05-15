@@ -16,7 +16,7 @@ async function getUsers(username) {
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];
       return finalSet;
-  
+
   }
   async function updatePassword(username,password) {
    
@@ -61,6 +61,22 @@ async function getUsers(username) {
       return finalSet;
   
   }
+  async function updatePic(username,filename) {
+   
+    console.log("hola");
+    console.log(username);
+    console.log(filename);
+        var token = (cookies.get('jwt')).key;
+
+   //  var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
+     //href: this.state.url
+   var fetchingFrom = `http://192.168.0.111:61339/addProfilePic?filename=${filename}&username=${username}&token=${token}`
+
+      const response = await fetch(fetchingFrom);
+      const setOfData = await response.json();
+    
+  
+  }
   
   
   
@@ -83,10 +99,11 @@ class  userInformation extends Component {
         oldPassword:null,
         newPassword:null,
         confirmPassword:false,
+        newUrl:null,
      }
      callGetUsers=async()=>{
         console.log("här");
-        const finalSet=await getUsers("b");
+        const finalSet=await getUsers(cookies.get('username').key);
         console.log(finalSet);
         this.setState({user:finalSet});
       }
@@ -98,6 +115,7 @@ class  userInformation extends Component {
         }
         
       }
+
      
    
       regUserChangeHandler =(event) => {
@@ -126,6 +144,16 @@ class  userInformation extends Component {
        // event.target.reset();
     
       }
+      changePic=async() =>{
+        console.log("vi kom hit");
+        if(this.state.newUrl !=null){
+          console.log("inne");
+          await updatePic(this.state.user.username,this.state.newUrl);
+          await this.callGetUsers();
+
+        }
+
+      }
       changeEmail=async () =>{
    
         console.log(this.state.email);
@@ -153,10 +181,39 @@ class  userInformation extends Component {
        // event.target.reset();
     
       }
+    
     render() {
       return(
+        
         <div>
+
+
+
+<div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Chage Img</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        Paste Image url:
+        <input type="text" name="newUrl" onChange={this.ChangeHandler}></input>
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-success" onClick={this.changePic.bind(this) }data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
             <h1>Profile Information:</h1>
+            <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.user.profilePath})`} }>
+            <span className="spanFix" id="cameraIcon"></span>
+            <span className="spanFix fas fa-camera" data-toggle="modal" data-target="#exampleModal" >Change Image</span>
+          </div>
         <h3>Username:{this.state.user.username}</h3>
         <br></br>
         <h3>Name:{this.state.user.first_name} {this.state.user.last_name}</h3>

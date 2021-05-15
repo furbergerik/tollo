@@ -14,3 +14,35 @@
 .btn-default, .btn-default:hover, .btn-default:active, .btn-default:visited {
     background-color: #577590 !important;
 }
+.profile-pic {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    color: transparent;
+    transition: all .3s ease;
+
+  
+    
+
+    }
+    .profile-pic:hover{
+      
+            background-color: rgba(0,0,0,.5);
+            z-index: 10000;
+            color: rgba(250,250,250,1);
+            transition: all .3s ease;
+          
+          
+
+    }
+    span.spanFix {
+        display: inline-flex;
+        justify-content: center;
+        margin: 10%;
+        align-items: center;
+        padding: .2em;
+      }
