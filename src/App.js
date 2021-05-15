@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation, Footer, Home, About ,MyProfile, MyAdmin, Overview } from "./components";
+import { Navigation, Footer, Home, About ,MyProfile, MyAdmin } from "./components";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -83,7 +83,7 @@ componentDidMount = () => {
               <Route path="/about" exact component={() => <About />} />
               <Route path="/MyProfile" exact component={() => <MyProfile />} />
               <Route path="/MyAdmin" exact component={() => <MyAdmin />} />
-              <Route path="/overview" exact component={() => <Overview />} />
+           
             </Switch>
             {/* <Footer /> */}
           </Router>
@@ -109,12 +109,12 @@ componentDidMount = () => {
           <form className=" col-xs-1 col-md-4  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
           <h1 className="text-dark">Login: </h1>
           <div className="form-group">
-        <label for="exampleInputUsername1">Username:</label>
+        <label htmlFor="exampleInputUsername1">Username:</label>
           <input type="text" className="form-control" id="exampleInputUserName1" placeholder="Username"
             onChange={(this.usernameChangeHandler)}></input>
       </div>
       <div className="form-group">
-        <label for="exampleInputPassword11">Password:</label>
+        <label htmlFor="exampleInputPassword11">Password:</label>
         <input type="password" className="form-control" id="exampleInputPassword11" placeholder="Password"
         onChange={(this.passwordChangeHandler)}></input>
     

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import './MyProfile.css';
 import Cookies from 'universal-cookie';
 import UserInformation from './UserInformation';
+import MyAdmin from './MyAdmin';
 //http://tollo.duckdns.org
 //192.168.0.111ä
 const cookies = new Cookies();
@@ -114,6 +115,7 @@ function sumArr(arr) {
 
 class MyProfile extends Component {
   state = {
+    initialRender: true,
     users: [],
     oldPassword: "",
     newPassword: "",
@@ -126,8 +128,14 @@ class MyProfile extends Component {
     totSales: "",
     totProfit: "",
     margin: "",
-    store: "",
-    department: ""
+    userInfo: [{
+      username: 'b',
+      firstName: '',
+      lastName: '',
+      store: '',
+      department: '',
+      admin: 0
+    }]
     
   }
   props = {
@@ -135,7 +143,7 @@ class MyProfile extends Component {
 
   }
 
-  getUserInfo = async(userType) => {
+  /*getUserInfo = async(userType) => {
     var x = (cookies.get('username')).key;
     var token = (cookies.get('jwt')).key;
     //var fetchingFrom = 'http://tollo.duckdns.org:61338/getUsers?username=' + x + '&token=' +token;
@@ -149,6 +157,26 @@ class MyProfile extends Component {
     else if (userType == "department"){
       return finalSet[0].department;
     }
+  }*/
+
+  getUserInfo = async () => {
+    var x = (cookies.get('username')).key;
+    var token = (cookies.get('jwt')).key;
+    //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
+    var fetchingFrom = `http://192.168.0.111:61339/getUsers?username=${x}&token=${token}`;
+
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+
+    var department = finalSet[0].department
+    var departmentFix = department.replace('_', ' ')
+
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath, admin: finalSet[0].admin }
+
+    this.setState({
+      userInfo: userInfoArray
+    })
   }
 
   getMonthlyData = async(year, month, dataCategory, dataType, ID, storeNr) => {
@@ -208,11 +236,17 @@ class MyProfile extends Component {
   }
 
   async componentDidMount() {
-    this.setState({store: await this.getUserInfo("store")});
-    this.setState({department: await this.getUserInfo("department")})
-    this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, this.state.store)});
-    this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, this.state.store)});
-    this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, this.state.store)});
+    if (this.state.initialRender == true) {
+    this.setState({store: await this.getUserInfo()});
+    this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, this.state.userInfo.store)});
+    this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, this.state.userInfo.store)});
+    this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, this.state.userInfo.store)});
+    console.log("Är det admin?");
+    console.log(this.state.userInfo.admin);
+    this.setState({
+      initialRender: false //Ändras till false så kör bara en gång
+    })
+    }
   }
 
   addUser = _ => {
@@ -250,25 +284,21 @@ class MyProfile extends Component {
   render() {
     const { users, user } = this.state;
 
-
-
-    
     let message
     if (this.state.tab == "Store"){
       message = 
       <div>            
         <h1>My store and sales info:</h1>
         <div className="row offset-md-1">
-          <div class="col-md-4" className="profile-pic">
-            <span className="spanFix" id="cameraIcon"></span>
-            <span className="spanFix fas fa-camera" >Change Image</span>
+          <div className="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
+           
           </div>
-          <div class="col-md-4"><h5>My store statistics</h5>
+          <div className="col-md-4"><h5>My store statistics</h5>
           <h6>Total store sales last month: {this.state.totSales} SEK</h6>
           <h6>Total store profit last month: {this.state.totProfit} SEK</h6>
           <h6>Profit margin last month: {this.state.margin}%</h6>
           </div>
-          <div class="col-md-4"><h5>My personal info</h5></div>
+          <div className="col-md-4"><h5>My personal info</h5></div>
         </div>
       </div>
     }
@@ -306,20 +336,27 @@ class MyProfile extends Component {
       </div>
     }
 
+    if (this.state.userInfo.admin == 1){
+      return(
+      <div><MyAdmin></MyAdmin></div>
+      )
+    }
+
+    else {
     
     return (
 
       
       <div className="App">
-        <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
-          <label class="btn btn-secondary active btn-lg">
+        <div className="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+          <label className="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
           </label>
-          <label class="btn btn-secondary btn-lg">
+          <label className="btn btn-secondary btn-lg">
             <input type="radio" name="options" id="option2" autoComplete="off" onClick={this.selectedButton.bind(this, "Goals")}></input>
           My goals  
           </label>
-          <label class="btn btn-secondary btn-lg ">
+          <label className="btn btn-secondary btn-lg ">
             <input type="radio" name="options" id="option3" autoComplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input> Profile settings
           </label>
         </div>
@@ -336,6 +373,7 @@ class MyProfile extends Component {
 
       </div>
     );
+    }
 
 
 

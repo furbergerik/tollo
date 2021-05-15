@@ -4,6 +4,7 @@ import './MyAdmin.css';
 import Cookies from 'universal-cookie';
 import Registration from './Registration.jsx';
 import UserInformation from './UserInformation';
+import AddGoals from './AddGoals';
 
 const cookies = new Cookies();
 
@@ -162,7 +163,10 @@ class MyAdmin extends Component {
     }
 
     else if(this.state.tab == "Department"){
-      message = <div>Nu är det department</div>
+      message = <div>
+        <AddGoals></AddGoals>
+
+      </div>
     }
 
     else if(this.state.tab == "Settings"){
@@ -227,13 +231,16 @@ class MyAdmin extends Component {
     
     <div className="App">
     
-    <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+    <div className="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+          <label className="btn btn-secondary active btn-lg">
+            <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
+          </label>
           <label class="btn btn-secondary active btn-lg">
-            <input type="radio" name="options" id="option1" autocomplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
+            <input type="radio" name="options" id="option1" autocomplete="off" onClick={this.selectedButton.bind(this, "Department")}></input>Add Employee Goals
           </label>
           
-          <label class="btn btn-secondary btn-lg ">
-            <input type="radio" name="options" id="option3" autocomplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input>
+          <label className="btn btn-secondary btn-lg ">
+            <input type="radio" name="options" id="option3" autoComplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input>
             Settings and Registration
           </label>
         </div>
