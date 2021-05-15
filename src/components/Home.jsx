@@ -806,7 +806,7 @@ class Home extends React.Component {
     this.setState({
       dataSets: initial,
       dates: initDates,
-      singleSelect: false,
+      singleSelect: true,
       showArrow: true,
       activePeriod: 'year',
       multiOptions: yearList,
@@ -915,11 +915,7 @@ class Home extends React.Component {
   initUserSales = async () => {
     var username = this.state.userInfo.username
     if (username != undefined) {
-
-      console.log("Username: ", username)
       var userSales = await getUserSales(username)
-      console.log("initial user sales: ", userSales)
-
       var totalMemberships = userSales['members']
       var totalProducts = userSales['productSold']
 
@@ -956,13 +952,9 @@ class Home extends React.Component {
     const dateResponse = await fetch(dateFetch);
     const dateSetOfData = await dateResponse.json();
     const dateSet = dateSetOfData.data;
-    console.log("DATE: ", dateSet)
 
     var dateList = []
-
     dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
-    console.log(dateList)
-
 
     this.setState({
       currentDate: dateList
@@ -1015,7 +1007,6 @@ class Home extends React.Component {
     this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
   }
   createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
-    console.log(topFiveProductsSellers)
     var topListMem = []
     for (var seller in topFiveMembersSellers) {
       if (topFiveMembersSellers[seller] != undefined) {
@@ -1039,6 +1030,13 @@ class Home extends React.Component {
 
   }
 
+  // setInitDataSet = async () => {
+
+  //   const initData = await getWeeklyDaylyData("y" + this.state.currentDate[0].year, this.state.currentDate[0].week, "totSales", "Total sales", 0, this.state.userInfo.store)
+  //   console.log("this week data to print in graaafff: ", initData)
+
+  // }
+
   componentDidMount = async () => {
 
     if (this.state.initialRender == true) {
@@ -1047,6 +1045,7 @@ class Home extends React.Component {
       await this.getYears()
       await this.getCurrentDate()
       await this.myStoreTopSellers()
+      // await this.setInitDataSet() Nice att fixa sen, men kmr ta en stund!!
 
 
       const yearList = this.state.yearList
@@ -1083,30 +1082,30 @@ class Home extends React.Component {
   render() {
     const storeRev = [];
     const storeRevName = [];
-    var keys = Math.floor(Math.random()*1000000);
+    var keys = Math.floor(Math.random() * 1000000);
     for (const [index, value] of this.state.monthlyList.entries()) {
-      storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
+      storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys + index} duration={5} suffix=" SEK" end={value} /></div>)
     }
     for (const [index, value] of this.state.monthlyListStore.entries()) {
-      var keys = Math.floor(Math.random()*100000);
-      storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
+      var keys = Math.floor(Math.random() * 100000);
+      storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1">{value}</div>)
     }
     const storeRevComp = [];
     const storeRevCompName = [];
     for (const [index, value] of this.state.monthlyCompList.entries()) {
-      storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
+      storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys * 3 + index} duration={5} suffix=" %" end={value} /></div>)
     }
     for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-      storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
+      storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys * 4 + index} className="top1">{value}</div>)
     }
 
     const storeProdOfMo = [];
     const storeProdOfMoName = [];
     for (const [index, value] of this.state.productMonthly.entries()) {
-      storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
+      storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys * 5 + index} duration={5} suffix=" products" end={value} /></div>)
     }
     for (const [index, value] of this.state.productMonthlyStore.entries()) {
-      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
+      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys * 6 + index} className="top1">{value}</div>)
     }
     return (
       <div className="home">
@@ -1173,47 +1172,28 @@ class Home extends React.Component {
                       />
                     </div>
 
-
-                    <div className="buttonGrid">
-                      <div className="buttonGroupContainer">
-                        <ButtonGroup aria-label="Basic example">
-                          <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
-                          <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
-                          <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
-                          <Multiselect
-                            options={this.state.multiOptions} // Options to display in the dropdown
-                            onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                            onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                            displayValue={this.state.activePeriod} // Property name to display in the dropdown option
-                            placeholder="Select time period"
-                            showCheckbox="true"
-                            closeOnSelect="false"
-                            hidePlaceholder="true"
-                            singleSelect={this.state.singleSelect}
-                          ></Multiselect>
-                          <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
-                        </ButtonGroup>
-                      </div>
+                    <div className="buttonGroupContainer">
+                      <ButtonGroup aria-label="Basic example">
+                        <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
+                        <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
+                        <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
+                        <Multiselect
+                          options={this.state.multiOptions} // Options to display in the dropdown
+                          onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                          onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
+                          displayValue={this.state.activePeriod} // Property name to display in the dropdown option
+                          placeholder="Select time period"
+                          showCheckbox="true"
+                          closeOnSelect="false"
+                          hidePlaceholder="true"
+                          singleSelect={this.state.singleSelect}
+                          showArrow={false}
+                        ></Multiselect>
+                        <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
+                      </ButtonGroup>
                     </div>
-                    {/* <div>
-                      <div className="dropDownButton">
-                        <DropdownButton
-                          alignRight
-                          title="Select year"
-                          id="dropdown-menu-align-right"
-                          size="sm"
-                          variant="secondary"
-                          onSelect={this.handleYearSelect.bind(this)}
-                        >
-                          <Dropdown.Item eventKey="Total sales">Revenue</Dropdown.Item>
-                          <Dropdown.Item eventKey="2019">Procentual Growth</Dropdown.Item>
-                          <Dropdown.Item eventKey="2020">Department revenue</Dropdown.Item>
-                          <Dropdown.Divider />
-                          <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-                        </DropdownButton>
-                      </div>
-                    </div> */}
                   </div>
+
                   <div className="store-window window-2">
 
                     <div className="storeDetails">
