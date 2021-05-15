@@ -265,17 +265,17 @@ function sumArr(arr) {
 //    return(theRealDeal)
 // }
 
-function NumberList(props) {
-  const numbers = props.numbers;
-  const listItems = numbers.map((number) =>
-    <li key={number.toString()}>
-      {number}
-    </li>
-  );
-  return (
-    <ul>{listItems}</ul>
-  );
-}
+// function NumberList(props) {
+//   const numbers = props.numbers;
+//   const listItems = numbers.map((number) =>
+//     <li key={number.toString()}>
+//       {number}
+//     </li>
+//   );
+//   return (
+//     <ul>{listItems}</ul>
+//   );
+// }
 
 
 // function soldProduct(year, month, productId){
@@ -354,6 +354,13 @@ class Home extends React.Component {
     topSellerListProd: [],
     productMonthlyName: "",
     otherStoreRendered: false,
+    storeRevState: [],
+    storeRevNameState: [],
+    storeRevCompState: [],
+    storeRevCompNameState: [],
+    storeProdOfMoState: [],
+    storeProdOfMoNameStete: []
+
   }
 
   // ---------------From DropDown---------------------
@@ -1019,7 +1026,7 @@ class Home extends React.Component {
     var topListMem = []
     for (var seller in topFiveMembersSellers) {
       if (topFiveMembersSellers[seller] != undefined) {
-        topListMem.push(<div className="topSeller">
+        topListMem.push(<div key={seller} className="topSeller">
           {topFiveMembersSellers[seller].members}{"  "}{topFiveMembersSellers[seller].first_name}{" "}{topFiveMembersSellers[seller].last_name}
         </div>)
       }
@@ -1027,7 +1034,7 @@ class Home extends React.Component {
     var topListProd = []
     for (var seller in topFiveProductsSellers) {
       if (topFiveProductsSellers[seller] != undefined) {
-        topListProd.push(<div className="topSeller">
+        topListProd.push(<div key={seller+"a"} className="topSeller">
           {topFiveProductsSellers[seller].productSold}{"  "}{topFiveProductsSellers[seller].first_name}{" "}{topFiveProductsSellers[seller].last_name}
         </div>)
       }
@@ -1038,6 +1045,47 @@ class Home extends React.Component {
     })
 
   }
+
+  createOtherStoreData() {
+    console.log("hejjdjwsdsjjk")
+    const storeRev = [];
+    const storeRevName = [];
+    var keys = Math.floor(Math.random()*1000000);
+    for (const [index, value] of this.state.monthlyList.entries()) {
+      storeRev.push(<div className="top1-score" key={keys+index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" "  duration={5} suffix=" SEK" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.monthlyListStore.entries()) {
+      var keys = Math.floor(Math.random()*100000);
+      storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
+    }
+    const storeRevComp = [];
+    const storeRevCompName = [];
+    for (const [index, value] of this.state.monthlyCompList.entries()) {
+      storeRevComp.push(<div key={keys*3+index}  className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" duration={5} suffix=" %" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.monthlyCompListStore.entries()) {
+      storeRevCompName.push(<div key={keys*4+index} style={{ gridRow: index + 2 }}  className="top1">{value}</div>)
+    }
+
+    const storeProdOfMo = [];
+    const storeProdOfMoName = [];
+    for (const [index, value] of this.state.productMonthly.entries()) {
+      storeProdOfMo.push(<div className="top1-score" key={keys*5+index}  style={{ gridRow: index + 2 }}><CountUp className="kong"duration={5} suffix=" products" end={value} /></div>)
+    }
+    for (const [index, value] of this.state.productMonthlyStore.entries()) {
+      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
+    }
+    this.setState({
+    storeRevState: storeRev,
+    storeRevNameState: storeRevName,
+    storeRevCompState: storeRevComp,
+    storeRevCompNameState: storeRevCompName,
+    storeProdOfMoState: storeProdOfMo,
+    storeProdOfMoNameStete: storeProdOfMoName
+    })
+
+  }
+  
 
   componentDidMount = async () => {
 
@@ -1065,7 +1113,7 @@ class Home extends React.Component {
         productMonthlyStore: theTopListStore3,
         productMonthlyName: prodMon
       });
-
+      this.createOtherStoreData();
       const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
       var currentMonthDepSales = depMonthSales[0][this.state.currentDate[0].month - 1]
 
@@ -1081,33 +1129,33 @@ class Home extends React.Component {
 
 
   render() {
-    const storeRev = [];
-    const storeRevName = [];
-    var keys = Math.floor(Math.random()*1000000);
-    for (const [index, value] of this.state.monthlyList.entries()) {
-      storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
-    }
-    for (const [index, value] of this.state.monthlyListStore.entries()) {
-      var keys = Math.floor(Math.random()*100000);
-      storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
-    }
-    const storeRevComp = [];
-    const storeRevCompName = [];
-    for (const [index, value] of this.state.monthlyCompList.entries()) {
-      storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
-    }
-    for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-      storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
-    }
+    // const storeRev = [];
+    // const storeRevName = [];
+    // var keys = Math.floor(Math.random()*1000000);
+    // for (const [index, value] of this.state.monthlyList.entries()) {
+    //   storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
+    // }
+    // for (const [index, value] of this.state.monthlyListStore.entries()) {
+    //   var keys = Math.floor(Math.random()*100000);
+    //   storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
+    // }
+    // const storeRevComp = [];
+    // const storeRevCompName = [];
+    // for (const [index, value] of this.state.monthlyCompList.entries()) {
+    //   storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
+    // }
+    // for (const [index, value] of this.state.monthlyCompListStore.entries()) {
+    //   storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
+    // }
 
-    const storeProdOfMo = [];
-    const storeProdOfMoName = [];
-    for (const [index, value] of this.state.productMonthly.entries()) {
-      storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
-    }
-    for (const [index, value] of this.state.productMonthlyStore.entries()) {
-      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
-    }
+    // const storeProdOfMo = [];
+    // const storeProdOfMoName = [];
+    // for (const [index, value] of this.state.productMonthly.entries()) {
+    //   storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
+    // }
+    // for (const [index, value] of this.state.productMonthlyStore.entries()) {
+    //   storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
+    // }
     return (
       <div className="home">
         <div className="container-fluid h-100">
@@ -1263,18 +1311,18 @@ class Home extends React.Component {
                 <div className="dep-container other-store">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store: This Month</div>
-                    {storeRevName}
-                    {storeRev}
+                    {this.state.storeRevNameState}
+                    {this.state.storeRevState}
                   </div>
                   <div className="store-window window-4">
                     <div className="headline">Most Improved Store: This Month</div>
-                    {storeRevComp}
-                    {storeRevCompName}
+                    {this.state.storeRevCompState}
+                    {this.state.storeRevCompNameState}
                   </div>
                   <div className="store-window window-5">
                     <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
-                    {storeProdOfMo}
-                    {storeProdOfMoName}
+                    {this.state.storeProdOfMoState}
+                    {this.state.storeProdOfMoNameState}
                   </div>
                 </div>
               </div>
