@@ -10,8 +10,8 @@ async function getUsers(username) {
   
 
       var token = (cookies.get('jwt')).key;
-      //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
-      var fetchingFrom = `http://192.168.0.111:61339/getUsers?store=${1}&username=${username}&token=${token}`
+      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
+     // var fetchingFrom = `http://192.168.0.111:61339/getUsers?store=${1}&username=${username}&token=${token}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];
@@ -24,8 +24,8 @@ async function getUsers(username) {
   
 
   var token = (cookies.get('jwt')).key;
- // var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPassword?username=${username}&password=${password}&token=${token}`
-  var fetchingFrom = `http://192.168.0.111:61339/updateUserPassword?username=${username}&password=${password}&token=${token}`
+  var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPassword?username=${username}&password=${password}&token=${token}`
+ // var fetchingFrom = `http://192.168.0.111:61339/updateUserPassword?username=${username}&password=${password}&token=${token}`
 
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
@@ -38,8 +38,8 @@ async function getUsers(username) {
     console.log("hola");
     var token = (cookies.get('jwt')).key;
 
-    // var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserEmail?username=${username}&email=${email}&token=${token}`
-     var fetchingFrom = `http://192.168.0.111:61339/updateUserEmail?username=${username}&email=${email}&token=${token}`
+     var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserEmail?username=${username}&email=${email}&token=${token}`
+    // var fetchingFrom = `http://192.168.0.111:61339/updateUserEmail?username=${username}&email=${email}&token=${token}`
 
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
@@ -52,8 +52,8 @@ async function getUsers(username) {
     console.log("hola");
     var token = (cookies.get('jwt')).key;
 
-   //  var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
-   var fetchingFrom = `http://192.168.0.111:61339/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
+    var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
+   //var fetchingFrom = `http://192.168.0.111:61339/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
 
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
@@ -68,9 +68,9 @@ async function getUsers(username) {
     console.log(filename);
         var token = (cookies.get('jwt')).key;
 
-   //  var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
-     //href: this.state.url
-   var fetchingFrom = `http://192.168.0.111:61339/addProfilePic?filename=${filename}&username=${username}&token=${token}`
+
+  // var fetchingFrom = `http://192.168.0.111:61339/addProfilePic?filename=${filename}&username=${username}&token=${token}`
+   var fetchingFrom = `http://tollo.duckdns.org:61338/addProfilePic?filename=${filename}&username=${username}&token=${token}`
 
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();

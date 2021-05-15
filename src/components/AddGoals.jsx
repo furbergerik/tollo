@@ -9,8 +9,9 @@ async function getUsers(store,department,admin) {
     console.log(department);
     var token = (cookies.get('jwt')).key;
     if(admin===1){
-    //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${1}&department=${department}&token=${token}`
-    var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${store}&department=${department}&token=${token}`
+  
+  //  var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${store}&department=${department}&token=${token}`
+    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&token=${token}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data;
@@ -27,7 +28,8 @@ async function getUser() {
       var token = (cookies.get('jwt')).key;
       var username = (cookies.get('username')).key;
       //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
-      var fetchingFrom = `http://192.168.0.111:61339/getUsers?store=${1}&username=${username}&token=${token}`
+      //var fetchingFrom = `http://192.168.0.111:61339/getUsers?store=${1}&username=${username}&token=${token}`
+      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];
