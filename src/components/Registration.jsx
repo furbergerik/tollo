@@ -31,7 +31,30 @@ class  Registration extends Component {
         //const {user}=this.state.user;
         console.log(this.state.department);
         //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
-     
+        var depId=0;
+        if(this.state.department=="Footwear"){
+          depId=1;
+
+        }else if(this.state.department=="Bikes"){
+          depId=2;
+          
+        }else if(this.state.department=="Sportswear"){
+          depId=3;
+          
+        }
+        else if(this.state.department=="Ice_hockey_equipment"){
+          depId=4;
+          
+        }else if(this.state.department=="Outdoor"){
+          depId=5;
+          
+        }else if(this.state.department=="Supplements"){
+          depId=6;
+          
+        }else{
+          depId=7;
+        }
+        
       // fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}&token=${token}`)
        fetch(`http://192.168.0.111:61339/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}&token=${token}`)  
        .then(response => response.json())
@@ -113,7 +136,7 @@ class  Registration extends Component {
     <option value="Footwear">Footwear</option>
     <option value="Bikes">Bikes</option>
     <option value="Sportswear">Sportswear</option>
-    <option value="Ice_hockey_equipment">Ice_hockey_equipment</option>
+    <option value="Ice_hockey_equipment">Ice hockey equipment</option>
     <option value="Outdoor">Outdoor</option>
     <option value="Supplements">Supplements</option>
     <option value="Racket_sports">Racket_sports</option>
