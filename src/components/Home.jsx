@@ -101,6 +101,16 @@ async function getProductOfTheMonth(month) {
   console.log()
   return finalSet;
 }
+async function bestSellers(store, MemberOrProduct) {
+  var token = (cookies.get('jwt')).key;
+
+  // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/bestSellers?store=${store}&membOrProd='${MemberOrProduct}'&token=${token}`
+  const response = await fetch(fetchingFrom);
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+  return finalSet;
+}
 
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
@@ -320,7 +330,8 @@ class Home extends React.Component {
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
     activePeriod: 'year',
     year: '2018',
-    monthlyCompList: [],
+    monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
+    bestSellers1: bestSellers(0, "members"),
     singleSelect: "false",
     yearSelected: "false",
     selectedYear: '',
@@ -345,7 +356,8 @@ class Home extends React.Component {
     totalProducts: 0,
     totalMemberships: 0,
     pruductMonthly: [],
-    pruductMonthlyStore: []
+    pruductMonthlyStore: [],
+
   }
 
   // ---------------From DropDown---------------------
@@ -966,11 +978,18 @@ class Home extends React.Component {
       await this.initUserSales()
       await this.getYears()
 
+      const membershipsSold = await this.bestSellers(this.state.userInfo.store, 'members')
+      console.log(membershipsSold)
+
       const yearList = this.state.yearList
 
       const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(yearList[yearList.length - 1], 12, "totSales", "Total sales", 0);
       const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(yearList[yearList.length - 1], 12, "totSales", "Total sales");
       const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(yearList[yearList.length - 1], 12, "prodSales", "Sales", 6);
+
+
+      const store = 0;
+      const members = "members";
 
       this.setState({
         monthlyList: theTopList1,
