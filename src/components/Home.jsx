@@ -349,8 +349,8 @@ class Home extends React.Component {
     currentMemberships: 0,
     totalProducts: 0,
     totalMemberships: 0,
-    pruductMonthly: [],
-    pruductMonthlyStore: [],
+    productMonthly: [],
+    productMonthlyStore: [],
     topSellerList: [],
     productMonthlyName: "",
   }
