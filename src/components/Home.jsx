@@ -19,7 +19,7 @@ const cookies = new Cookies();
 async function getUserSales(username) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
-// var fetchingFrom = `http://tollo.duckdns.org:61338/getMemberProduct?username='${username}'&token=${token}`
+  // var fetchingFrom = `http://tollo.duckdns.org:61338/getMemberProduct?username='${username}'&token=${token}`
   var fetchingFrom = `http://192.168.0.111:61339/getMemberProduct?username='${username}'&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
@@ -72,7 +72,7 @@ async function getDaylyData(year, month, dataCategory, dataType, ID, storeNr) {
 async function getStoreData(dataCategory, ID, storeNr) {
   if (ID == 0) {
     var token = (cookies.get('jwt')).key;
-  //  var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
+    //  var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
     var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
@@ -82,7 +82,7 @@ async function getStoreData(dataCategory, ID, storeNr) {
 
   else {
     var token = (cookies.get('jwt')).key;
-   // var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
+    // var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
     var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
@@ -93,7 +93,7 @@ async function getStoreData(dataCategory, ID, storeNr) {
 
 async function getProductOfTheMonth(month) {
   var token = (cookies.get('jwt')).key;
- // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
+  // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
   var fetchingFrom = `http://192.168.0.111:61339/store1v2/productMonth?month=${month}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
@@ -101,18 +101,7 @@ async function getProductOfTheMonth(month) {
   console.log()
   return finalSet;
 }
-async function bestSellers(store,MemberOrProduct) {
-  var token = (cookies.get('jwt')).key;
 
- // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
-  var fetchingFrom = `http://192.168.0.111:61339/bestSellers?store=${store}&membOrProd='${MemberOrProduct}'&token=${token}`
-  const response = await fetch(fetchingFrom);
-  const setOfData = await response.json();
-  const finalSet = setOfData.data;
-  console.log("hej");
-  console.log(finalSet);
-  return finalSet;
-}
 
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
@@ -171,10 +160,10 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
   console.log(labelYear)
   return { labelYear, listYear }
 }
-async function getProductOfTheMonthName(year, month, storeNr){
+async function getProductOfTheMonthName(year, month, storeNr) {
   const monthOfProduct = await getProductOfTheMonth(month)
   const productData = await getStoreData("prodSales", "p" + monthOfProduct, storeNr);
-  return productData["y"+year]["m"+month][0]["Title"];
+  return productData["y" + year]["m" + month][0]["Title"];
 }
 
 async function getToplistProductOfTheMonthData(year, month, dataCategory, dataType, ID, storeNr) {
@@ -227,7 +216,6 @@ async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   }
   else {
     const monthOfProduct = await getProductOfTheMonth(0)
-    console.log("product id", monthOfProduct)
     for (var i = 1; i < 6; i++) {
       var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, 1, i)
       monthTot = sumArr(monthTot)
@@ -337,7 +325,7 @@ class Home extends React.Component {
     activePeriod: 'year',
     year: '2018',
     monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
-    bestSellers1:bestSellers(0,"members"),
+    bestSellers1: '',
     singleSelect: "false",
     yearSelected: "false",
     selectedYear: '',
@@ -361,8 +349,9 @@ class Home extends React.Component {
     currentMemberships: 0,
     totalProducts: 0,
     totalMemberships: 0,
-    productMonthly: [],
-    productMonthlyStore: [],
+    pruductMonthly: [],
+    pruductMonthlyStore: [],
+    topSellerList: [],
     productMonthlyName: "",
   }
 
@@ -525,7 +514,7 @@ class Home extends React.Component {
   onSelectWeek = async (year, week) => {
     console.log("Inne i onselectweek")
     var yearFix = 'y' + String(year);
-    var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, 1);
+    var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, this.state.userInfo.store);
 
     var weekDateList = []
     var salesWeekdayList = []
@@ -622,8 +611,7 @@ class Home extends React.Component {
     var year = Number(selectedYear);
     var yearFix = "y" + year;
 
-    const neededData = await getDaylyData(yearFix, monthForFunction, "totSales", "Total sales", false, 1, 1)
-
+    const neededData = await getDaylyData(yearFix, monthForFunction, "totSales", "Total sales", 0, this.state.userInfo.store)
     var totSalesList = [];
     for (var i in neededData) {
       totSalesList.push(neededData[i])
@@ -701,7 +689,7 @@ class Home extends React.Component {
     var yearFix = "y" + year;
 
     console.log(year)
-    const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0, 1)
+    const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0, this.state.userInfo.store)
 
     var totSalesList = [];
     for (var i in neededData) {
@@ -809,7 +797,7 @@ class Home extends React.Component {
     var yearList = []
     var currentYears = this.state.yearList
     for (var i = 0; i < currentYears.length; i++) {
-      console.log(currentYears[i])
+      yearList.push({ 'year': String(currentYears[i]) })
     }
 
     this.setState({
@@ -818,21 +806,19 @@ class Home extends React.Component {
       singleSelect: false,
       showArrow: true,
       activePeriod: 'year',
-      multiOptions: [
-        { 'year': "2018", 'group': 'year' },
-        { 'year': "2019", 'group': 'year' },
-        { 'year': "2020", 'group': 'year' }],
+      multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
     })
   }
   buttonClickMonth() {
 
-    const monthYear = [
-      { 'month': '2018' },
-      { 'month': '2019' },
-      { 'month': '2020' }
-    ]
+    var yearList = []
+    var currentYears = this.state.yearList
+    for (var i = 0; i < currentYears.length; i++) {
+      yearList.push({ 'month': String(currentYears[i]) })
+    }
+
     var initial = this.state.initialDataSet;
     var initDates = this.state.initialDates;
     this.setState({
@@ -840,7 +826,7 @@ class Home extends React.Component {
       dates: initDates,
       activePeriod: 'month',
       singleSelect: "true",
-      multiOptions: monthYear,
+      multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
     })
@@ -849,16 +835,19 @@ class Home extends React.Component {
     console.log("Ett weeeeeeeeeeeeek")
     var initial = this.state.initialDataSet;
     var initDates = this.state.initialDates;
-    const weekYear = [
-      { 'week': '2018' },
-      { 'week': '2019' },
-      { 'week': '2020' }]
+
+    var yearList = []
+    var currentYears = this.state.yearList
+    for (var i = 0; i < currentYears.length; i++) {
+      yearList.push({ 'week': String(currentYears[i]) })
+    }
+
     this.setState({
       activePeriod: 'week',
       dataSets: initial,
       dates: initDates,
       yearSelected: false,
-      multiOptions: weekYear,
+      multiOptions: yearList,
       singleSelect: true
     })
   }
@@ -976,6 +965,53 @@ class Home extends React.Component {
     })
   }
 
+  bestSellers = async (store, MemberOrProduct) => {
+    var token = (cookies.get('jwt')).key;
+
+    // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
+    var fetchingFrom = `http://192.168.0.111:61339/bestSellers?store=${store}&membOrProd='${MemberOrProduct}'&token=${token}`
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+  myStoreTopSellers = async () => {
+
+    const membersSellers = await this.bestSellers(0, 'members')
+    const productsSellers = await this.bestSellers(0, 'products')
+
+    const topFiveMembersSellers = []
+    const topFiveProductsSellers = []
+
+    for (var i = 0; i < 5; i++) {
+      topFiveMembersSellers.push(membersSellers[i])
+    }
+    for (var i = 0; i < 5; i++) {
+      topFiveProductsSellers.push(productsSellers[i])
+    }
+    console.log(topFiveMembersSellers, "top membersellers")
+    console.log(topFiveProductsSellers, "top product sellers")
+
+    this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
+  }
+  createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
+    console.log("hej")
+
+    var topList = []
+    for (var seller in topFiveMembersSellers) {
+      if (topFiveMembersSellers[seller] != undefined) {
+        console.log("hej igen", topFiveMembersSellers[seller])
+        topList.push(<div className="topSeller">
+          {topFiveMembersSellers[seller].members}{"  "}{topFiveMembersSellers[seller].first_name}{" "}{topFiveMembersSellers[seller].last_name}
+        </div>)
+      }
+    }
+    console.log(topList)
+    this.setState({
+      topSellerList: topList
+    })
+
+  }
 
   componentDidMount = async () => {
 
@@ -984,12 +1020,16 @@ class Home extends React.Component {
       await this.initUserSales()
       await this.getYears()
 
-      const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(2020, 3, "totSales", "Total sales", 0);
-      const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(2019, 3, "totSales", "Total sales");
-      const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(2020, 3, "prodSales", "Sales", 6);
-      const store=0;
-      const members="members";
-      const prodMon = await getProductOfTheMonthName(2020, 12, 1)
+      await this.myStoreTopSellers()
+
+
+      const yearList = this.state.yearList
+
+      const [theTopList1, theTopListStore1] = await getTopStoreMonthlyData(yearList[yearList.length - 1], 12, "totSales", "Total sales", 0);
+      const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(yearList[yearList.length - 1], 12, "totSales", "Total sales");
+      const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(yearList[yearList.length - 1], 12, "prodSales", "Sales", 6);
+
+      const prodMon = await getProductOfTheMonthName(yearList[yearList.length - 1], 12, 1)
       this.setState({
         monthlyList: theTopList1,
         monthlyListStore: theTopListStore1,
@@ -1002,7 +1042,6 @@ class Home extends React.Component {
 
       const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
       var currentMonthDepSales = depMonthSales[0][this.state.currentMonth]
-      console.log(currentMonthDepSales)
       this.setState({
         yourDepMonthSales: currentMonthDepSales
       })
@@ -1177,16 +1216,15 @@ class Home extends React.Component {
                     <p className="myStoreTitle topSellers">Top sellers:</p>
 
                     <div className="scrollTopList">
-                      <div className="topSeller">1. Olle Kindvall</div>
+                      {/* <div className="topSeller">1. Olle Kindvall</div>
                       <div className="topSeller">2. Georgios</div>
                       <div className="topSeller">3. Vegge P</div>
                       <div className="topSeller">4. Hugo Sjönneby</div>
-                      <div className="topSeller">5. Georgios</div>
+                      <div className="topSeller">5. Georgios</div> */}
+                      {this.state.topSellerList}
                     </div>
                   </div>
-
                 </div>
-
               </div>
 
 
