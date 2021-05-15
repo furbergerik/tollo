@@ -284,9 +284,8 @@ class MyProfile extends Component {
       <div>            
         <h1>My store and sales info:</h1>
         <div className="row offset-md-1">
-          <div class="col-md-4" className="profile-pic">
-            <span className="spanFix" id="cameraIcon"></span>
-            <span className="spanFix fas fa-camera" >Change Image</span>
+          <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
+           
           </div>
           <div class="col-md-4"><h5>My store statistics</h5>
           <h6>Total store sales last month: {this.state.totSales} SEK</h6>
