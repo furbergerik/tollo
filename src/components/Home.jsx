@@ -26,21 +26,21 @@ async function getUserSales(username) {
   const finalSet = setOfData.data;
   return finalSet;
 }
-async function updateMemberships(username, count) {
+async function updateMemberships(username, count, goal) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
   //var fetchingFrom = `http://tollo.duckdns.org:61338/updateMember?username='${username}'&count=${count}&token=${token}`
-  var fetchingFrom = `http://192.168.0.111:61339/updateMember?username='${username}'&count=${count}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/updateMember?username='${username}'&count=${count}&goal=${goal}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
   return finalSet;
 }
-async function updateProductSales(username, count) {
+async function updateProductSales(username, count, goal) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
   //var fetchingFrom = `http://tollo.duckdns.org:61338/updateProduct?username='${username}'&count=${count}&token=${token}`
-  var fetchingFrom = `http://192.168.0.111:61339/updateProduct?username='${username}'&count=${count}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/updateProduct?username='${username}'&count=${count}&goal=${goal}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
@@ -307,14 +307,12 @@ class Home extends React.Component {
       department: '',
     }],
     yourDepMonthSales: 0,
-    dataSets: [{
-      label: 'Store progress',
-      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderWidth: 1
-    }],
-    dates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+    dataInGraph: false,
+    dataSets: [],
+    dates: [],
     numberOfBars: 0,
+    currentWeekDataSet: [],
+    currentWeekDates: [],
     multiOptions: [
       { 'year': "2018" },
       { 'year': "2019" },
@@ -543,14 +541,28 @@ class Home extends React.Component {
       { 'week': '2019' },
       { 'week': '2020' }]
 
-    if (this.state.dataSets[0].label == 'Store progress') {
+    // for(var year in this.state.yearList){
+    //   weekYears.push
+    // }
+
+    if (this.state.initialRender == true) {
+      this.setState({
+        currentWeekDataSet: [newBar],
+        currentWeekDates: weekDateList,
+        dataSets: [newBar],
+        dates: weekDateList,
+      })
+    }
+
+    if (this.state.dataInGraph == false) {
       console.log("WEEK: Fanns ingen dataSet från början");
       this.setState({
         dataSets: [newBar],
         dates: weekDateList,
         yearSelected: false,
         multiOptions: weekYears,
-        numberOfBars: 1
+        numberOfBars: 1,
+        dataInGraph: true
       })
 
     } else {
@@ -643,7 +655,7 @@ class Home extends React.Component {
       { 'month': '2020' }
     ]
 
-    if (this.state.dataSets[0].label == 'Store progress') {
+    if (this.state.dataInGraph == false) {
       console.log("Fanns ingen dataSet från början");
       this.setState({
         dataSets: [newBar],
@@ -651,7 +663,8 @@ class Home extends React.Component {
         multiOptions: monthYear,
         singleSelect: true,
         yearSelect: false,
-        numberOfBars: 1
+        numberOfBars: 1,
+        dataInGraph: true
       })
     } else {
       //---- Create updated bar of months
@@ -707,12 +720,13 @@ class Home extends React.Component {
     }
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
 
-    if (this.state.dataSets[0].label == 'Store progress') {
+    if (this.state.dataInGraph == false) {
       console.log("Fanns ingen dataSet från början");
       this.setState({
         dataSets: [newBar],
         dates: dates,
-        numberOfBars: 1
+        numberOfBars: 1,
+        dataInGraph: true
       },
         () => {
           console.log("STATE  ", this.state.dataSets)
@@ -819,6 +833,7 @@ class Home extends React.Component {
       multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
+      dataInGraph: false
     })
   }
   buttonClickMonth() {
@@ -839,12 +854,13 @@ class Home extends React.Component {
       multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
+      dataInGraph: false
     })
   }
   buttonClickWeek() {
     console.log("Ett weeeeeeeeeeeeek")
-    var initial = this.state.initialDataSet;
-    var initDates = this.state.initialDates;
+    var initial = this.state.currentWeekDataSet;
+    var initDates = this.state.currentWeekDates;
 
     var yearList = []
     var currentYears = this.state.yearList
@@ -852,13 +868,15 @@ class Home extends React.Component {
       yearList.push({ 'week': String(currentYears[i]) })
     }
 
+
     this.setState({
       activePeriod: 'week',
       dataSets: initial,
       dates: initDates,
       yearSelected: false,
       multiOptions: yearList,
-      singleSelect: true
+      singleSelect: true,
+      dataInGraph: false
     })
   }
   buttonClickClear() {
@@ -888,14 +906,14 @@ class Home extends React.Component {
     var totalMemberships = members + newMemberships
     var totalProducts = products + newProducts
 
-    var membershipGoal = this.state.membershipGoal
-    var productGoal = this.state.productGoal
+    var membershipGoal = this.state.userInfo.membersGoal
+    var productGoal = this.state.userInfo.productGoal
 
     var memberPercent = (totalMemberships / membershipGoal) * 100
     var productPercent = (totalProducts / productGoal) * 100
 
-    await updateMemberships(username, totalMemberships)
-    await updateProductSales(username, totalProducts)
+    await updateMemberships(username, totalMemberships, 0)
+    await updateProductSales(username, totalProducts, 0)
 
     this.setState({
       totalProducts: totalProducts,
@@ -977,10 +995,21 @@ class Home extends React.Component {
     const setOfData = await response.json();
     const finalSet = setOfData.data;
 
+    console.log("USER INFO: ", finalSet)
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
 
-    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath }
+    var userInfoArray = {
+      username: finalSet[0].username,
+      firstName: finalSet[0].first_name,
+      lastName: finalSet[0].last_name,
+      department: departmentFix,
+      depID: finalSet[0].depId,
+      store: finalSet[0].store,
+      profilePath: finalSet[0].profilePath,
+      productGoal: finalSet[0].productGoal,
+      membersGoal: finalSet[0].membersGoal
+    }
 
     this.setState({
       userInfo: userInfoArray
@@ -1037,12 +1066,14 @@ class Home extends React.Component {
 
   }
 
-  // setInitDataSet = async () => {
+  setInitDataSet = async () => {
 
-  //   const initData = await getWeeklyDaylyData("y" + this.state.currentDate[0].year, this.state.currentDate[0].week, "totSales", "Total sales", 0, this.state.userInfo.store)
-  //   console.log("this week data to print in graaafff: ", initData)
+    this.setState({
+      yearSelected: true
+    })
 
-  // }
+    await this.onSelectWeek(this.state.currentDate[0].year, this.state.currentDate[0].week)
+  }
   createOtherStoreData() {
     console.log("hejjdjwsdsjjk")
     const storeRev = [];
@@ -1092,7 +1123,7 @@ class Home extends React.Component {
       await this.getYears()
       await this.getCurrentDate()
       await this.myStoreTopSellers()
-      // await this.setInitDataSet() Nice att fixa sen, men kmr ta en stund!!
+      await this.setInitDataSet()
 
 
       const yearList = this.state.yearList
@@ -1112,7 +1143,7 @@ class Home extends React.Component {
         productMonthlyName: prodMon
       });
       this.createOtherStoreData();
-      const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
+      const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, "d" + this.state.userInfo.depID, this.state.userInfo.store)
       var currentMonthDepSales = depMonthSales[0][this.state.currentDate[0].month - 1]
 
       this.setState({

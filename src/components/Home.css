@@ -164,6 +164,7 @@ position: relative;
 .buttonGroupContainer{
     text-align: -webkit-center;
     max-height: 3vh;
+    margin-top: 1vh;
 }
 .btn-group{
     justify-content: space-evenly;
