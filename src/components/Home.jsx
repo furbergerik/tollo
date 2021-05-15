@@ -101,16 +101,7 @@ async function getProductOfTheMonth(month) {
   console.log()
   return finalSet;
 }
-async function bestSellers(store, MemberOrProduct) {
-  var token = (cookies.get('jwt')).key;
 
-  // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
-  var fetchingFrom = `http://192.168.0.111:61339/bestSellers?store=${store}&membOrProd='${MemberOrProduct}'&token=${token}`
-  const response = await fetch(fetchingFrom);
-  const setOfData = await response.json();
-  const finalSet = setOfData.data;
-  return finalSet;
-}
 
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
@@ -174,7 +165,6 @@ async function getToplistProductOfTheMonthData(year, month, dataCategory, dataTy
   const productData = await getStoreData(dataCategory, "p" + ID, storeNr);
   var monthData = productData[year][month];
   var listDay = [];
-  console.log(monthData, "monthData PRODUCTOFTHEMONTH")
   for (var i in monthData) {
     listDay.push(monthData[i][dataType]);
   }
@@ -221,7 +211,6 @@ async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   }
   else {
     const monthOfProduct = await getProductOfTheMonth(0)
-    console.log("product id", monthOfProduct)
     for (var i = 1; i < 6; i++) {
       var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, 1, i)
       monthTot = sumArr(monthTot)
@@ -331,7 +320,7 @@ class Home extends React.Component {
     activePeriod: 'year',
     year: '2018',
     monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
-    bestSellers1: bestSellers(0, "members"),
+    bestSellers1: '',
     singleSelect: "false",
     yearSelected: "false",
     selectedYear: '',
@@ -357,7 +346,7 @@ class Home extends React.Component {
     totalMemberships: 0,
     pruductMonthly: [],
     pruductMonthlyStore: [],
-
+    topSellerList: []
   }
 
   // ---------------From DropDown---------------------
@@ -970,6 +959,53 @@ class Home extends React.Component {
     })
   }
 
+  bestSellers = async (store, MemberOrProduct) => {
+    var token = (cookies.get('jwt')).key;
+
+    // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
+    var fetchingFrom = `http://192.168.0.111:61339/bestSellers?store=${store}&membOrProd='${MemberOrProduct}'&token=${token}`
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+  myStoreTopSellers = async () => {
+
+    const membersSellers = await this.bestSellers(0, 'members')
+    const productsSellers = await this.bestSellers(0, 'products')
+
+    const topFiveMembersSellers = []
+    const topFiveProductsSellers = []
+
+    for (var i = 0; i < 5; i++) {
+      topFiveMembersSellers.push(membersSellers[i])
+    }
+    for (var i = 0; i < 5; i++) {
+      topFiveProductsSellers.push(productsSellers[i])
+    }
+    console.log(topFiveMembersSellers, "top membersellers")
+    console.log(topFiveProductsSellers, "top product sellers")
+
+    this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
+  }
+  createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
+    console.log("hej")
+
+    var topList = []
+    for (var seller in topFiveMembersSellers) {
+      if (topFiveMembersSellers[seller] != undefined) {
+        console.log("hej igen", topFiveMembersSellers[seller])
+        topList.push(<div className="topSeller">
+          {topFiveMembersSellers[seller].members}{"  "}{topFiveMembersSellers[seller].first_name}{" "}{topFiveMembersSellers[seller].last_name}
+        </div>)
+      }
+    }
+    console.log(topList)
+    this.setState({
+      topSellerList: topList
+    })
+
+  }
 
   componentDidMount = async () => {
 
@@ -978,8 +1014,8 @@ class Home extends React.Component {
       await this.initUserSales()
       await this.getYears()
 
-      const membershipsSold = await this.bestSellers(this.state.userInfo.store, 'members')
-      console.log(membershipsSold)
+      await this.myStoreTopSellers()
+
 
       const yearList = this.state.yearList
 
@@ -1002,7 +1038,6 @@ class Home extends React.Component {
 
       const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
       var currentMonthDepSales = depMonthSales[0][this.state.currentMonth]
-      console.log(currentMonthDepSales)
       this.setState({
         yourDepMonthSales: currentMonthDepSales
       })
@@ -1175,11 +1210,12 @@ class Home extends React.Component {
                     <p className="myStoreTitle topSellers">Top sellers:</p>
 
                     <div className="scrollTopList">
-                      <div className="topSeller">1. Olle Kindvall</div>
+                      {/* <div className="topSeller">1. Olle Kindvall</div>
                       <div className="topSeller">2. Georgios</div>
                       <div className="topSeller">3. Vegge P</div>
                       <div className="topSeller">4. Hugo Sjönneby</div>
-                      <div className="topSeller">5. Georgios</div>
+                      <div className="topSeller">5. Georgios</div> */}
+                      {this.state.topSellerList}
                     </div>
                   </div>
                 </div>
