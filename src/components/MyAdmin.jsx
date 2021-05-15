@@ -15,7 +15,7 @@ async function getUsers(department) {
   var token = (cookies.get('jwt')).key;
 
   //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${1}&department=${department}&token=${token}`
-  var fetchingFrom = `http://localhost:61339/getUsersAdmin?store=${1}&department=${department}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${1}&department=${department}&token=${token}`
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -116,7 +116,7 @@ class MyAdmin extends Component {
     console.log(this.state.user.username);
     //const {username,password,first_name,last_name,store,admin,phone,email}=req.query; 
     var token = (cookies.get('jwt')).key;
-    fetch(`http://localhost:61339/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}&token=${token}`)
+    fetch(`http://192.168.0.111:61339/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}&token=${token}`)
    // fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.user.username}&password=${this.state.user.password}&first_name=${this.state.user.first_name}&last_name=${this.state.user.last_name}&store=${this.state.user.store}&admin=${this.state.user.admin}&phone=${this.state.user.phone}&email=${this.state.user.email}&token=${token}`)
     .then(response => response.json())
     .then(data => console.log(data))
