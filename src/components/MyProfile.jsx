@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './MyProfile.css';
 import Cookies from 'universal-cookie';
+import UserInformation from './UserInformation';
 //http://tollo.duckdns.org
 //192.168.0.111ä
 const cookies = new Cookies();
@@ -279,6 +280,10 @@ class MyProfile extends Component {
     else if(this.state.tab == "Settings"){
       message = 
       <div>
+         <div className="profileInfo shadow p-3 mb-5 rounded" >
+        {<UserInformation></UserInformation>}
+        </div>
+   
         <h1>Profile Information:</h1>
         <h3>Username:</h3>
         <h3>Name:</h3>
