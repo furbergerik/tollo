@@ -16,7 +16,7 @@ async function getUsers(department) {
       return finalSet;
   
 }
-class  Registration extends Component {
+class  AddGoals extends Component {
     Constructor(){
       this.regUserChangeHandler=this.regUserChangeHandler.bind(this);
     }
@@ -47,4 +47,4 @@ class  Registration extends Component {
   }
   }
   
-  export default Registration;
+  export default AddGoals;
