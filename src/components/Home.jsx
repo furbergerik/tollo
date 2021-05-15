@@ -969,7 +969,7 @@ class Home extends React.Component {
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
 
-    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store }
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store,profilePath:finalSet[0].profilePath }
 
     this.setState({
       userInfo: userInfoArray
@@ -1050,7 +1050,9 @@ class Home extends React.Component {
             <div className="col-xs-12 colGrid col1 col-md-4" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
-                  <img className="rounded-circle person profile-pic" src="https://media-exp1.licdn.com/dms/image/C4D03AQH2N0NbzF-EAg/profile-displayphoto-shrink_200_200/0/1579166871104?e=1622678400&v=beta&t=5yRyUkyY375YmSzmPwkBQnBrf-f5KT3aEgy8r1h91qc" alt="hejhej" ></img>
+                <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
+            
+          </div>
                   <h4>Welcome back {this.state.userInfo.firstName}</h4>
                 </div>
                 <div className="progress-window">
