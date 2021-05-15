@@ -140,7 +140,8 @@ class  userInformation extends Component {
         }else{
             console.log("gick in hit");
         }
-
+        this.setState({user:''});
+        this.callGetUsers();
        // event.target.reset();
     
       }
@@ -150,7 +151,8 @@ class  userInformation extends Component {
           console.log("inne");
           await updatePic(this.state.user.username,this.state.newUrl);
           await this.callGetUsers();
-          window.location.reload();
+          this.setState({user:''});
+        this.callGetUsers();
 
         }
 
@@ -164,6 +166,8 @@ class  userInformation extends Component {
         }else{
             console.log("gick in hit");
         }
+        this.setState({user:''});
+        this.callGetUsers();
 
        // event.target.reset();
     
@@ -177,6 +181,8 @@ class  userInformation extends Component {
         }else{
          
         }
+        this.setState({user:''});
+        this.callGetUsers();
      
 
        // event.target.reset();
