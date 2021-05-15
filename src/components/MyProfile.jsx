@@ -115,6 +115,7 @@ function sumArr(arr) {
 
 class MyProfile extends Component {
   state = {
+    initialRender: true,
     users: [],
     oldPassword: "",
     newPassword: "",
@@ -235,12 +236,17 @@ class MyProfile extends Component {
   }
 
   async componentDidMount() {
+    if (this.state.initialRender == true) {
     this.setState({store: await this.getUserInfo()});
     this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, this.state.userInfo.store)});
     this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, this.state.userInfo.store)});
     this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, this.state.userInfo.store)});
     console.log("Är det admin?");
     console.log(this.state.userInfo.admin);
+    this.setState({
+      initialRender: false //Ändras till false så kör bara en gång
+    })
+    }
   }
 
   addUser = _ => {
@@ -284,15 +290,15 @@ class MyProfile extends Component {
       <div>            
         <h1>My store and sales info:</h1>
         <div className="row offset-md-1">
-          <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
+          <div className="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
            
           </div>
-          <div class="col-md-4"><h5>My store statistics</h5>
+          <div className="col-md-4"><h5>My store statistics</h5>
           <h6>Total store sales last month: {this.state.totSales} SEK</h6>
           <h6>Total store profit last month: {this.state.totProfit} SEK</h6>
           <h6>Profit margin last month: {this.state.margin}%</h6>
           </div>
-          <div class="col-md-4"><h5>My personal info</h5></div>
+          <div className="col-md-4"><h5>My personal info</h5></div>
         </div>
       </div>
     }
@@ -342,15 +348,15 @@ class MyProfile extends Component {
 
       
       <div className="App">
-        <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
-          <label class="btn btn-secondary active btn-lg">
+        <div className="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+          <label className="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
           </label>
-          <label class="btn btn-secondary btn-lg">
+          <label className="btn btn-secondary btn-lg">
             <input type="radio" name="options" id="option2" autoComplete="off" onClick={this.selectedButton.bind(this, "Goals")}></input>
           My goals  
           </label>
-          <label class="btn btn-secondary btn-lg ">
+          <label className="btn btn-secondary btn-lg ">
             <input type="radio" name="options" id="option3" autoComplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input> Profile settings
           </label>
         </div>
