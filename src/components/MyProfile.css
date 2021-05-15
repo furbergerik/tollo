@@ -1,10 +1,6 @@
  /* colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'] */
 
-#rightBar{
-    background-color: #F94144;
-  
 
-}
 #topLeftBar{
     background-color: #F8961E;
 
@@ -20,9 +16,29 @@
  
 
 }
-
+.grid-stuff{
+    background-color: #ff9395;
+    height: -webkit-fill-available;
+    text-align: initial;
+    box-shadow: 0 0 3px #191919;
+    padding: 20px;
+    border-radius: 10px;
+    /* margin-top: 15px; */
+    /* margin: 15px; */
+    /* margin-bottom: 15px; */
+    color: white;
+    font-family: 'Avenir Medium';
+    margin: auto;
+    margin-top: 20px;
+}
 .container-my-profile{
-    background-color:darkblue ;
+    text-align: initial;
+    box-shadow: 0 0 3px #191919;
+    background-color: #F94144;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Avenir Medium';
 }
 .test p{
     display:inline;
