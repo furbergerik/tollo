@@ -160,6 +160,11 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
   console.log(labelYear)
   return { labelYear, listYear }
 }
+async function getProductOfTheMonthName(year, month, storeNr) {
+  const monthOfProduct = await getProductOfTheMonth(month)
+  const productData = await getStoreData("prodSales", "p" + monthOfProduct, storeNr);
+  return productData["y" + year]["m" + month][0]["Title"];
+}
 
 async function getToplistProductOfTheMonthData(year, month, dataCategory, dataType, ID, storeNr) {
   const productData = await getStoreData(dataCategory, "p" + ID, storeNr);
@@ -346,7 +351,8 @@ class Home extends React.Component {
     totalMemberships: 0,
     pruductMonthly: [],
     pruductMonthlyStore: [],
-    topSellerList: []
+    topSellerList: [],
+    productMonthlyName: "",
   }
 
   // ---------------From DropDown---------------------
@@ -1023,17 +1029,15 @@ class Home extends React.Component {
       const [theTopList2, theTopListStore2] = await getTopStoreMonthlyCompData(yearList[yearList.length - 1], 12, "totSales", "Total sales");
       const [theTopList3, theTopListStore3] = await getTopStoreMonthlyData(yearList[yearList.length - 1], 12, "prodSales", "Sales", 6);
 
-
-      const store = 0;
-      const members = "members";
-
+      const prodMon = await getProductOfTheMonthName(yearList[yearList.length - 1], 12, 1)
       this.setState({
         monthlyList: theTopList1,
         monthlyListStore: theTopListStore1,
         monthlyCompList: theTopList2,
         monthlyCompListStore: theTopListStore2,
-        pruductMonthly: theTopList3,
-        pruductMonthlyStore: theTopListStore3
+        productMonthly: theTopList3,
+        productMonthlyStore: theTopListStore3,
+        productMonthlyName: prodMon
       });
 
       const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
@@ -1070,10 +1074,10 @@ class Home extends React.Component {
 
     const storeProdOfMo = [];
     const storeProdOfMoName = [];
-    for (const [index, value] of this.state.pruductMonthly.entries()) {
+    for (const [index, value] of this.state.productMonthly.entries()) {
       storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={index} duration={5} suffix=" products" end={value} /></div>)
     }
-    for (const [index, value] of this.state.pruductMonthlyStore.entries()) {
+    for (const [index, value] of this.state.productMonthlyStore.entries()) {
       storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
     }
 
@@ -1239,7 +1243,7 @@ class Home extends React.Component {
                     {storeRevCompName}
                   </div>
                   <div className="store-window window-5">
-                    <div className="headline">Product Of The Month</div>
+                    <div className="headline">Product Of The Month {this.state.productMonthlyName}</div>
                     {storeProdOfMo}
                     {storeProdOfMoName}
                   </div>
