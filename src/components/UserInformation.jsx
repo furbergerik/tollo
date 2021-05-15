@@ -10,8 +10,8 @@ async function getUsers(username) {
   
 
       var token = (cookies.get('jwt')).key;
-      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
-     // var fetchingFrom = `http://192.168.0.111:61339/getUsers?store=${1}&username=${username}&token=${token}`
+      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${username}&token=${token}`
+     // var fetchingFrom = `http://192.168.0.111:61339/getUsers?username=${username}&token=${token}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];

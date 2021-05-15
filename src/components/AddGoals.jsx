@@ -20,7 +20,7 @@ async function getUsers(store,department,admin) {
         return "no";
     }
 }
-async function getUser() {
+async function getUser(store) {
    
     console.log("hola");
   
@@ -29,7 +29,7 @@ async function getUser() {
       var username = (cookies.get('username')).key;
       //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
       //var fetchingFrom = `http://192.168.0.111:61339/getUsers?store=${1}&username=${username}&token=${token}`
-      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
+      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${store}&username=${username}&token=${token}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];
@@ -57,7 +57,8 @@ class  AddGoals extends Component {
      }
      callGetUsers=async()=>{
         console.log("här");
-        const finalSet=await getUsers();
+       
+        const finalSet=await getUsers(this.state.user.store,this.state.user.department,this.state.user.admin);
         console.log(finalSet);
         this.setState({user:finalSet});
       }
