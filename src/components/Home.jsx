@@ -353,6 +353,7 @@ class Home extends React.Component {
     topSellerListMem: [],
     topSellerListProd: [],
     productMonthlyName: "",
+    otherStoreRendered: false,
   }
 
   // ---------------From DropDown---------------------
@@ -1082,31 +1083,31 @@ class Home extends React.Component {
   render() {
     const storeRev = [];
     const storeRevName = [];
+    var keys = Math.floor(Math.random()*1000000);
     for (const [index, value] of this.state.monthlyList.entries()) {
-      storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={index} duration={5} suffix=" SEK" end={value} /></div>)
+      storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
     }
     for (const [index, value] of this.state.monthlyListStore.entries()) {
-      storeRevName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
+      var keys = Math.floor(Math.random()*100000);
+      storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
     }
-
     const storeRevComp = [];
     const storeRevCompName = [];
     for (const [index, value] of this.state.monthlyCompList.entries()) {
-      storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={index} duration={5} suffix=" %" end={value} /></div>)
+      storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
     }
     for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-      storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
+      storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
     }
 
     const storeProdOfMo = [];
     const storeProdOfMoName = [];
     for (const [index, value] of this.state.productMonthly.entries()) {
-      storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={index} duration={5} suffix=" products" end={value} /></div>)
+      storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
     }
     for (const [index, value] of this.state.productMonthlyStore.entries()) {
-      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={index} className="top1">{value}</div>)
+      storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
     }
-
     return (
       <div className="home">
         <div className="container-fluid h-100">
@@ -1235,7 +1236,7 @@ class Home extends React.Component {
                           </div>
                         </div>
                         <div className="borderTop">Product of the Month:</div>
-                        <div className="productOfMonth textRight borderTop">Air Force 1 - Nike</div>
+                        <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
                       </div>
                     </div>
 
@@ -1271,7 +1272,7 @@ class Home extends React.Component {
                     {storeRevCompName}
                   </div>
                   <div className="store-window window-5">
-                    <div className="headline">Product Of The Month {this.state.productMonthlyName}</div>
+                    <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
                     {storeProdOfMo}
                     {storeProdOfMoName}
                   </div>

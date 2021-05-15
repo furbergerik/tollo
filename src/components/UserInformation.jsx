@@ -150,6 +150,7 @@ class  userInformation extends Component {
           console.log("inne");
           await updatePic(this.state.user.username,this.state.newUrl);
           await this.callGetUsers();
+          window.location.reload();
 
         }
 

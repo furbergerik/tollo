@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './MyProfile.css';
 import Cookies from 'universal-cookie';
+import UserInformation from './UserInformation';
 //http://tollo.duckdns.org
 //192.168.0.111ä
 const cookies = new Cookies();
@@ -279,6 +280,10 @@ class MyProfile extends Component {
     else if(this.state.tab == "Settings"){
       message = 
       <div>
+         <div className="profileInfo shadow p-3 mb-5 rounded" >
+        {<UserInformation></UserInformation>}
+        </div>
+   
         <h1>Profile Information:</h1>
         <h3>Username:</h3>
         <h3>Name:</h3>
@@ -306,7 +311,7 @@ class MyProfile extends Component {
 
       
       <div className="App">
-        <div class="btn-group btn-group-toggle mt-2 col-md-6 container-my-profile" data-toggle="buttons">
+        <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
           <label class="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
           </label>
@@ -321,11 +326,11 @@ class MyProfile extends Component {
 
 
         <div className="row">
-
-          <div className="mt-2 col-md-10 offset-md-1 container-my-profile" id="rightBar">
+          <div className="grid-stuff">
+          <div className="container-my-profile">
             {message}
           </div>
-
+          </div>
         </div>
         
 
