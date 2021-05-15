@@ -19,7 +19,8 @@ const cookies = new Cookies();
 async function getUserSales(username) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
-  var fetchingFrom = `http://tollo.duckdns.org:61338/getMemberProduct?username='${username}'&token=${token}`
+// var fetchingFrom = `http://tollo.duckdns.org:61338/getMemberProduct?username='${username}'&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/getMemberProduct?username='${username}'&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
@@ -28,7 +29,8 @@ async function getUserSales(username) {
 async function updateMemberships(username, count) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
-  var fetchingFrom = `http://tollo.duckdns.org:61338/updateMember?username='${username}'&count=${count}&token=${token}`
+  //var fetchingFrom = `http://tollo.duckdns.org:61338/updateMember?username='${username}'&count=${count}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/updateMember?username='${username}'&count=${count}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
@@ -37,7 +39,8 @@ async function updateMemberships(username, count) {
 async function updateProductSales(username, count) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
-  var fetchingFrom = `http://tollo.duckdns.org:61338/updateProduct?username='${username}'&count=${count}&token=${token}`
+  //var fetchingFrom = `http://tollo.duckdns.org:61338/updateProduct?username='${username}'&count=${count}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/updateProduct?username='${username}'&count=${count}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
@@ -69,7 +72,8 @@ async function getDaylyData(year, month, dataCategory, dataType, ID, storeNr) {
 async function getStoreData(dataCategory, ID, storeNr) {
   if (ID == 0) {
     var token = (cookies.get('jwt')).key;
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
+  //  var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
+    var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -78,7 +82,8 @@ async function getStoreData(dataCategory, ID, storeNr) {
 
   else {
     var token = (cookies.get('jwt')).key;
-    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
+   // var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
+    var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -88,7 +93,8 @@ async function getStoreData(dataCategory, ID, storeNr) {
 
 async function getProductOfTheMonth(month) {
   var token = (cookies.get('jwt')).key;
-  var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
+ // var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/productMonth?month=${month}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/store1v2/productMonth?month=${month}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
@@ -922,7 +928,8 @@ class Home extends React.Component {
 
   getYears = async () => {
     var token = (cookies.get('jwt')).key;
-    var yearFetch = `http://tollo.duckdns.org:61338/getYear?token=${token}`
+    //var yearFetch = `http://tollo.duckdns.org:61338/getYear?token=${token}`
+    var yearFetch = `http://192.168.0.111:61339/getYear?token=${token}`
     const yearResponse = await fetch(yearFetch);
     const yearSetOfData = await yearResponse.json();
     const yearSet = yearSetOfData.data;
@@ -933,7 +940,8 @@ class Home extends React.Component {
   getUserInfo = async () => {
     var x = (cookies.get('username')).key;
     var token = (cookies.get('jwt')).key;
-    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
+    //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
+    var fetchingFrom = `http://192.168.0.111:61339/getUsers?username=${x}&token=${token}`;
 
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
