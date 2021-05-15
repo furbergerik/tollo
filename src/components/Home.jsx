@@ -298,8 +298,7 @@ class Home extends React.Component {
 
   state = {
     initialRender: true,
-    currentMonth: 11,
-    currentDate: 31,
+    currentdate: [],
     userInfo: [{
       username: 'b',
       firstName: '',
@@ -351,7 +350,8 @@ class Home extends React.Component {
     totalMemberships: 0,
     productMonthly: [],
     productMonthlyStore: [],
-    topSellerList: [],
+    topSellerListMem: [],
+    topSellerListProd: [],
     productMonthlyName: "",
   }
 
@@ -488,7 +488,8 @@ class Home extends React.Component {
         { 'week': "week " + 49, 'id': 49 },
         { 'week': "week " + 50, 'id': 50 },
         { 'week': "week " + 51, 'id': 51 },
-        { 'week': "week " + 52, 'id': 52 }]
+        { 'week': "week " + 52, 'id': 52 },
+        { 'week': "week " + 53, 'id': 53 }]
 
       if (yearSelect == false) {
         console.log("bara ett år")
@@ -515,6 +516,7 @@ class Home extends React.Component {
     console.log("Inne i onselectweek")
     var yearFix = 'y' + String(year);
     var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, this.state.userInfo.store);
+    console.log("weeklist: ", weekList)
 
     var weekDateList = []
     var salesWeekdayList = []
@@ -895,6 +897,7 @@ class Home extends React.Component {
       memberPercent: memberPercent,
       productPercent: productPercent
     })
+    this.myStoreTopSellers()
   }
   pOfMonth(valueAsNumber, valueAsString, input) {
     console.log("product sold!")
@@ -945,6 +948,25 @@ class Home extends React.Component {
       yearList: yearSet
     })
   }
+  getCurrentDate = async () => {
+    var token = (cookies.get('jwt')).key;
+    //var yearFetch = `http://tollo.duckdns.org:61338/getYear?token=${token}`
+    var dateFetch = `http://192.168.0.111:61339/getDate?token=${token}`
+    const dateResponse = await fetch(dateFetch);
+    const dateSetOfData = await dateResponse.json();
+    const dateSet = dateSetOfData.data;
+    console.log("DATE: ", dateSet)
+
+    var dateList = []
+
+    dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
+    console.log(dateList)
+
+
+    this.setState({
+      currentDate: dateList
+    })
+  }
   getUserInfo = async () => {
     var x = (cookies.get('username')).key;
     var token = (cookies.get('jwt')).key;
@@ -958,7 +980,7 @@ class Home extends React.Component {
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
 
-    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store,profilePath:finalSet[0].profilePath }
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath }
 
     this.setState({
       userInfo: userInfoArray
@@ -989,26 +1011,29 @@ class Home extends React.Component {
     for (var i = 0; i < 5; i++) {
       topFiveProductsSellers.push(productsSellers[i])
     }
-    console.log(topFiveMembersSellers, "top membersellers")
-    console.log(topFiveProductsSellers, "top product sellers")
-
     this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
   }
   createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
-    console.log("hej")
-
-    var topList = []
+    console.log(topFiveProductsSellers)
+    var topListMem = []
     for (var seller in topFiveMembersSellers) {
       if (topFiveMembersSellers[seller] != undefined) {
-        console.log("hej igen", topFiveMembersSellers[seller])
-        topList.push(<div className="topSeller">
+        topListMem.push(<div className="topSeller">
           {topFiveMembersSellers[seller].members}{"  "}{topFiveMembersSellers[seller].first_name}{" "}{topFiveMembersSellers[seller].last_name}
         </div>)
       }
     }
-    console.log(topList)
+    var topListProd = []
+    for (var seller in topFiveProductsSellers) {
+      if (topFiveProductsSellers[seller] != undefined) {
+        topListProd.push(<div className="topSeller">
+          {topFiveProductsSellers[seller].productSold}{"  "}{topFiveProductsSellers[seller].first_name}{" "}{topFiveProductsSellers[seller].last_name}
+        </div>)
+      }
+    }
     this.setState({
-      topSellerList: topList
+      topSellerListMem: topListMem,
+      topSellerListProd: topListProd
     })
 
   }
@@ -1019,7 +1044,7 @@ class Home extends React.Component {
       await this.getUserInfo()
       await this.initUserSales()
       await this.getYears()
-
+      await this.getCurrentDate()
       await this.myStoreTopSellers()
 
 
@@ -1041,7 +1066,8 @@ class Home extends React.Component {
       });
 
       const depMonthSales = await getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], 'depSales', 'Sales', false, 'd1', this.state.userInfo.store)
-      var currentMonthDepSales = depMonthSales[0][this.state.currentMonth]
+      var currentMonthDepSales = depMonthSales[0][this.state.currentDate[0].month - 1]
+
       this.setState({
         yourDepMonthSales: currentMonthDepSales
       })
@@ -1089,9 +1115,9 @@ class Home extends React.Component {
             <div className="col-xs-12 colGrid col1 col-md-4" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
-                <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
-            
-          </div>
+                  <div class="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
+
+                  </div>
                   <h4>Welcome back {this.state.userInfo.firstName}</h4>
                 </div>
                 <div className="progress-window">
@@ -1213,7 +1239,7 @@ class Home extends React.Component {
                       </div>
                     </div>
 
-                    <p className="myStoreTitle topSellers">Top sellers:</p>
+                    <p className="myStoreTitle topSellers">Top sellers: Memberships</p>
 
                     <div className="scrollTopList">
                       {/* <div className="topSeller">1. Olle Kindvall</div>
@@ -1221,7 +1247,7 @@ class Home extends React.Component {
                       <div className="topSeller">3. Vegge P</div>
                       <div className="topSeller">4. Hugo Sjönneby</div>
                       <div className="topSeller">5. Georgios</div> */}
-                      {this.state.topSellerList}
+                      {this.state.topSellerListMem}
                     </div>
                   </div>
                 </div>
