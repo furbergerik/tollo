@@ -1166,7 +1166,7 @@ class Home extends React.Component {
             <div className="col-xs-12 colGrid col1 col-md-4" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
-                  <div class="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
+                  <div className="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
 
                   </div>
                   <h4>Welcome back {this.state.userInfo.firstName}</h4>

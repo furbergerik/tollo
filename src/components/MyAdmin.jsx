@@ -231,16 +231,16 @@ class MyAdmin extends Component {
     
     <div className="App">
     
-    <div class="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
-          <label class="btn btn-secondary active btn-lg">
-            <input type="radio" name="options" id="option1" autocomplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
+    <div className="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
+          <label className="btn btn-secondary active btn-lg">
+            <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
           </label>
           <label class="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autocomplete="off" onClick={this.selectedButton.bind(this, "Department")}></input>Add Employee Goals
           </label>
           
-          <label class="btn btn-secondary btn-lg ">
-            <input type="radio" name="options" id="option3" autocomplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input>
+          <label className="btn btn-secondary btn-lg ">
+            <input type="radio" name="options" id="option3" autoComplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input>
             Settings and Registration
           </label>
         </div>

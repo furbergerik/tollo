@@ -77,7 +77,7 @@ class  Registration extends Component {
       <form className="needs-validation"  className="shadow p-3 mb-5 rounded" id="test1"novalidate id="reg-form" onSubmit={this.submitHandler}>
       <h1 className="text-dark" >Registration Form: </h1>
       <div className="form-group " className="test1">
-    <label for="exampleInputUsername">Username:</label>
+    <label htmlFor="exampleInputUsername">Username:</label>
       <input type="text" className="form-control" id="exampleInputUserName" placeholder="Username" required name="username"
         onChange={(this.regUserChangeHandler)}></input>
             <div className="invalid-feedback">
@@ -86,18 +86,18 @@ class  Registration extends Component {
               <div className="valid-feedback">Looks good!</div>
   </div>
       <div className="form-group " className="test1" >
-    <label for="exampleInputEmail1">Email address:</label>
+    <label htmlFor="exampleInputEmail1">Email address:</label>
     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required name="email"
     onChange={(this.regUserChangeHandler)}></input>   
   </div>
  
   <div className="form-group "className="test1">
-    <label for="exampleInputPassword1">Password:</label>
+    <label htmlFor="exampleInputPassword1">Password:</label>
     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" required name="password"
     onChange={(this.regUserChangeHandler)}></input>
 
   </div>
-  <label for="number">Name:</label>
+  <label htmlFor="number">Name:</label>
   <div className="input-group ">
   
   <input type="text" className="form-control" placeholder="First Name" required  name="first_name"
@@ -106,11 +106,11 @@ class  Registration extends Component {
   onChange={(this.regUserChangeHandler)}></input>
 </div>
   <div className="form-group "className="test1">
-    <label for="number">Phone Number:</label>
+    <label htmlFor="number">Phone Number:</label>
     <input type="text" className="form-control" id="exampleInputPassword2" placeholder="0003332244" required name="phone"
     onChange={(this.regUserChangeHandler)}></input>
   </div>
-  <label for="number">Which store do you work at?</label>
+  <label htmlFor="number">Which store do you work at?</label>
   <div className="input-group mb-3 ">
   <div className="input-group-prepend">
     <label className="input-group-text" for="inputGroupSelect01">Store:</label>
