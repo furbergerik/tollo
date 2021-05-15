@@ -24,26 +24,30 @@ async function getUserSales(username) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
+  console.log("test");
+  console.log(finalSet);
   return finalSet;
 }
-async function updateMemberships(username, count) {
+async function updateMemberships(username, count,goal) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
   //var fetchingFrom = `http://tollo.duckdns.org:61338/updateMember?username='${username}'&count=${count}&token=${token}`
-  var fetchingFrom = `http://192.168.0.111:61339/updateMember?username='${username}'&count=${count}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/updateMember?username='${username}'&count=${count}&goal=${goal}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  return finalSet;
+  console.log(finalSet);
+    return finalSet;
 }
-async function updateProductSales(username, count) {
+async function updateProductSales(username, count,goal) {
   var username = String(username)
   var token = (cookies.get('jwt')).key;
   //var fetchingFrom = `http://tollo.duckdns.org:61338/updateProduct?username='${username}'&count=${count}&token=${token}`
-  var fetchingFrom = `http://192.168.0.111:61339/updateProduct?username='${username}'&count=${count}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/updateProduct?username='${username}'&count=${count}&goal=${goal}&token=${token}`
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
+  console.log(finalSet);
   return finalSet;
 }
 
@@ -894,8 +898,8 @@ class Home extends React.Component {
     var memberPercent = (totalMemberships / membershipGoal) * 100
     var productPercent = (totalProducts / productGoal) * 100
 
-    await updateMemberships(username, totalMemberships)
-    await updateProductSales(username, totalProducts)
+    await updateMemberships(username, totalMemberships,0)
+    await updateProductSales(username, totalProducts,0)
 
     this.setState({
       totalProducts: totalProducts,
