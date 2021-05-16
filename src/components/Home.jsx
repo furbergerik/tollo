@@ -984,6 +984,7 @@ class Home extends React.Component {
 
     var dateList = []
     dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
+    console.log("dateList från getCurrentdate: ", dateList)
 
     this.setState({
       currentDate: dateList
@@ -1071,11 +1072,9 @@ class Home extends React.Component {
   }
 
   setInitDataSet = async () => {
-
     this.setState({
       yearSelected: true
     })
-
     await this.onSelectWeek(this.state.currentDate[0].year, this.state.currentDate[0].week)
   }
   createOtherStoreData() {
@@ -1215,8 +1214,6 @@ class Home extends React.Component {
                 <NumericInput className="form-control" onChange={this.pOfMonth.bind(this)} value={this.state.currentProductOfMonthSales} />
                   <button className="submit-button" onClick={this.submitButton}>Submit</button>
                 </div>
-
-
               </div>
             </div>
 
