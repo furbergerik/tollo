@@ -8,8 +8,8 @@ const cookies = new Cookies();
 
 async function login(username, password){
 
- // var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
-var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
+var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+//var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
   cookies.set ("username", {key: response[1]}, {path: '/'});
@@ -19,7 +19,9 @@ var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${usern
 }
 
 class App extends Component {
-
+  constructor(props) {
+    super(props);
+  }
   state={
     users:[],
     user:{
