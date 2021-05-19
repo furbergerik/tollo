@@ -111,6 +111,7 @@ class MyAdmin extends Component {
     const finalSet=await getUsers(department,store);
     console.log(finalSet);
     this.setState({users:finalSet});
+    this.setState({state:finalSet[10]})
   }
 
   addUser = _=>{
