@@ -40,7 +40,8 @@ class MyAdmin extends Component {
     newEmail:"",
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
     tab: "Store",
-    department:'Footwear'
+    department:'Footwear',
+    store:1
     }
   props={
     olle:null
@@ -110,6 +111,7 @@ class MyAdmin extends Component {
     const finalSet=await getUsers(department,store);
     console.log(finalSet);
     this.setState({users:finalSet});
+    this.setState({state:finalSet[10]})
   }
 
   addUser = _=>{
