@@ -138,6 +138,16 @@ grid-template-columns: 1fr 15px 1fr 15px 1fr;
 .progress-window.userBox{
     margin-top: 0;
 }
+.progress-window.goals{
+    height: 20vh;
+    padding-top: 3.5vh;
+    font-size: 2.5vh;
+}
+.progress-window.logg{
+    padding-top: 5vh;
+    font-size: 2.5vh;
+    height: 37vh;
+}
 .myStore{
 position: relative;
   margin-top: -1.5vh;
@@ -235,13 +245,7 @@ position: relative;
     align-self: start;
 }
 
-.scrollTopList{
-    margin-top: -2vh;
-    height: 13vh;
-    overflow: auto;
-    background-color: #43AA8B;
-    box-shadow: 0px -2px 2px #3131317e inset;
-}
+
 .topSeller{
     background-color: #c1e8dc2d;
     border-style: solid;
@@ -324,7 +328,7 @@ position: relative;
     
     .scrollTopList{
         margin-top: -2vh;
-        height: 13vh;
+        height: 17vh;
         overflow: auto;
         background-color: #43AA8B;
         box-shadow: 0px -2px 2px #3131317e inset;

@@ -1212,13 +1212,13 @@ class Home extends React.Component {
                   </div>
                   <h4>Welcome back {this.state.userInfo.firstName}</h4>
                 </div>
-                <div className="progress-window">
+                <div className="progress-window goals">
                   Membership Goal:
                   <ProgressBar variant="success" animated now={this.state.memberPercent} label={this.state.totalMemberships} />
                   Product of the Month Goal:
                   <ProgressBar variant="info" animated now={this.state.productPercent} label={this.state.totalProducts} />
                 </div>
-                <div className="progress-window">
+                <div className="progress-window logg">
                   New members:
                 <NumericInput className="form-control" onChange={this.memberships.bind(this)} value={this.state.currentMemberships} />
                 Product of the Month:
