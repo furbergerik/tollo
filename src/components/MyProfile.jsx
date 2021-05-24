@@ -3,6 +3,7 @@ import './MyProfile.css';
 import Cookies from 'universal-cookie';
 import UserInformation from './UserInformation';
 import MyAdmin from './MyAdmin';
+import CountUp from 'react-countup';
 //http://tollo.duckdns.org
 //192.168.0.111ä
 const cookies = new Cookies();
@@ -11,8 +12,7 @@ const cookies = new Cookies();
 async function getStoreData(dataCategory, ID, storeNr){
   if (ID == 0) {
     var token = (cookies.get('jwt')).key;
-   var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
-    
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
     //var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
@@ -23,8 +23,7 @@ async function getStoreData(dataCategory, ID, storeNr){
   else {
     var token = (cookies.get('jwt')).key;
     var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
-   
-  // var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
+    //var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -34,13 +33,15 @@ async function getStoreData(dataCategory, ID, storeNr){
 
 async function getDepartmentProducts(departmentId) {
   var token = (cookies.get('jwt')).key;
+
   var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/department?department=${departmentId}&token=${token}`
- // var fetchingFrom = `http://192.168.0.111:61339/store1v2/department?department=${departmentId}&token=${token}`
-  
+  //var fetchingFrom = `http://192.168.0.111:61339/store1v2/department?department=${departmentId}&token=${token}`
+
   const response = await fetch(fetchingFrom);
+
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log()
+
   return finalSet;
 }
 
@@ -49,10 +50,8 @@ async function getMonthlyProductData(year, month, dataCategory, dataType, storeN
   var listMonth = [];
   var listMonthProd = []
   var productIdList = await getDepartmentProducts(departmentId)
-  console.log(productIdList)
   for (var i in productIdList) {
   var salesData = await getStoreData(dataCategory, 'p'+productIdList[i], storeNr);
-  console.log(salesData)
   var monthData = salesData['y'+year]['m'+month];
   var listDay = 0;
     for (var j in monthData) {
@@ -70,9 +69,7 @@ async function getMonthlyProductData(year, month, dataCategory, dataType, storeN
 async function getMonthlyDepartmentData(year, month, dataCategory, dataType, storeNr){
   var listMonth = [];
   var listMonthDep = []
-  console.log("department: ",getDepartmentProducts(0))
-  if(month == 0){
-  }
+  var listDep = []
   for (var i = 1; i < 8; i++) {
   var salesData = await getStoreData(dataCategory, 'd'+i, storeNr);
   var monthData = salesData['y'+year]['m'+month];
@@ -114,9 +111,12 @@ function sumArr(arr) {
 }
 
 //Fuckar upp med fetchen om funktioner körs här
-//console.log(getMonthlyProductData(2020, 12, "prodSales", "Sales", 1, 8))
 
 class MyProfile extends Component {
+
+  constructor(props) {
+    super(props);
+  } 
   state = {
     initialRender: true,
     users: [],
@@ -131,12 +131,19 @@ class MyProfile extends Component {
     totSales: "",
     totProfit: "",
     margin: "",
+    yearList: [],
+    storeProdState: [],
+    storeProdNameState: [],
+    storeDepState: [],
+    storeDepNameState: [],
+    membersMade: 0,
     userInfo: [{
       username: 'b',
       firstName: '',
       lastName: '',
       store: '',
       department: '',
+      depID: 0,
       admin: 0
     }]
     
@@ -167,8 +174,6 @@ class MyProfile extends Component {
     var token = (cookies.get('jwt')).key;
     var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
     //var fetchingFrom = `http://192.168.0.111:61339/getUsers?username=${x}&token=${token}`;
-    
-
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -176,10 +181,23 @@ class MyProfile extends Component {
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
 
-    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath, admin: finalSet[0].admin }
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath, admin: finalSet[0].admin,  depID: finalSet[0].depId, }
 
     this.setState({
       userInfo: userInfoArray
+    })
+  }
+
+  getYears = async () => {
+    var token = (cookies.get('jwt')).key;
+    var yearFetch = `http://tollo.duckdns.org:61338/getYear?token=${token}`
+
+    // var yearFetch = `http://192.168.0.111:61339/getYear?token=${token}`
+    const yearResponse = await fetch(yearFetch);
+    const yearSetOfData = await yearResponse.json();
+    const yearSet = yearSetOfData.data;
+    this.setState({
+      yearList: yearSet
     })
   }
 
@@ -238,13 +256,51 @@ class MyProfile extends Component {
     // event.target.reset();
 
   }
+  createStoreData = async () => {
+    const storeProd = [];
+    const storeProdName = [];
+    const [toplistProd, toplistProdName] = await getMonthlyProductData( this.state.yearList[this.state.yearList.length - 1], 12, "prodSales", "Sales", this.state.userInfo.store, this.state.userInfo.depID)
+    var keys = Math.floor(Math.random() * 1000000);
+    for (const [index, value] of toplistProd.entries()) {
+      storeProd.push(<div className="top1-score" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} suffix=" SEK" end={value} /></div>)
+    }
+    for (const [index, value] of toplistProdName.entries()) {
+      var keys = Math.floor(Math.random() * 100000);
+      storeProdName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1">{value}</div>)
+    }
+    const storeDep = [];
+    const storeDepName = [];
+    const [toplistDep, toplistDepName] = await getMonthlyDepartmentData(this.state.yearList[this.state.yearList.length - 1], 12, "depSales", "Sales", this.state.userInfo.store)
+    var keys = Math.floor(Math.random() * 1000000);
+    for (const [index, value] of toplistDep.entries()) {
+      storeDep.push(<div className="top1-score" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} suffix=" SEK" end={value} /></div>)
+    }
+    for (const [index, value] of toplistDepName.entries()) {
+      var keys = Math.floor(Math.random() * 100000);
+      storeDepName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1">{value}</div>)
+    }
+
+    this.setState({
+      storeProdState: storeProd,
+      storeProdNameState: storeProdName,
+      storeDepState: storeDep,
+      storeDepNameState: storeDepName,
+    })
+
+  }
+
 
   async componentDidMount() {
     if (this.state.initialRender == true) {
+      this.getYears();
     this.setState({store: await this.getUserInfo()});
-    this.setState({totSales: await this.getMonthlyData("y2020", "m12", "totSales", "Total sales", 0, this.state.userInfo.store)});
-    this.setState({totProfit: await this.getMonthlyData("y2020", "m12", "totSales", "Profit exl. tax", 0, this.state.userInfo.store)});
-    this.setState({margin: await this.getMonthlyData("y2020", "m12", "totSales", "Profit %", 0, this.state.userInfo.store)});
+    this.createStoreData();
+    this.setState({totSales: await this.getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], "m12", "totSales", "Total sales", 0, this.state.userInfo.store)});
+    this.setState({totProfit: await this.getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], "m12", "totSales", "Profit exl. tax", 0, this.state.userInfo.store)});
+    this.setState({margin: await this.getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], "m12", "totSales", "Profit %", 0, this.state.userInfo.store)});
+    const memberAmount = await getMonthlyProductData(this.state.yearList[this.state.yearList.length - 1], 12, "prodSales", "Sales", this.state.userInfo.store, 8)
+    this.setState({membersMade: memberAmount[0]});
+
     console.log("Är det admin?");
     console.log(this.state.userInfo.admin);
     this.setState({
@@ -293,16 +349,27 @@ class MyProfile extends Component {
       message = 
       <div>            
         <h1>My store and sales info:</h1>
-        <div className="row offset-md-1">
-          <div className="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
-           
+        <div className=" row offset-md-1">
+          <div className="row">
+          <div  className="col-md-6 container-my-profile" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
           </div>
-          <div className="col-md-4"><h5>My store statistics</h5>
+          <div className="container-my-profile col-md-6"><h5>My store statistics</h5>
           <h6>Total store sales last month: {this.state.totSales} SEK</h6>
           <h6>Total store profit last month: {this.state.totProfit} SEK</h6>
           <h6>Profit margin last month: {this.state.margin}%</h6>
+          <h6>Members made last month: {this.state.membersMade}</h6>
           </div>
-          <div className="col-md-4"><h5>My personal info</h5></div>
+          <div className="row">
+          <div className="col-md-6 container-my-profile">
+          {this.state.storeProdState}
+          {this.state.storeProdNameState}
+          </div>
+          <div className="col-md-6 container-my-profile">
+          {this.state.storeDepState}
+          {this.state.storeDepNameState}
+          </div>
+          </div>
+          </div>
         </div>
       </div>
     }
@@ -368,7 +435,7 @@ class MyProfile extends Component {
 
         <div className="row">
           <div className="grid-stuff">
-          <div className="container-my-profile">
+          <div>
             {message}
           </div>
           </div>

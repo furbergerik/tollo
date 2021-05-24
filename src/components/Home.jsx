@@ -302,7 +302,9 @@ function sumArr(arr) {
 // console.log(bubbleSort(test))
 
 class Home extends React.Component {
-
+  constructor(props) {
+    super(props);
+  }
   state = {
     initialRender: true,
     disableMultiselect: true,
@@ -1095,6 +1097,7 @@ class Home extends React.Component {
       productGoal: finalSet[0].productGoal,
       membersGoal: finalSet[0].membersGoal
     }
+    console.log("gdgdgdgdgdgd",this.state.profilePath)
 
     this.setState({
       userInfo: userInfoArray
@@ -1196,7 +1199,7 @@ class Home extends React.Component {
       storeRevCompState: storeRevComp,
       storeRevCompNameState: storeRevCompName,
       storeProdOfMoState: storeProdOfMo,
-      storeProdOfMoNameStete: storeProdOfMoName
+      storeProdOfMoNameState: storeProdOfMoName, 
     })
 
   }
