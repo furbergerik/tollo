@@ -328,6 +328,10 @@ class Home extends React.Component {
     numberOfBars: 0,
     currentWeekDataSet: [],
     currentWeekDates: [],
+    currentMonthDataSet: [],
+    currentMonthDates: [],
+    currentYearDataSet: [],
+    currentYearDates: [],
     multiOptions: [
       { 'year': "2018" },
       { 'year': "2019" },
@@ -561,6 +565,7 @@ class Home extends React.Component {
     // }
 
     if (this.state.initialRender == true) {
+      newBar.label = 'This week: '
       this.setState({
         currentWeekDataSet: [newBar],
         currentWeekDates: weekDateList,
@@ -670,6 +675,17 @@ class Home extends React.Component {
       { 'month': '2020' }
     ]
 
+
+    if (this.state.initialRender == true) {
+      newBar.label = 'This month: '
+      this.setState({
+        currentMonthDataSet: [newBar],
+        currentMonthDates: monthDates,
+        dataInGraph: false
+      })
+      return
+    }
+
     if (this.state.dataInGraph == false) {
       console.log("Fanns ingen dataSet från början");
       this.setState({
@@ -723,8 +739,16 @@ class Home extends React.Component {
 
 
   onSelectYear = async (selectedList, selectedItem) => {
-    var year = Number(selectedItem.year);
-    var yearFix = "y" + year;
+
+    if (this.state.initialRender == true) {
+      var year = selectedItem
+      console.log(year, " year!!");
+      var yearFix = 'y' + year;
+    } else {
+      var year = Number(selectedItem.year);
+      var yearFix = "y" + year;
+    }
+    console.log("selecteditem: ", selectedItem)
 
     console.log(year)
     const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0, this.state.userInfo.store)
@@ -734,6 +758,18 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+
+    if (this.state.initialRender == true) {
+      newBar.label = 'This year: '
+      console.log(newBar.label)
+      this.setState({
+        currentYearDataSet: [newBar],
+        currentYearDates: dates,
+        dataInGraph: false
+      })
+      return
+    }
+
 
     if (this.state.dataInGraph == false) {
       console.log("Fanns ingen dataSet från början");
@@ -830,8 +866,8 @@ class Home extends React.Component {
 
   buttonClickYear() {
     console.log("Ett year ett year ett year")
-    var initial = this.state.initialDataSet;
-    var initDates = this.state.initialDates;
+    var initial = this.state.currentYearDataSet;
+    var initDates = this.state.currentYearDates;
 
     var yearList = []
     var currentYears = this.state.yearList
@@ -859,8 +895,8 @@ class Home extends React.Component {
       yearList.push({ 'month': String(currentYears[i]) })
     }
 
-    var initial = this.state.initialDataSet;
-    var initDates = this.state.initialDates;
+    var initial = this.state.currentMonthDataSet;
+    var initDates = this.state.currentMonthDates;
     this.setState({
       dataSets: initial,
       dates: initDates,
@@ -1086,6 +1122,9 @@ class Home extends React.Component {
     const membersSellers = await this.bestSellers(0, 'members')
     const productsSellers = await this.bestSellers(0, 'products')
 
+    console.log("membersSellers: ", membersSellers)
+    console.log("productsSellers: ", productsSellers)
+
     const topFiveMembersSellers = []
     const topFiveProductsSellers = []
 
@@ -1127,6 +1166,9 @@ class Home extends React.Component {
     })
 
     await this.onSelectWeek(this.state.currentDate[0].year, this.state.currentDate[0].week)
+    await this.onSelectMonth(this.state.currentDate[0].year, this.state.currentDate[0].month)
+    await this.onSelectYear([], this.state.currentDate[0].year)
+
   }
   createOtherStoreData() {
     console.log("hejjdjwsdsjjk")
