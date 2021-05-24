@@ -25,8 +25,6 @@ async function getUserSales(username) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log("test");
-  console.log(finalSet);
   return finalSet;
 }
 async function updateMemberships(username, count, goal) {
@@ -39,7 +37,6 @@ async function updateMemberships(username, count, goal) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log(finalSet);
   return finalSet;
 }
 async function updateProductSales(username, count, goal) {
@@ -51,7 +48,6 @@ async function updateProductSales(username, count, goal) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log(finalSet);
   return finalSet;
 }
 
@@ -309,6 +305,7 @@ class Home extends React.Component {
 
   state = {
     initialRender: true,
+    disableMultiselect: true,
     currentdate: [],
     userInfo: [{
       username: 'b',
@@ -550,9 +547,6 @@ class Home extends React.Component {
       weekDateList.push(weekList[i]['Day'] + "/" + weekList[i]['Month'])
       salesWeekdayList.push(weekList[i]['Total sales'])
     }
-    console.log("Date List: ", weekDateList)
-    console.log("salesWeekdayList: ", salesWeekdayList);
-
 
     var newBar = { label: "Week " + week + " " + year, data: salesWeekdayList, backgroundColor: '#F94144', borderWidth: 1 }
     const weekYears = [
@@ -665,8 +659,6 @@ class Home extends React.Component {
       monthDates.push(i)
       i = i + 1;
     });
-    console.log(monthDates)
-
 
     var newBar = { label: selectedMonth + " " + selectedYear, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
     const monthYear = [
@@ -761,7 +753,6 @@ class Home extends React.Component {
 
     if (this.state.initialRender == true) {
       newBar.label = 'This year: '
-      console.log(newBar.label)
       this.setState({
         currentYearDataSet: [newBar],
         currentYearDates: dates,
@@ -769,7 +760,6 @@ class Home extends React.Component {
       })
       return
     }
-
 
     if (this.state.dataInGraph == false) {
       console.log("Fanns ingen dataSet från början");
@@ -786,7 +776,6 @@ class Home extends React.Component {
       // create and fix updatedBar
       console.log("!!Fanns nått i dataSet!!");
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -884,7 +873,8 @@ class Home extends React.Component {
       multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
-      dataInGraph: false
+      dataInGraph: false,
+      disableMultiselect: false
     })
   }
   buttonClickMonth() {
@@ -901,11 +891,12 @@ class Home extends React.Component {
       dataSets: initial,
       dates: initDates,
       activePeriod: 'month',
-      singleSelect: "true",
+      singleSelect: true,
       multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
-      dataInGraph: false
+      dataInGraph: false,
+      disableMultiselect: false
     })
   }
   buttonClickWeek() {
@@ -927,7 +918,8 @@ class Home extends React.Component {
       yearSelected: false,
       multiOptions: yearList,
       singleSelect: true,
-      dataInGraph: false
+      dataInGraph: false,
+      disableMultiselect: false
     })
   }
   buttonClickClear() {
@@ -937,7 +929,7 @@ class Home extends React.Component {
     this.setState({
       dataSets: initial,
       dates: initDates,
-      dataInGraph: false
+      dataInGraph: false,
     })
   }
 
@@ -957,12 +949,20 @@ class Home extends React.Component {
 
     var totalMemberships = members + newMemberships
     var totalProducts = products + newProducts
+    if (totalMemberships < 0) {
+      totalMemberships = 0
+    }
+    if (totalProducts < 0) {
+      totalProducts = 0
+    }
 
     var membershipGoal = this.state.userInfo.membersGoal
     var productGoal = this.state.userInfo.productGoal
 
     var memberPercent = (totalMemberships / membershipGoal) * 100
     var productPercent = (totalProducts / productGoal) * 100
+
+
 
     await updateMemberships(username, totalMemberships, 0)
     await updateProductSales(username, totalProducts, 0)
@@ -1066,7 +1066,6 @@ class Home extends React.Component {
 
     var dateList = []
     dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
-    console.log("dateList från getCurrentdate: ", dateList)
 
     this.setState({
       currentDate: dateList
@@ -1082,12 +1081,8 @@ class Home extends React.Component {
     const setOfData = await response.json();
     const finalSet = setOfData.data;
 
-    console.log("USER INFO: ", finalSet)
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
-
-    console.log(finalSet[0].membersGoal, "från getuserinfo membersgoal")
-    console.log(finalSet[0].productGoal, "från getuserinfo productsgoal")
 
     var userInfoArray = {
       username: finalSet[0].username,
@@ -1121,9 +1116,6 @@ class Home extends React.Component {
 
     const membersSellers = await this.bestSellers(0, 'members')
     const productsSellers = await this.bestSellers(0, 'products')
-
-    console.log("membersSellers: ", membersSellers)
-    console.log("productsSellers: ", productsSellers)
 
     const topFiveMembersSellers = []
     const topFiveProductsSellers = []
@@ -1171,7 +1163,6 @@ class Home extends React.Component {
 
   }
   createOtherStoreData() {
-    console.log("hejjdjwsdsjjk")
     const storeRev = [];
     const storeRevName = [];
     var keys = Math.floor(Math.random() * 1000000);
@@ -1359,7 +1350,8 @@ class Home extends React.Component {
                           closeOnSelect="false"
                           hidePlaceholder="true"
                           singleSelect={this.state.singleSelect}
-                          showArrow={false}
+                          showArrow="false"
+                          disable={this.state.disableMultiselect}
                         ></Multiselect>
                         <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
                       </ButtonGroup>
