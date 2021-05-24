@@ -316,6 +316,10 @@ class Home extends React.Component {
       lastName: '',
       store: '',
       department: '',
+      depID: '',
+      profilePath: '',
+      productGoal: '',
+      membersGoal: '',
     }],
     yourDepMonthSales: 0,
     dataInGraph: false,
@@ -349,8 +353,8 @@ class Home extends React.Component {
     monthlyCompList: [],
     monthlyCompListStore: [],
     yearList: [],
-    productGoal: 250,
-    membershipGoal: 50,
+    memberGoalMet: false,
+    productGoalMet: false,
     productPercent: 0,
     memberPercent: 0,
     currentProductOfMonthSales: 0,
@@ -926,6 +930,8 @@ class Home extends React.Component {
     await updateMemberships(username, totalMemberships, 0)
     await updateProductSales(username, totalProducts, 0)
 
+
+
     this.setState({
       totalProducts: totalProducts,
       totalMemberships: totalMemberships,
@@ -934,6 +940,24 @@ class Home extends React.Component {
       memberPercent: memberPercent,
       productPercent: productPercent
     })
+    if (totalMemberships >= membershipGoal) {
+      this.setState({
+        memberGoalMet: true
+      })
+    } else if (totalMemberships < membershipGoal) {
+      this.setState({
+        memberGoalMet: false
+      })
+    }
+    if (totalProducts >= productGoal) {
+      this.setState({
+        productGoalMet: true
+      })
+    } else if (totalProducts < productGoal) {
+      this.setState({
+        productGoalMet: false
+      })
+    }
     this.myStoreTopSellers()
   }
   pOfMonth(valueAsNumber, valueAsString, input) {
@@ -955,10 +979,22 @@ class Home extends React.Component {
       var totalMemberships = userSales['members']
       var totalProducts = userSales['productSold']
 
-      var membershipGoal = this.state.membershipGoal
-      var productGoal = this.state.productGoal
+      var membershipGoal = this.state.userInfo.membersGoal
+      var productGoal = this.state.userInfo.productGoal
+
       var memberPercent = (totalMemberships / membershipGoal) * 100
       var productPercent = (totalProducts / productGoal) * 100
+      if (totalMemberships >= membershipGoal) {
+        this.setState({
+          memberGoalMet: true
+        })
+      }
+      if (totalProducts >= productGoal) {
+        this.setState({
+          productGoalMet: true
+        })
+      }
+
       this.setState({
         totalMemberships: totalMemberships,
         totalProducts: totalProducts,
@@ -1012,6 +1048,9 @@ class Home extends React.Component {
     console.log("USER INFO: ", finalSet)
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
+
+    console.log(finalSet[0].membersGoal, "från getuserinfo membersgoal")
+    console.log(finalSet[0].productGoal, "från getuserinfo productsgoal")
 
     var userInfoArray = {
       username: finalSet[0].username,
@@ -1212,16 +1251,16 @@ class Home extends React.Component {
                   </div>
                   <h4>Welcome back {this.state.userInfo.firstName}</h4>
                 </div>
-                <div className="progress-window goals">
-                  Membership Goal:
-                  <ProgressBar variant="success" animated now={this.state.memberPercent} label={this.state.totalMemberships} />
-                  Product of the Month Goal:
-                  <ProgressBar variant="info" animated now={this.state.productPercent} label={this.state.totalProducts} />
+                <div className={`progress-window goals${this.state.memberGoalMet ? ' goalMet' : ''}`}>
+                  <div >Membership Goal: {this.state.userInfo.membersGoal}</div>
+                  <ProgressBar className={`progress${this.state.memberGoalMet ? ' goalMet' : ''}`} variant="success" animated now={this.state.memberPercent} label={this.state.totalMemberships} />
+                  Product of the Month Goal: {this.state.userInfo.productGoal}
+                  <ProgressBar className={`progress${this.state.productGoalMet ? ' goalMet' : ''}`} variant="info" animated now={this.state.productPercent} label={this.state.totalProducts} />
                 </div>
                 <div className="progress-window logg">
                   New members:
                 <NumericInput className="form-control" onChange={this.memberships.bind(this)} value={this.state.currentMemberships} />
-                Product of the Month:
+                  Product of the Month:
                 <NumericInput className="form-control" onChange={this.pOfMonth.bind(this)} value={this.state.currentProductOfMonthSales} />
                   <button className="submit-button" onClick={this.submitButton}>Submit</button>
                 </div>

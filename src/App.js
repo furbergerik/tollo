@@ -97,9 +97,9 @@ class App extends Component {
 
 
         <div className="App">
-           {/* <img className="tolloImage" src={`${process.env.PUBLIC_URL}/tollo-small.png`}></img> */}
-         
-          {/* {users.map(this.renderUser)} */} 
+          {/* <img className="tolloImage" src={`${process.env.PUBLIC_URL}/tollo-small.png`}></img> */}
+
+          {/* {users.map(this.renderUser)} */}
 
           {/* <div>{this.name()}</div> */}
           <br></br>
@@ -108,30 +108,30 @@ class App extends Component {
             {/* behöver hjälp med det här hur man får den till en sen! på små skärmar */}
             <div className=" col-xs-3 col-md-4 "></div>
           </div>
-         
+
           <div className="row ">
             <div className=" col-xs-3 col-md-3 "></div>
-        
-            <div className="tolloImage" style={{backgroundImage:`url(${process.env.PUBLIC_URL}/tollo-small.png)`} }>
-            <form className="tolloForm col-xs-3 col-md-3  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
-              <h1 className="text-dark">Login </h1>
-              <div className="form-group">
-                <label htmlFor="exampleInputUsername1">Username:</label>
-                <input type="text" className="form-control" id="exampleInputUserName1" placeholder="Username"
-                  onChange={(this.usernameChangeHandler)}></input>
-              </div>
-              <div className="form-group">
-                <label htmlFor="exampleInputPassword11">Password:</label>
-                <input type="password" className="form-control" id="exampleInputPassword11" placeholder="Password"
-                  onChange={(this.passwordChangeHandler)}></input>
 
-              </div>
-              <button className="btn btn-warning btn-lg ml-3" onClick={this.props.onClick}>Sign In</button>
-            </form>
-            </div>
+            <div className="tolloImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/tollo-small.png)` }}>
+              <form className="tolloForm col-xs-3 col-md-3  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
+                <h1 className="text-dark">Login </h1>
+                <div className="form-group">
+                  <label htmlFor="exampleInputUsername1">Username:</label>
+                  <input type="text" className="form-control" id="exampleInputUserName1" placeholder="Username"
+                    onChange={(this.usernameChangeHandler)}></input>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exampleInputPassword11">Password:</label>
+                  <input type="password" className="form-control" id="exampleInputPassword11" placeholder="Password"
+                    onChange={(this.passwordChangeHandler)}></input>
+
+                </div>
+                <button className="btn btn-warning btn-lg ml-3" onClick={this.props.onClick}>Sign In</button>
+              </form>
             </div>
           </div>
-      
+        </div>
+
       );
     }
   }
