@@ -900,7 +900,8 @@ class Home extends React.Component {
     var initDates = this.state.initialDates;
     this.setState({
       dataSets: initial,
-      dates: initDates
+      dates: initDates,
+      dataInGraph: false
     })
   }
 
@@ -1349,15 +1350,10 @@ class Home extends React.Component {
                       </div>
                     </div>
 
-                    <p className="myStoreTitle topSellers">Top sellers: Memberships</p>
+                    <p className="myStoreTitle topSellers">Top sellers: POM</p>
 
                     <div className="scrollTopList">
-                      {/* <div className="topSeller">1. Olle Kindvall</div>
-                      <div className="topSeller">2. Georgios</div>
-                      <div className="topSeller">3. Vegge P</div>
-                      <div className="topSeller">4. Hugo Sjönneby</div>
-                      <div className="topSeller">5. Georgios</div> */}
-                      {this.state.topSellerListMem}
+                      {this.state.topSellerListProd}
                     </div>
                   </div>
                 </div>
