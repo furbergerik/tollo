@@ -111,9 +111,11 @@ class App extends Component {
          
           <div className="row ">
             <div className=" col-xs-3 col-md-3 "></div>
-        
-            <div className="tolloImage" style={{backgroundImage:`url(${process.env.PUBLIC_URL}/tollo-small.png)`} }>
-            <form className="tolloForm col-xs-3 col-md-3  shadow p-3 mb-5 bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
+            <div>
+          
+            
+            <form className="tolloForm col-xs-3 col-md-3  shadow p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
+           
               <h1 className="text-dark">Login </h1>
               <div className="form-group">
                 <label htmlFor="exampleInputUsername1">Username:</label>
@@ -128,9 +130,11 @@ class App extends Component {
               </div>
               <button className="btn btn-warning btn-lg ml-3" onClick={this.props.onClick}>Sign In</button>
             </form>
+            <img className="tolloImage d-none d-xl-block" style={{backgroundImage:`url(${process.env.PUBLIC_URL}/tollo-small.png)`} }>
+            </img>
             </div>
             </div>
-          </div>
+            </div>
       
       );
     }
