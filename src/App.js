@@ -9,11 +9,15 @@ const cookies = new Cookies();
 async function login(username, password) {
 
   var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+  //var fetchedData = await fetch(`http://localhost:61139/login?username=${username}&password=${password}`);
   //var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
+  if(response[0]){
   cookies.set("username", { key: response[1] }, { path: '/' });
   cookies.set("jwt", { key: response[4] }, { path: '/' });
+  }
+
   return response[0];
 
 }
@@ -38,6 +42,7 @@ class App extends Component {
 
 
     },
+    flag:1,
     loggedIn: false
   }
   props = {
@@ -56,10 +61,22 @@ class App extends Component {
   submitHandlerLogIn = async (event) => {
     event.preventDefault();
     console.log(this.state.user);
-    event.target.className += " was-validated";
+    
     console.log("inne i submithandler");
     var x = await login(this.state.user.username, this.state.user.password);
-    this.setState({ loggedIn: x });
+
+
+    if(!x){
+      this.setState({ flag: 2 })
+      event.target.className += " invalid";
+    }else{
+      this.setState({ loggedIn: x });
+      event.target.className += " was-validated";
+      this.setState({ flag: 1 })
+
+    }
+   //this.setState({ loggedIn: x });
+    
     this.componentDidMount();
   }
 
@@ -129,6 +146,7 @@ class App extends Component {
 
               </div>
               <button className="btn btn-warning btn-lg ml-3" onClick={this.props.onClick}>Sign In</button>
+              { this.state.flag === 2 && <p>Your username or password is wrong, please try again.</p>}
             </form>
             <img className="tolloImage" style={{backgroundImage:`url(${process.env.PUBLIC_URL}/tollo-small.png)`} }>
             </img>
