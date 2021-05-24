@@ -45,15 +45,11 @@
   }
 }
 .tolloImage{
+  display: block;
 
-  height: 96.05vh;
-  width: 46.87vw;
-  background-size: contain;
-  background-repeat: no-repeat;
-  position: relative;
-  display: inline-block;
-  margin-top: -38.05vh; 
-
+}
+.tolloForm{
+  min-width: 14vw;
 
 }
 @media (min-width: 1200px) {
@@ -61,8 +57,20 @@
   position: absolute;
   z-index: 1;
   display: block;
-  top:32%;
-  left: 35%;
+  top:30%;
+  left: 34%;
+  }
+  .tolloImage{
+
+    height: 96.05vh;
+    width: 46.87vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    display: inline-block;
+    margin-top: -38.05vh; 
+  
+  
   }
   
 }

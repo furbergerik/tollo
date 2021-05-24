@@ -130,7 +130,7 @@ class App extends Component {
               </div>
               <button className="btn btn-warning btn-lg ml-3" onClick={this.props.onClick}>Sign In</button>
             </form>
-            <img className="tolloImage d-none d-xl-block" style={{backgroundImage:`url(${process.env.PUBLIC_URL}/tollo-small.png)`} }>
+            <img className="tolloImage" style={{backgroundImage:`url(${process.env.PUBLIC_URL}/tollo-small.png)`} }>
             </img>
             </div>
             </div>
