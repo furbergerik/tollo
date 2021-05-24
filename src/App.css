@@ -44,3 +44,19 @@
     transform: rotate(360deg);
   }
 }
+.tolloImage{
+  height: 96.05vh;
+  width: 46.87vw;
+  background-size: contain;
+  margin-top:-5.33vh;
+  background-repeat: no-repeat;
+
+}
+.tolloForm{
+  position: absolute;
+  top: 35%;
+  left: 38%;
+
+
+
+}
