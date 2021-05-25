@@ -30,6 +30,7 @@ async function getUsers(username) {
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];
+      console.log(finalSet);
       return finalSet;
   
   }
@@ -44,6 +45,7 @@ async function getUsers(username) {
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data[0];
+      console.log(finalSet);
       return finalSet;
   
   }
@@ -52,13 +54,15 @@ async function getUsers(username) {
     console.log("hola");
     var token = (cookies.get('jwt')).key;
 
-    var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
-   //var fetchingFrom = `http://192.168.0.111:61339/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
+   // var fetchingFrom = `http://tollo.duckdns.org:61338/updateUserPhone?username=${username}&phone=${phone}&token=${token}`
+   var fetchingFrom = `http://192.168.0.111:61339/updateUserPhone?username=${"b"}&phone=${phone}&token=${token}`
 
-      const response = await fetch(fetchingFrom);
-      const setOfData = await response.json();
-      const finalSet = setOfData.data[0];
-      return finalSet;
+      const fetchedData = await fetch(fetchingFrom);
+      var response = await fetchedData.json();
+      console.log("finalSet");
+      console.log(response[0]);
+      
+      return response;
   
   }
   async function updatePic(username,filename) {
@@ -100,6 +104,10 @@ class  userInformation extends Component {
         newPassword:null,
         confirmPassword:false,
         newUrl:null,
+        flagPhone:1,
+        flagEmail:1,
+        flagPassword:1,
+
      }
      callGetUsers=async()=>{
         console.log("här");
@@ -132,14 +140,26 @@ class  userInformation extends Component {
       }
   
       changePhone =async () =>{
-
+        var x=false;
         console.log(this.state.phone);
         if(this.state.phone!==null ){
-          await updatePhone(this.state.user.username,this.state.phone);
+          x= await updatePhone(this.state.user.username,this.state.phone);
 
         }else{
             console.log("gick in hit");
         }
+        
+          if(!x){
+            this.setState({flagPhone:2})
+          }else{
+            this.setState({flagPhone:1})
+            this.setState({user:''});
+            this.callGetUsers();
+       
+    
+          }
+
+     
         this.setState({user:''});
         this.callGetUsers();
        // event.target.reset();
@@ -158,28 +178,43 @@ class  userInformation extends Component {
 
       }
       changeEmail=async () =>{
-   
+        var x=false;
         console.log(this.state.email);
         if(this.state.email!==null){
-          await updateEmail(this.state.user.username,this.state.email);
+         x= await updateEmail(this.state.user.username,this.state.email);
 
         }else{
             console.log("gick in hit");
         }
-        this.setState({user:''});
-        this.callGetUsers();
-
+        if(!x){
+          this.setState({flagEmail:2})
+        }else{
+          this.setState({flagEmail:1})
+          this.setState({user:''});
+          this.callGetUsers();
+     
+  
+        }
+    
        // event.target.reset();
     
       }
       changePassword=async () =>{
+        var x=false;
         console.log(this.state.newPassword);
         console.log(this.state.confirmPassword);
         if(this.state.newPassword!==null && this.state.confirmPassword!==false){
 
-          await updatePassword(this.state.user.username,this.state.newPassword);
+          x= await updatePassword(this.state.user.username,this.state.newPassword);
         }else{
          
+        }
+        if(!x){
+          this.setState({flagPassword:2})
+
+        }else{
+
+          this.setState({flagPassword:1})
         }
         this.setState({user:''});
         this.callGetUsers();
@@ -192,7 +227,7 @@ class  userInformation extends Component {
     render() {
       return(
         
-        <div>
+        <div className="container">
 
 
 
@@ -216,7 +251,7 @@ class  userInformation extends Component {
     </div>
   </div>
 </div>
-            <h1>Profile Information:</h1>
+          
             <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.user.profilePath})`} }>
             <span className="spanFix" id="cameraIcon"></span>
             <span className="spanFix fas fa-camera" data-toggle="modal" data-target="#exampleModal" >Change Image</span>
@@ -233,6 +268,7 @@ class  userInformation extends Component {
   <div className="input-group-append">
     <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changePhone.bind(this)}>Change</button>
   </div>
+  { this.state.flagPhone === 2 && <p1>Your username or password is wrong, please try again.</p1>}
 </div>
 
         <div className="test">
@@ -243,6 +279,7 @@ class  userInformation extends Component {
   <div className="input-group-append">
     <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changeEmail.bind(this)}>Change</button>
   </div>
+  { this.state.flagEmail === 2 && <p1>Your username or password is wrong, please try again.</p1>}
 </div>
       
         </div>
@@ -264,6 +301,7 @@ class  userInformation extends Component {
         Confirm Password
   </label>
 </div>
+{ this.state.flagPassword === 2 && <p1>Your username or password is wrong, please try again.</p1>}
   
 </div>
         

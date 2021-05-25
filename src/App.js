@@ -13,7 +13,7 @@ async function login(username, password) {
   //var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
-  if(response[0]){
+  if(response[0]==true){
   cookies.set("username", { key: response[1] }, { path: '/' });
   cookies.set("jwt", { key: response[4] }, { path: '/' });
   }
