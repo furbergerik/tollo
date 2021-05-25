@@ -1,0 +1,14 @@
+
+#dropdown-basic-button{
+    padding: 1.5%;
+    font-size: inherit;
+    background-color: #577590;
+    margin-top: 2%;
+    color: white;
+}
+
+.options{
+    padding: 3%;
+    width: 60%;
+    margin: auto;
+}
