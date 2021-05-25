@@ -61,7 +61,7 @@ function Navigation(props) {
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i className="fas fa-bars"></i>
         </a>
-        <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+        <div class=" dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="home">Home</a>
           <a class="dropdown-item" href="MyProfile">MyProfile</a>
           <a class="dropdown-item" href="MyAdmin">MyAdmin</a>
