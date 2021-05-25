@@ -16,6 +16,29 @@
  
 
 }
+
+.stats {
+    background-color: #7f868b;
+
+    display:grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 4fr;
+    grid-column: 3;
+}
+.top1-my-profile{
+    font-size: 13px;
+    text-align: inherit;
+    align-self: end;
+    grid-column: 1/3;
+}
+.top1-score-my-profile{
+    color: #85bb65;
+    text-align: end;
+    align-self: end;
+    font-size: 15px;
+    grid-column: 1/3;
+    font-family: 'Avenir Black';
+}
 .grid-stuff{
     background-color: #ff9395;
     height: -webkit-fill-available;

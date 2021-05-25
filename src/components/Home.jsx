@@ -1286,7 +1286,7 @@ class Home extends React.Component {
                   <div className="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
 
                   </div>
-                  <h4>Welcome back {this.state.userInfo.firstName}</h4>
+                  <h4>Welcome back {this.state.userInfo.firstName}!</h4>
                 </div>
                 <div className={`progress-window goals${this.state.memberGoalMet ? ' goalMet' : ''}`}>
                   <div >Membership Goal: {this.state.userInfo.membersGoal}</div>

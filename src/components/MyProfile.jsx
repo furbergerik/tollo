@@ -262,22 +262,22 @@ class MyProfile extends Component {
     const [toplistProd, toplistProdName] = await getMonthlyProductData( this.state.yearList[this.state.yearList.length - 1], 12, "prodSales", "Sales", this.state.userInfo.store, this.state.userInfo.depID)
     var keys = Math.floor(Math.random() * 1000000);
     for (const [index, value] of toplistProd.entries()) {
-      storeProd.push(<div className="top1-score" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} suffix=" SEK" end={value} /></div>)
+      storeProd.push(<div className="top1-score-my-profile" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} end={value} /></div>)
     }
     for (const [index, value] of toplistProdName.entries()) {
       var keys = Math.floor(Math.random() * 100000);
-      storeProdName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1">{value}</div>)
+      storeProdName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1-my-profile">{value}</div>)
     }
     const storeDep = [];
     const storeDepName = [];
     const [toplistDep, toplistDepName] = await getMonthlyDepartmentData(this.state.yearList[this.state.yearList.length - 1], 12, "depSales", "Sales", this.state.userInfo.store)
     var keys = Math.floor(Math.random() * 1000000);
     for (const [index, value] of toplistDep.entries()) {
-      storeDep.push(<div className="top1-score" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} suffix=" SEK" end={value} /></div>)
+      storeDep.push(<div className="top1-score-my-profile" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} end={value} /></div>)
     }
     for (const [index, value] of toplistDepName.entries()) {
       var keys = Math.floor(Math.random() * 100000);
-      storeDepName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1">{value}</div>)
+      storeDepName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1-my-profile">{value}</div>)
     }
 
     this.setState({
@@ -348,23 +348,31 @@ class MyProfile extends Component {
     if (this.state.tab == "Store"){
       message = 
       <div>            
-        <h1>My store and sales info:</h1>
-        <div className=" row offset-md-1">
+        
+        <div className="grid-stuff container-md">
           <div className="row">
-          <div  className="col-md-6 container-my-profile" className="profile-pic" style={{backgroundImage:`url(${this.state.userInfo.profilePath})`} }>
+          <div className="col-12">
+          <h3 className="container-my-profile">My store and sales info:</h3>
           </div>
-          <div className="container-my-profile col-md-6"><h5>My store statistics</h5>
+          </div>
+          <div className="row">
+          <div className="col-lg-6 col-md-12">
+          <div className="container-my-profile">
+            <h5>My store statistics</h5>
           <h6>Total store sales last month: {this.state.totSales} SEK</h6>
           <h6>Total store profit last month: {this.state.totProfit} SEK</h6>
           <h6>Profit margin last month: {this.state.margin}%</h6>
           <h6>Members made last month: {this.state.membersMade}</h6>
-          </div>
-          <div className="row">
-          <div className="col-md-6 container-my-profile">
+          </div>     
+           </div>
+          <div className="col-lg-3 col-md-6 col-sx-12">
+            <div className="container-my-profile stats">
           {this.state.storeProdState}
           {this.state.storeProdNameState}
           </div>
-          <div className="col-md-6 container-my-profile">
+          </div>
+          <div className="col-lg-3 col-md-6 col-sx-12">
+            <div className="container-my-profile stats">
           {this.state.storeDepState}
           {this.state.storeDepNameState}
           </div>
@@ -433,8 +441,8 @@ class MyProfile extends Component {
         </div>
 
 
-        <div className="row">
-          <div className="grid-stuff">
+        <div >
+          <div>
           <div>
             {message}
           </div>
