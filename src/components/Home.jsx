@@ -254,48 +254,6 @@ function sumArr(arr) {
   }, 0);
 }
 
-// async function {
-//   console.log("Hej")
-//   const [theTopList, theTopListStore]  = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
-//   console.log("gjdhfdfdsfds  ",theTopList)
-//   // [theTopList, theTopListStore] = bubbleSort(theTopList, theTopListStore);
-//   const theRealDeal = [];
-//   console.log("herererererer  ",theTopList)
-//    for (const [index, value] of theTopList.entries()) {
-//     theRealDeal.push(<div key={index}>{value}</div>)
-//    }
-//    console.log(theRealDeal)
-//    return(theRealDeal)
-// }
-
-// function NumberList(props) {
-//   const numbers = props.numbers;
-//   const listItems = numbers.map((number) =>
-//     <li key={number.toString()}>
-//       {number}
-//     </li>
-//   );
-//   return (
-//     <ul>{listItems}</ul>
-//   );
-// }
-
-
-// function soldProduct(year, month, productId){
-//   var salesData = data["prodSales"];
-//   var amountOfProduct = 0;
-//   salesData[0]["prod Id"]
-//   for(var i in salesData){
-//     // if(salesData[i]["Year"] == year && salesData[i]["Month"] == month && salesData[i]["prod Id"] == productId){
-//     //   amountOfProduct += salesData[i]["Sales"]
-//     // }
-//   }
-//   return amountOfProduct;
-// }
-
-//console.log(soldProduct(2018, 1, 1));
-// var test = getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
-// console.log(bubbleSort(test))
 
 class Home extends React.Component {
   constructor() {
@@ -402,22 +360,16 @@ class Home extends React.Component {
 
   // ---------------From MultiSelect---------------------
   onSelect = async (selectedList, selectedItem) => {
-    console.log("Tjohej onSelect");
-    console.log(selectedList)
+    console.log("In onSelect");
 
     var activePeriod = this.state.activePeriod;
     var yearSelect = this.state.yearSelected;
 
     if (activePeriod == 'year') {
-      console.log("Det var ett år");
       this.onSelectYear(selectedList, selectedItem);
     } else if (activePeriod == 'month') {
-      console.log("selectedList :", selectedList)
-
       if (yearSelect == false) {
-        console.log("bara ett år")
         var selectedYear = String(selectedList[0]['month'])
-        console.log(selectedYear)
 
         const months = [
           { 'month': "Jan " + selectedYear, 'id': 1 },
@@ -432,8 +384,6 @@ class Home extends React.Component {
           { 'month': "Oct " + selectedYear, 'id': 10 },
           { 'month': "Nov " + selectedYear, 'id': 11 },
           { 'month': "Dec " + selectedYear, 'id': 12 }]
-
-        console.log(months)
 
         this.setState({
           singleSelect: true,
@@ -454,7 +404,6 @@ class Home extends React.Component {
       }
 
     } else if (activePeriod == "week") {
-      console.log("OnSelect: nu är det vecka mina bekanta")
       const weeks = [
         { 'week': "week " + 1, 'id': 1 },
         { 'week': "week " + 2, 'id': 2 },
@@ -511,10 +460,7 @@ class Home extends React.Component {
         { 'week': "week " + 53, 'id': 53 }]
 
       if (yearSelect == false) {
-        console.log("bara ett år")
-        console.log(selectedList)
         var selectedYear = String(selectedList[0]['week'])
-        console.log(selectedYear)
 
         this.setState({
           yearSelected: true,
@@ -535,12 +481,10 @@ class Home extends React.Component {
     console.log("Inne i onselectweek")
     var yearFix = 'y' + String(year);
     var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, this.state.userInfo.store);
-    console.log("weeklist: ", weekList)
 
     var weekDateList = []
     var salesWeekdayList = []
     for (var i in weekList) {
-      // console.log(weekList[i])
       weekDateList.push(weekList[i]['Day'] + "/" + weekList[i]['Month'])
       salesWeekdayList.push(weekList[i]['Total sales'])
     }
@@ -579,7 +523,6 @@ class Home extends React.Component {
     } else {
       console.log("WEEK: fanns nått där, nu ska vi göra nått!")
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -601,7 +544,6 @@ class Home extends React.Component {
         })
       }
       //--- Update Week bars
-      console.log("Updated WEEK Bar: ", updatedBar)
       var localNumberOfBars = this.state.numberOfBars;
 
       const weekSimpleDates = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'] //Because the dates will differ from week to week
@@ -618,7 +560,6 @@ class Home extends React.Component {
   }
 
   onSelectMonth = async (selectedYear, selectedMonthID) => {
-    console.log("nu kommer vi hit och ska hitta månad!")
 
     const monthDict = {
       1: ['m1', 'Jan'],
@@ -637,9 +578,6 @@ class Home extends React.Component {
     var selectedYear;
     var selectedMonth = monthDict[selectedMonthID][1];
     var monthForFunction = monthDict[selectedMonthID][0]
-    console.log("month For function= ", monthForFunction)
-
-    console.log("selected Year: ", selectedYear, "  selectedMonth:  ", selectedMonth);
 
     var year = Number(selectedYear);
     var yearFix = "y" + year;
@@ -676,7 +614,7 @@ class Home extends React.Component {
     }
 
     if (this.state.dataInGraph == false) {
-      console.log("Fanns ingen dataSet från början");
+      console.log("Fanns inget dataSet från början");
       this.setState({
         dataSets: [newBar],
         dates: monthDates,
@@ -688,9 +626,7 @@ class Home extends React.Component {
       })
     } else {
       //---- Create updated bar of months
-      console.log("fanns nått där, nu ska vi göra nått!")
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -714,7 +650,6 @@ class Home extends React.Component {
       // -------------------
 
       //--- Update month bars
-      console.log("Updated MONTH Bar: ", updatedBar)
       var localNumberOfBars = this.state.numberOfBars;
       this.setState({
         dataSets: updatedBar,
@@ -731,15 +666,12 @@ class Home extends React.Component {
 
     if (this.state.initialRender == true) {
       var year = selectedItem
-      console.log(year, " year!!");
       var yearFix = 'y' + year;
     } else {
       var year = Number(selectedItem.year);
       var yearFix = "y" + year;
     }
-    console.log("selecteditem: ", selectedItem)
 
-    console.log(year)
     const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0, this.state.userInfo.store)
 
     var totSalesList = [];
@@ -797,7 +729,6 @@ class Home extends React.Component {
       }
       //---Make new array for state--
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -842,7 +773,6 @@ class Home extends React.Component {
           updatedList.push(element);
         }
       });
-      console.log("updatedList ready to replace: ", updatedList);
 
       this.setState({
         dataSets: updatedList
@@ -851,7 +781,7 @@ class Home extends React.Component {
   }
 
   buttonClickYear() {
-    console.log("Ett year ett year ett year")
+    console.log("Button Click Year")
     var initial = this.state.currentYearDataSet;
     var initDates = this.state.currentYearDates;
 
@@ -897,7 +827,7 @@ class Home extends React.Component {
     })
   }
   buttonClickWeek() {
-    console.log("Ett weeeeeeeeeeeeek")
+    console.log("Button Click Week")
     var initial = this.state.currentWeekDataSet;
     var initDates = this.state.currentWeekDates;
 
@@ -920,7 +850,7 @@ class Home extends React.Component {
     })
   }
   buttonClickClear() {
-    console.log("Clear!!")
+    console.log("Button Click Clear")
     var initial = this.state.initialDataSet;
     var initDates = this.state.initialDates;
     this.setState({
@@ -936,7 +866,6 @@ class Home extends React.Component {
     var username = this.state.userInfo.username
 
     var userSales = await getUserSales(username)
-    console.log(userSales)
 
     var members = userSales['members']
     var products = userSales['productSold']
@@ -1054,14 +983,12 @@ class Home extends React.Component {
   }
   getCurrentDate = async () => {
     var token = (cookies.get('jwt')).key;
-    console.log(token, "token från getcurrentdate")
 
     var dateFetch = `http://tollo.duckdns.org:61338/getDate?token=${token}`
     // var dateFetch = `http://192.168.0.111:61339/getDate?token=${token}`
     const dateResponse = await fetch(dateFetch);
     const dateSetOfData = await dateResponse.json();
     const dateSet = dateSetOfData.data;
-    console.log("resultat från dateSet: ", dateSet)
 
     var dateList = []
     dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
@@ -1094,7 +1021,7 @@ class Home extends React.Component {
       productGoal: finalSet[0].productGoal,
       membersGoal: finalSet[0].membersGoal
     }
-    console.log("gdgdgdgdgdgd", this.state.profilePath)
+    console.log("Profile path: ", this.state.profilePath)
 
     this.setState({
       userInfo: userInfoArray
@@ -1172,7 +1099,6 @@ class Home extends React.Component {
     this.setState({
       yearSelected: true
     })
-    console.log(this.state.currentDate, " currentDate mannen")
 
     if (this.state.currentDate == undefined) {
       await this.onSelectWeek(2020, 53)
@@ -1182,7 +1108,6 @@ class Home extends React.Component {
     await this.onSelectWeek(this.state.currentDate[0].year, this.state.currentDate[0].week)
     await this.onSelectMonth(this.state.currentDate[0].year, this.state.currentDate[0].month)
     await this.onSelectYear([], this.state.currentDate[0].year)
-    console.log(this.state.currentDate, " currentDate igen")
   }
   createOtherStoreData() {
     const storeRev = [];
@@ -1267,9 +1192,6 @@ class Home extends React.Component {
 
 
   render() {
-    if (this.state.hasError) {
-      return <h1> Something went wrong, oops!</h1>
-    }
     return (
       <div className="home">
         <div className="container-fluid-lg h-100">
