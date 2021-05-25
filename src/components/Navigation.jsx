@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-
+import Nav from 'react-bootstrap/Nav'
 
 
 
@@ -12,7 +12,12 @@ function Navigation(props) {
           <Link className="navbar-brand" to="/">
           <img src={process.env.PUBLIC_URL + '/img/tollo-logo.png'} width="140px"/>
           </Link>
-
+          <Dropdown as={NavItem}>
+  <Dropdown.Toggle as={NavLink}>Click to see more…</Dropdown.Toggle>
+  <Dropdown.Menu>
+    <Dropdown.Item>Hello there!</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>;
           <div>
             <ul className="navbar-nav ml-auto">
               <li
