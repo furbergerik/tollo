@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import Nav from 'react-bootstrap/Nav'
+
 
 
 
@@ -12,13 +12,9 @@ function Navigation(props) {
           <Link className="navbar-brand" to="/">
           <img src={process.env.PUBLIC_URL + '/img/tollo-logo.png'} width="140px"/>
           </Link>
-          <Dropdown as={NavItem}>
-  <Dropdown.Toggle as={NavLink}>Click to see more…</Dropdown.Toggle>
-  <Dropdown.Menu>
-    <Dropdown.Item>Hello there!</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown>;
+        
           <div>
+        
             <ul className="navbar-nav ml-auto">
               <li
                 className={`nav-item  ${props.location.pathname === "/" ? "active" : ""
@@ -29,6 +25,7 @@ function Navigation(props) {
                   <span className="sr-only">(current)</span>
                 </Link>
               </li>
+              
               <li
                 className={`nav-item  ${props.location.pathname === "/about" ? "active" : ""
                   }`}
@@ -53,6 +50,18 @@ function Navigation(props) {
                  My Admin
                 </Link>
               </li>
+              <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i className="fas fa-bars"></i>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="home">Home</a>
+          <a class="dropdown-item" href="MyProfile">MyProfile</a>
+          <a class="dropdown-item" href="MyAdmin">MyAdmin</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" onClick={console.log("hej")}>Log out</a>
+        </div>
+      </li>
               <li
                 className={`nav-item  ${props.location.pathname === "/erik" ? "active" : ""
                   }`}
