@@ -25,8 +25,6 @@ async function getUserSales(username) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log("test");
-  console.log(finalSet);
   return finalSet;
 }
 async function updateMemberships(username, count, goal) {
@@ -39,7 +37,6 @@ async function updateMemberships(username, count, goal) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log(finalSet);
   return finalSet;
 }
 async function updateProductSales(username, count, goal) {
@@ -51,7 +48,6 @@ async function updateProductSales(username, count, goal) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log(finalSet);
   return finalSet;
 }
 
@@ -306,9 +302,12 @@ function sumArr(arr) {
 // console.log(bubbleSort(test))
 
 class Home extends React.Component {
-
+  constructor(props) {
+    super(props);
+  }
   state = {
     initialRender: true,
+    disableMultiselect: true,
     currentdate: [],
     userInfo: [{
       username: 'b',
@@ -316,6 +315,10 @@ class Home extends React.Component {
       lastName: '',
       store: '',
       department: '',
+      depID: '',
+      profilePath: '',
+      productGoal: '',
+      membersGoal: '',
     }],
     yourDepMonthSales: 0,
     dataInGraph: false,
@@ -324,6 +327,10 @@ class Home extends React.Component {
     numberOfBars: 0,
     currentWeekDataSet: [],
     currentWeekDates: [],
+    currentMonthDataSet: [],
+    currentMonthDates: [],
+    currentYearDataSet: [],
+    currentYearDates: [],
     multiOptions: [
       { 'year': "2018" },
       { 'year': "2019" },
@@ -349,8 +356,8 @@ class Home extends React.Component {
     monthlyCompList: [],
     monthlyCompListStore: [],
     yearList: [],
-    productGoal: 250,
-    membershipGoal: 50,
+    memberGoalMet: false,
+    productGoalMet: false,
     productPercent: 0,
     memberPercent: 0,
     currentProductOfMonthSales: 0,
@@ -542,9 +549,6 @@ class Home extends React.Component {
       weekDateList.push(weekList[i]['Day'] + "/" + weekList[i]['Month'])
       salesWeekdayList.push(weekList[i]['Total sales'])
     }
-    console.log("Date List: ", weekDateList)
-    console.log("salesWeekdayList: ", salesWeekdayList);
-
 
     var newBar = { label: "Week " + week + " " + year, data: salesWeekdayList, backgroundColor: '#F94144', borderWidth: 1 }
     const weekYears = [
@@ -557,6 +561,7 @@ class Home extends React.Component {
     // }
 
     if (this.state.initialRender == true) {
+      newBar.label = 'This week: '
       this.setState({
         currentWeekDataSet: [newBar],
         currentWeekDates: weekDateList,
@@ -656,8 +661,6 @@ class Home extends React.Component {
       monthDates.push(i)
       i = i + 1;
     });
-    console.log(monthDates)
-
 
     var newBar = { label: selectedMonth + " " + selectedYear, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
     const monthYear = [
@@ -665,6 +668,17 @@ class Home extends React.Component {
       { 'month': '2019' },
       { 'month': '2020' }
     ]
+
+
+    if (this.state.initialRender == true) {
+      newBar.label = 'This month: '
+      this.setState({
+        currentMonthDataSet: [newBar],
+        currentMonthDates: monthDates,
+        dataInGraph: false
+      })
+      return
+    }
 
     if (this.state.dataInGraph == false) {
       console.log("Fanns ingen dataSet från början");
@@ -719,8 +733,16 @@ class Home extends React.Component {
 
 
   onSelectYear = async (selectedList, selectedItem) => {
-    var year = Number(selectedItem.year);
-    var yearFix = "y" + year;
+
+    if (this.state.initialRender == true) {
+      var year = selectedItem
+      console.log(year, " year!!");
+      var yearFix = 'y' + year;
+    } else {
+      var year = Number(selectedItem.year);
+      var yearFix = "y" + year;
+    }
+    console.log("selecteditem: ", selectedItem)
 
     console.log(year)
     const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0, this.state.userInfo.store)
@@ -730,6 +752,16 @@ class Home extends React.Component {
       totSalesList.push(neededData[i])
     }
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
+
+    if (this.state.initialRender == true) {
+      newBar.label = 'This year: '
+      this.setState({
+        currentYearDataSet: [newBar],
+        currentYearDates: dates,
+        dataInGraph: false
+      })
+      return
+    }
 
     if (this.state.dataInGraph == false) {
       console.log("Fanns ingen dataSet från början");
@@ -746,7 +778,6 @@ class Home extends React.Component {
       // create and fix updatedBar
       console.log("!!Fanns nått i dataSet!!");
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -826,8 +857,8 @@ class Home extends React.Component {
 
   buttonClickYear() {
     console.log("Ett year ett year ett year")
-    var initial = this.state.initialDataSet;
-    var initDates = this.state.initialDates;
+    var initial = this.state.currentYearDataSet;
+    var initDates = this.state.currentYearDates;
 
     var yearList = []
     var currentYears = this.state.yearList
@@ -844,7 +875,8 @@ class Home extends React.Component {
       multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
-      dataInGraph: false
+      dataInGraph: false,
+      disableMultiselect: false
     })
   }
   buttonClickMonth() {
@@ -855,17 +887,18 @@ class Home extends React.Component {
       yearList.push({ 'month': String(currentYears[i]) })
     }
 
-    var initial = this.state.initialDataSet;
-    var initDates = this.state.initialDates;
+    var initial = this.state.currentMonthDataSet;
+    var initDates = this.state.currentMonthDates;
     this.setState({
       dataSets: initial,
       dates: initDates,
       activePeriod: 'month',
-      singleSelect: "true",
+      singleSelect: true,
       multiOptions: yearList,
       colorCount: 1,
       yearSelected: false,
-      dataInGraph: false
+      dataInGraph: false,
+      disableMultiselect: false
     })
   }
   buttonClickWeek() {
@@ -887,7 +920,8 @@ class Home extends React.Component {
       yearSelected: false,
       multiOptions: yearList,
       singleSelect: true,
-      dataInGraph: false
+      dataInGraph: false,
+      disableMultiselect: false
     })
   }
   buttonClickClear() {
@@ -896,7 +930,8 @@ class Home extends React.Component {
     var initDates = this.state.initialDates;
     this.setState({
       dataSets: initial,
-      dates: initDates
+      dates: initDates,
+      dataInGraph: false,
     })
   }
 
@@ -916,6 +951,12 @@ class Home extends React.Component {
 
     var totalMemberships = members + newMemberships
     var totalProducts = products + newProducts
+    if (totalMemberships < 0) {
+      totalMemberships = 0
+    }
+    if (totalProducts < 0) {
+      totalProducts = 0
+    }
 
     var membershipGoal = this.state.userInfo.membersGoal
     var productGoal = this.state.userInfo.productGoal
@@ -923,8 +964,12 @@ class Home extends React.Component {
     var memberPercent = (totalMemberships / membershipGoal) * 100
     var productPercent = (totalProducts / productGoal) * 100
 
+
+
     await updateMemberships(username, totalMemberships, 0)
     await updateProductSales(username, totalProducts, 0)
+
+
 
     this.setState({
       totalProducts: totalProducts,
@@ -934,6 +979,24 @@ class Home extends React.Component {
       memberPercent: memberPercent,
       productPercent: productPercent
     })
+    if (totalMemberships >= membershipGoal) {
+      this.setState({
+        memberGoalMet: true
+      })
+    } else if (totalMemberships < membershipGoal) {
+      this.setState({
+        memberGoalMet: false
+      })
+    }
+    if (totalProducts >= productGoal) {
+      this.setState({
+        productGoalMet: true
+      })
+    } else if (totalProducts < productGoal) {
+      this.setState({
+        productGoalMet: false
+      })
+    }
     this.myStoreTopSellers()
   }
   pOfMonth(valueAsNumber, valueAsString, input) {
@@ -955,10 +1018,22 @@ class Home extends React.Component {
       var totalMemberships = userSales['members']
       var totalProducts = userSales['productSold']
 
-      var membershipGoal = this.state.membershipGoal
-      var productGoal = this.state.productGoal
+      var membershipGoal = this.state.userInfo.membersGoal
+      var productGoal = this.state.userInfo.productGoal
+
       var memberPercent = (totalMemberships / membershipGoal) * 100
       var productPercent = (totalProducts / productGoal) * 100
+      if (totalMemberships >= membershipGoal) {
+        this.setState({
+          memberGoalMet: true
+        })
+      }
+      if (totalProducts >= productGoal) {
+        this.setState({
+          productGoalMet: true
+        })
+      }
+
       this.setState({
         totalMemberships: totalMemberships,
         totalProducts: totalProducts,
@@ -993,7 +1068,6 @@ class Home extends React.Component {
 
     var dateList = []
     dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
-    console.log("dateList från getCurrentdate: ", dateList)
 
     this.setState({
       currentDate: dateList
@@ -1009,7 +1083,6 @@ class Home extends React.Component {
     const setOfData = await response.json();
     const finalSet = setOfData.data;
 
-    console.log("USER INFO: ", finalSet)
     var department = finalSet[0].department
     var departmentFix = department.replace('_', ' ')
 
@@ -1024,6 +1097,7 @@ class Home extends React.Component {
       productGoal: finalSet[0].productGoal,
       membersGoal: finalSet[0].membersGoal
     }
+    console.log("gdgdgdgdgdgd",this.state.profilePath)
 
     this.setState({
       userInfo: userInfoArray
@@ -1087,9 +1161,11 @@ class Home extends React.Component {
     })
 
     await this.onSelectWeek(this.state.currentDate[0].year, this.state.currentDate[0].week)
+    await this.onSelectMonth(this.state.currentDate[0].year, this.state.currentDate[0].month)
+    await this.onSelectYear([], this.state.currentDate[0].year)
+
   }
   createOtherStoreData() {
-    console.log("hejjdjwsdsjjk")
     const storeRev = [];
     const storeRevName = [];
     var keys = Math.floor(Math.random() * 1000000);
@@ -1123,7 +1199,7 @@ class Home extends React.Component {
       storeRevCompState: storeRevComp,
       storeRevCompNameState: storeRevCompName,
       storeProdOfMoState: storeProdOfMo,
-      storeProdOfMoNameStete: storeProdOfMoName
+      storeProdOfMoNameState: storeProdOfMoName, 
     })
 
   }
@@ -1212,16 +1288,16 @@ class Home extends React.Component {
                   </div>
                   <h4>Welcome back {this.state.userInfo.firstName}</h4>
                 </div>
-                <div className="progress-window goals">
-                  Membership Goal:
-                  <ProgressBar variant="success" animated now={this.state.memberPercent} label={this.state.totalMemberships} />
-                  Product of the Month Goal:
-                  <ProgressBar variant="info" animated now={this.state.productPercent} label={this.state.totalProducts} />
+                <div className={`progress-window goals${this.state.memberGoalMet ? ' goalMet' : ''}`}>
+                  <div >Membership Goal: {this.state.userInfo.membersGoal}</div>
+                  <ProgressBar className={`progress${this.state.memberGoalMet ? ' goalMet' : ''}`} variant="success" animated now={this.state.memberPercent} label={this.state.totalMemberships} />
+                  Product of the Month Goal: {this.state.userInfo.productGoal}
+                  <ProgressBar className={`progress${this.state.productGoalMet ? ' goalMet' : ''}`} variant="info" animated now={this.state.productPercent} label={this.state.totalProducts} />
                 </div>
                 <div className="progress-window logg">
                   New members:
                 <NumericInput className="form-control" onChange={this.memberships.bind(this)} value={this.state.currentMemberships} />
-                Product of the Month:
+                  Product of the Month:
                 <NumericInput className="form-control" onChange={this.pOfMonth.bind(this)} value={this.state.currentProductOfMonthSales} />
                   <button className="submit-button" onClick={this.submitButton}>Submit</button>
                 </div>
@@ -1277,7 +1353,8 @@ class Home extends React.Component {
                           closeOnSelect="false"
                           hidePlaceholder="true"
                           singleSelect={this.state.singleSelect}
-                          showArrow={false}
+                          showArrow="false"
+                          disable={this.state.disableMultiselect}
                         ></Multiselect>
                         <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
                       </ButtonGroup>
@@ -1310,15 +1387,10 @@ class Home extends React.Component {
                       </div>
                     </div>
 
-                    <p className="myStoreTitle topSellers">Top sellers: Memberships</p>
+                    <p className="myStoreTitle topSellers">Top sellers: POM</p>
 
                     <div className="scrollTopList">
-                      {/* <div className="topSeller">1. Olle Kindvall</div>
-                      <div className="topSeller">2. Georgios</div>
-                      <div className="topSeller">3. Vegge P</div>
-                      <div className="topSeller">4. Hugo Sjönneby</div>
-                      <div className="topSeller">5. Georgios</div> */}
-                      {this.state.topSellerListMem}
+                      {this.state.topSellerListProd}
                     </div>
                   </div>
                 </div>
