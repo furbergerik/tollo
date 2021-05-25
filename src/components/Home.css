@@ -14,6 +14,13 @@
 .header{
     height: 5vh;
 }
+.fix-mrgn{
+    margin-bottom: 15px;
+}
+.fix-mrgn2{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
 .other-store{
 background-color: #9abad8;
 }
@@ -157,7 +164,7 @@ background-color: #9abad8;
 .myStore{
 position: relative;
   margin-top: -1.5vh;
-  height: 70%;
+  height: 80%;
   background-color: rgba(255, 255, 255, 0.884);
   border-style: solid;
   border-color: #c1e8dc;

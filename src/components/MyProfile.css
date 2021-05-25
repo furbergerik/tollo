@@ -16,6 +16,9 @@
  
 
 }
+.fix-mrgn{
+    margin-bottom: 15px;
+}
 
 .stats {
     background-color: #7f868b;

@@ -1277,10 +1277,10 @@ class Home extends React.Component {
     // }
     return (
       <div className="home">
-        <div className="container-fluid-lg h-100">
+        <div className="container-fluid-lg h-100 px-3">
           <div className="row h-lg-100 colGrid">
             {/* -------------col one------------ */}
-            <div className=" colGrid col1 col-md-12 col-lg-4" >
+            <div className=" colGrid col1 col-md-12 col-lg-4 px-0" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
                   <div className="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
@@ -1305,14 +1305,14 @@ class Home extends React.Component {
             </div>
 
             {/* -------------col two------------ */}
-            <div className=" col-md-12 col-lg-8">
+            <div className=" col-md-12 col-lg-8 px-0">
               {/* own store */}
 
-              <div className="row  h-50  col2">
+              <div className="row  h-50  col2 fix-mrgn2">
                 
                 <div className="dep-container own-store">
                   <div className="row h-100">
-                <div className="col-md-12  hidden-xs-down col-lg-7">
+                <div className="col-md-12  hidden-xs-down col-lg-7 fix-mrgn">
                   <div className="store-window window-1">
                     <div className="myStoreTitleGrid">
                       <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
@@ -1367,7 +1367,7 @@ class Home extends React.Component {
                   </div>
                   </div>
                   
-                  <div className="col-md-12 col-lg-5">
+                  <div className="col-md-12 col-lg-5 fix-mrgn">
                   <div className="store-window window-2">
 
                     <div className="storeDetails">
@@ -1408,24 +1408,24 @@ class Home extends React.Component {
 
 
               {/* -------OTHER STORES------ */}
-              <div className="row h-50 col2">
+              <div className="row h-50 col2 fix-mrgn2">
                 <div className="dep-container other-store">
                 <div className="row h-100">
-                  <div className="col-lg-4 ">
+                  <div className="col-lg-4 fix-mrgn">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store: This Month</div>
                     {this.state.storeRevNameState}
                     {this.state.storeRevState}
                   </div>
                   </div>
-                  <div className="col-lg-4 ">
+                  <div className="col-lg-4 fix-mrgn">
                   <div className="store-window window-4">
                     <div className="headline">Most Improved Store: This Month</div>
                     {this.state.storeRevCompState}
                     {this.state.storeRevCompNameState}
                   </div>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-4 fix-mrgn">
                   <div className="store-window window-5">
                     <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
                     {this.state.storeProdOfMoState}
