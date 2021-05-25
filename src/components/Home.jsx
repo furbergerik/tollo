@@ -1094,6 +1094,7 @@ class Home extends React.Component {
       productGoal: finalSet[0].productGoal,
       membersGoal: finalSet[0].membersGoal
     }
+    console.log("gdgdgdgdgdgd", this.state.profilePath)
 
     this.setState({
       userInfo: userInfoArray
@@ -1217,7 +1218,7 @@ class Home extends React.Component {
       storeRevCompState: storeRevComp,
       storeRevCompNameState: storeRevCompName,
       storeProdOfMoState: storeProdOfMo,
-      storeProdOfMoNameStete: storeProdOfMoName
+      storeProdOfMoNameState: storeProdOfMoName,
     })
 
   }
@@ -1271,16 +1272,16 @@ class Home extends React.Component {
     }
     return (
       <div className="home">
-        <div className="container-fluid h-100">
-          <div className="row colGrid">
+        <div className="container-fluid-lg h-100">
+          <div className="row h-lg-100 colGrid">
             {/* -------------col one------------ */}
-            <div className="col-xs-12 colGrid col1 col-md-4" >
+            <div className=" colGrid col1 col-md-12 col-lg-4" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
                   <div className="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
 
                   </div>
-                  <h4>Welcome back {this.state.userInfo.firstName}</h4>
+                  <h4>Welcome back {this.state.userInfo.firstName}!</h4>
                 </div>
                 <div className={`progress-window goals${this.state.memberGoalMet ? ' goalMet' : ''}`}>
                   <div >Membership Goal: {this.state.userInfo.membersGoal}</div>
@@ -1299,92 +1300,101 @@ class Home extends React.Component {
             </div>
 
             {/* -------------col two------------ */}
-            <div className="col-xs-12 col-md-8">
+            <div className=" col-md-12 col-lg-8">
               {/* own store */}
 
-              <div className="row col2">
+              <div className="row  h-50  col2">
+
                 <div className="dep-container own-store">
-                  <div className="store-window window-1">
-                    <div className="myStoreTitleGrid">
-                      <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
-                    </div>
-
-                    <div className="myStore">
-                      <Bar
-                        data={{
-                          labels: this.state.dates,
-                          datasets: this.state.dataSets
-                        }}
-
-                        options={{
-                          backgroundColor: "red",
-                          maintainAspectRatio: false,
-                          scales: {
-                            yAxes: [
-                              {
-                                ticks: {
-                                  beginAtZero: true,
-                                }
-                              }
-                            ]
-                          }
-                        }}
-                      />
-                    </div>
-
-                    <div className="buttonGroupContainer">
-                      <ButtonGroup aria-label="Basic example">
-                        <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
-                        <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
-                        <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
-                        <Multiselect
-                          options={this.state.multiOptions} // Options to display in the dropdown
-                          onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                          onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                          displayValue={this.state.activePeriod} // Property name to display in the dropdown option
-                          placeholder="Select time period"
-                          showCheckbox="true"
-                          closeOnSelect="false"
-                          hidePlaceholder="true"
-                          singleSelect={this.state.singleSelect}
-                          showArrow="false"
-                          disable={this.state.disableMultiselect}
-                        ></Multiselect>
-                        <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
-                      </ButtonGroup>
-                    </div>
-                  </div>
-
-                  <div className="store-window window-2">
-
-                    <div className="storeDetails">
-                      <div className="myStoreTitle">This Month:</div>
-                      <div className="monthInfo">
-                        <div>Your department:</div>
-                        <div className="textRight">
-                          <div>{this.state.userInfo.department}:</div>
-                          <div>
-                            <CountUp
-                              start={0}
-                              end={this.state.yourDepMonthSales}
-                              duration={2.75}
-                              separator=" "
-                              decimals={0}
-                              decimal=","
-                              suffix=" # of sales"
-                            >
-                            </CountUp>
-                          </div>
+                  <div className="row h-100">
+                    <div className="col-md-12  hidden-xs-down col-lg-7">
+                      <div className="store-window window-1">
+                        <div className="myStoreTitleGrid">
+                          <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
                         </div>
-                        <div className="borderTop">Product of the Month:</div>
-                        <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
+
+                        <div className="myStore">
+                          <Bar
+                            data={{
+                              labels: this.state.dates,
+                              datasets: this.state.dataSets
+                            }}
+
+                            options={{
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              backgroundColor: "red",
+                              maintainAspectRatio: false,
+                              scales: {
+                                yAxes: [
+                                  {
+                                    ticks: {
+                                      beginAtZero: true,
+                                    }
+                                  }
+                                ]
+                              }
+                            }}
+                          />
+                        </div>
+
+                        <div className="buttonGroupContainer">
+                          <ButtonGroup aria-label="Basic example">
+                            <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
+                            <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
+                            <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
+                            <Multiselect
+                              options={this.state.multiOptions} // Options to display in the dropdown
+                              onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                              onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
+                              displayValue={this.state.activePeriod} // Property name to display in the dropdown option
+                              placeholder="Select time period"
+                              showCheckbox="true"
+                              closeOnSelect="false"
+                              hidePlaceholder="true"
+                              singleSelect={this.state.singleSelect}
+                              showArrow="false"
+                              disable={this.state.disableMultiselect}
+                            ></Multiselect>
+                            <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
+                          </ButtonGroup>
+                        </div>
                       </div>
                     </div>
 
-                    <p className="myStoreTitle topSellers">Top sellers: POM</p>
+                    <div className="col-md-12 col-lg-5">
+                      <div className="store-window window-2">
 
-                    <div className="scrollTopList">
-                      {this.state.topSellerListProd}
+                        <div className="storeDetails">
+                          <div className="myStoreTitle">This Month:</div>
+                          <div className="monthInfo">
+                            <div>Your department:</div>
+                            <div className="textRight">
+                              <div>{this.state.userInfo.department}:</div>
+                              <div>
+                                <CountUp
+                                  start={0}
+                                  end={this.state.yourDepMonthSales}
+                                  duration={2.75}
+                                  separator=" "
+                                  decimals={0}
+                                  decimal=","
+                                  suffix=" # of sales"
+                                >
+                                </CountUp>
+                              </div>
+                            </div>
+                            <div className="borderTop">Product of the Month:</div>
+                            <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
+                          </div>
+                        </div>
+
+                        <p className="myStoreTitle topSellers">Top sellers: POM</p>
+
+                        <div className="scrollTopList">
+                          {this.state.topSellerListProd}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1392,26 +1402,33 @@ class Home extends React.Component {
 
 
 
-
-
               {/* -------OTHER STORES------ */}
-              <div className="row col2">
+              <div className="row h-50 col2">
                 <div className="dep-container other-store">
-                  <div className="store-window window-3">
-                    <div className="headline">Top Selling Store: This Month</div>
-                    {this.state.storeRevNameState}
-                    {this.state.storeRevState}
+                  <div className="row h-100">
+                    <div className="col-lg-4 ">
+                      <div className="store-window window-3">
+                        <div className="headline">Top Selling Store: This Month</div>
+                        {this.state.storeRevNameState}
+                        {this.state.storeRevState}
+                      </div>
+                    </div>
+                    <div className="col-lg-4 ">
+                      <div className="store-window window-4">
+                        <div className="headline">Most Improved Store: This Month</div>
+                        {this.state.storeRevCompState}
+                        {this.state.storeRevCompNameState}
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <div className="store-window window-5">
+                        <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
+                        {this.state.storeProdOfMoState}
+                        {this.state.storeProdOfMoNameState}
+                      </div>
+                    </div>
                   </div>
-                  <div className="store-window window-4">
-                    <div className="headline">Most Improved Store: This Month</div>
-                    {this.state.storeRevCompState}
-                    {this.state.storeRevCompNameState}
-                  </div>
-                  <div className="store-window window-5">
-                    <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
-                    {this.state.storeProdOfMoState}
-                    {this.state.storeProdOfMoNameState}
-                  </div>
+
                 </div>
               </div>
             </div>

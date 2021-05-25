@@ -15,7 +15,7 @@ async function getUsers(department,store) {
   console.log(department);
   var token = (cookies.get('jwt')).key;
 
-  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&token=${token}`
+  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&allUsers=1&token=${token}`
 
   //var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${1}&department=${department}&token=${token}`
     const response = await fetch(fetchingFrom);
@@ -24,9 +24,109 @@ async function getUsers(department,store) {
     return finalSet;
 
 }
+async function getStoreData(dataCategory, ID, storeNr){
+  if (ID == 0) {
+    var token = (cookies.get('jwt')).key;
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
+    //var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '?token=' + token
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+
+  else {
+    var token = (cookies.get('jwt')).key;
+    var fetchingFrom = 'http://tollo.duckdns.org:61338/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
+    //var fetchingFrom = 'http://192.168.0.111:61339/store' + storeNr + 'v2/' + dataCategory + '/' + ID + '?token=' + token
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+  }
+}
+async function getDepartmentProducts(departmentId) {
+  var token = (cookies.get('jwt')).key;
+
+  var fetchingFrom = `http://tollo.duckdns.org:61338/store1v2/department?department=${departmentId}&token=${token}`
+  //var fetchingFrom = `http://192.168.0.111:61339/store1v2/department?department=${departmentId}&token=${token}`
+
+  const response = await fetch(fetchingFrom);
+
+  const setOfData = await response.json();
+  const finalSet = setOfData.data;
+
+  return finalSet;
+}
+
+async function getMonthlyBestProductData(year, month, dataCategory, dataType, storeNr, depNames){
+  var listMonth = [];
+  var listMonthProd = []
+  for (var i = 1; i < 8; i++) {
+  var mostSold = 0;
+  var prodNames = "";
+  var productIdList = await getDepartmentProducts(i)
+  for (var j in productIdList) {
+  var salesData = await getStoreData(dataCategory, 'p'+productIdList[j], storeNr);
+  var monthData = salesData['y'+year]['m'+month];
+  var listDay = 0;
+    for (var k in monthData) {
+      listDay+=monthData[k][dataType];
+    }
+    if (listDay > mostSold){
+      mostSold = listDay
+      prodNames=monthData[0]["Title"]
+      }
+    }
+    listMonth.push(listDay);
+    listMonthProd.push([depNames[i-1], prodNames]);  
+  }
+    bubbleSort(listMonth, listMonthProd);
+    return [listMonth, listMonthProd]
+}
+
+async function getMonthlyDepartmentData(year, month, dataCategory, dataType, storeNr){
+  var listMonth = [];
+  var listMonthDep = []
+  var listDep = []
+  for (var i = 1; i < 8; i++) {
+  var salesData = await getStoreData(dataCategory, 'd'+i, storeNr);
+  var monthData = salesData['y'+year]['m'+month];
+  var listDay = 0;
+    for (var j in monthData) {
+      listDay+=monthData[j][dataType];
+    }
+      var depName=monthData[0]["Dep Title"]
+      listMonth.push(listDay)
+      listMonthDep.push(depName)
+      listDep.push(depName)
+    }
+    bubbleSort(listMonth, listMonthDep)
+    return [listMonth, listMonthDep, listDep]
+}
+
+function bubbleSort(inputArr, inputLabel) {
+  var len = inputArr.length;
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - 1; j++) {
+      if (inputArr[j] < inputArr[j + 1]) {
+        let tmp = inputArr[j];
+        let tmpLabel = inputLabel[j]
+        inputArr[j] = inputArr[j + 1];
+        inputLabel[j] = inputLabel[j + 1]
+        inputLabel[j + 1] = tmpLabel;
+        inputArr[j + 1] = tmp;
+      }
+    }
+  }
+  return [inputArr, inputLabel];
+};
+
 
 class MyAdmin extends Component {
-  
+  constructor(props) {
+    super(props);
+  }
   
   
   state ={
@@ -52,6 +152,8 @@ class MyAdmin extends Component {
     if(!this.state.hasMounted){
       this.callGetUsers(this.state.department,this.state.store);
       this.setState({hasMounted:true});
+      const [a,b,c]= await getMonthlyDepartmentData(2020, 12, "depSales", "Sales", 1)
+        console.log(await getMonthlyBestProductData(2020, 12, "prodSales", "Sales", 1, c))
 
     }
     
@@ -177,20 +279,19 @@ class MyAdmin extends Component {
       message = 
       <div className="mt-2 row ">
           
-        <div className="col-md-3 offset-1 ">
-        <div className="profileInfo shadow p-3 mb-5 rounded" >
+    
+        <div className="profileInfo shadow p-3 mb-5 rounded col-md-2 offset-md-2 " >
         {<UserInformation></UserInformation>}
         </div>
-   
-</div>
+
 <div>
 
 </div>
-<div className="offset-1">
+<div className=" col-md-3">
         {<Registration></Registration>}
    
         </div>
-        <div   className="employee offset-1 overflow-auto shadow p-3 mb-5 rounded">
+        <div   className="employee  col-md-3 overflow-auto shadow mb-5  p-3 rounded">
           <h1>Store employees:</h1> 
           <div className="input-group mb-3 ">
   <div className="input-group-prepend">
@@ -239,8 +340,8 @@ class MyAdmin extends Component {
           <label className="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
           </label>
-          <label class="btn btn-secondary active btn-lg">
-            <input type="radio" name="options" id="option1" autocomplete="off" onClick={this.selectedButton.bind(this, "Department")}></input>Add Employee Goals
+          <label className="btn btn-secondary active btn-lg">
+            <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Department")}></input>Add Employee Goals
           </label>
           
           <label className="btn btn-secondary btn-lg ">

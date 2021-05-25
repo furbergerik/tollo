@@ -17,9 +17,11 @@ class  Registration extends Component {
         phone: '',
         store: '',
         admin:0,
-        department:''
-     }
+        department:'',
+        regFlag:true
    
+     }
+    
       regUserChangeHandler =(event) => {
         this.setState({ [event.target.name]: event.target.value });
     
@@ -57,9 +59,8 @@ class  Registration extends Component {
         
       fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}&depId=${depId}&token=${token}`)
       // fetch(`http://192.168.0.111:61339/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}}&depId=${depId}&token=${token}`)  
-       .then(response => response.json())
-        .then(data => console.log(data))
-       // .then(this.getUser)
+        .then(response => response.json())
+        .then(data => this.setState({regFlag:data}))
         .catch(err => console.error(err))
       }
       submitHandler =(event) =>{
@@ -142,6 +143,7 @@ class  Registration extends Component {
     <option value="Racket_sports">Racket_sports</option>
   </select>
 </div>
+{this.state.regFlag === false && <p>Couldn't register user, please try again with different username.</p>}
  
   
   <button  className="btn btn-success btn-lg">Sign Up</button>
