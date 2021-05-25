@@ -1021,7 +1021,6 @@ class Home extends React.Component {
       productGoal: finalSet[0].productGoal,
       membersGoal: finalSet[0].membersGoal
     }
-    console.log("Profile path: ", this.state.profilePath)
 
     this.setState({
       userInfo: userInfoArray
