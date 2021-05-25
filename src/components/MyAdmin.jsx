@@ -279,20 +279,19 @@ class MyAdmin extends Component {
       message = 
       <div className="mt-2 row ">
           
-        <div className="col-md-3 offset-1 ">
-        <div className="profileInfo shadow p-3 mb-5 rounded" >
+    
+        <div className="profileInfo shadow p-3 mb-5 rounded col-md-2 offset-md-2 " >
         {<UserInformation></UserInformation>}
         </div>
-   
-</div>
+
 <div>
 
 </div>
-<div className="offset-1">
+<div className=" col-md-3">
         {<Registration></Registration>}
    
         </div>
-        <div   className="employee offset-1 overflow-auto shadow p-3 mb-5 rounded">
+        <div   className="employee  col-md-3 overflow-auto shadow mb-5  p-3 rounded">
           <h1>Store employees:</h1> 
           <div className="input-group mb-3 ">
   <div className="input-group-prepend">
