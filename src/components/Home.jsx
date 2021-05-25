@@ -105,21 +105,18 @@ async function getProductOfTheMonth(month) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log()
   return finalSet;
 }
 
 
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
-  console.log("salesData: ", salesData)
   var listDayInWeek = [];
   var yearLevel = salesData[year]
   for (var i in yearLevel) {
     var monthLevel = yearLevel[i]
     for (var i in monthLevel) {
       if (monthLevel[i]['Week'] == week) {
-        // console.log("Denna ska vi spara!! ", monthLevel[i]);
         listDayInWeek.push(monthLevel[i])
       }
     }
@@ -164,7 +161,6 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
     var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType, false, ID, storeNr))
     listYear.push(yearTot)
   }
-  console.log(labelYear)
   return { labelYear, listYear }
 }
 async function getProductOfTheMonthName(year, month, storeNr) {
@@ -302,82 +298,81 @@ function sumArr(arr) {
 // console.log(bubbleSort(test))
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    initialRender: true,
-    disableMultiselect: true,
-    currentdate: [],
-    userInfo: [{
-      username: 'b',
-      firstName: '',
-      lastName: '',
-      store: '',
-      department: '',
-      depID: '',
-      profilePath: '',
-      productGoal: '',
-      membersGoal: '',
-    }],
-    yourDepMonthSales: 0,
-    dataInGraph: false,
-    dataSets: [],
-    dates: [],
-    numberOfBars: 0,
-    currentWeekDataSet: [],
-    currentWeekDates: [],
-    currentMonthDataSet: [],
-    currentMonthDates: [],
-    currentYearDataSet: [],
-    currentYearDates: [],
-    multiOptions: [
-      { 'year': "2018" },
-      { 'year': "2019" },
-      { 'year': "2020" }],
-    colorCount: 1,
-    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
-    activePeriod: 'year',
-    year: '2018',
-    monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
-    bestSellers1: '',
-    singleSelect: "false",
-    yearSelected: "false",
-    selectedYear: '',
-    initialDataSet: [{
-      label: 'Store progress',
-      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderWidth: 1
-    }],
-    initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
-    monthlyList: [],
-    monthlyListStore: [],
-    monthlyCompList: [],
-    monthlyCompListStore: [],
-    yearList: [],
-    memberGoalMet: false,
-    productGoalMet: false,
-    productPercent: 0,
-    memberPercent: 0,
-    currentProductOfMonthSales: 0,
-    currentMemberships: 0,
-    totalProducts: 0,
-    totalMemberships: 0,
-    productMonthly: [],
-    productMonthlyStore: [],
-    topSellerListMem: [],
-    topSellerListProd: [],
-    productMonthlyName: "",
-    otherStoreRendered: false,
-    storeRevState: [],
-    storeRevNameState: [],
-    storeRevCompState: [],
-    storeRevCompNameState: [],
-    storeProdOfMoState: [],
-    storeProdOfMoNameStete: []
-
-  }
+  constructor() {
+    super();
+    this.state = {
+      initialRender: true,
+      disableMultiselect: true,
+      currentdate: [{ 'year': 2020, 'month': 12, 'day': 31, 'week': 53 }],
+      userInfo: [{
+        username: 'b',
+        firstName: '',
+        lastName: '',
+        store: '',
+        department: '',
+        depID: '',
+        profilePath: '',
+        productGoal: '',
+        membersGoal: '',
+      }],
+      yourDepMonthSales: 0,
+      dataInGraph: false,
+      dataSets: [],
+      dates: [],
+      numberOfBars: 0,
+      currentWeekDataSet: [],
+      currentWeekDates: [],
+      currentMonthDataSet: [],
+      currentMonthDates: [],
+      currentYearDataSet: [],
+      currentYearDates: [],
+      multiOptions: [
+        { 'year': "2018" },
+        { 'year': "2019" },
+        { 'year': "2020" }],
+      colorCount: 1,
+      colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
+      activePeriod: 'year',
+      year: '2018',
+      monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
+      bestSellers1: '',
+      singleSelect: "false",
+      yearSelected: "false",
+      selectedYear: '',
+      initialDataSet: [{
+        label: 'Store progress',
+        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
+      }],
+      initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+      monthlyList: [],
+      monthlyListStore: [],
+      monthlyCompList: [],
+      monthlyCompListStore: [],
+      yearList: [],
+      memberGoalMet: false,
+      productGoalMet: false,
+      productPercent: 0,
+      memberPercent: 0,
+      currentProductOfMonthSales: 0,
+      currentMemberships: 0,
+      totalProducts: 0,
+      totalMemberships: 0,
+      productMonthly: [],
+      productMonthlyStore: [],
+      topSellerListMem: [],
+      topSellerListProd: [],
+      productMonthlyName: "",
+      otherStoreRendered: false,
+      storeRevState: [],
+      storeRevNameState: [],
+      storeRevCompState: [],
+      storeRevCompNameState: [],
+      storeProdOfMoState: [],
+      storeProdOfMoNameStete: [],
+    }
+  };
 
   // ---------------From DropDown---------------------
   handleYearSelect = async (e) => {
@@ -389,7 +384,7 @@ class Home extends React.Component {
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
-    console.log("handleSelect: ", totSalesList);
+
     var newBar = { label: "Revenue:  " + year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
     newBar = [newBar];
     this.setState({
@@ -561,7 +556,7 @@ class Home extends React.Component {
     // }
 
     if (this.state.initialRender == true) {
-      newBar.label = 'This week: '
+      newBar.label = 'This week: ' + week
       this.setState({
         currentWeekDataSet: [newBar],
         currentWeekDates: weekDateList,
@@ -671,7 +666,7 @@ class Home extends React.Component {
 
 
     if (this.state.initialRender == true) {
-      newBar.label = 'This month: '
+      newBar.label = 'This month: ' + selectedMonth
       this.setState({
         currentMonthDataSet: [newBar],
         currentMonthDates: monthDates,
@@ -754,7 +749,7 @@ class Home extends React.Component {
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
 
     if (this.state.initialRender == true) {
-      newBar.label = 'This year: '
+      newBar.label = 'This year: ' + year
       this.setState({
         currentYearDataSet: [newBar],
         currentYearDates: dates,
@@ -1059,12 +1054,14 @@ class Home extends React.Component {
   }
   getCurrentDate = async () => {
     var token = (cookies.get('jwt')).key;
+    console.log(token, "token från getcurrentdate")
 
     var dateFetch = `http://tollo.duckdns.org:61338/getDate?token=${token}`
     // var dateFetch = `http://192.168.0.111:61339/getDate?token=${token}`
     const dateResponse = await fetch(dateFetch);
     const dateSetOfData = await dateResponse.json();
     const dateSet = dateSetOfData.data;
+    console.log("resultat från dateSet: ", dateSet)
 
     var dateList = []
     dateList.push({ 'year': dateSet[0], 'month': dateSet[1], 'day': dateSet[2], 'week': dateSet[3] })
@@ -1097,7 +1094,7 @@ class Home extends React.Component {
       productGoal: finalSet[0].productGoal,
       membersGoal: finalSet[0].membersGoal
     }
-    console.log("gdgdgdgdgdgd",this.state.profilePath)
+    console.log("gdgdgdgdgdgd", this.state.profilePath)
 
     this.setState({
       userInfo: userInfoArray
@@ -1120,8 +1117,8 @@ class Home extends React.Component {
     const membersSellers = await this.bestSellers(0, 'members')
     const productsSellers = await this.bestSellers(0, 'products')
 
-    const topFiveMembersSellers = []
-    const topFiveProductsSellers = []
+    var topFiveMembersSellers = []
+    var topFiveProductsSellers = []
 
     for (var i = 0; i < 5; i++) {
       topFiveMembersSellers.push(membersSellers[i])
@@ -1129,6 +1126,21 @@ class Home extends React.Component {
     for (var i = 0; i < 5; i++) {
       topFiveProductsSellers.push(productsSellers[i])
     }
+
+    var productSellers = []
+    var productsSold = []
+    for (var object in topFiveProductsSellers) {
+      productSellers.push(topFiveProductsSellers[object].first_name + ' ' + topFiveProductsSellers[object].last_name)
+      productsSold.push(topFiveProductsSellers[object].productSold)
+    }
+
+    var [orderedProducts, orderedSellers] = bubbleSort(productsSold, productSellers)
+
+    topFiveProductsSellers = []
+    for (var i = 0; i < 5; i++) {
+      topFiveProductsSellers.push({ 'name': orderedSellers[i], 'productsSold': orderedProducts[i] })
+    }
+
     this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
   }
   createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
@@ -1144,10 +1156,11 @@ class Home extends React.Component {
     for (var seller in topFiveProductsSellers) {
       if (topFiveProductsSellers[seller] != undefined) {
         topListProd.push(<div key={seller + "a"} className="topSeller">
-          {topFiveProductsSellers[seller].productSold}{"  "}{topFiveProductsSellers[seller].first_name}{" "}{topFiveProductsSellers[seller].last_name}
+          {topFiveProductsSellers[seller].productsSold}{"  "}{topFiveProductsSellers[seller].name}
         </div>)
       }
     }
+
     this.setState({
       topSellerListMem: topListMem,
       topSellerListProd: topListProd
@@ -1159,11 +1172,17 @@ class Home extends React.Component {
     this.setState({
       yearSelected: true
     })
+    console.log(this.state.currentDate, " currentDate mannen")
 
+    if (this.state.currentDate == undefined) {
+      await this.onSelectWeek(2020, 53)
+      await this.onSelectMonth(2020, 12)
+      await this.onSelectYear([], 2020)
+    }
     await this.onSelectWeek(this.state.currentDate[0].year, this.state.currentDate[0].week)
     await this.onSelectMonth(this.state.currentDate[0].year, this.state.currentDate[0].month)
     await this.onSelectYear([], this.state.currentDate[0].year)
-
+    console.log(this.state.currentDate, " currentDate igen")
   }
   createOtherStoreData() {
     const storeRev = [];
@@ -1199,7 +1218,7 @@ class Home extends React.Component {
       storeRevCompState: storeRevComp,
       storeRevCompNameState: storeRevCompName,
       storeProdOfMoState: storeProdOfMo,
-      storeProdOfMoNameState: storeProdOfMoName, 
+      storeProdOfMoNameState: storeProdOfMoName,
     })
 
   }
@@ -1248,33 +1267,9 @@ class Home extends React.Component {
 
 
   render() {
-    // const storeRev = [];
-    // const storeRevName = [];
-    // var keys = Math.floor(Math.random()*1000000);
-    // for (const [index, value] of this.state.monthlyList.entries()) {
-    //   storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
-    // }
-    // for (const [index, value] of this.state.monthlyListStore.entries()) {
-    //   var keys = Math.floor(Math.random()*100000);
-    //   storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
-    // }
-    // const storeRevComp = [];
-    // const storeRevCompName = [];
-    // for (const [index, value] of this.state.monthlyCompList.entries()) {
-    //   storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
-    // }
-    // for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-    //   storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
-    // }
-
-    // const storeProdOfMo = [];
-    // const storeProdOfMoName = [];
-    // for (const [index, value] of this.state.productMonthly.entries()) {
-    //   storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
-    // }
-    // for (const [index, value] of this.state.productMonthlyStore.entries()) {
-    //   storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
-    // }
+    if (this.state.hasError) {
+      return <h1> Something went wrong, oops!</h1>
+    }
     return (
       <div className="home">
         <div className="container-fluid-lg h-100 px-3">
@@ -1318,30 +1313,30 @@ class Home extends React.Component {
                       <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
                     </div>
 
-                    <div className="myStore">
-                      <Bar
-                        data={{
-                          labels: this.state.dates,
-                          datasets: this.state.dataSets
-                        }}
+                        <div className="myStore">
+                          <Bar
+                            data={{
+                              labels: this.state.dates,
+                              datasets: this.state.dataSets
+                            }}
 
-                        options={{
-                          responsive: true,
-                          maintainAspectRatio: false,
-                          backgroundColor: "red",
-                          maintainAspectRatio: false,
-                          scales: {
-                            yAxes: [
-                              {
-                                ticks: {
-                                  beginAtZero: true,
-                                }
+                            options={{
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              backgroundColor: "red",
+                              maintainAspectRatio: false,
+                              scales: {
+                                yAxes: [
+                                  {
+                                    ticks: {
+                                      beginAtZero: true,
+                                    }
+                                  }
+                                ]
                               }
-                            ]
-                          }
-                        }}
-                      />
-                    </div>
+                            }}
+                          />
+                        </div>
 
                     <div className="buttonGroupContainer">
                       <ButtonGroup aria-label="Basic example">
@@ -1388,21 +1383,22 @@ class Home extends React.Component {
                             >
                             </CountUp>
                           </div>
+      
+                            </div>
+                            <div className="borderTop">Product of the Month:</div>
+                            <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
+                          </div>
                         </div>
-                        <div className="borderTop">Product of the Month:</div>
-                        <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
+
+                        <p className="myStoreTitle topSellers">Top sellers: POM</p>
+
+                        <div className="scrollTopList">
+                          {this.state.topSellerListProd}
+                        </div>
                       </div>
-                    </div>
-
-                    <p className="myStoreTitle topSellers">Top sellers: POM</p>
-
-                    <div className="scrollTopList">
-                      {this.state.topSellerListProd}
                     </div>
                   </div>
                 </div>
-              </div>
-              </div>
               </div>
 
 
@@ -1431,10 +1427,10 @@ class Home extends React.Component {
                     {this.state.storeProdOfMoState}
                     {this.state.storeProdOfMoNameState}
                   </div>
+                  </div>
                 </div>
-                </div>
-
-                </div>
+                
+              </div>
               </div>
             </div>
           </div>

@@ -17,9 +17,7 @@ async function login(username, password) {
     cookies.set("username", { key: response[1] }, { path: '/' });
     cookies.set("jwt", { key: response[4] }, { path: '/' });
   }
-
   return response[0];
-
 }
 
 class App extends Component {
@@ -65,25 +63,26 @@ class App extends Component {
     console.log("inne i submithandler");
     var x = await login(this.state.user.username, this.state.user.password);
 
+    console.log(cookies.get('jwt'))
+    console.log(cookies.get('username'))
 
-    if (!x) {
+    if (!x && cookies.get('jwt') !== undefined) {
       this.setState({ flag: 2 })
       event.target.className += " invalid";
     } else {
       this.setState({ loggedIn: x });
+      console.log("loggedIn = true, finns cookies: ", cookies.get('jwt'))
       event.target.className += " was-validated";
       this.setState({ flag: 1 })
-
     }
-    //this.setState({ loggedIn: x });
-
-    this.componentDidMount();
+    // this.componentDidMount();
   }
 
   componentDidMount = () => {
     var x = (cookies.get('jwt'));
-    console.log(x);
-    if (typeof x !== 'undefined') {
+    console.log(x, " vår cookies");
+    if (x !== undefined) {
+      console.log("LoggedIn sätts till true")
       this.setState({ loggedIn: true })
     }
   }
@@ -92,7 +91,7 @@ class App extends Component {
 
   render() {
 
-    if (this.state.loggedIn) {
+    if (this.state.loggedIn == true) {
       return (
         <div className="App">
           <Router>
@@ -109,10 +108,8 @@ class App extends Component {
         </div>
       );
     }
-    else {
+    else if (this.state.loggedIn == false) {
       return (
-
-
         <div className="App">
           {/* <img className="tolloImage" src={`${process.env.PUBLIC_URL}/tollo-small.png`}></img> */}
 
