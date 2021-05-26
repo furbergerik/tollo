@@ -16,9 +16,9 @@ async function getUsers(department,store) {
   console.log(department);
   var token = (cookies.get('jwt')).key;
 
-  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&allUsers=1&token=${token}`
+ // var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&allUsers=1&token=${token}`
 
-  //var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${1}&department=${department}&token=${token}`
+  var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${1}&department=${department}&token=${token}`
     const response = await fetch(fetchingFrom);
     const setOfData = await response.json();
     const finalSet = setOfData.data;
@@ -434,18 +434,18 @@ class MyAdmin extends Component {
       <div className="mt-2 row ">
           
     
-        <div className="profileInfo shadow p-3 mb-5 rounded col-md-2 offset-md-2 " >
+        <div className="employee 1profileInfo shadow p-3 mb-5 rounded col-lg-3 offset-lg-2 mt-1" >
         {<UserInformation></UserInformation>}
         </div>
 
 <div>
 
 </div>
-<div className=" col-md-3">
+<div className="employee1 col-lg-3">
         {<Registration></Registration>}
    
         </div>
-        <div   className="employee  col-md-3 overflow-auto shadow mb-5  p-3 rounded">
+        <div   className="employee1 employee  col-lg-3 overflow-auto shadow mb-5  p-3 rounded">
           <h1>Store employees:</h1> 
           <div className="input-group mb-3 ">
   <div className="input-group-prepend">
