@@ -8,9 +8,9 @@ const cookies = new Cookies();
 
 async function login(username, password) {
 
- //var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+ var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
  // var fetchedData = await fetch(`http://localhost:61139/login?username=${username}&password=${password}`);
-  var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
+ // var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
   if(response[0]){
@@ -92,9 +92,10 @@ class App extends Component {
   }
   handleLogout  = () =>{
     console.log("det verkar fungera");
+    this.setState({loggedIn:false});
     cookies.remove('jwt');
     cookies.remove('username');
-    this.setState({loggedIn:false});
+   
     this.forceUpdate();
   }
 
