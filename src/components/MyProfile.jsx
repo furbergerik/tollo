@@ -348,31 +348,34 @@ class MyProfile extends Component {
     if (this.state.tab == "Store"){
       message = 
       <div>            
-        
         <div className="grid-stuff container-md">
           <div className="row">
-          <div className="col-12">
+          <div className="col-12 fix-mrgn">
           <h3 className="container-my-profile">My store and sales info:</h3>
           </div>
           </div>
           <div className="row">
-          <div className="col-lg-6 col-md-12">
+          <div className="col-lg-6 col-md-12 fix-mrgn">
           <div className="container-my-profile">
-            <h5>My store statistics</h5>
-          <h6>Total store sales last month: {this.state.totSales} SEK</h6>
-          <h6>Total store profit last month: {this.state.totProfit} SEK</h6>
-          <h6>Profit margin last month: {this.state.margin}%</h6>
-          <h6>Members made last month: {this.state.membersMade}</h6>
+          
+            <h5 className="fix-bold">My store statistics</h5>
+          <h6>Total store sales last month: <span className="fix-black">{this.state.totSales} SEK</span></h6>
+          <h6>Total store profit last month: <span className="fix-black">{this.state.totProfit} SEK</span></h6>
+          <h6>Profit margin last month: <span className="fix-black">{this.state.margin} %</span></h6>
+          <h6>Members made last month: <span className="fix-black">{this.state.membersMade}</span></h6>
+          <h6>Your department: <span className="fix-black">{this.state.userInfo.department}</span></h6>
           </div>     
            </div>
-          <div className="col-lg-3 col-md-6 col-sx-12">
+          <div className="col-lg-3 col-md-6 col-sx-12 fix-mrgn">
             <div className="container-my-profile stats">
+            <div className="headline fix-bold">Top {this.state.userInfo.department} product:</div>
           {this.state.storeProdState}
           {this.state.storeProdNameState}
           </div>
           </div>
-          <div className="col-lg-3 col-md-6 col-sx-12">
+          <div className="col-lg-3 col-md-6 col-sx-12 fix-mrgn">
             <div className="container-my-profile stats">
+            <div className="headline fix-bold">Top department:</div>
           {this.state.storeDepState}
           {this.state.storeDepNameState}
           </div>
@@ -381,37 +384,15 @@ class MyProfile extends Component {
         </div>
       </div>
     }
-
-    else if(this.state.tab == "Goals"){
-      message = <div>Nu är det goals</div>
-    }
-
     else if(this.state.tab == "Settings"){
       message = 
       <div>
-         <div className="profileInfo shadow p-3 mb-5 rounded" >
+
+         <div className="grid-stuff container fix-max set">
+         <div className="container-my-profile set2 fix-mrgn">
         {<UserInformation></UserInformation>}
         </div>
-   
-        <h1>Profile Information:</h1>
-        <h3>Username:</h3>
-        <h3>Name:</h3>
-
-        <div className="test">
-          <h3>Phone Number: {this.state.oldNumber}</h3>
-          <button className="ml-3" onClick={this.selectedButton.bind(this, "Goals")}>Change</button>
         </div>
-
-        <div className="test">
-          <h3>Email: {this.state.oldEmail}</h3>
-          <button className="ml-3" onClick={this.selectedButton.bind(this, "Goals")}>Change</button>
-        </div>
-
-        <div className="test">
-          <h3>Password:</h3>
-          <button className="ml-3" onClick={this.selectedButton.bind(this, "Goals")}>Change</button>
-        </div>
-
       </div>
     }
 
@@ -430,10 +411,6 @@ class MyProfile extends Component {
         <div className="btn-group btn-group-toggle mt-2 col-md-6" data-toggle="buttons">
           <label className="btn btn-secondary active btn-lg">
             <input type="radio" name="options" id="option1" autoComplete="off" onClick={this.selectedButton.bind(this, "Store")}></input> My store
-          </label>
-          <label className="btn btn-secondary btn-lg">
-            <input type="radio" name="options" id="option2" autoComplete="off" onClick={this.selectedButton.bind(this, "Goals")}></input>
-          My goals  
           </label>
           <label className="btn btn-secondary btn-lg ">
             <input type="radio" name="options" id="option3" autoComplete="off" onClick={this.selectedButton.bind(this, "Settings")}></input> Profile settings
