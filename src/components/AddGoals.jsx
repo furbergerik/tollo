@@ -59,6 +59,9 @@ class AddGoals extends Component {
       this.regUserChangeHandler=this.regUserChangeHandler.bind(this);
     }
     state={
+        whatGoal: "",
+        dropdownTitle: "Set selling goal for...",
+        productOrMemberTitle: "Set product or membership goal",
         setNewGoal: true,
         goalSetFor: "",
         memberHasBeenChosen: false,
@@ -156,6 +159,13 @@ class AddGoals extends Component {
       if (newTarget == "store"){
         this.setState({employeeHasBeenChosen: true})
         this.setState({goalSetFor: " everyone in your store"});
+        this.setState({dropdownTitle: "Set goal for everyone in store"});
+      }
+      else if (newTarget == "employee"){
+        this.setState({dropdownTitle: "Set goal for single employee"})
+      }
+      else if(newTarget == "department"){
+        this.setState({dropdownTitle: "Set goal for everyone in department"})
       }
     }
 
@@ -173,13 +183,16 @@ class AddGoals extends Component {
     }
 
     memberOrProduct=(memberOrProduct)=>{
-      if(memberOrProduct == "Member"){
+      if(memberOrProduct == "membership"){
         this.setState({membership: 1});
+        this.setState({productOrMemberTitle: "Set membership goal"});
       }
       else{
         this.setState({membership: 2});
+        this.setState({productOrMemberTitle: "Set product goal"});
       }
       this.setState({memberHasBeenChosen: true});
+      this.setState({whatGoal: memberOrProduct});
     }
 
     goalValue=(e)=>{
@@ -210,6 +223,8 @@ class AddGoals extends Component {
     setAnotherGoal=()=>{
       this.setState({setNewGoal:true});
       this.setState({target: ""});
+      this.setState({dropdownTitle: "Set selling goal for..."});
+      this.setState({productOrMemberTitle: "Set product or membership goal"});
     }
 
     componentDidMount(){
@@ -231,7 +246,7 @@ class AddGoals extends Component {
       if (this.state.setNewGoal){
         setAnotherGoal = 
         <div>
-        <DropdownButton id="dropdown-basic-button" title="Set selling goal for...">
+        <DropdownButton id="dropdown-basic-button" title={this.state.dropdownTitle}>
           <Dropdown.Item href="#/setSellingGoalForEmployee" onClick={this.setForWho.bind(this, "employee")}>Single employee</Dropdown.Item>
           <Dropdown.Item href="#/setSellingGoalForDepartment" onClick={this.setForWho.bind(this, "department")}>Everyone in specific department</Dropdown.Item>
           <Dropdown.Item href="#/setSellingGoalForStore" onClick={this.setForWho.bind(this, "store")}>Everyone in store </Dropdown.Item>
@@ -242,12 +257,14 @@ class AddGoals extends Component {
       if (this.state.target == "employee"){
         message = 
         <div className="options">
-          <Select className="form-select" options={this.state.selectOptions} onChange={this.handleSelectedEmployee.bind(this)}/>
+          <h6>Select employee:</h6>
+          <Select className="form-select" options={this.state.selectOptions} onChange={this.handleSelectedEmployee.bind(this)} title="Select employee" />
         </div>
       }
       else if (this.state.target == "department"){
         message = 
         <div className="options">
+          <h6>Select department</h6>
           <Select options={this.state.departmentOptions} onChange={this.handleSelectedDepartment.bind(this)}/>
         </div>
       }
@@ -258,23 +275,24 @@ class AddGoals extends Component {
       else if(this.state.target == "goalSet"){
         message = 
         <div className="options">
-        <h3>New goal has been set for {this.state.goalSetFor}</h3>
+        <h3>New {this.state.whatGoal} goal has been set for {this.state.goalSetFor} and the logged sales have been set to 0</h3>
         <button id="dropdown-basic-button" onClick={this.setAnotherGoal.bind(this)}>Set another goal</button>
         </div>
       }
       if(this.state.employeeHasBeenChosen){
         productOrMember = 
         <div>
-          <DropdownButton id="dropdown-basic-button" title="Set product or membership goal">
-            <Dropdown.Item href="#/setMembershipGoal" onClick={this.memberOrProduct.bind(this, "Member")}>Set membership goal</Dropdown.Item>
-            <Dropdown.Item href="#/setProductGoal" onClick={this.memberOrProduct.bind(this, "Product")}>Set product goal</Dropdown.Item>
+          <DropdownButton id="dropdown-basic-button" title={this.state.productOrMemberTitle}>
+            <Dropdown.Item href="#/setMembershipGoal" onClick={this.memberOrProduct.bind(this, "membership")}>Set membership goal</Dropdown.Item>
+            <Dropdown.Item href="#/setProductGoal" onClick={this.memberOrProduct.bind(this, "product")}>Set product goal</Dropdown.Item>
           </DropdownButton>
         </div>
       if(this.state.memberHasBeenChosen){
         decideGoal = 
         <div className="options">
+          <h6>Set amount to reach:</h6>
           <NumericInput className="form-control" onChange={this.goalValue.bind(this)}/>
-          <button className="submit-button" onClick={this.setGoal.bind(this)}>Submit</button>
+          <button className="submit-button" onClick={this.setGoal.bind(this)}>Add goal and reset logged sales</button>
         </div>
       }
       }
@@ -282,13 +300,12 @@ class AddGoals extends Component {
       return(
       
       <div className="App">
-
+        <div className="contain">
         <div>{setAnotherGoal}</div>
         <div>{message}</div>
         <div>{productOrMember}</div>
         <div>{decideGoal}</div>
-        
-
+        </div>
       </div>
       
   

@@ -49,6 +49,7 @@ background-color: #9abad8;
     height: 30px;
     color: #88191a;
     border-radius: 5px;
+    inline-size: fit-content;
 }
 .dep-container{
     width: -webkit-fill-available;

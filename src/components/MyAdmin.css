@@ -20,11 +20,11 @@ div.employee{
 }
 
  #rightBar{
-    background-color: #ff9395;;
-  
-
-
-
+    background-color: #ff9395;
+    margin: auto;
+    max-width: 80%;
+    border-radius: 20px;
+    box-shadow: 0 0 3px #191919;
 }
 
 #topLeftBar{
