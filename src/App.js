@@ -95,8 +95,8 @@ class App extends Component {
     this.setState({loggedIn:false});
     cookies.remove('jwt');
     cookies.remove('username');
-   
-    this.forceUpdate();
+    
+
   }
 
 
