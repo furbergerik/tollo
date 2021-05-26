@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie';
 import Registration from './Registration.jsx';
 import UserInformation from './UserInformation';
 import AddGoals from './AddGoals';
+import CountUp from 'react-countup';
 
 const cookies = new Cookies();
 
@@ -45,6 +46,8 @@ async function getStoreData(dataCategory, ID, storeNr){
     return finalSet;
   }
 }
+
+
 async function getDepartmentProducts(departmentId) {
   var token = (cookies.get('jwt')).key;
 
@@ -79,10 +82,22 @@ async function getMonthlyBestProductData(year, month, dataCategory, dataType, st
       }
     }
     listMonth.push(listDay);
+    if(depNames[i-1]== "Ice hockey equipment"){
+      listMonthProd.push(["Ice hockey", prodNames]);  
+    }
+    else{
     listMonthProd.push([depNames[i-1], prodNames]);  
+    }
   }
     bubbleSort(listMonth, listMonthProd);
-    return [listMonth, listMonthProd]
+    var listMonthPordDep = []
+    var listMonthProdNew = []
+    for(var item in listMonthProd){
+      listMonthPordDep.push(listMonthProd[item][0]);
+      listMonthProdNew.push(listMonthProd[item][1]);
+    }
+    console.log("ghsgfghsajhfhgjas",listMonthProdNew)
+    return [listMonth, listMonthProdNew, listMonthPordDep]
 }
 
 async function getMonthlyDepartmentData(year, month, dataCategory, dataType, storeNr){
@@ -101,6 +116,7 @@ async function getMonthlyDepartmentData(year, month, dataCategory, dataType, sto
       listMonthDep.push(depName)
       listDep.push(depName)
     }
+    console.log("listmonthdep",listMonthDep)
     bubbleSort(listMonth, listMonthDep)
     return [listMonth, listMonthDep, listDep]
 }
@@ -140,18 +156,131 @@ class MyAdmin extends Component {
     newEmail:"",
     colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
     tab: "Store",
+    totSales: "",
+    totProfit: "",
+    margin: "",
+    yearList: [],
     department:'Footwear',
-    store:1
+    store:1,
+    storeProdState: [],
+    storeProdNameState: [],
+    storeProdDepNameState: [],
+    storeDepState: [],
+    storeDepNameState: [],
+    userInfo: [{
+      username: 'b',
+      firstName: '',
+      lastName: '',
+      store: '',
+      department: '',
+      depID: 0,
+      admin: 0
+    }]
     }
   props={
     olle:null
 
     
   }
+  getUserInfo = async () => {
+    var x = (cookies.get('username')).key;
+    var token = (cookies.get('jwt')).key;
+    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
+    //var fetchingFrom = `http://192.168.0.111:61339/getUsers?username=${x}&token=${token}`;
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+
+    var department = finalSet[0].department
+    var departmentFix = department.replace('_', ' ')
+
+    var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, department: departmentFix, store: finalSet[0].store, profilePath: finalSet[0].profilePath, admin: finalSet[0].admin,  depID: finalSet[0].depId, }
+
+    this.setState({
+      userInfo: userInfoArray
+    })
+  }
+  getYears = async () => {
+    var token = (cookies.get('jwt')).key;
+    var yearFetch = `http://tollo.duckdns.org:61338/getYear?token=${token}`
+
+    // var yearFetch = `http://192.168.0.111:61339/getYear?token=${token}`
+    const yearResponse = await fetch(yearFetch);
+    const yearSetOfData = await yearResponse.json();
+    const yearSet = yearSetOfData.data;
+    this.setState({
+      yearList: yearSet
+    })
+  }
+  createStoreData = async () => {
+    const storeProd = [];
+    const storeProdName = [];
+    const storeProdDepName1 = [];
+    const [toplistProd, toplistProdName, toplistProdDepName1] = await getMonthlyDepartmentData(2020, 12, "depSales", "Sales", 1)
+    var keys = Math.floor(Math.random() * 1000000);
+    for (const [index, value] of toplistProd.entries()) {
+      storeProd.push(<div className="top1-score-my-profile" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} end={value} /></div>)
+    }
+    for (const [index, value] of toplistProdName.entries()) {
+      var keys = Math.floor(Math.random() * 100000);
+      storeProdName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1-my-profile">{value}</div>)
+    }
+    const storeDep = [];
+    const storeDepName = [];
+    const storeProdDepName = [];
+    const [toplistDep, toplistDepName, toplistProdDepName] = await getMonthlyBestProductData(this.state.yearList[this.state.yearList.length - 1], 12,"prodSales", "Sales", this.state.userInfo.store, toplistProdDepName1)
+    var keys = Math.floor(Math.random() * 1000000);
+    for (const [index, value] of toplistDep.entries()) {
+      storeDep.push(<div className="top1-score-my-profile-spec" key={keys + index} style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " duration={5} end={value} /></div>)
+    }
+    for (const [index, value] of toplistDepName.entries()) {
+      var keys = Math.floor(Math.random() * 100000);
+      storeDepName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1-my-profile-spec">{value}</div>)
+    }
+    for (const [index, value] of toplistProdDepName.entries()) {
+      var keys = Math.floor(Math.random() * 100000);
+      storeProdDepName.push(<div style={{ gridRow: index + 2 }} key={keys * 2 + index} className="top1-my-profile">{value}:</div>)
+    }
+    console.log("hdjfhslkfdsfdsjbnfjhds f dsk fds fkjsdjkhf jksd k",storeProdName)
+    this.setState({
+      storeProdState: storeProd,
+      storeProdNameState: storeProdName,
+      storeProdDepNameState: storeProdDepName,
+      storeDepState: storeDep,
+      storeDepNameState: storeDepName,
+    })
+
+  }
+  getMonthlyData = async(year, month, dataCategory, dataType, ID, storeNr) => {
+    const salesData = await getStoreData(dataCategory, ID, storeNr);
+    var monthData = salesData[year][month];
+    var listDay = 0;
+    if (dataType == "Profit %"){
+      for (var i in monthData) {
+        listDay+=(monthData[i][dataType]);
+      }
+      return (listDay/monthData.length).toFixed(2);
+    }
+    else{
+      for (var i in monthData){
+        listDay+=(monthData[i][dataType]);
+      }
+      return listDay;
+    }
+  }
   componentDidMount= async() =>{
     if(!this.state.hasMounted){
       this.callGetUsers(this.state.department,this.state.store);
       this.setState({hasMounted:true});
+      this.getYears();
+      this.setState({store: await this.getUserInfo()});
+      this.createStoreData();
+      this.setState({totSales: await this.getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], "m12", "totSales", "Total sales", 0, this.state.userInfo.store)});
+      this.setState({totProfit: await this.getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], "m12", "totSales", "Profit exl. tax", 0, this.state.userInfo.store)});
+      this.setState({margin: await this.getMonthlyData("y" + this.state.yearList[this.state.yearList.length - 1], "m12", "totSales", "Profit %", 0, this.state.userInfo.store)});
+      // const memberAmount = await getMonthlyProductData(this.state.yearList[this.state.yearList.length - 1], 12, "prodSales", "Sales", this.state.userInfo.store, 8)
+      // this.setState({membersMade: memberAmount[0]});
+  
       const [a,b,c]= await getMonthlyDepartmentData(2020, 12, "depSales", "Sales", 1)
         console.log(await getMonthlyBestProductData(2020, 12, "prodSales", "Sales", 1, c))
 
@@ -257,15 +386,40 @@ class MyAdmin extends Component {
     if (this.state.tab == "Store"){
       message = 
       <div>            
-        <h1>My store and sales info:</h1>
-        <div className="profile-pic"  >
-          <span id="spanFix cameraIcon"></span>
-          <span className="spanFix fas fa-camera" >Change Image</span>
+      <div className="grid-stuff container-md">
+        <div className="row">
+        <div className="col-12 fix-mrgn">
+        <h3 className="container-my-profile">My store and sales info for last month:</h3>
         </div>
-
-        <h3>My stores statistics</h3>
-        <h3>My personal info </h3>
+        </div>
+        <div className="row">
+        <div className="col-lg-4 col-md-12 fix-mrgn">
+        <div className="container-my-profile">
+        
+          <h5 className="fix-bold">My store statistics</h5>
+        <h6>Total store sales: <span className="fix-black">{this.state.totSales} SEK</span></h6>
+        <h6>Total store profit: <span className="fix-black">{this.state.totProfit} SEK</span></h6>
+        <h6>Profit margin: <span className="fix-black">{this.state.margin} %</span></h6>
+        </div>     
+         </div>
+        <div className="col-lg-3 col-md-6 col-sx-12 fix-mrgn">
+          <div className="container-my-profile stats">
+          <div className="headline fix-bold">Top department:</div>
+        {this.state.storeProdState}
+        {this.state.storeProdNameState}
+        </div>
+        </div>
+        <div className="col-lg-5 col-md-6 col-sx-12 fix-mrgn">
+          <div className="container-my-profile stats-spec">
+          <div className="headline-spec fix-bold">Top product per department:</div>
+        {this.state.storeDepState}
+        {this.state.storeProdDepNameState}
+        {this.state.storeDepNameState}
+        </div>
+        </div>
+        </div>
       </div>
+    </div>
     }
 
     else if(this.state.tab == "Department"){

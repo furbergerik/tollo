@@ -351,7 +351,7 @@ class MyProfile extends Component {
         <div className="grid-stuff container-md">
           <div className="row">
           <div className="col-12 fix-mrgn">
-          <h3 className="container-my-profile">My store and sales info:</h3>
+          <h3 className="container-my-profile">My store and sales info for last month:</h3>
           </div>
           </div>
           <div className="row">
@@ -359,10 +359,10 @@ class MyProfile extends Component {
           <div className="container-my-profile">
           
             <h5 className="fix-bold">My store statistics</h5>
-          <h6>Total store sales last month: <span className="fix-black">{this.state.totSales} SEK</span></h6>
-          <h6>Total store profit last month: <span className="fix-black">{this.state.totProfit} SEK</span></h6>
-          <h6>Profit margin last month: <span className="fix-black">{this.state.margin} %</span></h6>
-          <h6>Members made last month: <span className="fix-black">{this.state.membersMade}</span></h6>
+          <h6>Total store sales: <span className="fix-black">{this.state.totSales} SEK</span></h6>
+          <h6>Total store profit: <span className="fix-black">{this.state.totProfit} SEK</span></h6>
+          <h6>Profit margin: <span className="fix-black">{this.state.margin} %</span></h6>
+          <h6>Members made: <span className="fix-black">{this.state.membersMade}</span></h6>
           <h6>Your department: <span className="fix-black">{this.state.userInfo.department}</span></h6>
           </div>     
            </div>
