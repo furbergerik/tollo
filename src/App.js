@@ -118,7 +118,7 @@ class App extends Component {
         </div>
       );
     }
-    else if (this.state.loggedIn == false) {
+    else{
       return (
         <div className="App">
           {/* <img className="tolloImage" src={`${process.env.PUBLIC_URL}/tollo-small.png`}></img> */}
