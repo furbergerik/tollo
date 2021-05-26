@@ -8,9 +8,9 @@ const cookies = new Cookies();
 
 async function login(username, password) {
 
- var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
  // var fetchedData = await fetch(`http://localhost:61139/login?username=${username}&password=${password}`);
- // var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
+//  var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
   if(response[0]){
@@ -70,7 +70,7 @@ class App extends Component {
     console.log(cookies.get('jwt'))
     console.log(cookies.get('username'))
 
-    if (!x && cookies.get('jwt') !== undefined) {
+    if (!x) {
       this.setState({ flag: 2 })
       event.target.className += " invalid";
     } else {
