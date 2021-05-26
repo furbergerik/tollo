@@ -196,7 +196,12 @@ class AddGoals extends Component {
     }
 
     goalValue=(e)=>{
-      this.setState({goal: e});
+      if(e == "undefined" || e<0){
+        this.setState({goal: 0});
+      }
+      else{
+        this.setState({goal: e});
+      }
     }
 
     setGoal=async()=>{

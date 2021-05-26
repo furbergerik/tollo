@@ -12,15 +12,14 @@
 
 .options{
     padding: 3%;
-    width: 60%;
+    width: 90%;
     margin: auto;
 }
 
 .contain{
     height: 70vh;
-    margin: 1%;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 15px;
+    margin-bottom: 15px;
     background-color: #F94144;
     border-radius: 20px;
     box-shadow: 0 0 3px #191919;
