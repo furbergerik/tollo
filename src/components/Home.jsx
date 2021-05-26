@@ -1344,7 +1344,7 @@ class Home extends React.Component {
                   </div>
                   <div className="col-lg-4 fix-mrgn">
                   <div className="store-window window-5">
-                    <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
+                    <div className="headline">POM: {this.state.productMonthlyName}</div>
                     {this.state.storeProdOfMoState}
                     {this.state.storeProdOfMoNameState}
                   </div>

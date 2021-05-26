@@ -8,12 +8,14 @@
 } */
 
 /* --------------first column------------ */
+
 .colGrid{
     height: 100vh;
 }
 .header{
     height: 5vh;
 }
+
 .fix-mrgn{
     margin-bottom: 15px;
 }
@@ -159,7 +161,7 @@ background-color: #9abad8;
 .progress-window.logg{
     padding-top: 5vh;
     font-size: 2.5vh;
-    height: 37vh;
+    height: 39.1vh;
 }
 .myStore{
 position: relative;

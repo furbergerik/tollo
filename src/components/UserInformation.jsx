@@ -252,18 +252,17 @@ class  userInformation extends Component {
   </div>
 </div>
           
-            <div class="col-md-4" className="profile-pic" style={{backgroundImage:`url(${this.state.user.profilePath})`} }>
+            <div className="col-md-4" className="profile-pic mb-3" style={{backgroundImage:`url(${this.state.user.profilePath})`} }>
             <span className="spanFix" id="cameraIcon"></span>
             <span className="spanFix fas fa-camera" data-toggle="modal" data-target="#exampleModal" >Change Image</span>
           </div>
-        <h3>Username:{this.state.user.username}</h3>
-        <br></br>
-        <h3>Name:{this.state.user.first_name} {this.state.user.last_name}</h3>
+        <h5>Username: {this.state.user.username}</h5>
+        <h5>Name: {this.state.user.first_name} {this.state.user.last_name}</h5>
 
         <div className="test" >
-          <h3>Phone Number:{this.state.user.phone}</h3>
-          <div className="input-group ">
-  <input type="text" class="form-control" placeholder="Change Phone Number" aria-label="Recipient's username" aria-describedby="basic-addon2"required
+          <h5>Phone Number: {this.state.user.phone}</h5>
+          <div className="input-group mb-3">
+  <input type="text" className="form-control" placeholder="Change Phone Number" aria-label="Recipient's username" aria-describedby="basic-addon2"required
    name="phone" onChange={(this.ChangeHandler)}></input>
   <div className="input-group-append">
     <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changePhone.bind(this)}>Change</button>
@@ -272,9 +271,9 @@ class  userInformation extends Component {
 </div>
 
         <div className="test">
-          <h3>Email:{this.state.user.email}</h3>
-          <div className="input-group ">
-  <input type="text" class="form-control" placeholder="Change Email" aria-label="Recipient's username" aria-describedby="basic-addon2" required
+          <h5>Email: {this.state.user.email}</h5>
+          <div className="input-group mb-3">
+  <input type="text" className="form-control" placeholder="Change Email" aria-label="Recipient's username" aria-describedby="basic-addon2" required
    name="email"onChange={(this.ChangeHandler)}></input>
   <div className="input-group-append">
     <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changeEmail.bind(this)}>Change</button>
@@ -285,19 +284,19 @@ class  userInformation extends Component {
         </div>
 
         <div className="test">
-          <h3 >Password:</h3>
+          <h5 >Password:</h5>
           <div className="input-group ">
 
-  <div className="mt-1 input-group ">
-  <input type="password" class="form-control" placeholder="New Password" aria-label="Recipient's username" aria-describedby="basic-addon2" required
+  <div className="mt-1 input-group mb-3">
+  <input type="password" className="form-control" placeholder="New Password" aria-label="Recipient's username" aria-describedby="basic-addon2" required
   name="newPassword"  onChange={(this.ChangeHandler)}></input>
   <div className="input-group-append">
     <button className="text-light btn  btn-default  changeButton" type="button" onClick={this.changePassword.bind(this)}>Change</button>
   </div>
   </div>
-  <div className="offset-7  form-check lm">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="confirmPassword" onClick={(this.passwordCheckHandler.bind(this))}></input>
-  <label class="form-check-label" for="flexCheckDefault">
+  <div className="offset-6  form-check lm">
+  <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="confirmPassword" onClick={(this.passwordCheckHandler.bind(this))}></input>
+  <label className="form-check-label" for="flexCheckDefault">
         Confirm Password
   </label>
 </div>
