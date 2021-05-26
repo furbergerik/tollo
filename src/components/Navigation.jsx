@@ -53,7 +53,7 @@ function Navigation(props) {
               <li
               
               >
-                <p className="logout nav-link d-none  d-md-block" onClick="">
+                <p className="logout nav-link d-none  d-md-block" onClick={props.handleLogout}>
                   Log out
                 </p>
               </li>
@@ -62,11 +62,11 @@ function Navigation(props) {
         <i className="fas fa-bars"></i>
         </a>
         <div class=" dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="home">Home</a>
+          <a class="dropdown-item" href="/">Home</a>
           <a class="dropdown-item" href="MyProfile">MyProfile</a>
           <a class="dropdown-item" href="MyAdmin">MyAdmin</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" onClick={console.log("hej")}>Log out</a>
+          <a class="dropdown-item" onClick={props.handleLogout}>Log out</a>
         </div>
       </li>
               <li

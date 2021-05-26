@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation, Footer, Home, About, MyProfile, MyAdmin } from "./components";
+import { Navigation,Footer,Home, About, MyProfile, MyAdmin,  } from "./components";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
 async function login(username, password) {
 
-  var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+ // var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
  // var fetchedData = await fetch(`http://localhost:61139/login?username=${username}&password=${password}`);
-  //var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
+  var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
   if(response[0]){
@@ -25,6 +25,8 @@ async function login(username, password) {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.handleLogout=this.handleLogout.bind(this);
+
   }
   state = {
     users: [],
@@ -37,17 +39,18 @@ class App extends Component {
       store: 1,
       admin: 0,
       phone: '123',
-
+      loggedIn: false 
       // order of /add is: 
 
 
     },
     flag: 1,
-    loggedIn: false
+
   }
   props = {
     olle: null
   }
+
 
   usernameChangeHandler = (event) => {
     this.setState({ user: { ...this.state.user, username: event.target.value } });
@@ -87,7 +90,13 @@ class App extends Component {
       this.setState({ loggedIn: true })
     }
   }
-
+  handleLogout  = () =>{
+    console.log("det verkar fungera");
+    cookies.remove('jwt');
+    cookies.remove('username');
+    this.setState({loggedIn:false})
+    
+  }
 
 
   render() {
@@ -96,13 +105,14 @@ class App extends Component {
       return (
         <div className="App">
           <Router>
-            <Navigation />
+            <Navigation handleLogout={this.handleLogout}/>
             <Switch>
-              <Route path="/" exact component={() => <div><Home /> </div>} />
+              <Route path="/" exact component={() => <div><Home  /> </div>} />
               <Route path="/about" exact component={() => <About />} />
               <Route path="/MyProfile" exact component={() => <MyProfile />} />
               <Route path="/MyAdmin" exact component={() => <MyAdmin />} />
-
+              
+             
             </Switch>
             {/* <Footer /> */}
           </Router>
