@@ -13,7 +13,8 @@
 
 }
 .employee1{
-    max-height: 675px;
+    min-height:  673px;
+    max-height: 673px;
 }
 
 div.employee{
