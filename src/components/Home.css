@@ -14,16 +14,20 @@
 .header{
     height: 5vh;
 }
+.fix-mrgn{
+    margin-bottom: 15px;
+}
+.fix-mrgn2{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
 .other-store{
 background-color: #9abad8;
-margin-right: 15px;
-display: grid;
-grid-template-columns: 1fr 15px 1fr 15px 1fr;
 }
 .own-store{
-    margin-right: 15px;
+    /* margin-right: 15px;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 60% 40%; */
     background-color: #c1e8dc;
 }
 .individual{
@@ -50,17 +54,17 @@ grid-template-columns: 1fr 15px 1fr 15px 1fr;
     width: -webkit-fill-available;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 15px;
+    padding-bottom: 5px;
     box-shadow: 0 0 3px #191919;
 }
 /* --------------second column------------ */
 .col1{
     background-color: white
 }
-.col2{
+/* .col2{
    height: 45vh;
-}
+} */
 .store-window{
     text-align: initial;
     box-shadow: 0 0 3px #191919;
@@ -75,15 +79,16 @@ grid-template-columns: 1fr 15px 1fr 15px 1fr;
 }
 .window-1{
     background-color: #43AA8B;
-    margin-right: 15px;
     text-align: -webkit-center;
+    height: 100%;
 }
 .window-2{
     background-color: #43AA8B;
+    height: 100%
 }
 .window-3{
     background-color: #577590;
-
+    height: 100%;
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 3fr 4fr;
@@ -91,7 +96,7 @@ grid-template-columns: 1fr 15px 1fr 15px 1fr;
 }
 .window-4{
     background-color: #577590;
-
+    height: 100%;
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 3fr 4fr;
@@ -99,7 +104,7 @@ grid-template-columns: 1fr 15px 1fr 15px 1fr;
 }
 .window-5{
     background-color: #577590;
-
+    height: 100%;
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 3fr 4fr;
@@ -159,8 +164,7 @@ grid-template-columns: 1fr 15px 1fr 15px 1fr;
 .myStore{
 position: relative;
   margin-top: -1.5vh;
-  height: 30vh;
-  width: 30vw;
+  height: 80%;
   background-color: rgba(255, 255, 255, 0.884);
   border-style: solid;
   border-color: #c1e8dc;
@@ -293,9 +297,7 @@ position: relative;
 .myStore{
     position: relative;
     margin-top: -1.5vh;
-    height: 30vh;
     border-radius: 10px;
-    width: 30vw;
     background-color: rgba(255, 255, 255, 0.884);
     border-style: solid;
     border-color: #c1e8dc;

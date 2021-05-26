@@ -1,51 +1,75 @@
 import React, { Component } from 'react';
-//import './Registration.css';
 import Cookies from 'universal-cookie';
-import { Multiselect } from 'multiselect-react-dropdown';
-import { Dropdown, MenuItem, DropdownButton } from "react-bootstrap";
+import Select from 'react-select';
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import NumericInput from 'react-numeric-input';
+import './AddGoals.css';
 
 
 
 const cookies = new Cookies();
-async function getUsers(store,department,admin) {
-    console.log("hola");
+async function getUsersFromDepartment(store,department,admin) {
+    console.log(store);
     console.log(department);
+    console.log(admin);
+    console.log("hola");
     var token = (cookies.get('jwt')).key;
     if(admin===1){
   
   //  var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${store}&department=${department}&token=${token}`
-    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&token=${token}`
+    var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&allUsers=${1}&token=${token}`
       const response = await fetch(fetchingFrom);
       const setOfData = await response.json();
       const finalSet = setOfData.data;
       return finalSet;
+ 
     }else{
         return "no";
     }
 }
-async function getUser(store) {
-   
-    console.log("hola");
-  
 
-      var token = (cookies.get('jwt')).key;
-      var username = (cookies.get('username')).key;
-      //var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${1}&username=${username}&token=${token}`
-      //var fetchingFrom = `http://192.168.0.111:61339/getUsers?store=${1}&username=${username}&token=${token}`
-      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?store=${store}&username=${username}&token=${token}`
-      const response = await fetch(fetchingFrom);
-      const setOfData = await response.json();
-      const finalSet = setOfData.data[0];
-      return finalSet;
+async function getUsersFromStore(store, admin){
+  var token = (cookies.get('jwt')).key;
+  if(admin===1){
 
+//  var fetchingFrom = `http://192.168.0.111:61339/getUsersAdmin?store=${store}&department=${department}&token=${token}`
+  var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${1}&allUsers=${2}&token=${token}`
+    const response = await fetch(fetchingFrom);
+    const setOfData = await response.json();
+    const finalSet = setOfData.data;
+    return finalSet;
+
+  }else{
+      return "no";
   }
+}
 
-class  AddGoals extends Component {
+async function updateGoal(username, member, count){
+  console.log("målet är:");
+  console.log(count);
+  console.log(member);
+  var token = (cookies.get('jwt')).key;
+  var fetchingFrom = `http://tollo.duckdns.org:61338/updateGoal?username=${username}&member=${member}&count=${count}&token=${token}`
+  await fetch(fetchingFrom);
+}
+
+
+class AddGoals extends Component {
     Constructor(){
       this.regUserChangeHandler=this.regUserChangeHandler.bind(this);
     }
     state={
-        user:[],
+        setNewGoal: true,
+        goalSetFor: "",
+        memberHasBeenChosen: false,
+        departmentEmployees: [],
+        departmentOptions: [],
+        membership: 1,
+        goal:'',
+        employeeHasBeenChosen: false,
+        selectedEmployee: '',
+        selectOptions: [],
+        users:[],
         username: '',
         email: '',
         password: '',
@@ -57,34 +81,141 @@ class  AddGoals extends Component {
         department:'',
         hasMounted:false,
         tab:"",
-        target: "employee",
+        target: "store",
+        userInfo: [{
+          username: '',
+          firstName: '',
+          lastName: '',
+          store: 0,
+          department: '',
+          admin: 0
+        }],
         employees: []
      }
+
+    getUserInfo = async () => {
+      console.log("tjo");
+      var x = (cookies.get('username')).key;
+      var token = (cookies.get('jwt')).key;
+      var fetchingFrom = `http://tollo.duckdns.org:61338/getUsers?username=${x}&token=${token}`;
+      //var fetchingFrom = `http://192.168.0.111:61339/getUsers?username=${x}&token=${token}`;
+      
+  
+      const response = await fetch(fetchingFrom);
+      const setOfData = await response.json();
+      const finalSet = setOfData.data;
+    
+  
+      var department = finalSet[0].department
+      var departmentFix = department.replace('_', ' ')
+
+      var userInfoArray = { username: finalSet[0].username, firstName: finalSet[0].first_name, lastName: finalSet[0].last_name, store: finalSet[0].store, department: departmentFix, admin: finalSet[0].admin }
+      console.log(userInfoArray);
+      this.setState({
+        userInfo: userInfoArray
+      })
+    }
+
     callGetUsers=async()=>{
-        console.log("här");
        
-        const finalSet=await getUsers(this.state.user.store,this.state.user.department,this.state.user.admin);
-        console.log(finalSet);
-        this.setState({user:finalSet});
+        const storeUsers = await getUsersFromStore(this.state.userInfo.store, this.state.userInfo.admin);
+        console.log("anställda på department");
+        this.setState({users: storeUsers});
+
+        const options = (this.state.users).map(d=>({
+          "value" : d.username,
+          "label" : d.first_name + " " + d.last_name,
+        }))
+        this.setState({selectOptions: options});
+
+        const departmentOptions = (this.state.users).map(d=>({
+          "value" : d.department,
+          "label" : d.department,
+        }))
+        const newDepartmentOptions = [];
+        departmentOptions.forEach(obj => {
+          if (!newDepartmentOptions.some(o => o.value === obj.value)) {
+            newDepartmentOptions.push({ ...obj })
+          }
+        });
+        this.setState({departmentOptions: newDepartmentOptions});
+
+
+        /*for (var i in this.state.users){
+          departmentOptions.push(this.state.users[i].department);
+          console.log("tjotjo");
+          console.log(departmentOptions);
+        } */
+        
+
       }
 
-    setForSingleEmployee=()=>{
-      this.setState({target: "employee"});
+    setForWho=async(newTarget)=>{
+      this.setState({target: newTarget});
+      await this.callGetUsers();
+      if (newTarget == "store"){
+        this.setState({employeeHasBeenChosen: true})
+        this.setState({goalSetFor: " everyone in your store"});
+      }
     }
 
-    setForDepartment=()=>{
-      this.setState({target: "department"});
+    handleSelectedEmployee=(e)=>{
+      this.setState({selectedEmployee: e.value});
+      this.setState({goalSetFor: e.label});
+      this.setState({employeeHasBeenChosen: true});
     }
 
-    setForStore=()=>{
-      this.setState({target: "store"});
+    handleSelectedDepartment=async(e)=>{
+      const finalSet=await getUsersFromDepartment(this.state.userInfo.store,e.value,this.state.userInfo.admin);
+      this.setState({departmentEmployees: finalSet});
+      this.setState({goalSetFor: "everyone working in " + e.value + " department"});
+      this.setState({employeeHasBeenChosen: true});
+    }
+
+    memberOrProduct=(memberOrProduct)=>{
+      if(memberOrProduct == "Member"){
+        this.setState({membership: 1});
+      }
+      else{
+        this.setState({membership: 2});
+      }
+      this.setState({memberHasBeenChosen: true});
+    }
+
+    goalValue=(e)=>{
+      this.setState({goal: e});
+    }
+
+    setGoal=async()=>{
+      if (this.state.target == "employee"){
+          await updateGoal(this.state.selectedEmployee, this.state.membership, this.state.goal);
+      }
+    
+      else if(this.state.target == "department"){
+        for(var i in this.state.departmentEmployees){
+          await updateGoal(this.state.departmentEmployees[i].username, this.state.membership, this.state.goal);
+        }
+      }
+
+      else if(this.state.target == "store"){
+        for(var i in this.state.users){
+          await updateGoal(this.state.users[i].username, this.state.membership, this.state.goal);
+        }
+      }
+      this.setState({employeeHasBeenChosen: false});
+      this.setState({setNewGoal: false});
+      this.setState({target: "goalSet"});
+    }
+
+    setAnotherGoal=()=>{
+      this.setState({setNewGoal:true});
+      this.setState({target: ""});
     }
 
     componentDidMount(){
-      console.log("hejeee");
-      console.log(this.state.multiOptions);
          if(!this.state.hasMounted){
-            this.callGetUsers.bind(this);
+            
+            this.getUserInfo();
             this.setState({hasMounted:true});
 
         }
@@ -92,29 +223,71 @@ class  AddGoals extends Component {
    
     render() {
       console.log(this.state.target);
-      let employees = []
+      let setAnotherGoal
+      let productOrMember
       let message
-      for (var index in this.state.employees){
-        employees.push(<DropdownButton id={index} title={(this.state.employees[index]).name + (this.state.employees[index]).name}></DropdownButton>)
+      let decideGoal
+
+      if (this.state.setNewGoal){
+        setAnotherGoal = 
+        <div>
+        <DropdownButton id="dropdown-basic-button" title="Set selling goal for...">
+          <Dropdown.Item href="#/setSellingGoalForEmployee" onClick={this.setForWho.bind(this, "employee")}>Single employee</Dropdown.Item>
+          <Dropdown.Item href="#/setSellingGoalForDepartment" onClick={this.setForWho.bind(this, "department")}>Everyone in specific department</Dropdown.Item>
+          <Dropdown.Item href="#/setSellingGoalForStore" onClick={this.setForWho.bind(this, "store")}>Everyone in store </Dropdown.Item>
+        </DropdownButton>
+        </div>
       }
+
       if (this.state.target == "employee"){
         message = 
-        <DropdownButton id="dropdown-basic-button" title="Choose employee">
-          <Dropdown.Item href="#/action-1" onClick={this.setForSingleEmployee.bind(this)}>Single employee</Dropdown.Item>
-        </DropdownButton>
-
+        <div className="options">
+          <Select className="form-select" options={this.state.selectOptions} onChange={this.handleSelectedEmployee.bind(this)}/>
+        </div>
       }
+      else if (this.state.target == "department"){
+        message = 
+        <div className="options">
+          <Select options={this.state.departmentOptions} onChange={this.handleSelectedDepartment.bind(this)}/>
+        </div>
+      }
+      else if(this.state.target == "store"){
+        message = 
+        <div></div>
+      }
+      else if(this.state.target == "goalSet"){
+        message = 
+        <div className="options">
+        <h3>New goal has been set for {this.state.goalSetFor}</h3>
+        <button id="dropdown-basic-button" onClick={this.setAnotherGoal.bind(this)}>Set another goal</button>
+        </div>
+      }
+      if(this.state.employeeHasBeenChosen){
+        productOrMember = 
+        <div>
+          <DropdownButton id="dropdown-basic-button" title="Set product or membership goal">
+            <Dropdown.Item href="#/setMembershipGoal" onClick={this.memberOrProduct.bind(this, "Member")}>Set membership goal</Dropdown.Item>
+            <Dropdown.Item href="#/setProductGoal" onClick={this.memberOrProduct.bind(this, "Product")}>Set product goal</Dropdown.Item>
+          </DropdownButton>
+        </div>
+      if(this.state.memberHasBeenChosen){
+        decideGoal = 
+        <div className="options">
+          <NumericInput className="form-control" onChange={this.goalValue.bind(this)}/>
+          <button className="submit-button" onClick={this.setGoal.bind(this)}>Submit</button>
+        </div>
+      }
+      }
+
       return(
       
       <div className="App">
 
-        <DropdownButton id="dropdown-basic-button" title="Set selling goal for...">
-          <Dropdown.Item href="#/action-1" onClick={this.setForSingleEmployee.bind(this)}>Single employee</Dropdown.Item>
-          <Dropdown.Item href="#/action-2" onClick={this.setForDepartment.bind(this)}>Everyone in specific department</Dropdown.Item>
-          <Dropdown.Item href="#/action-3" onClick={this.setForStore.bind(this)}>Everyone in store </Dropdown.Item>
-        </DropdownButton>
-      
+        <div>{setAnotherGoal}</div>
         <div>{message}</div>
+        <div>{productOrMember}</div>
+        <div>{decideGoal}</div>
+        
 
       </div>
       

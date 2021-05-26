@@ -105,21 +105,18 @@ async function getProductOfTheMonth(month) {
   const response = await fetch(fetchingFrom);
   const setOfData = await response.json();
   const finalSet = setOfData.data;
-  console.log()
   return finalSet;
 }
 
 
 async function getWeeklyDaylyData(year, week, dataCategory, dataType, ID, storeNr) {
   const salesData = await getStoreData(dataCategory, ID, storeNr);
-  console.log("salesData: ", salesData)
   var listDayInWeek = [];
   var yearLevel = salesData[year]
   for (var i in yearLevel) {
     var monthLevel = yearLevel[i]
     for (var i in monthLevel) {
       if (monthLevel[i]['Week'] == week) {
-        // console.log("Denna ska vi spara!! ", monthLevel[i]);
         listDayInWeek.push(monthLevel[i])
       }
     }
@@ -164,7 +161,6 @@ function getYearlyData(dataCategory, dataType, ID, storeNr) {
     var yearTot = sumArr(getMonthlyData(year + i, dataCategory, dataType, false, ID, storeNr))
     listYear.push(yearTot)
   }
-  console.log(labelYear)
   return { labelYear, listYear }
 }
 async function getProductOfTheMonthName(year, month, storeNr) {
@@ -258,126 +254,83 @@ function sumArr(arr) {
   }, 0);
 }
 
-// async function {
-//   console.log("Hej")
-//   const [theTopList, theTopListStore]  = await getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0);
-//   console.log("gjdhfdfdsfds  ",theTopList)
-//   // [theTopList, theTopListStore] = bubbleSort(theTopList, theTopListStore);
-//   const theRealDeal = [];
-//   console.log("herererererer  ",theTopList)
-//    for (const [index, value] of theTopList.entries()) {
-//     theRealDeal.push(<div key={index}>{value}</div>)
-//    }
-//    console.log(theRealDeal)
-//    return(theRealDeal)
-// }
-
-// function NumberList(props) {
-//   const numbers = props.numbers;
-//   const listItems = numbers.map((number) =>
-//     <li key={number.toString()}>
-//       {number}
-//     </li>
-//   );
-//   return (
-//     <ul>{listItems}</ul>
-//   );
-// }
-
-
-// function soldProduct(year, month, productId){
-//   var salesData = data["prodSales"];
-//   var amountOfProduct = 0;
-//   salesData[0]["prod Id"]
-//   for(var i in salesData){
-//     // if(salesData[i]["Year"] == year && salesData[i]["Month"] == month && salesData[i]["prod Id"] == productId){
-//     //   amountOfProduct += salesData[i]["Sales"]
-//     // }
-//   }
-//   return amountOfProduct;
-// }
-
-//console.log(soldProduct(2018, 1, 1));
-// var test = getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0)
-// console.log(bubbleSort(test))
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    initialRender: true,
-    disableMultiselect: true,
-    currentdate: [],
-    userInfo: [{
-      username: 'b',
-      firstName: '',
-      lastName: '',
-      store: '',
-      department: '',
-      depID: '',
-      profilePath: '',
-      productGoal: '',
-      membersGoal: '',
-    }],
-    yourDepMonthSales: 0,
-    dataInGraph: false,
-    dataSets: [],
-    dates: [],
-    numberOfBars: 0,
-    currentWeekDataSet: [],
-    currentWeekDates: [],
-    currentMonthDataSet: [],
-    currentMonthDates: [],
-    currentYearDataSet: [],
-    currentYearDates: [],
-    multiOptions: [
-      { 'year': "2018" },
-      { 'year': "2019" },
-      { 'year': "2020" }],
-    colorCount: 1,
-    colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
-    activePeriod: 'year',
-    year: '2018',
-    monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
-    bestSellers1: '',
-    singleSelect: "false",
-    yearSelected: "false",
-    selectedYear: '',
-    initialDataSet: [{
-      label: 'Store progress',
-      data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderWidth: 1
-    }],
-    initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
-    monthlyList: [],
-    monthlyListStore: [],
-    monthlyCompList: [],
-    monthlyCompListStore: [],
-    yearList: [],
-    memberGoalMet: false,
-    productGoalMet: false,
-    productPercent: 0,
-    memberPercent: 0,
-    currentProductOfMonthSales: 0,
-    currentMemberships: 0,
-    totalProducts: 0,
-    totalMemberships: 0,
-    productMonthly: [],
-    productMonthlyStore: [],
-    topSellerListMem: [],
-    topSellerListProd: [],
-    productMonthlyName: "",
-    otherStoreRendered: false,
-    storeRevState: [],
-    storeRevNameState: [],
-    storeRevCompState: [],
-    storeRevCompNameState: [],
-    storeProdOfMoState: [],
-    storeProdOfMoNameStete: []
-
-  }
+  constructor() {
+    super();
+    this.state = {
+      initialRender: true,
+      disableMultiselect: true,
+      currentdate: [{ 'year': 2020, 'month': 12, 'day': 31, 'week': 53 }],
+      userInfo: [{
+        username: 'b',
+        firstName: '',
+        lastName: '',
+        store: '',
+        department: '',
+        depID: '',
+        profilePath: '',
+        productGoal: '',
+        membersGoal: '',
+      }],
+      yourDepMonthSales: 0,
+      dataInGraph: false,
+      dataSets: [],
+      dates: [],
+      numberOfBars: 0,
+      currentWeekDataSet: [],
+      currentWeekDates: [],
+      currentMonthDataSet: [],
+      currentMonthDates: [],
+      currentYearDataSet: [],
+      currentYearDates: [],
+      multiOptions: [
+        { 'year': "2018" },
+        { 'year': "2019" },
+        { 'year': "2020" }],
+      colorCount: 1,
+      colorOptions: ['#F94144', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590'],
+      activePeriod: 'year',
+      year: '2018',
+      monthlyCompList: getTopStoreMonthlyData(2018, 3, "totSales", "Total sales", 0),
+      bestSellers1: '',
+      singleSelect: "false",
+      yearSelected: "false",
+      selectedYear: '',
+      initialDataSet: [{
+        label: 'Store progress',
+        data: [1, 2, 4, 8, 16, 32, 64, 128, 254, 508, 1016, 2032],
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderWidth: 1
+      }],
+      initialDates: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov', 'dec'],
+      monthlyList: [],
+      monthlyListStore: [],
+      monthlyCompList: [],
+      monthlyCompListStore: [],
+      yearList: [],
+      memberGoalMet: false,
+      productGoalMet: false,
+      productPercent: 0,
+      memberPercent: 0,
+      currentProductOfMonthSales: 0,
+      currentMemberships: 0,
+      totalProducts: 0,
+      totalMemberships: 0,
+      productMonthly: [],
+      productMonthlyStore: [],
+      topSellerListMem: [],
+      topSellerListProd: [],
+      productMonthlyName: "",
+      otherStoreRendered: false,
+      storeRevState: [],
+      storeRevNameState: [],
+      storeRevCompState: [],
+      storeRevCompNameState: [],
+      storeProdOfMoState: [],
+      storeProdOfMoNameStete: [],
+    }
+  };
 
   // ---------------From DropDown---------------------
   handleYearSelect = async (e) => {
@@ -389,7 +342,7 @@ class Home extends React.Component {
     for (var i in neededData) {
       totSalesList.push(neededData[i])
     }
-    console.log("handleSelect: ", totSalesList);
+
     var newBar = { label: "Revenue:  " + year, data: neededData, backgroundColor: 'rgba(255, 99, 132, 0.2)', borderWidth: 1 }
     newBar = [newBar];
     this.setState({
@@ -407,22 +360,16 @@ class Home extends React.Component {
 
   // ---------------From MultiSelect---------------------
   onSelect = async (selectedList, selectedItem) => {
-    console.log("Tjohej onSelect");
-    console.log(selectedList)
+    console.log("In onSelect");
 
     var activePeriod = this.state.activePeriod;
     var yearSelect = this.state.yearSelected;
 
     if (activePeriod == 'year') {
-      console.log("Det var ett år");
       this.onSelectYear(selectedList, selectedItem);
     } else if (activePeriod == 'month') {
-      console.log("selectedList :", selectedList)
-
       if (yearSelect == false) {
-        console.log("bara ett år")
         var selectedYear = String(selectedList[0]['month'])
-        console.log(selectedYear)
 
         const months = [
           { 'month': "Jan " + selectedYear, 'id': 1 },
@@ -437,8 +384,6 @@ class Home extends React.Component {
           { 'month': "Oct " + selectedYear, 'id': 10 },
           { 'month': "Nov " + selectedYear, 'id': 11 },
           { 'month': "Dec " + selectedYear, 'id': 12 }]
-
-        console.log(months)
 
         this.setState({
           singleSelect: true,
@@ -459,7 +404,6 @@ class Home extends React.Component {
       }
 
     } else if (activePeriod == "week") {
-      console.log("OnSelect: nu är det vecka mina bekanta")
       const weeks = [
         { 'week': "week " + 1, 'id': 1 },
         { 'week': "week " + 2, 'id': 2 },
@@ -516,10 +460,7 @@ class Home extends React.Component {
         { 'week': "week " + 53, 'id': 53 }]
 
       if (yearSelect == false) {
-        console.log("bara ett år")
-        console.log(selectedList)
         var selectedYear = String(selectedList[0]['week'])
-        console.log(selectedYear)
 
         this.setState({
           yearSelected: true,
@@ -540,12 +481,10 @@ class Home extends React.Component {
     console.log("Inne i onselectweek")
     var yearFix = 'y' + String(year);
     var weekList = await getWeeklyDaylyData(yearFix, week, 'totSales', 'Total sales', 0, this.state.userInfo.store);
-    console.log("weeklist: ", weekList)
 
     var weekDateList = []
     var salesWeekdayList = []
     for (var i in weekList) {
-      // console.log(weekList[i])
       weekDateList.push(weekList[i]['Day'] + "/" + weekList[i]['Month'])
       salesWeekdayList.push(weekList[i]['Total sales'])
     }
@@ -561,7 +500,7 @@ class Home extends React.Component {
     // }
 
     if (this.state.initialRender == true) {
-      newBar.label = 'This week: '
+      newBar.label = 'This week: ' + week
       this.setState({
         currentWeekDataSet: [newBar],
         currentWeekDates: weekDateList,
@@ -584,7 +523,6 @@ class Home extends React.Component {
     } else {
       console.log("WEEK: fanns nått där, nu ska vi göra nått!")
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -606,7 +544,6 @@ class Home extends React.Component {
         })
       }
       //--- Update Week bars
-      console.log("Updated WEEK Bar: ", updatedBar)
       var localNumberOfBars = this.state.numberOfBars;
 
       const weekSimpleDates = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th'] //Because the dates will differ from week to week
@@ -623,7 +560,6 @@ class Home extends React.Component {
   }
 
   onSelectMonth = async (selectedYear, selectedMonthID) => {
-    console.log("nu kommer vi hit och ska hitta månad!")
 
     const monthDict = {
       1: ['m1', 'Jan'],
@@ -642,9 +578,6 @@ class Home extends React.Component {
     var selectedYear;
     var selectedMonth = monthDict[selectedMonthID][1];
     var monthForFunction = monthDict[selectedMonthID][0]
-    console.log("month For function= ", monthForFunction)
-
-    console.log("selected Year: ", selectedYear, "  selectedMonth:  ", selectedMonth);
 
     var year = Number(selectedYear);
     var yearFix = "y" + year;
@@ -671,7 +604,7 @@ class Home extends React.Component {
 
 
     if (this.state.initialRender == true) {
-      newBar.label = 'This month: '
+      newBar.label = 'This month: ' + selectedMonth
       this.setState({
         currentMonthDataSet: [newBar],
         currentMonthDates: monthDates,
@@ -681,7 +614,7 @@ class Home extends React.Component {
     }
 
     if (this.state.dataInGraph == false) {
-      console.log("Fanns ingen dataSet från början");
+      console.log("Fanns inget dataSet från början");
       this.setState({
         dataSets: [newBar],
         dates: monthDates,
@@ -693,9 +626,7 @@ class Home extends React.Component {
       })
     } else {
       //---- Create updated bar of months
-      console.log("fanns nått där, nu ska vi göra nått!")
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -719,7 +650,6 @@ class Home extends React.Component {
       // -------------------
 
       //--- Update month bars
-      console.log("Updated MONTH Bar: ", updatedBar)
       var localNumberOfBars = this.state.numberOfBars;
       this.setState({
         dataSets: updatedBar,
@@ -736,15 +666,12 @@ class Home extends React.Component {
 
     if (this.state.initialRender == true) {
       var year = selectedItem
-      console.log(year, " year!!");
       var yearFix = 'y' + year;
     } else {
       var year = Number(selectedItem.year);
       var yearFix = "y" + year;
     }
-    console.log("selecteditem: ", selectedItem)
 
-    console.log(year)
     const [neededData, dates] = await getMonthlyData(yearFix, "totSales", "Total sales", false, 0, this.state.userInfo.store)
 
     var totSalesList = [];
@@ -754,7 +681,7 @@ class Home extends React.Component {
     var newBar = { label: year, data: neededData, backgroundColor: '#F94144', borderWidth: 1 }
 
     if (this.state.initialRender == true) {
-      newBar.label = 'This year: '
+      newBar.label = 'This year: ' + year
       this.setState({
         currentYearDataSet: [newBar],
         currentYearDates: dates,
@@ -802,7 +729,6 @@ class Home extends React.Component {
       }
       //---Make new array for state--
       var oldBar = this.state.dataSets;
-      console.log("OldBar ofixad: ", oldBar);
       var updatedBar = [];
       if (this.state.numberOfBars == 1) {
         updatedBar = [oldBar[0], newBar];
@@ -847,7 +773,6 @@ class Home extends React.Component {
           updatedList.push(element);
         }
       });
-      console.log("updatedList ready to replace: ", updatedList);
 
       this.setState({
         dataSets: updatedList
@@ -856,7 +781,7 @@ class Home extends React.Component {
   }
 
   buttonClickYear() {
-    console.log("Ett year ett year ett year")
+    console.log("Button Click Year")
     var initial = this.state.currentYearDataSet;
     var initDates = this.state.currentYearDates;
 
@@ -902,7 +827,7 @@ class Home extends React.Component {
     })
   }
   buttonClickWeek() {
-    console.log("Ett weeeeeeeeeeeeek")
+    console.log("Button Click Week")
     var initial = this.state.currentWeekDataSet;
     var initDates = this.state.currentWeekDates;
 
@@ -925,7 +850,7 @@ class Home extends React.Component {
     })
   }
   buttonClickClear() {
-    console.log("Clear!!")
+    console.log("Button Click Clear")
     var initial = this.state.initialDataSet;
     var initDates = this.state.initialDates;
     this.setState({
@@ -941,7 +866,6 @@ class Home extends React.Component {
     var username = this.state.userInfo.username
 
     var userSales = await getUserSales(username)
-    console.log(userSales)
 
     var members = userSales['members']
     var products = userSales['productSold']
@@ -1097,7 +1021,6 @@ class Home extends React.Component {
       productGoal: finalSet[0].productGoal,
       membersGoal: finalSet[0].membersGoal
     }
-    console.log("gdgdgdgdgdgd",this.state.profilePath)
 
     this.setState({
       userInfo: userInfoArray
@@ -1120,8 +1043,8 @@ class Home extends React.Component {
     const membersSellers = await this.bestSellers(0, 'members')
     const productsSellers = await this.bestSellers(0, 'products')
 
-    const topFiveMembersSellers = []
-    const topFiveProductsSellers = []
+    var topFiveMembersSellers = []
+    var topFiveProductsSellers = []
 
     for (var i = 0; i < 5; i++) {
       topFiveMembersSellers.push(membersSellers[i])
@@ -1129,6 +1052,21 @@ class Home extends React.Component {
     for (var i = 0; i < 5; i++) {
       topFiveProductsSellers.push(productsSellers[i])
     }
+
+    var productSellers = []
+    var productsSold = []
+    for (var object in topFiveProductsSellers) {
+      productSellers.push(topFiveProductsSellers[object].first_name + ' ' + topFiveProductsSellers[object].last_name)
+      productsSold.push(topFiveProductsSellers[object].productSold)
+    }
+
+    var [orderedProducts, orderedSellers] = bubbleSort(productsSold, productSellers)
+
+    topFiveProductsSellers = []
+    for (var i = 0; i < 5; i++) {
+      topFiveProductsSellers.push({ 'name': orderedSellers[i], 'productsSold': orderedProducts[i] })
+    }
+
     this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
   }
   createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
@@ -1144,10 +1082,11 @@ class Home extends React.Component {
     for (var seller in topFiveProductsSellers) {
       if (topFiveProductsSellers[seller] != undefined) {
         topListProd.push(<div key={seller + "a"} className="topSeller">
-          {topFiveProductsSellers[seller].productSold}{"  "}{topFiveProductsSellers[seller].first_name}{" "}{topFiveProductsSellers[seller].last_name}
+          {topFiveProductsSellers[seller].productsSold}{"  "}{topFiveProductsSellers[seller].name}
         </div>)
       }
     }
+
     this.setState({
       topSellerListMem: topListMem,
       topSellerListProd: topListProd
@@ -1160,10 +1099,14 @@ class Home extends React.Component {
       yearSelected: true
     })
 
+    if (this.state.currentDate == undefined) {
+      await this.onSelectWeek(2020, 53)
+      await this.onSelectMonth(2020, 12)
+      await this.onSelectYear([], 2020)
+    }
     await this.onSelectWeek(this.state.currentDate[0].year, this.state.currentDate[0].week)
     await this.onSelectMonth(this.state.currentDate[0].year, this.state.currentDate[0].month)
     await this.onSelectYear([], this.state.currentDate[0].year)
-
   }
   createOtherStoreData() {
     const storeRev = [];
@@ -1199,7 +1142,7 @@ class Home extends React.Component {
       storeRevCompState: storeRevComp,
       storeRevCompNameState: storeRevCompName,
       storeProdOfMoState: storeProdOfMo,
-      storeProdOfMoNameState: storeProdOfMoName, 
+      storeProdOfMoNameState: storeProdOfMoName,
     })
 
   }
@@ -1248,39 +1191,12 @@ class Home extends React.Component {
 
 
   render() {
-    // const storeRev = [];
-    // const storeRevName = [];
-    // var keys = Math.floor(Math.random()*1000000);
-    // for (const [index, value] of this.state.monthlyList.entries()) {
-    //   storeRev.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" separator=" " key={keys+index} duration={5} suffix=" SEK" end={value} /></div>)
-    // }
-    // for (const [index, value] of this.state.monthlyListStore.entries()) {
-    //   var keys = Math.floor(Math.random()*100000);
-    //   storeRevName.push(<div style={{ gridRow: index + 2 }} key={keys*2+index} className="top1">{value}</div>)
-    // }
-    // const storeRevComp = [];
-    // const storeRevCompName = [];
-    // for (const [index, value] of this.state.monthlyCompList.entries()) {
-    //   storeRevComp.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*3+index} duration={5} suffix=" %" end={value} /></div>)
-    // }
-    // for (const [index, value] of this.state.monthlyCompListStore.entries()) {
-    //   storeRevCompName.push(<div style={{ gridRow: index + 2 }} key={keys*4+index} className="top1">{value}</div>)
-    // }
-
-    // const storeProdOfMo = [];
-    // const storeProdOfMoName = [];
-    // for (const [index, value] of this.state.productMonthly.entries()) {
-    //   storeProdOfMo.push(<div className="top1-score" style={{ gridRow: index + 2 }}><CountUp className="kong" key={keys*5+index} duration={5} suffix=" products" end={value} /></div>)
-    // }
-    // for (const [index, value] of this.state.productMonthlyStore.entries()) {
-    //   storeProdOfMoName.push(<div style={{ gridRow: index + 2 }} key={keys*6+index} className="top1">{value}</div>)
-    // }
     return (
       <div className="home">
-        <div className="container-fluid h-100">
-          <div className="row colGrid">
+        <div className="container-fluid-lg h-100 px-3">
+          <div className="row h-lg-100 colGrid">
             {/* -------------col one------------ */}
-            <div className="col-xs-12 colGrid col1 col-md-4" >
+            <div className=" colGrid col1 col-md-12 col-lg-4 px-0" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
                   <div className="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
@@ -1305,38 +1221,43 @@ class Home extends React.Component {
             </div>
 
             {/* -------------col two------------ */}
-            <div className="col-xs-12 col-md-8">
+            <div className=" col-md-12 col-lg-8 px-0">
               {/* own store */}
 
-              <div className="row col2">
+              <div className="row  h-50  col2 fix-mrgn2">
+                
                 <div className="dep-container own-store">
+                  <div className="row h-100">
+                <div className="col-md-12  hidden-xs-down col-lg-7 fix-mrgn">
                   <div className="store-window window-1">
                     <div className="myStoreTitleGrid">
                       <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
                     </div>
 
-                    <div className="myStore">
-                      <Bar
-                        data={{
-                          labels: this.state.dates,
-                          datasets: this.state.dataSets
-                        }}
+                        <div className="myStore">
+                          <Bar
+                            data={{
+                              labels: this.state.dates,
+                              datasets: this.state.dataSets
+                            }}
 
-                        options={{
-                          backgroundColor: "red",
-                          maintainAspectRatio: false,
-                          scales: {
-                            yAxes: [
-                              {
-                                ticks: {
-                                  beginAtZero: true,
-                                }
+                            options={{
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              backgroundColor: "red",
+                              maintainAspectRatio: false,
+                              scales: {
+                                yAxes: [
+                                  {
+                                    ticks: {
+                                      beginAtZero: true,
+                                    }
+                                  }
+                                ]
                               }
-                            ]
-                          }
-                        }}
-                      />
-                    </div>
+                            }}
+                          />
+                        </div>
 
                     <div className="buttonGroupContainer">
                       <ButtonGroup aria-label="Basic example">
@@ -1360,7 +1281,9 @@ class Home extends React.Component {
                       </ButtonGroup>
                     </div>
                   </div>
-
+                  </div>
+                  
+                  <div className="col-md-12 col-lg-5 fix-mrgn">
                   <div className="store-window window-2">
 
                     <div className="storeDetails">
@@ -1381,16 +1304,19 @@ class Home extends React.Component {
                             >
                             </CountUp>
                           </div>
+      
+                            </div>
+                            <div className="borderTop">Product of the Month:</div>
+                            <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
+                          </div>
                         </div>
-                        <div className="borderTop">Product of the Month:</div>
-                        <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
+
+                        <p className="myStoreTitle topSellers">Top sellers: POM</p>
+
+                        <div className="scrollTopList">
+                          {this.state.topSellerListProd}
+                        </div>
                       </div>
-                    </div>
-
-                    <p className="myStoreTitle topSellers">Top sellers: POM</p>
-
-                    <div className="scrollTopList">
-                      {this.state.topSellerListProd}
                     </div>
                   </div>
                 </div>
@@ -1398,27 +1324,34 @@ class Home extends React.Component {
 
 
 
-
-
               {/* -------OTHER STORES------ */}
-              <div className="row col2">
+              <div className="row h-50 col2 fix-mrgn2">
                 <div className="dep-container other-store">
+                <div className="row h-100">
+                  <div className="col-lg-4 fix-mrgn">
                   <div className="store-window window-3">
                     <div className="headline">Top Selling Store: This Month</div>
                     {this.state.storeRevNameState}
                     {this.state.storeRevState}
                   </div>
+                  </div>
+                  <div className="col-lg-4 fix-mrgn">
                   <div className="store-window window-4">
                     <div className="headline">Most Improved Store: This Month</div>
                     {this.state.storeRevCompState}
                     {this.state.storeRevCompNameState}
                   </div>
+                  </div>
+                  <div className="col-lg-4 fix-mrgn">
                   <div className="store-window window-5">
                     <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
                     {this.state.storeProdOfMoState}
                     {this.state.storeProdOfMoNameState}
                   </div>
+                  </div>
                 </div>
+                
+              </div>
               </div>
             </div>
           </div>
