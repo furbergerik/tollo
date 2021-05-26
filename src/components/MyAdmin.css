@@ -23,14 +23,17 @@ div.employee{
 
 
 }
-
+.fix-max{
+    max-width: 450px !important;
+}
+/* 
  #rightBar{
-    background-color: #ff9395;
+    background-color:transparent;
     margin: auto;
     max-width: 80%;
     border-radius: 20px;
     box-shadow: 0 0 3px #191919;
- }
+ } */
 .stats-spec {
     display:grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;

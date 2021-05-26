@@ -304,12 +304,14 @@ class AddGoals extends Component {
 
       return(
       
-      <div className="App">
+      <div className="App fix-max2">
         <div className="contain">
+          <div className="container-add-goals">
         <div>{setAnotherGoal}</div>
         <div>{message}</div>
         <div>{productOrMember}</div>
         <div>{decideGoal}</div>
+        </div>
         </div>
       </div>
       

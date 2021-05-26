@@ -140,7 +140,7 @@ class App extends Component {
             <div>
 
 
-              <form className="tolloForm col-xs-3 col-md-3  shadow p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
+              <form className="tolloForm col-xs-3 col-md-3  p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
 
                 <h1 className="text-dark">Login </h1>
                 <div className="form-group">
