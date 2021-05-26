@@ -1030,7 +1030,6 @@ class Home extends React.Component {
   bestSellers = async (store, MemberOrProduct) => {
     var token = (cookies.get('jwt')).key;
 
-
     //var fetchingFrom = `http://192.168.0.111:61339/bestSellers?store=${store}&membOrProd='${MemberOrProduct}'&token=${token}`
     var fetchingFrom = `http://tollo.duckdns.org:61338/bestSellers?store=${store}&membOrProd='${MemberOrProduct}'&token=${token}`
     const response = await fetch(fetchingFrom);
@@ -1040,31 +1039,49 @@ class Home extends React.Component {
   }
   myStoreTopSellers = async () => {
 
-    const membersSellers = await this.bestSellers(0, 'members')
-    const productsSellers = await this.bestSellers(0, 'products')
+    var userStore = this.state.userInfo.store
+    if (userStore == undefined) {
+      userStore = 0
+    }
+
+    const membersSellers = await this.bestSellers(userStore, 'members')
+    const productsSellers = await this.bestSellers(userStore, 'products')
+
+    console.log(membersSellers, productSellers)
 
     var topFiveMembersSellers = []
     var topFiveProductsSellers = []
 
     for (var i = 0; i < 5; i++) {
-      topFiveMembersSellers.push(membersSellers[i])
+      if (membersSellers[i] !== undefined) {
+        topFiveMembersSellers.push(membersSellers[i])
+      }
     }
     for (var i = 0; i < 5; i++) {
-      topFiveProductsSellers.push(productsSellers[i])
+      if (productsSellers[i] !== undefined) {
+        topFiveProductsSellers.push(productsSellers[i])
+      }
     }
 
     var productSellers = []
     var productsSold = []
     for (var object in topFiveProductsSellers) {
-      productSellers.push(topFiveProductsSellers[object].first_name + ' ' + topFiveProductsSellers[object].last_name)
-      productsSold.push(topFiveProductsSellers[object].productSold)
+      if (topFiveProductsSellers[object] !== undefined) {
+        console.log("indentified seller boi")
+        productSellers.push(topFiveProductsSellers[object].first_name + ' ' + topFiveProductsSellers[object].last_name)
+        productsSold.push(topFiveProductsSellers[object].productSold)
+      } else {
+        console.log("undefined seller boi")
+      }
     }
 
     var [orderedProducts, orderedSellers] = bubbleSort(productsSold, productSellers)
 
     topFiveProductsSellers = []
     for (var i = 0; i < 5; i++) {
-      topFiveProductsSellers.push({ 'name': orderedSellers[i], 'productsSold': orderedProducts[i] })
+      if (orderedSellers[i] !== undefined) {
+        topFiveProductsSellers.push({ 'name': orderedSellers[i], 'productsSold': orderedProducts[i] })
+      }
     }
 
     this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
@@ -1078,6 +1095,7 @@ class Home extends React.Component {
         </div>)
       }
     }
+    console.log(topFiveProductsSellers, " toplistan innan man fixar divs")
     var topListProd = []
     for (var seller in topFiveProductsSellers) {
       if (topFiveProductsSellers[seller] != undefined) {
@@ -1225,14 +1243,14 @@ class Home extends React.Component {
               {/* own store */}
 
               <div className="row  h-50  col2 fix-mrgn2">
-                
+
                 <div className="dep-container own-store">
                   <div className="row h-100">
-                <div className="col-md-12  hidden-xs-down col-lg-7 fix-mrgn">
-                  <div className="store-window window-1">
-                    <div className="myStoreTitleGrid">
-                      <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
-                    </div>
+                    <div className="col-md-12  hidden-xs-down col-lg-7 fix-mrgn">
+                      <div className="store-window window-1">
+                        <div className="myStoreTitleGrid">
+                          <p className="myStoreTitle">Store {this.state.userInfo.store}</p>
+                        </div>
 
                         <div className="myStore">
                           <Bar
@@ -1259,52 +1277,52 @@ class Home extends React.Component {
                           />
                         </div>
 
-                    <div className="buttonGroupContainer">
-                      <ButtonGroup aria-label="Basic example">
-                        <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
-                        <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
-                        <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
-                        <Multiselect
-                          options={this.state.multiOptions} // Options to display in the dropdown
-                          onSelect={this.onSelect.bind(this)} // Function will trigger on select event
-                          onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
-                          displayValue={this.state.activePeriod} // Property name to display in the dropdown option
-                          placeholder="Select time period"
-                          showCheckbox="true"
-                          closeOnSelect="false"
-                          hidePlaceholder="true"
-                          singleSelect={this.state.singleSelect}
-                          showArrow="false"
-                          disable={this.state.disableMultiselect}
-                        ></Multiselect>
-                        <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
-                      </ButtonGroup>
+                        <div className="buttonGroupContainer">
+                          <ButtonGroup aria-label="Basic example">
+                            <Button variant="secondary" onClick={this.buttonClickYear.bind(this)}>Year</Button>
+                            <Button variant="secondary" onClick={this.buttonClickMonth.bind(this)}>Month</Button>
+                            <Button variant="secondary" onClick={this.buttonClickWeek.bind(this)}>Week</Button>
+                            <Multiselect
+                              options={this.state.multiOptions} // Options to display in the dropdown
+                              onSelect={this.onSelect.bind(this)} // Function will trigger on select event
+                              onRemove={this.onRemove.bind(this)} // Function will trigger on remove event
+                              displayValue={this.state.activePeriod} // Property name to display in the dropdown option
+                              placeholder="Select time period"
+                              showCheckbox="true"
+                              closeOnSelect="false"
+                              hidePlaceholder="true"
+                              singleSelect={this.state.singleSelect}
+                              showArrow="false"
+                              disable={this.state.disableMultiselect}
+                            ></Multiselect>
+                            <Button variant="secondary" onClick={this.buttonClickClear.bind(this)}>Clear</Button>
+                          </ButtonGroup>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  </div>
-                  
-                  <div className="col-md-12 col-lg-5 fix-mrgn">
-                  <div className="store-window window-2">
 
-                    <div className="storeDetails">
-                      <div className="myStoreTitle">This Month:</div>
-                      <div className="monthInfo">
-                        <div>Your department:</div>
-                        <div className="textRight">
-                          <div>{this.state.userInfo.department}:</div>
-                          <div>
-                            <CountUp
-                              start={0}
-                              end={this.state.yourDepMonthSales}
-                              duration={2.75}
-                              separator=" "
-                              decimals={0}
-                              decimal=","
-                              suffix=" # of sales"
-                            >
-                            </CountUp>
-                          </div>
-      
+                    <div className="col-md-12 col-lg-5 fix-mrgn">
+                      <div className="store-window window-2">
+
+                        <div className="storeDetails">
+                          <div className="myStoreTitle">This Month:</div>
+                          <div className="monthInfo">
+                            <div>Your department:</div>
+                            <div className="textRight">
+                              <div>{this.state.userInfo.department}:</div>
+                              <div>
+                                <CountUp
+                                  start={0}
+                                  end={this.state.yourDepMonthSales}
+                                  duration={2.75}
+                                  separator=" "
+                                  decimals={0}
+                                  decimal=","
+                                  suffix=" # of sales"
+                                >
+                                </CountUp>
+                              </div>
+
                             </div>
                             <div className="borderTop">Product of the Month:</div>
                             <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
@@ -1327,31 +1345,31 @@ class Home extends React.Component {
               {/* -------OTHER STORES------ */}
               <div className="row h-50 col2 fix-mrgn2">
                 <div className="dep-container other-store">
-                <div className="row h-100">
-                  <div className="col-lg-4 fix-mrgn">
-                  <div className="store-window window-3">
-                    <div className="headline">Top Selling Store: This Month</div>
-                    {this.state.storeRevNameState}
-                    {this.state.storeRevState}
+                  <div className="row h-100">
+                    <div className="col-lg-4 fix-mrgn">
+                      <div className="store-window window-3">
+                        <div className="headline">Top Selling Store: This Month</div>
+                        {this.state.storeRevNameState}
+                        {this.state.storeRevState}
+                      </div>
+                    </div>
+                    <div className="col-lg-4 fix-mrgn">
+                      <div className="store-window window-4">
+                        <div className="headline">Most Improved Store: This Month</div>
+                        {this.state.storeRevCompState}
+                        {this.state.storeRevCompNameState}
+                      </div>
+                    </div>
+                    <div className="col-lg-4 fix-mrgn">
+                      <div className="store-window window-5">
+                        <div className="headline">Product Of The Month: {this.state.productMonthlyName}</div>
+                        {this.state.storeProdOfMoState}
+                        {this.state.storeProdOfMoNameState}
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                  <div className="col-lg-4 fix-mrgn">
-                  <div className="store-window window-4">
-                    <div className="headline">Most Improved Store: This Month</div>
-                    {this.state.storeRevCompState}
-                    {this.state.storeRevCompNameState}
-                  </div>
-                  </div>
-                  <div className="col-lg-4 fix-mrgn">
-                  <div className="store-window window-5">
-                    <div className="headline">POM: {this.state.productMonthlyName}</div>
-                    {this.state.storeProdOfMoState}
-                    {this.state.storeProdOfMoNameState}
-                  </div>
-                  </div>
+
                 </div>
-                
-              </div>
               </div>
             </div>
           </div>
