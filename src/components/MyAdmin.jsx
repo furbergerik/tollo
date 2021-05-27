@@ -14,6 +14,7 @@ const cookies = new Cookies();
 async function getUsers(department, store) {
   console.log("hola");
   console.log(department);
+  console.log(store);
   var token = cookies.get("jwt").key;
 
   var fetchingFrom = `http://tollo.duckdns.org:61338/getUsersAdmin?store=${store}&department=${department}&allUsers=1&token=${token}`;
@@ -360,11 +361,12 @@ class MyAdmin extends Component {
   };
   componentDidMount = async () => {
     if (!this.state.hasMounted) {
-      this.callGetUsers(this.state.department, this.state.store);
+      
       this.setState({ hasMounted: true });
       this.getYears();
       this.setState({ store: await this.getUserInfo() });
       this.createStoreData();
+      this.callGetUsers(this.state.department, this.state.userInfo.store);
       this.setState({
         totSales: await this.getMonthlyData(
           "y" + this.state.yearList[this.state.yearList.length - 1],
@@ -459,7 +461,7 @@ class MyAdmin extends Component {
     const finalSet = await getUsers(department, store);
     console.log(finalSet);
     this.setState({ users: finalSet });
-    this.setState({ state: finalSet[10] });
+    //this.setState({ state: finalSet[10] });
   };
 
   addUser = (_) => {
@@ -483,7 +485,7 @@ class MyAdmin extends Component {
     document.getElementById("reg-form").reset();
   };
   handleClick = async () => {
-    await this.callGetUsers(this.state.department, this.state.store);
+    await this.callGetUsers(this.state.department, this.state.userInfo.store);
   };
 
   //renderUser=({user_id,username}) => <div key={user_id}>{username}</div>
