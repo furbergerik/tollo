@@ -1048,8 +1048,6 @@ class Home extends React.Component {
     const membersSellers = await this.bestSellers(userStore, 'members')
     const productsSellers = await this.bestSellers(userStore, 'products')
 
-    console.log(membersSellers, productsSellers)
-
     var topFiveMembersSellers = []
     var topFiveProductsSellers = []
 
@@ -1131,8 +1129,9 @@ class Home extends React.Component {
 
     console.log(memOrPod)
     this.setState({
-      radioButton: memOrPod
+      radioButton: memOrPod,
     })
+    this.myStoreTopSellers()
   }
 
   setInitDataSet = async () => {
@@ -1354,7 +1353,7 @@ class Home extends React.Component {
                         <div className="topSellerGrid">
                           <p className="myStoreTitle topSellers">Top sellers:</p>
                           <div className="radioButtons" onChange={this.onChangeValue.bind(this)}>
-                            <input type="radio" value="POD" name="gender" /> PotM
+                            <input type="radio" value="POD" name="gender" defaultChecked /> PotM{"   "}
                             <input type="radio" value="Members" name="gender" /> Members
                           </div>
                         </div>
