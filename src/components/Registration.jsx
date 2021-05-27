@@ -75,7 +75,7 @@ class  Registration extends Component {
       return(
         <div>
         
-      <form className="needs-validation"  className="shadow p-3 mb-5 rounded" id="test1"novalidate id="reg-form" onSubmit={this.submitHandler}>
+      <form className="needs-validation"  className="" id="test1"novalidate id="reg-form" onSubmit={this.submitHandler}>
       <h1 className="text-dark" >Registration Form: </h1>
       <div className="form-group " className="test1">
     <label htmlFor="exampleInputUsername">Username:</label>

@@ -220,6 +220,7 @@ position: relative;
 
 .myStoreTitle.topSellers{
     margin-top: 2vh;
+    grid-column: 1;
 }
 
 #dropdown-menu-align-right{
@@ -339,6 +340,15 @@ position: relative;
         align-self: start;
     }
     
+    .topSellerGrid{
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+    }
+    .radioButtons{
+        grid-column: 2/span1;
+        margin-top: 2vh;
+    }
+
     .scrollTopList{
         margin-top: -2vh;
         height: 17vh;
