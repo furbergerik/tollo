@@ -252,7 +252,7 @@ class  userInformation extends Component {
   </div>
 </div>
           
-            <div className="col-md-4" className="profile-pic mb-3" style={{backgroundImage:`url(${this.state.user.profilePath})`} }>
+            <div className="col-lg-4" className="profile-pic mb-3" style={{backgroundImage:`url(${this.state.user.profilePath})`} }>
             <span className="spanFix" id="cameraIcon"></span>
             <span className="spanFix fas fa-camera" data-toggle="modal" data-target="#exampleModal" >Change Image</span>
           </div>

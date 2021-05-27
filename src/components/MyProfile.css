@@ -10,6 +10,8 @@
     font-size: 15px;
     grid-column: 1/3;
     text-align: center;
+}
+.fix-bold{
     font-family: 'Avenir Black';
 }
 .set2{

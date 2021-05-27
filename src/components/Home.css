@@ -44,14 +44,15 @@ background-color: #9abad8;
     opacity: 1 !important;
 }
 .submit-button{
-    border: 0;
     background-color: #f3c6c7;
     margin-top: 15px;
     width: 100px;
     height: 30px;
     color: #88191a;
     border-radius: 5px;
+    inline-size: max-content;
 }
+
 .dep-container{
     width: -webkit-fill-available;
     padding: 20px;

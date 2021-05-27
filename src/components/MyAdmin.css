@@ -12,25 +12,57 @@
     
 
 }
+.employee1{
+    min-height:  673px;
+    max-height: 673px;
+}
 
 div.employee{
     background-color:#F9C74F ;
-
-
-}
-
- #rightBar{
-    background-color: #ff9395;;
   
 
 
-
 }
-
+.fix-max{
+    max-width: 450px !important;
+}
+/* 
+ #rightBar{
+    background-color:transparent;
+    margin: auto;
+    max-width: 80%;
+    border-radius: 20px;
+    box-shadow: 0 0 3px #191919;
+ } */
+.stats-spec {
+    display:grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 3fr 4fr;
+    grid-column: 3;
+}
+.headline-spec{
+    font-size: 15px;
+    grid-column: 1/4;
+    text-align: center;
+}
 #topLeftBar{
     background-color: #F8961E;
 
 
+}
+.top1-my-profile-spec{
+    font-size: 13px;
+    text-align: inherit;
+    align-self: end;
+    grid-column: 2/4;
+}
+.top1-score-my-profile-spec{
+    color: #000000;
+    text-align: end;
+    align-self: end;
+    font-size: 15px;
+    grid-column: 1/4;
+    font-family: 'Avenir Black';
 }
 #botLeftBar{
     background-color: #F9C74F;

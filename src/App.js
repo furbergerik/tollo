@@ -8,9 +8,9 @@ const cookies = new Cookies();
 
 async function login(username, password) {
 
- var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
+var fetchedData = await fetch(`http://tollo.duckdns.org:61338/login?username=${username}&password=${password}`);
  // var fetchedData = await fetch(`http://localhost:61139/login?username=${username}&password=${password}`);
- // var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
+//  var fetchedData = await fetch(`http://192.168.0.111:61339/login?username=${username}&password=${password}`);
   var response = await fetchedData.json();
   console.log(response);
   if(response[0]){
@@ -70,7 +70,7 @@ class App extends Component {
     console.log(cookies.get('jwt'))
     console.log(cookies.get('username'))
 
-    if (!x && cookies.get('jwt') !== undefined) {
+    if (!x) {
       this.setState({ flag: 2 })
       event.target.className += " invalid";
     } else {
@@ -135,12 +135,12 @@ class App extends Component {
             <div className=" col-xs-3 col-md-4 "></div>
           </div>
 
-          <div className="row ">
-            <div className=" col-xs-3 col-md-3 "></div>
-            <div>
+          <div className="container ">
+          
+            <div  className="tolloImage row align-items-center" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/tollo-small.png)` }}>
 
-
-              <form className="tolloForm col-xs-3 col-md-3  shadow p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
+   
+              <form className="tolloForm   shadow p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
 
                 <h1 className="text-dark">Login </h1>
                 <div className="form-group">
@@ -157,11 +157,11 @@ class App extends Component {
                 <button className="btn btn-warning btn-lg ml-3" onClick={this.props.onClick}>Sign In</button>
                 {this.state.flag === 2 && <p>Your username or password is wrong, please try again.</p>}
               </form>
-              <img className="tolloImage" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/tollo-small.png)` }}>
-              </img>
+             
+              </div>
             </div>
           </div>
-        </div>
+  
 
       );
     }
