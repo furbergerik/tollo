@@ -139,7 +139,7 @@ class App extends Component {
           
             <div  className="tolloImage row align-items-center" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/tollo-small.png)` }}>
 
-            <div className="col-md-12">
+          
               <form className="tolloForm   shadow p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
 
                 <h1 className="text-dark">Login </h1>
@@ -161,7 +161,7 @@ class App extends Component {
               </div>
             </div>
           </div>
-        </div>
+ 
 
       );
     }
