@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation,Footer,Home, About, MyProfile, MyAdmin,  } from "./components";
+import { Navigation,Footer,Home, MyProfile, MyAdmin,  } from "./components";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
@@ -109,7 +109,7 @@ class App extends Component {
             <Navigation handleLogout={this.handleLogout}/>
             <Switch>
               <Route path="/" exact component={() => <div><Home  /> </div>} />
-              <Route path="/about" exact component={() => <About />} />
+           
               <Route path="/MyProfile" exact component={() => <MyProfile />} />
               <Route path="/MyAdmin" exact component={() => <MyAdmin />} />
               

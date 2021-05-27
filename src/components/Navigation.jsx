@@ -26,14 +26,7 @@ function Navigation(props) {
                 </Link>
               </li>
               
-              <li
-                className={`nav-item  ${props.location.pathname === "/about" ? "active" : ""
-                  }`}
-              >
-                <Link className="nav-link d-none  d-md-block" to="/about">
-                  About
-                </Link>
-              </li>
+              
               <li
                 className={`nav-item  ${props.location.pathname === "/MyProfile" ? "active" : ""
                   }`}
