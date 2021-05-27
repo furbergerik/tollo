@@ -87,6 +87,7 @@ async function getMonthlyBestProductData(
     var mostSold = 0;
     var prodNames = "";
     var productIdList = await getDepartmentProducts(i);
+    console.log(productIdList)
     for (var j in productIdList) {
       var salesData = await getStoreData(
         dataCategory,
@@ -99,11 +100,12 @@ async function getMonthlyBestProductData(
         listDay += monthData[k][dataType];
       }
       if (listDay > mostSold) {
+        console.log(monthData[0]["Title"], listDay)
         mostSold = listDay;
         prodNames = monthData[0]["Title"];
       }
     }
-    listMonth.push(listDay);
+    listMonth.push(mostSold);
     if (depNames[i - 1] == "Ice hockey equipment") {
       listMonthProd.push(["Ice hockey", prodNames]);
     } else {
@@ -399,17 +401,6 @@ class MyAdmin extends Component {
       });
       // const memberAmount = await getMonthlyProductData(this.state.yearList[this.state.yearList.length - 1], 12, "prodSales", "Sales", this.state.userInfo.store, 8)
       // this.setState({membersMade: memberAmount[0]});
-
-      const [a, b, c] = await getMonthlyDepartmentData(
-        2020,
-        12,
-        "depSales",
-        "Sales",
-        1
-      );
-      console.log(
-        await getMonthlyBestProductData(2020, 12, "prodSales", "Sales", 1, c)
-      );
     }
   };
 
