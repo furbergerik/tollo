@@ -13,6 +13,7 @@ import { Col, Form, ThemeProvider } from "react-bootstrap";
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 import Cookies from 'universal-cookie';
+import { MemoryRouter } from "react-router";
 const cookies = new Cookies();
 
 
@@ -319,8 +320,8 @@ class Home extends React.Component {
       totalMemberships: 0,
       productMonthly: [],
       productMonthlyStore: [],
-      topSellerListMem: [],
-      topSellerListProd: [],
+      topSellerList: [],
+      radioButton: 'POD',
       productMonthlyName: "",
       otherStoreRendered: false,
       storeRevState: [],
@@ -1047,7 +1048,7 @@ class Home extends React.Component {
     const membersSellers = await this.bestSellers(userStore, 'members')
     const productsSellers = await this.bestSellers(userStore, 'products')
 
-    console.log(membersSellers, productSellers)
+    console.log(membersSellers, productsSellers)
 
     var topFiveMembersSellers = []
     var topFiveProductsSellers = []
@@ -1087,29 +1088,51 @@ class Home extends React.Component {
     this.createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers)
   }
   createTopFiveSellerList(topFiveMembersSellers, topFiveProductsSellers) {
-    var topListMem = []
-    for (var seller in topFiveMembersSellers) {
-      if (topFiveMembersSellers[seller] != undefined) {
-        topListMem.push(<div key={seller} className="topSeller">
-          {topFiveMembersSellers[seller].members}{"  "}{topFiveMembersSellers[seller].first_name}{" "}{topFiveMembersSellers[seller].last_name}
-        </div>)
+
+
+    console.log(this.state.radioButton, " I createtopfive")
+
+    if (this.state.radioButton == 'Members') {
+      console.log("Nu ska toplist members visas!")
+
+      var topList = []
+      for (var seller in topFiveMembersSellers) {
+        if (topFiveMembersSellers[seller] != undefined) {
+          topList.push(<div key={seller} className="topSeller">
+            {topFiveMembersSellers[seller].members}{"  "}{topFiveMembersSellers[seller].first_name}{" "}{topFiveMembersSellers[seller].last_name}
+          </div>)
+        }
+      }
+
+    } else if (this.state.radioButton == 'POD') {
+      console.log("Nu ska POD visas!")
+
+      var topList = []
+      for (var seller in topFiveProductsSellers) {
+        if (topFiveProductsSellers[seller] != undefined) {
+          topList.push(<div key={seller + "a"} className="topSeller">
+            {topFiveProductsSellers[seller].productsSold}{"  "}{topFiveProductsSellers[seller].name}
+          </div>)
+        }
       }
     }
-    console.log(topFiveProductsSellers, " toplistan innan man fixar divs")
-    var topListProd = []
-    for (var seller in topFiveProductsSellers) {
-      if (topFiveProductsSellers[seller] != undefined) {
-        topListProd.push(<div key={seller + "a"} className="topSeller">
-          {topFiveProductsSellers[seller].productsSold}{"  "}{topFiveProductsSellers[seller].name}
-        </div>)
-      }
-    }
+
+    console.log("Toplist över vald kategori: ", topList, " ", this.state.radioButton)
 
     this.setState({
-      topSellerListMem: topListMem,
-      topSellerListProd: topListProd
+      topSellerList: topList,
     })
 
+  }
+  onChangeValue(event) {
+    console.log(event.target.value, 'radio button')
+
+    var memOrPod = String(event.target.value)
+
+    console.log(memOrPod)
+    this.setState({
+      radioButton: memOrPod
+    })
   }
 
   setInitDataSet = async () => {
@@ -1328,11 +1351,16 @@ class Home extends React.Component {
                             <div className="productOfMonth textRight borderTop">{this.state.productMonthlyName}</div>
                           </div>
                         </div>
-
-                        <p className="myStoreTitle topSellers">Top sellers: POM</p>
+                        <div className="topSellerGrid">
+                          <p className="myStoreTitle topSellers">Top sellers:</p>
+                          <div className="radioButtons" onChange={this.onChangeValue.bind(this)}>
+                            <input type="radio" value="POD" name="gender" /> PotM
+                            <input type="radio" value="Members" name="gender" /> Members
+                          </div>
+                        </div>
 
                         <div className="scrollTopList">
-                          {this.state.topSellerListProd}
+                          {this.state.topSellerList}
                         </div>
                       </div>
                     </div>
