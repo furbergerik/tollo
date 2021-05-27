@@ -68,7 +68,7 @@ class AddGoals extends Component {
         departmentEmployees: [],
         departmentOptions: [],
         membership: 1,
-        goal:'',
+        goal:0,
         employeeHasBeenChosen: false,
         selectedEmployee: '',
         selectOptions: [],
