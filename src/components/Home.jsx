@@ -14,7 +14,9 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 import NumericInput from 'react-numeric-input';
 import Cookies from 'universal-cookie';
 import { MemoryRouter } from "react-router";
+import { Link} from "react-router-dom";
 const cookies = new Cookies();
+
 
 
 async function getUserSales(username) {
@@ -1239,9 +1241,14 @@ class Home extends React.Component {
             <div className=" colGrid col1 col-md-12 col-lg-4 px-0" >
               <div className="dep-container individual">
                 <div className="progress-window userBox">
-                  <div className="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
+                <Link className="navbar-brand" to="/MyProfile">
+                <div  onClick="href='MyProfile';" className="col-md-4" className="profile-pic" style={{ backgroundImage: `url(${this.state.userInfo.profilePath})` }}>
+         
+                </div>         
+                 </Link>
+                 
 
-                  </div>
+              
                   <h4>Welcome back {this.state.userInfo.firstName}!</h4>
                 </div>
                 <div className={`progress-window goals${this.state.memberGoalMet ? ' goalMet' : ''}`}>
