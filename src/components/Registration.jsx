@@ -58,7 +58,7 @@ class  Registration extends Component {
         }
         
       fetch(`http://tollo.duckdns.org:61338/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}&depId=${depId}&token=${token}`)
-      // fetch(`http://192.168.0.111:61339/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}}&depId=${depId}&token=${token}`)  
+     //  fetch(`http://192.168.0.111:61339/add?username=${this.state.username}&password=${this.state.password}&first_name=${this.state.first_name}&last_name=${this.state.last_name}&store=${this.state.store}&admin=${this.state.admin}&phone=${this.state.phone}&email=${this.state.email}&department=${this.state.department}&depId=${depId}&token=${token}`)  
         .then(response => response.json())
         .then(data => this.setState({regFlag:data}))
         .catch(err => console.error(err))
