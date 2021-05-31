@@ -35,14 +35,14 @@ function Navigation(props) {
                   My Profile
                 </Link>
               </li>
-              <li
+              {/* <li
                 className={`nav-item  ${props.location.pathname === "/MyAdmin" ? "active" : ""
                   }`}
               >
                 <Link className="nav-link  d-none  d-md-block" to="/MyAdmin">
                  My Admin
                 </Link>
-              </li>
+              </li> */}
               <li
               
               >

@@ -111,7 +111,7 @@ class App extends Component {
               <Route path="/" exact component={() => <div><Home  /> </div>} />
            
               <Route path="/MyProfile" exact component={() => <MyProfile />} />
-              <Route path="/MyAdmin" exact component={() => <MyAdmin />} />
+               <Route path="/MyAdmin" exact component={() => <MyAdmin />} />
               
              
             </Switch>
@@ -137,10 +137,10 @@ class App extends Component {
 
           <div className="container ">
           
-            <div  className="tolloImage mrgn-fix row align-items-center" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/tollo-small.png)` }}>
+            <div  className="tolloImage mrgn-fix align-items-center" style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/tollo-small.png)` }}>
 
    
-              <form className="tolloForm   shadow p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
+              <form className="tolloForm fix-top-mrgn  shadow p-3  bg-white rounded" onSubmit={this.submitHandlerLogIn.bind(this)}>
 
                 <h1 className="text-dark">Login </h1>
                 <div className="form-group">

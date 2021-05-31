@@ -223,7 +223,7 @@ async function getTopStoreMonthlyData(year, month, dataCategory, dataType, ID) {
   else {
     const monthOfProduct = await getProductOfTheMonth(0)
     for (var i = 1; i < 6; i++) {
-      var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, 1, i)
+      var monthTot = await getToplistProductOfTheMonthData("y" + year, "m" + month, dataCategory, dataType, 7, i)
       monthTot = sumArr(monthTot)
       topList.push(monthTot)
       topListStore.push("Store " + i)

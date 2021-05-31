@@ -40,8 +40,11 @@
     min-height:  673px;
     max-height: 673px;
 }
-
+.fix-text{
+    color:white;
+}
 div.employee{
+    color:black;
     background-color:#F9C74F ;
   
 

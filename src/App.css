@@ -52,9 +52,11 @@
 
 }
 .mrgn-fix{
-  margin:auto;
+  margin:auto !important;
 }
-
+.fix-top-mrgn{
+  margin-top: 30%;
+}
 
 .tolloImage{
   max-width: 800px;
